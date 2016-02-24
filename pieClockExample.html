@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+.timer {
+  width: 300px;
+  fill: seagreen;
+  /*overflow: hidden;
+  margin: 0 auto;
+  position: relative;*/
+}
+/*.timer .rotate {
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: relative;
+  z-index: 10;
+}*/
+/*.timer*/
+/*.rotate #loader {
+  fill: #ff6d69;
+}*/
+/*.timer .dots {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 15;
+  top: 0;
+  left: 0;
+}*/
+/*.timer .dots .time {
+  height: 100%;
+  width: 6%;
+  display: block;
+  background-image: -moz-linear-gradient(#ffc8c6, #ffc8c6 16%, rgba(0, 0, 0, 0) 16%, rgba(0, 0, 0, 0) 84%, #ffc8c6 84%, #ffc8c6);
+  background-image: -webkit-linear-gradient(#ffc8c6, #ffc8c6 16%, rgba(0, 0, 0, 0) 16%, rgba(0, 0, 0, 0) 84%, #ffc8c6 84%, #ffc8c6);
+  background-image: linear-gradient(#ffc8c6, #ffc8c6 16%, rgba(0, 0, 0, 0) 16%, rgba(0, 0, 0, 0) 84%, #ffc8c6 84%, #ffc8c6);
+  margin-left: -3%;
+  left: 50%;
+  position: absolute;
+}*/
+/*.timer .dots .time.deg45 {
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+.timer .dots .time.deg90 {
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+.timer .dots .time.deg135 {
+  -moz-transform: rotate(135deg);
+  -ms-transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+  transform: rotate(135deg);
+}*/
+</style>
+</head>
+<body>
+<!-- <h1 style="margin:50px auto 50px auto" align="center">Pie-like Time Clock Demo</h1> -->
+
+<div class="timer">
+  <svg viewbox="0 0 250 250">
+    <path id="loader" transform="translate(125, 125)"/>
+  </svg>
+  <!-- <div class="dots">
+    <span class="time deg0"></span>
+    <span class="time deg45"></span>
+    <span class="time deg90"></span>
+    <span class="time deg135"></span>
+  </div> -->
+</div>
+
+<script>
+var seconds = 5;
+var doPlay = true;
+var loader = document.getElementById('loader');
+degreeStep = 0;
+t = (seconds/360 * 1000);
+
+(function draw() {
+  degreeStep++;
+  degreeStep %= 360;
+
+  var r = ( degreeStep * Math.PI / 180 )
+    , x = Math.sin( r ) * 125
+    , y = Math.cos( r ) * - 125
+    , mid = ( degreeStep > 180 ) ? 1 : 0
+    , anim = 'M 0 0 v -125 A 125 125 1 ' + mid + ' 1 ' +  x  + ' ' +  y  + ' z';
+           console.log(anim);
+
+  //[x,y].forEach(function( d ){
+  //  d = Math.round( d * 1e3 ) / 1e3;
+  //});
+
+  loader.setAttribute( 'd', anim );
+
+  if(doPlay){
+    setTimeout(draw, t); // Redraw
+  }
+})();
+</script>
+</body>
+</html>
