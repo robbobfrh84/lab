@@ -6,8 +6,8 @@ var ylines = 40;
 
 var boldBreak1 = 5;//bold lines every...
 var boldBreak2 = 10;//extra bold lines every...
-var thin = .25;
-var bold1 = .75;
+var thin = 0.25;
+var bold1 = 0.75;
 var bold2 = 1.5;
 
 
