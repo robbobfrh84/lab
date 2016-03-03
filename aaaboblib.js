@@ -15,9 +15,9 @@ y = shuffle([2,3,4,5,6,7,8,9,"j","q","k","a"])
 function rgbR(){
   return [random(0,255), random(0,255), random(0,255)];
 
-function ClearAllChildren(){
-  while (mainSVG.hasChildNodes()){
-    mainSVG.removeChild(mainSVG.lastChild);
+function ClearAllChildren(parentID){
+  while (parentID.hasChildNodes()){
+    parentID.removeChild(parentID.lastChild);
   }
 }
 //-------------------------- SVG funtions --------------------------------/
