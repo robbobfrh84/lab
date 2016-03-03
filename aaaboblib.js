@@ -15,6 +15,11 @@ y = shuffle([2,3,4,5,6,7,8,9,"j","q","k","a"])
 function rgbR(){
   return [random(0,255), random(0,255), random(0,255)];
 
+function ClearAllChildren(){
+  while (mainSVG.hasChildNodes()){
+    mainSVG.removeChild(mainSVG.lastChild);
+  }
+}
 //-------------------------- SVG funtions --------------------------------/
 // this function cleans up and simplifies creating element attributes./////
 function createEl(type,att){
@@ -24,3 +29,9 @@ function createEl(type,att){
     }
     document.getElementById("mainSVG").appendChild(newObj);
   }
+
+function updateEl(Id, att) { //function used to update any attributes with DOM.
+    for (var i=0; i<att.length; i++){
+      document.getElementById(Id).setAttributeNS(null, att[i][0],att[i][1]);
+  }
+}

@@ -1,6 +1,6 @@
 html{
   background-color: rgb(220,220,220);
-  box-shadow: 0 0 15px grey inset;
+  /*box-shadow: 0 0 15px grey inset;*/
 }
 
 body {
@@ -10,5 +10,4 @@ body {
 line{
     /*shape-rendering:crispEdges*/
     stroke: cornflowerBlue;
-    //stroke-width: 1;
 }
