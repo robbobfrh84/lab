@@ -14,6 +14,7 @@ y = shuffle([2,3,4,5,6,7,8,9,"j","q","k","a"])
 //!!! used with random(). Returns 3 0-to-255 random numbers to be used for random color.
 function rgbR(){
   return [random(0,255), random(0,255), random(0,255)];
+}
 
 function ClearAllChildren(parentID){
   while (parentID.hasChildNodes()){

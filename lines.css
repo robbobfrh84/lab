@@ -1,0 +1,9 @@
+body {
+  margin: auto;
+  background-color: rgb(220,220,220);
+}
+
+#mainSVG {
+  background-color: rgb(220,220,220);
+  box-shadow: 0 0 15px rgba(100,100,100,0) inset;
+}
