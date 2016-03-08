@@ -26,7 +26,7 @@ function drawGrid(numOfLines,thin,fifth,tenth,color){ lines = (100/numOfLines);
     createLine(lines*i,0,lines*i,100,fat,color,'horiz'+i);}
 }
 
-//////////ANIMATE STATION///////////////////////////////////////////////////////
+//////////ANIMATION STATION///////////////////////////////////////////////////////
 function fadeIn(varName, element, speed, start, end){
   function go(){
     if (element === 'box-shadow'){
@@ -48,26 +48,44 @@ setTimeout(function(){fadeIn(nameBox, 'opacity', 0.02, 0, 1);},1000);
 
   //Fade in inset box-shadow.
 var fullpage = document.getElementById('mainSVG');
-setTimeout(function(){fadeIn(fullpage, 'box-shadow', 0.01, 0, 1);},2000);
+setTimeout(function(){fadeIn(fullpage, 'box-shadow', 0.03, 0, 1);},2000);
 
 ////////////////////////////TEST ZONE///////////////////////////////////////////
 
-function lineGrow(startx,starty,endx,endy,width,color,lineID,speed,ramp){
-  var lineID = createLine(startx,starty,startx,starty,width,color,lineID);
-  function goxxx(){
-    lineID.setAttributeNS(null, 'x2', startx+'%');
-    if (endx > startx){ startx-=speed;
-    } else if (startx > endx) { startx+=speed;
-    } else {console.log('')}
+function lineGrow(startX,startY,endX,endY,width,color,lineID,speed,ramp){
+  var lineID = createLine(startX,startY,startX,startY,width,color,lineID);
 
-    if (endy > starty){ starty-=speed; }
-    if (starty > endy){ starty+=speed; }
-    requestAnimationFrame(goxxx);
+  var growX = Math.abs(startX-endX);
+  var growY = Math.abs(startY-endY);
+
+  console.log(x,y);
+
+  function goxxx(){
+
+    if(x>0){
+      lineID.setAtrributeNS(null, 'x2', )
+    }
+
+    // lineID.setAttributeNS(null, 'x2', startx+'%');
+    // if(startx <= endx) {
+    //   lineID.setAttributeNS(null, 'x2', endx+'%');
+    //   return;
+    // } else {
+    //   if (endx > startx) { startx+=speed; }
+    //   if (startx > endx) { startx-=speed; }
+    //
+    //   if (endy > starty) { starty-=speed; }
+    //   if (starty > endy) { starty+=speed; }
+
+      requestAnimationFrame(goxxx);
+    }
   } goxxx();
 }
 
 lineGrow(50,5,5,5,3,'cornflowerblue','leftLine',0.5,1.05);
-lineGrow(50,5,95,5,3,'cornflowerblue','leftLine',0.5,1.05);
+// lineGrow(50,5,95,5,3,'cornflowerblue','rightLine',0.2,1.05);
+// lineGrow(5,5,5,25,3,'cornflowerblue','testLine',0.1,1.05);
 
 
-//////////WAITING ROOM/////////////////////T////////////////////////////////////
+
+//////////WAITING ROOM//////////////////////////////////////////////////////////
