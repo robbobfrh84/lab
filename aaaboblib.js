@@ -15,6 +15,9 @@ y = shuffle([2,3,4,5,6,7,8,9,"j","q","k","a"])
 function rgbR(){
   return [random(0,255), random(0,255), random(0,255)];
 }
+//Returns the base-16 equivalent 0-16777215 in base 10.
+'#'+Math.floor(Math.random()*16777215).toString(16);
+
 
 function ClearAllChildren(parentID){
   while (parentID.hasChildNodes()){
