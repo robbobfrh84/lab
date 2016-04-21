@@ -6,20 +6,35 @@ var rows = 8; var blkClass = 'ayte'; // for ayte
 
 var paint = 'cornflowerblue';
 var mouseDown = false;
-for (var i = 0; i < rows*rows; i++){
-  if (i % rows === 0){ ayteHouse.innerHTML += '<br>';}
-  var blk = document.createElement('div');
-  blk.className = blkClass; blk.id = 'blk'+i;
-  blk.setAttribute('onmousemove', 'draw(blk'+i+')');
-  blk.setAttribute('onmousedown', 'mouseState(true, blk'+i+')');
-  blk.setAttribute('onmouseup', 'mouseState(false)');
-  ayteHouse.appendChild(blk);
+var ayte = true;
+
+function build(rows, blkClass){
+  for (var i = 0; i < rows*rows; i++){
+    if (i % rows === 0){ ayteHouse.innerHTML += '<br>';}
+    var blk = document.createElement('div');
+    blk.className = blkClass; blk.id = 'blk'+i;
+    blk.setAttribute('onmousemove', 'draw(blk'+i+')');
+    blk.setAttribute('onmousedown', 'mouseState(true, blk'+i+')');
+    blk.setAttribute('onmouseup', 'mouseState(false)');
+    ayteHouse.appendChild(blk);
+  }
 }
+build(rows, blkClass);
 
 function draw(bId){ if(mouseDown){ bId.style.backgroundColor = paint;}}
 function mouseState(state, bId){ if (state){mouseDown = true;
   if(bId){bId.style.backgroundColor = paint;} } else {mouseDown = false;}
 }
+
+function changeBuild(){
+  while (ayteHouse.hasChildNodes()){
+    ayteHouse.removeChild(ayteHouse.lastChild);
+  }
+  if(ayte){ rows=16; build(16, 'kayte'); chgBtn.innerHTML = '8x8'; ayte = false;
+} else { rows=8; build(8, 'ayte'); chgBtn.innerHTML = '16x16'; ayte = true; }
+}
+
+
 
 /*------------------------------------------------------------------------------
 **********     display functions     **********
