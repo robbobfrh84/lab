@@ -7,13 +7,16 @@
 </head>
 <body id="body" onmousedown='mouseState(true)' onmouseup='mouseState(false)'>
     <div id='ayteHouse' style='margin-bottom: 15px;'></div>
-
+    <div onclick="getAyte();" class='button1' style='background-color: #777'>Save</div>
+    <div id='chgBtn' onclick="changeBuild();" class='button1' style='background-color: #777'>16x16</div>
+    <div onclick="allColor('#E6E6E6');" class='button1' style='background-color: #777'>All EggShell</div>
+    <div onclick="allColor('#000');" class='button1' style='background-color: #777'>All Black</div>
+    <br>
+    <div id='purpleRainId' onclick="purpleRain();" class='button1' style='background-color: #555'>Purple Rain</div>
     <div onclick="allColor('random');" class='button1' style='background-color: #555'>Shuffle</div>
     <div id='dance' onclick="stopColorShuffle()" class='button1' style='background-color: #666'>Dance</div>
-    <div onclick="allColor('rgb(230,230,230)');" class='button1' style='background-color: #777'>All EggShell</div>
-    <br>
-    <div onclick="allColor('black');" class='button1' style='background-color: #777'>All Black</div>
-    <div id='chgBtn' onclick="changeBuild();" class='button1' style='background-color: #777'>16x16</div>
+
+
 
     <p style='font-size: 20px; text-align: left;'>Prototype Directions:<br><br>
       - Click and/or click+drag to paint block/s - <br>
