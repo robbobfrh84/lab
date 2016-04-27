@@ -1,0 +1,164 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+	<script src="/socket.io/socket.io.js"></script>
+	  <style>
+	    #main{
+		  width:470px;
+		  margin-left:auto;
+		  margin-right:auto;
+		}
+		#question{
+		 border: 2px dashed grey;
+		 padding: 12px;
+		 width: 400px;
+		 margin-left:auto;
+		 margin-right:auto;
+		}
+		#question p{
+		 margin-top:-8px;
+		 text-align: center;
+		}
+		#question #submitAnswer{
+			 text-align: center;
+		}
+		#wrapper{
+		 border: 2px dashed grey;
+		 padding: 12px;
+		 width: 400px;
+		 margin-left:auto;
+		 margin-right:auto;
+		}
+		#wrapper p{
+		 margin-top: 0;
+		}
+		</style>
+  </head>
+  <script language="javascript" type="text/javascript">		
+		var iosocket;
+		function voted(_votedFor)
+		{
+			jQuery('<div/>', {
+				id: 'wrapper',
+				css: {
+				
+					}
+			}).appendTo('#main');
+			var votedFor = _votedFor.split('='); // split answer string (answer='value')
+			if(votedFor[1] === 'True')
+			{
+				var undertitle = "Every thought is a seed. If you plant crab apples, don't count on harvesting Golden Delicious."
+			}
+			else if(votedFor[1] === 'False')
+			{
+				var undertitle = "When life sucks and hands you lemons, I say beat the crap out of it and demand some oranges as well."
+			}
+			$('div').remove('#question');	
+			jQuery('<p/>', {
+				id: 'thankYou',
+				text: 'Thank you for voting !',
+				css: {
+					 fontWeight: 'bold'
+					}
+			}).appendTo('#wrapper');
+			jQuery('<p/>', {
+				id: 'yourVote',
+				text: undertitle,
+				css: {
+					fontStyle: 'italic'
+				}
+			}).appendTo('#wrapper');
+			initSocketIO();
+		}
+		
+		function appendVotes(value)
+		{
+			pollOneVal = JSON.stringify(value.pollOneValue)*100; // recieve start poll value from server
+			pollTwoVal = JSON.stringify(value.pollTwoValue)*100;
+			jQuery('<div/>', {
+				id: 'currentOrangeVotes',
+				text: pollTwoVal.toFixed() + '%',
+				css: {
+					float: 'right',
+					textAlign: 'center',
+					width: 180,
+					fontSize: 40,
+					fontWeight: 'bold'
+				}
+			}).appendTo('#wrapper');
+			
+			jQuery('<p/>', {
+				id: 'orangeExpl',
+				text: 'voted for orange',
+				css: {
+					fontSize: 16,
+					fontWeight: 'normal'
+				}
+			}).appendTo('#currentOrangeVotes');
+			
+			jQuery('<div/>', {
+			id: 'currentAppleVotes',
+				text: pollOneVal.toFixed() + '%',
+				css: {
+					textAlign: 'center',
+					width: 180,
+					fontSize: 40,
+					fontWeight: 'bold'
+				}		
+			}).appendTo('#wrapper');
+			
+			jQuery('<p/>', {
+				id: 'appleExpl',
+				text: 'voted for apple',
+				css: {
+					fontSize: 16,
+					fontWeight: 'normal'
+				}
+			}).appendTo('#currentAppleVotes');
+			
+		}
+		
+		function initSocketIO()
+		  {
+			iosocket = io.connect();
+				iosocket.on('onconnection', function(value) {
+				appendVotes(value);
+					
+				// recieve changed values by other client from server
+				iosocket.on('updateData', function (recievedData) {
+					$('div').remove('#currentOrangeVotes');	
+					$('div').remove('#currentAppleVotes');	
+					appendVotes(recievedData);
+				});
+			});
+		  }
+  </script>
+  <body>
+	<div id="main">
+	<div id="question">
+		<p><b>What do you like more ? Apples or Oranges ?</b></p>
+		<form id="submitAnswer">
+			<script>  
+				$("#submitAnswer").submit(function(event) {
+					// check if a radio button is selected. 
+					if($("#submitAnswer input[type='radio']:checked").val() != undefined) 
+					{
+						$.ajax({
+							type: 'POST',
+							url: '/form',
+							data:$('#submitAnswer').serialize(),
+							success: voted($("#submitAnswer").serialize())
+						});
+						return false;
+					}
+				});
+			</script>
+			<input type="radio" id='answer1' name="answer" value="True">Apples</input>
+			<input type="radio" id='answer2' name="answer" value="False">Oranges</input>
+			<br/>
+			<input type='submit' value='send answer' id='sendAnwser'>
+		<form>
+	</div>
+	</div>
+  </body>
+</html>

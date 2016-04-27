@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<!-- saved from url=(0028)http://justfound.co/gravity/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+		<title>Gravity by Brian Cruz</title>
+		<script src="./Gravity by Brian Cruz_files/jquery.min.js"></script>
+		<script src="./Gravity by Brian Cruz_files/defin.js"></script>
+		<script src="./Gravity by Brian Cruz_files/grav.js"></script>
+		<script src="./Gravity by Brian Cruz_files/ui.js"></script>
+		<style>
+			body {
+				background: black;
+				color: white;
+				height: 100%;
+				margin: 0;
+			}
+			#canvas {
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+			#info {
+				position: absolute;
+				bottom: 10px;
+				left: 10px;
+			}
+			#steps {
+				position: absolute;
+				bottom: 10px;
+				right: 10px;
+			}
+			#instructions {
+				position: absolute;
+				top: 10px;
+				left: 10px;
+				display: none;
+			}
+			p {
+				margin: 2px;
+				-webkit-touch-callout: none;
+				-webkit-user-select: none;
+				-khtml-user-select: none;
+				-moz-user-select: none;
+				-ms-user-select: none;
+				user-select: none;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="canvas" width="939" height="646"></canvas>
+		<div id="info">
+			<p id="particle-num">Bodies: 16</p>
+			<p id="gravity-const">Gravity Constant: 1.00</p>
+			<p id="mass-marker">Mass: 16</p>
+			<p id="help">Press H for instructions.</p>
+		</div>
+		<p id="instructions">
+			Click to place a body. <br>
+			Scroll or use arrow keys to change mass. <br>
+			Drag to give it a velocity vector. <br>
+			Press space to create a cloud.<br>
+			Press K to fill the screen.<br>
+			Middle-click or shift-click and drag to move the viewport.<br>
+			Shift-scroll to zoom.<br>
+			Press C to center around the most massive object.<br>
+			Press D to delete all bodies not on the screen.<br>
+			Press Q/A to increase/decrease the gravity constant.<br>
+			Press P to pause/unpause.
+		</p>
+		<div id="steps">
+			<!-- <p id="step-counter">Steps: 0</p> -->
+			<p id="fps">FPS: 250.00</p>
+		</div>
+	
+
+</body></html>
