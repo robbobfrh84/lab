@@ -20,7 +20,13 @@ void setup() {
   // init LEDS
   pinMode(ledPin,OUTPUT);
   pinMode(pwmPin,OUTPUT);
+  pinMode(greenPin,OUTPUT);
+
   digitalWrite(ledPin,0);
+  digitalWrite(greenPin,HIGH);
+  delay(500);
+  digitalWrite(greenPin,LOW);
+
   analogWrite(pwmPin,0);
 }
 
@@ -32,14 +38,14 @@ void loop() {
      toggleComplete = true;
      digitalWrite(greenPin,HIGH);
      delay(500);
-     digitalWrite(greenPin,HIGH);
+     digitalWrite(greenPin,LOW);
 
     }
     if(inChar == 'P'){
       pwmComplete = true;
       digitalWrite(greenPin,HIGH);
       delay(500);
-      digitalWrite(greenPin,HIGH);
+      digitalWrite(greenPin,LOW);
     }
     else{
       inputString += inChar; 

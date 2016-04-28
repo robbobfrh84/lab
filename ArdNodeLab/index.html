@@ -3,9 +3,70 @@
 <head>
   <meta charset="utf-8">
   <title>!</title>
+  <link rel="stylesheet" href="led.css">
 </head>
 <body>
-  <button onclick='blink()' id='led13Button'>Ard LED 13</button>
-  <script src='led.js'></script>
+  <div id='ledLine' ></div>
+  <div class='cols' id='egG' onclick='newCol(egg,egG)' style='background-Color: rgb(240,234,214);'></div>
+  <div class='cols' id='asH' onclick='newCol(ash,asH)' style='background-Color: rgb(32,32,32);'></div>
+  <div class='cols' id='blU' onclick='newCol(blu,blU)' style='background-Color: cornflowerblue;'></div>
+  <div class='cols' id='reD' onclick='newCol(red,reD)' style='background-Color: firebrick;'></div>
+  <div class='cols' id='grE' onclick='newCol(gre,grE)' style='background-Color: green;'></div>
+
+  </br>
+  <!-- <div id='currentColor' style='background-Color: rgb(240,234,214);'></div> -->
+  </br>
+  <!-- <button id='led13Button' style='margin-top: 25%;'>Ard LED 13</button> -->
+
+  <script src="http://cdn.pubnub.com/pubnub-3.7.15.min.js"></script>
+  <script>
+
+      var ash = [0,0,0];
+      var egg = [200,200,200];
+      var blu = [0,0,100];
+      var red = [100,0,0];
+      var gre = [0,100,0];
+
+      var color = egg;
+
+      var rows = 16; var blkClass = 'leds';
+      for (var i = 0; i < rows; i++){
+        var blk = document.createElement('div');
+        blk.className = blkClass; blk.id = 'blk'+i;
+        blk.setAttribute('onmousedown', 'changeLed(blk'+i+','+i+')');
+        ledLine.appendChild(blk);
+      }
+
+    	var settings = {
+    		channel: 'hue-clone',
+    		publish_key: 'pub-c-926e03e9-2cbb-4a3d-b17a-2ee47ca078a5',
+    		subscribe_key: 'sub-c-b3fbc6fa-0bf5-11e6-a8fd-02ee2ddab7fe'
+    	};
+
+    	var pubnub = PUBNUB(settings);
+    	function publishUpdate(data) {
+    		pubnub.publish({
+    			channel: settings.channel,
+    			message: data
+    		});
+    	}
+
+      function changeLed(Id,led){
+        console.log(led,color);
+        var swapCol = oldBtn.style.backgroundColor;
+        Id.style.backgroundColor = swapCol;
+        publishUpdate({ledNum: led, col: color});
+      }
+
+      var oldBtn = document.getElementById('egG');
+      function newCol(newColor, btn){
+        color=newColor;
+        console.log(color);
+        btn.style.boxShadow = '0 0 5px rgba(255,0,0,1)';
+        oldBtn.style.boxShadow = ' 0 0 5px rgba(0,0,0,0.4)';
+        oldBtn = btn;
+      }
+
+	</script>
 </body>
 </html>
