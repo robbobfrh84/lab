@@ -1,0 +1,173 @@
+<!DOCTYPE HTML>
+ <html>
+   <head>    
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
+    <style>
+	body {
+		margin: 0px;
+		padding: 0px;
+        }
+	#rData{
+		float:left;
+		margin-left:100px;
+		margin-right:auto;
+		width:470px;
+	}
+	#sData{
+		float: left;
+		margin-left:100px;
+		margin-right:auto;
+		width:470px;
+	}
+	h2{
+		text-align:center;
+	}
+        #myCanvas {
+		border: 2px dashed grey;
+        }
+	#btnHolder, #sliderTxt{
+	text-align:center;
+	}
+    </style>
+        <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+	<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+    <script>
+	// canvas request for all browsers
+	window.requestAnimFrame = (function(callback) {
+        return window.requestAnimationFrame || 
+        window.webkitRequestAnimationFrame || 
+        window.mozRequestAnimationFrame || 
+        window.oRequestAnimationFrame || 
+        window.msRequestAnimationFrame ||
+        function(callback) {
+          window.setTimeout(callback, 1000 / 30); // 30 frames per second
+	  };
+	})();
+	  
+	var iosocket;
+	var pollOneH = 0;
+	var poll1;
+	var text;
+	var potValue;
+	var prevPotValue;
+	//var onOff = false; 
+	var toggleVal = 0;
+	  
+	function animation(poll1,text)
+	{
+	  var canvas = document.getElementById("myCanvas");
+          var content = canvas.getContext("2d");
+			
+	  // clear canvas
+	  content.clearRect(0, 0, 460, 540);
+	  
+	  content.fillStyle = 'black';
+	  content.textAlign = 'center';
+	  content.font = '20pt Calibri';
+	  
+	  // make the wobbely values stop 
+	  if(pollOneH*2 > prevPotValue+2 || pollOneH*2 < prevPotValue-2){
+		prevPotValue = potValue;
+		potValue = pollOneH*2;
+	  }
+
+	  content.fillText('Potmeter value: ' + potValue, text.x, text.y);
+
+          // render graph 
+	  content.fillStyle = 'orange';
+	  content.fillRect(poll1.x,(poll1.y-poll1.h),poll1.w,poll1.h);
+						
+	  content.fill();
+
+	  // request new frame
+	  requestAnimFrame(function() {
+	  
+	  if(poll1.h < pollOneH){
+		poll1.h += (pollOneH - poll1.h)*.15;
+	  }
+	  else if(poll1.h > pollOneH){
+		poll1.h -= (poll1.h - pollOneH)*.15;
+	  }
+	  text.y = (poll1.y - poll1.h) - 5;
+	  animation(poll1,text);
+	 });
+	}
+	  
+	function initSocketIO()
+	{
+		iosocket = io.connect();
+		iosocket.on('onconnection', function(value) {
+		pollOneH = value.pollOneValue/2; // recieve start poll value from server
+		initPoll();
+		initButton();
+		initSlider();
+				
+		// recieve changed values by other client from server
+		iosocket.on('updateData', function (recievedData) {
+			pollOneH = recievedData.pollOneValue/2; // recieve start poll value from server
+		});
+	    });
+	}
+	  
+	function initPoll()
+	{
+	   poll1 = {
+		x: 10,
+		y: 540,
+		w: 440,
+		h: 0
+	   }
+	   text = {
+		x:poll1.w/2,
+		y:100
+	   }
+	   potValue = pollOneH*2;
+	   prevPotValue = potValue;
+	   animation(poll1,text);
+	}
+	
+	function initButton()
+	{
+	   $( "#check" ).button();
+	}
+	
+	function initSlider()
+	{
+	     $( "#slider" ).slider({
+	     min:0,
+	     max:255,
+	     change: function(event,ui) {
+	        iosocket.emit('sliderval',ui.value);
+	        }
+	     });
+	}
+	
+	window.onload = function() {
+	     initSocketIO();
+        };
+      
+      $(document).ready(function() {
+        $('#check').click(function() {
+            toggleVal += 1;
+	    toggleVal %= 2;
+	    iosocket.emit('buttonval',toggleVal);
+	 });
+	});
+    </script>
+  </head>
+  <body>
+   <div id="rData">
+	<h2>Data from Arduino</h2>
+    <canvas id="myCanvas" width="460" height="540"></canvas>
+   </div>
+       <div id="sData">
+	<h2>Data to Arduino</h2>
+	<div id="btnHolder">
+	  <input type="checkbox" id="check" value="toggle"/><label for="check">Toggle LED</label>
+	</div>
+	<p id="sliderTxt">LED Dimmer</p>
+	<div id="slider"></div>
+   </div> 
+  </body>
+</html>
