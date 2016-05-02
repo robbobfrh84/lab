@@ -2,24 +2,29 @@ body, html{ background-color: #666;
   margin: 0; text-align: center; font-size: 0;
 }
 
+p {
+  display: inline;
+  font-size: 20px;
+}
+
 #ledLine{
   margin-top: 2%; padding: 0; width: 100%; height: 100%;
 }
 
 .leds { display: inline-block;
-  width: 5%; height: 5vw; margin: 0.5%; border-radius: 100%;
+  width: 2.5%; height: 2.5vw; margin: 0.25%; border-radius: 100%;
   background-color: #222; box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.2);
   transition: width .15s ease-in-out, height .15s ease-in-out
   , margin .15s ease-in-out, background-Color .15s ease-in-out;
 }
 
-.leds:hover { width: 5.5%; height: 5.5vw; margin: 0.25%;
+.leds:hover { width: 2.75%; height: 2.75vw; margin: 0.125%;
   background-color: #333; box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.4);
   transition: width .15s ease-in-out, height .15s ease-in-out
   , margin .15s ease-in-out, background-Color .15s ease-in-out;
 }
 
-.cols{ display: inline-block;
+.cols { display: inline-block;
   border-style: solid;
   border-width: 2px;
   border-color: rgb(96,96,96);
@@ -27,7 +32,7 @@ body, html{ background-color: #666;
   box-shadow: 0 0 5px rgba(0,0,0,0.4);
 }
 
-.cols:hover{
+.cols:hover {
   box-shadow: 0 0 5px rgba(255,255,255,0.5);
 }
 
@@ -38,4 +43,51 @@ body, html{ background-color: #666;
 
 #egG{
   box-shadow: 0 0 5px rgba(255,0,0,1);
+}
+
+#custCol{ display: block;
+  border-radius: 10px;
+  background-color: black;
+  width: 240px; height: auto;
+  margin: auto;
+  margin-top: 20px;
+  padding: 5px;
+}
+
+.custIn {
+  margin-top: 10px;
+  font-size: 20px;
+  width: 40px;
+}
+
+.rgbSlide[type=range] {
+  -webkit-appearance: none;
+  display: block;
+  width: 200px;
+  height: 8px;
+  background: firebrick;
+  border-radius: 4px;
+  box-shadow: inset 2px 2px 2px rgba(0,0,0,0.4), 0 0 2px 2px rgba(0,0,0,0.1);
+  margin: 15px;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 16px;
+    width: 32px;
+    border-radius: 8px;
+    background: #aaa;
+    box-shadow: inset 0 0 2px 2px rgba(0,0,0,0.2), 2px 2px 2px rgba(0,0,0,0.8);
+}
+
+input[type=range]:focus {
+    outline: none;
+}
+
+#grnSlide[type=range]{
+  background: green;
+}
+
+#bluSlide[type=range]{
+  background: blue;
 }
