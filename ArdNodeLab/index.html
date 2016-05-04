@@ -14,11 +14,6 @@
   <div class='cols' id='grE' onclick='newCol(gre,grE)' style='background-Color: green;'></div>
 
   </br>
-  <!-- <div id='currentColor' style='background-Color: rgb(240,234,214);'></div> -->
-  </br>
-  <!-- <button id='led13Button' style='margin-top: 25%;'>Ard LED 13</button> -->
-  </br>
-
   <div id='custCol' class='cols' onclick='newCol([r,g,b],custCol)'>
     <input id='redSlide' class='rgbSlide' type="range" min="0" max="255" step="1" value="0" oninput="rgbUpdate(value,'r','redVal','redSlide')">
     <input id='grnSlide' class='rgbSlide' type="range" min="0" max="255" step="1" value="0" oninput="rgbUpdate(value,'g','grnVal','grnSlide')">
@@ -28,9 +23,10 @@
   <input id='redVal' class='custIn' value='0' oninput="rgbUpdate(value,'r','redVal','redSlide')">0</input><p>, </p>
   <input id='grnVal' class='custIn' value='0' oninput="rgbUpdate(value,'g','grnVal','grnSlide')">0</input><p>, </p>
   <input id='bluVal' class='custIn' value='0' oninput="rgbUpdate(value,'b','bluVal','bluSlide')">0</input>
-
-  <div id='dance' onclick="stopColorShuffle()" style='font-size: 20px; margin-top: 20px;'>Dance</div>
-
+  <br>
+  <div id='dance' class='button' onclick="stopColorShuffle()" >Dance</div>
+  <div id='blackOut' class='button' onclick="allColor(ash)" >All Black</div>
+  <div id='blackOut' class='button' onclick="allColor(gre)" >All Green</div>
 
   <script src="http://cdn.pubnub.com/pubnub-3.7.15.min.js"></script>
   <script>
@@ -40,6 +36,7 @@
         document.getElementById(input).value = val;
         document.getElementById(slide).value = val;
         document.getElementById('custCol').style.backgroundColor = 'rgb('+r+','+g+','+b+')';
+        publishUpdate({ledNum: 15, col: [r,g,b]});
       }
 
       var ash = [0,0,0];
@@ -88,14 +85,22 @@
         oldBtn = btn;
       }
 
+      function allColor(color){
+        for ( var i = 0; i < rows; i++) {
+          var blk = document.getElementById('blk'+i);
+          blk.style.backgroundColor = 'rgb('+color[0]+','+color[1]+','+color[2]+')';
+          publishUpdate({ledNum: i+16, col: color });
+        }
+      }
+
       function numberColorShuffle(number){
-        for ( var i = 0; i < number; i += 1) {
+        for ( var i = 0; i < number; i++) {
           var bId = Math.floor(Math.random() * (rows))
           var blk = document.getElementById('blk'+bId)
           var randCol = [random(0,255),random(0,255),random(0,255)]
           blk.style.backgroundColor = 'rgb('+randCol[0]+','+randCol[1]+','+randCol[2]+')';
           console.log(blk);
-          publishUpdate({ledNum: bId, col: randCol });
+          publishUpdate({ledNum: bId+16, col: randCol });
         }
       }
 
@@ -112,6 +117,8 @@
       function random(min, max) {
         return Math.floor(Math.random() * (max - min + 1) + min);
       }
+
+      allColor(blk);
 
 	</script>
 </body>
