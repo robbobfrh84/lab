@@ -36,7 +36,7 @@
         document.getElementById(input).value = val;
         document.getElementById(slide).value = val;
         document.getElementById('custCol').style.backgroundColor = 'rgb('+r+','+g+','+b+')';
-        publishUpdate({ledNum: 15, col: [r,g,b]});
+        publishUpdate({ledNum: 0, col: [r,g,b]});
       }
 
       var ash = [0,0,0];
@@ -47,9 +47,10 @@
 
       var color = egg;
 
-      var rows = 32; var blkClass = 'leds';
+      var rows = 64; var blkClass = 'leds';
       for (var i = 0; i < rows; i++){
         var blk = document.createElement('div');
+        if (i % 8 === 0){ ledLine.innerHTML += '<br>';}
         blk.className = blkClass; blk.id = 'blk'+i;
         blk.setAttribute('onmousedown', 'changeLed(blk'+i+','+i+')');
         ledLine.appendChild(blk);
@@ -73,7 +74,7 @@
         console.log(led,color);
         var swapCol = oldBtn.style.backgroundColor;
         Id.style.backgroundColor = swapCol;
-        publishUpdate({ledNum: led+16, col: color});
+        publishUpdate({ledNum: led, col: color});
       }
 
       var oldBtn = document.getElementById('egG');
@@ -89,7 +90,7 @@
         for ( var i = 0; i < rows; i++) {
           var blk = document.getElementById('blk'+i);
           blk.style.backgroundColor = 'rgb('+color[0]+','+color[1]+','+color[2]+')';
-          publishUpdate({ledNum: i+16, col: color });
+          publishUpdate({ledNum: i, col: color });
         }
       }
 
@@ -100,7 +101,7 @@
           var randCol = [random(0,255),random(0,255),random(0,255)]
           blk.style.backgroundColor = 'rgb('+randCol[0]+','+randCol[1]+','+randCol[2]+')';
           console.log(blk);
-          publishUpdate({ledNum: bId+16, col: randCol });
+          publishUpdate({ledNum: bId, col: randCol });
         }
       }
 
@@ -118,7 +119,7 @@
         return Math.floor(Math.random() * (max - min + 1) + min);
       }
 
-      allColor(blk);
+      //allColor(blk);
 
 	</script>
 </body>
