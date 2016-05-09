@@ -1,0 +1,19 @@
+h1{
+  font-family: arial;
+  color: cornflowerblue;
+}
+#board {
+  margin-top: 10px;
+  background-color: white;
+  border-radius: 50px;
+}
+
+.box {
+  border-radius: 100%;
+  border-style: 1px solid black;
+  height: 150px;
+  width: 150px;
+  background-color:darkblue;
+  color: white;
+  font-size: 7em;
+}
