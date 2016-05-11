@@ -56,12 +56,16 @@
                 if (this.isDrawing) {
                     context.lineTo(coors.x, coors.y);
                     context.stroke();
+                    document.getElementById('xtmove').value = coors.x;
+                    document.getElementById('ytmove').value = coors.y;
                 }
             },
             touchend: function (coors) {
                 if (this.isDrawing) {
                     this.touchmove(coors);
                     this.isDrawing = false;
+                    document.getElementById('xtend').value = coors.x;
+                    document.getElementById('ytend').value = coors.y;
                 }
             }
         };
