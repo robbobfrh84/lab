@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width; initial-scale=1.75; maximum-scale=1.75; user-scalable=0;">
+  <meta name="viewport" content="width=device-width; initial-scale=1.5; maximum-scale=1.5; user-scalable=0;">
   <style>
       body { margin:0;
           padding:0;
@@ -33,7 +33,6 @@
         // get the canvas element and its context
         var canvas = document.getElementById('sketchpad');
         var context = canvas.getContext('2d');
-
         // create a drawer which tracks touch movements
         var drawer = {
             isDrawing: false,
@@ -91,7 +90,6 @@
                         document.getElementById('yup').value = event.touches[0].pageY;
                 break;
             }
-
             // touchend clear the touches[0], so we need to use changedTouches[0]
             var coors;
             if(event.type === "touchend") {
@@ -111,7 +109,6 @@
             // pass the coordinates to the appropriate handler
             drawer[type](coors);
         }
-
         // detect touch capabilities
         var touchAvailable = ('createTouch' in document) || ('ontouchstart' in window);
 
@@ -127,15 +124,11 @@
             canvas.addEventListener('mousemove', draw, false);
             canvas.addEventListener('mouseup', draw, false);
         }
-
         // prevent elastic scrolling
         document.body.addEventListener('touchmove', function (event) {
             event.preventDefault();
         }, false); // end body.onTouchMove
-
     }, false); // end window.onLoad
-
-
     </script>
 </body>
 </html>
