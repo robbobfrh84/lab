@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+  <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+
+  <title>TouchTest</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
+  <link rel="ayte icon" href="ayteFlower.png"/>
+  <style>
+
+      body {
+          margin:0;
+          padding:0;
+          font-family:Arial;
+      }
+      #container {
+          position:relative;
+      }
+      #sketchpad {
+          border: 1px solid #000;
+      }
+
+  </style>
+</head>
+<body>
+    <div id="container">
+        <canvas id="sketchpad" width="400" height="400">Sorry, your browser is not supported.</canvas>
+    </div>
+    <script>
+    window.addEventListener('load', function () {
+        // get the canvas element and its context
+        var canvas = document.getElementById('sketchpad');
+        var context = canvas.getContext('2d');
+
+        // create a drawer which tracks touch movements
+        var drawer = {
+            isDrawing: false,
+            touchstart: function (coors) {
+                context.beginPath();
+                context.moveTo(coors.x, coors.y);
+                this.isDrawing = true;
+            },
+            touchmove: function (coors) {
+                if (this.isDrawing) {
+                    context.lineTo(coors.x, coors.y);
+                    context.stroke();
+                }
+            },
+            touchend: function (coors) {
+                if (this.isDrawing) {
+                    this.touchmove(coors);
+                    this.isDrawing = false;
+                }
+            }
+        };
+        // create a function to pass touch events and coordinates to drawer
+        function draw(event) {
+            var type = null;
+            // map mouse events to touch events
+            switch(event.type){
+                case "mousedown":
+                        event.touches = [];
+                        event.touches[0] = {
+                            pageX: event.pageX,
+                            pageY: event.pageY
+                        };
+                        type = "touchstart";
+                break;
+                case "mousemove":
+                        event.touches = [];
+                        event.touches[0] = {
+                            pageX: event.pageX,
+                            pageY: event.pageY
+                        };
+                        type = "touchmove";
+                break;
+                case "mouseup":
+                        event.touches = [];
+                        event.touches[0] = {
+                            pageX: event.pageX,
+                            pageY: event.pageY
+                        };
+                        type = "touchend";
+                break;
+            }
+
+            // touchend clear the touches[0], so we need to use changedTouches[0]
+            var coors;
+            if(event.type === "touchend") {
+                coors = {
+                    x: event.changedTouches[0].pageX,
+                    y: event.changedTouches[0].pageY
+                };
+            }
+            else {
+                // get the touch coordinates
+                coors = {
+                    x: event.touches[0].pageX,
+                    y: event.touches[0].pageY
+                };
+            }
+            type = type || event.type
+            // pass the coordinates to the appropriate handler
+            drawer[type](coors);
+        }
+
+        // detect touch capabilities
+        var touchAvailable = ('createTouch' in document) || ('ontouchstart' in window);
+
+        // attach the touchstart, touchmove, touchend event listeners.
+        if(touchAvailable){
+            canvas.addEventListener('touchstart', draw, false);
+            canvas.addEventListener('touchmove', draw, false);
+            canvas.addEventListener('touchend', draw, false);
+        }
+        // attach the mousedown, mousemove, mouseup event listeners.
+        else {
+            canvas.addEventListener('mousedown', draw, false);
+            canvas.addEventListener('mousemove', draw, false);
+            canvas.addEventListener('mouseup', draw, false);
+        }
+
+        // prevent elastic scrolling
+        document.body.addEventListener('touchmove', function (event) {
+            event.preventDefault();
+        }, false); // end body.onTouchMove
+
+    }, false); // end window.onLoad
+
+
+    </script>
+</body>
+</html>
