@@ -4,15 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width; initial-scale=0.75; maximum-scale=0.75; user-scalable=0;">
   <style>
-      body { margin:0;
-          padding:0;
-          font-family:Arial;
-      }
-      #container {
-          position:relative;
-      }
+      body { margin:0; padding:0; font-family:Arial; }
+      #container { position:relative; }
       #sketchpad { border: 1px solid #000; }
-
   </style>
 </head>
 <body>
@@ -20,13 +14,22 @@
         <canvas id="sketchpad" width="400" height="400">Sorry, your browser is not supported.</canvas>
     </div>
     <a>X:</a><input id='xdown' value='0' style='color: red; width: 30px; display: inline-block;'></input>
-    <a>Y:</a><input id='ydown' value='0' style='color: red; width: 30px; display: inline-block;'>mdown!</input>
+    <a>Y:</a><input id='ydown' value='0' style='color: red; width: 30px; display: inline-block;'>mousedown</input>
     <br>
     <a>X:</a><input id='xloc' value='0' style=' width: 30px; display: inline-block;'></input>
-    <a>Y:</a><input id='yloc' value='0' style=' width: 30px; display: inline-block;'>mmove!</input>
+    <a>Y:</a><input id='yloc' value='0' style=' width: 30px; display: inline-block;'>mousemove</input>
     <br>
     <a>X:</a><input id='xup' value='0' style='color: blue; width: 30px; display: inline-block;'></input>
-    <a>Y:</a><input id='yup' value='0' style='color: blue; width: 30px; display: inline-block;'>mup</input>
+    <a>Y:</a><input id='yup' value='0' style='color: blue; width: 30px; display: inline-block;'>mouseup</input>
+    <br>
+    <a>X:</a><input id='xtdown' value='0' style='color: red; width: 30px; display: inline-block;'></input>
+    <a>Y:</a><input id='ytdown' value='0' style='color: red; width: 30px; display: inline-block;'>touchstart</input>
+    <br>
+    <a>X:</a><input id='xtloc' value='0' style=' width: 30px; display: inline-block;'></input>
+    <a>Y:</a><input id='ytloc' value='0' style=' width: 30px; display: inline-block;'>touchmove</input>
+    <br>
+    <a>X:</a><input id='xtup' value='0' style='color: blue; width: 30px; display: inline-block;'></input>
+    <a>Y:</a><input id='ytup' value='0' style='color: blue; width: 30px; display: inline-block;'>touchup</input>
 
     <script>
     window.addEventListener('load', function () {
@@ -40,6 +43,8 @@
                 context.beginPath();
                 context.moveTo(coors.x, coors.y);
                 this.isDrawing = true;
+                document.getElementById('xdown').value = event.touches[0].pageX;
+                document.getElementById('ydown').value = event.touches[0].pageY;
             },
             touchmove: function (coors) {
                 if (this.isDrawing) {
