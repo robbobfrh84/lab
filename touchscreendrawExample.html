@@ -2,28 +2,25 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
-  <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <!-- <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
 
   <title>TouchTest</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
   <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
-  <link rel="ayte icon" href="ayteFlower.png"/>
+  <link rel="ayte icon" href="ayteFlower.png"/> -->
   <style>
 
-      body {
+      /*body {
           margin:0;
           padding:0;
           font-family:Arial;
-      }
-      #container {
+      }*/
+      /*#container {
           position:relative;
-      }
-      #sketchpad {
-          border: 1px solid #000;
-      }
+      }*/
+      #sketchpad { border: 1px solid #000; }
 
   </style>
 </head>
@@ -31,6 +28,15 @@
     <div id="container">
         <canvas id="sketchpad" width="400" height="400">Sorry, your browser is not supported.</canvas>
     </div>
+    <a>X:</a><input id='xdown' value='0' style='color: red;'></input>
+    <a>Y:</a><input id='ydown' value='0' style='color: red;'>mousedown</input>
+    <br>
+    <a>X:</a><input id='xloc' value='0'></input>
+    <a>Y:</a><input id='yloc' value='0'>mousemove</input>
+    <br>
+    <a>X:</a><input id='xup' value='0' style='color: blue;'></input>
+    <a>Y:</a><input id='yup' value='0' style='color: blue;'>mouseup</input>
+
     <script>
     window.addEventListener('load', function () {
         // get the canvas element and its context
@@ -70,6 +76,8 @@
                             pageY: event.pageY
                         };
                         type = "touchstart";
+                        document.getElementById('xdown').value = event.touches[0].pageX;
+                        document.getElementById('ydown').value = event.touches[0].pageY;
                 break;
                 case "mousemove":
                         event.touches = [];
@@ -78,6 +86,8 @@
                             pageY: event.pageY
                         };
                         type = "touchmove";
+                        document.getElementById('xloc').value = event.touches[0].pageX;
+                        document.getElementById('yloc').value = event.touches[0].pageY;
                 break;
                 case "mouseup":
                         event.touches = [];
@@ -86,6 +96,8 @@
                             pageY: event.pageY
                         };
                         type = "touchend";
+                        document.getElementById('xup').value = event.touches[0].pageX;
+                        document.getElementById('yup').value = event.touches[0].pageY;
                 break;
             }
 
