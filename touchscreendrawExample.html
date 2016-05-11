@@ -3,20 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width; initial-scale=2.0; maximum-scale=2.0; user-scalable=0;">
-
-  <!-- <title>TouchTest</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
-  <link rel="ayte icon" href="ayteFlower.png"/> -->
   <style>
-
-      body {
-          margin:0;
+      /*body { margin:0;
           padding:0;
           font-family:Arial;
-      }
+      }*/
       #container {
           position:relative;
       }
@@ -28,14 +19,14 @@
     <div id="container">
         <canvas id="sketchpad" width="400" height="400">Sorry, your browser is not supported.</canvas>
     </div>
-    <a>X:</a><input id='xdown' value='0' style='color: red;'></input>
-    <a>Y:</a><input id='ydown' value='0' style='color: red;'>mousedown!</input>
+    <a>X:</a><input id='xdown' value='0' style='color: red; width: 50px;'></input>
+    <a>Y:</a><input id='ydown' value='0' style='color: red; width: 50px;'>mousedown!</input>
     <br>
-    <a>X:</a><input id='xloc' value='0'></input>
-    <a>Y:</a><input id='yloc' value='0'>mousemove</input>
+    <a>X:</a><input id='xloc' value='0' style=' width: 50px;'></input>
+    <a>Y:</a><input id='yloc' value='0' style=' width: 50px;'>mousemove</input>
     <br>
-    <a>X:</a><input id='xup' value='0' style='color: blue;'></input>
-    <a>Y:</a><input id='yup' value='0' style='color: blue;'>mouseup</input>
+    <a>X:</a><input id='xup' value='0' style='color: blue; width: 50px;'></input>
+    <a>Y:</a><input id='yup' value='0' style='color: blue; width: 50px;'>mouseup</input>
 
     <script>
     window.addEventListener('load', function () {
