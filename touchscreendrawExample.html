@@ -2,14 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width; initial-scale=0.75; maximum-scale=0.75; user-scalable=0;">
+  <meta name="viewport" content="width=device-width; initial-scale=0.7; maximum-scale=0.7; user-scalable=0;">
   <style>
       body {
         margin:0;
         padding:0;
         font-family:Arial;
         -webkit-touch-callout: none !important;
-        -webkit-user-select: none !important;
       }
       #container { position:relative; }
       #sketchpad { border: 1px solid #000; }
@@ -19,15 +18,16 @@
     <div id="container">
         <canvas id="sketchpad" width="400" height="400">Sorry, your browser is not supported.</canvas>
     </div>
+    <a>MOUSE Event</a><br>
     <a>X:</a><input id='xdown' value='0' style='color: red; width: 30px; display: inline-block;'></input>
     <a>Y:</a><input id='ydown' value='0' style='color: red; width: 30px; display: inline-block;'>mousedown!</input>
     <br>
     <a>X:</a><input id='xloc' value='0' style=' width: 30px; display: inline-block;'></input>
-    <a>Y:</a><input id='yloc' value='0' style=' width: 30px; display: inline-block;'>mousemove</input>
+    <a>Y:</a><input id='yloc' value='0' style=' width: 30px; display: inline-block;'>mousemove!</input>
     <br>
     <a>X:</a><input id='xup' value='0' style='color: blue; width: 30px; display: inline-block;'></input>
     <a>Y:</a><input id='yup' value='0' style='color: blue; width: 30px; display: inline-block;'>mouseup</input>
-    <br>
+    <br><a>TOUCH Event</a><br>
     <a>X:</a><input id='xtstart' value='0' style='color: red; width: 30px; display: inline-block;'></input>
     <a>Y:</a><input id='ytstart' value='0' style='color: red; width: 30px; display: inline-block;'>touchstart</input>
     <br>
