@@ -55,9 +55,9 @@
         blk.setAttribute('onmousedown', 'changeLed(blk'+i+','+i+')');
         ledLine.appendChild(blk);
       }
-
+      var channel = 'hello_fromBob';
     	var settings = {
-    		channel: 'hue-clone',
+    		channel: 'hello_fromBob',
     		publish_key: 'pub-c-926e03e9-2cbb-4a3d-b17a-2ee47ca078a5',
     		subscribe_key: 'sub-c-b3fbc6fa-0bf5-11e6-a8fd-02ee2ddab7fe'
     	};
@@ -68,13 +68,25 @@
     			channel: settings.channel,
     			message: data
     		});
+        console.log("plublish"+data);
     	}
+
+      pubnub.subscribe({
+        channel: channel,
+        callback: function(m) {
+          console.log('Change',m);
+          //update here
+        },
+        error: function(err) {console.log(err);}
+      });
 
       function changeLed(Id,led){
         console.log(led,color);
         var swapCol = oldBtn.style.backgroundColor;
         Id.style.backgroundColor = swapCol;
+        //publishUpdate({ledNum: led, col: color});
         publishUpdate({ledNum: led, col: color});
+
       }
 
       var oldBtn = document.getElementById('egG');
