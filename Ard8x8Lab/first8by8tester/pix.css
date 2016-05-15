@@ -1,0 +1,36 @@
+body, html{ background-color: #E6E6E6;
+  min-width: 640px; margin: 5%; margin-top: 1%;
+  text-align: center; font-size: 0;
+  user-select: none;
+  -moz-user-select: -moz-none; -khtml-user-select: none; -webkit-user-select: none; -ms-user-select: none;
+}
+
+.button1 {   display: inline-block; opacity: 0.75;
+  font-size: 24px; color: cornflowerblue;
+  width: 150px; height: 30px; margin: 3px; border-radius: 10px;
+  transition: opacity .25s ease-in-out;
+}
+
+.button1:hover { opacity: 1;
+  transition: opacity .25s ease-in-out;
+}
+
+.ayte { display: inline-block;
+  width: 52px; height: 52px; margin: 4px; border-radius: 10px;
+  box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.2);
+  transition: width .15s ease-in-out, height .15s ease-in-out, margin .15s ease-in-out;
+}
+
+.ayte:hover { width: 58px; height: 58px; margin: 1px;
+  transition: width .15s ease-in-out, height .15s ease-in-out, margin .15s ease-in-out;
+}
+
+.kayte { display: inline-block;
+  width: 26px; height: 26px; margin: 2px; border-radius: 5px;
+  box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.2);
+  transition: width .15s ease-in-out, height .15s ease-in-out, margin .15s ease-in-out;
+}
+
+.kayte:hover { width: 29px; height: 29px; margin: 0.5px;
+  transition: width .15s ease-in-out, height .15s ease-in-out, margin .15s ease-in-out;
+}

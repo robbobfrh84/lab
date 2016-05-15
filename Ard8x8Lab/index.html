@@ -36,7 +36,7 @@
         document.getElementById(input).value = val;
         document.getElementById(slide).value = val;
         document.getElementById('custCol').style.backgroundColor = 'rgb('+r+','+g+','+b+')';
-        publishUpdate({ledNum: 0, col: [r,g,b]});
+        //publishUpdate({ledNum: 0, col: [r,g,b]});
       }
 
       var ash = [0,0,0];
@@ -61,6 +61,14 @@
     		publish_key: 'pub-c-926e03e9-2cbb-4a3d-b17a-2ee47ca078a5',
     		subscribe_key: 'sub-c-b3fbc6fa-0bf5-11e6-a8fd-02ee2ddab7fe'
     	};
+      var a = [[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0]
+              ,[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0]
+              ,[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0]
+              ,[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0]
+              ,[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0]
+              ,[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0]
+              ,[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0]
+              ,[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0]];
 
     	var pubnub = PUBNUB(settings);
     	function publishUpdate(data) {
@@ -84,9 +92,13 @@
         console.log(led,color);
         var swapCol = oldBtn.style.backgroundColor;
         Id.style.backgroundColor = swapCol;
+        a[led] = color;
         //publishUpdate({ledNum: led, col: color});
-        publishUpdate({ledNum: led, col: color});
-
+        publishUpdate({
+          type: "full",
+          user: "Old Ayte Tester",
+          ayte: a,
+        });
       }
 
       var oldBtn = document.getElementById('egG');
@@ -102,7 +114,7 @@
         for ( var i = 0; i < rows; i++) {
           var blk = document.getElementById('blk'+i);
           blk.style.backgroundColor = 'rgb('+color[0]+','+color[1]+','+color[2]+')';
-          publishUpdate({ledNum: i, col: color });
+          //publishUpdate({ledNum: i, col: color });
         }
       }
 
@@ -113,7 +125,7 @@
           var randCol = [random(0,255),random(0,255),random(0,255)]
           blk.style.backgroundColor = 'rgb('+randCol[0]+','+randCol[1]+','+randCol[2]+')';
           console.log(blk);
-          publishUpdate({ledNum: bId, col: randCol });
+          //publishUpdate({ledNum: bId, col: randCol });
         }
       }
 
