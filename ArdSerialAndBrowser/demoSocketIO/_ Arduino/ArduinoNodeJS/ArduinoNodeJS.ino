@@ -26,7 +26,7 @@ void setup() {
   digitalWrite(greenPin,HIGH);
   delay(500);
   digitalWrite(greenPin,LOW);
-
+  Serial.println("poop Schoopz");
   analogWrite(pwmPin,0);
 }
 

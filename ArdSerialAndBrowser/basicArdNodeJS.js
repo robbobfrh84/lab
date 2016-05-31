@@ -1,5 +1,5 @@
 var serialport = require('serialport');
-var portName = '/dev/cu.usbmodem1421';
+var portName = '/dev/cu.usbmodem1411';
 var sp = new serialport.SerialPort(portName, {
     baudRate: 9600,
     dataBits: 8,

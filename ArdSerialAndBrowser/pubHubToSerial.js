@@ -1,4 +1,4 @@
-var serialport = require('serialport');// include serialPort library
+var serialport = require('/dev/cu.usbmodem1411');// include serialPort library
    SerialPort = serialport.SerialPort; // make a local instance of it
    portName = process.argv[2];
 

@@ -1,0 +1,130 @@
+<!doctype html>
+<head>
+	<meta charset="utf-8">
+</head>
+<body>
+  <p id='graphTitle' style='margin: 5px;'></p>
+  <svg id='cont' width="1024" height="400" viewbox'0 0 1024 512' style='background-color: rgba(0,0,0,0.1);'></svg>
+  <script src="http://cdn.pubnub.com/pubnub-3.7.15.min.js"></script>
+	<script src="http://cdn.rawgit.com/scalabl3/pubnub-flex-history/v1.05/pubnub-flex-history-min.js"></script>
+	<script>
+    var svgElement = 'http://www.w3.org/2000/svg';
+    var userName = 'robbobfrh84';
+    var user_id = '1234!@#$';
+    var title = 'My First Temperature Graph';
+    var channel = userName;
+    var publish = 'pub-c-6d531795-b849-4e94-b216-b518015fa7df';
+    var subscribe = 'sub-c-65f59724-23b5-11e6-8bc8-0619f8945a4f';
+    var type = 'line';
+    var sensor = 'tempF';
+    var graphCount = 0;
+
+    var user = {
+    	userName: userName,
+    	user_id: user_id,
+    	graphCount: graphCount,
+    	graph: []
+    };
+
+    user.graph[user.graphCount] = {
+    	title: title, //user input
+    	channel: '1a', //channel+'#'+user.graphCount,
+      publish: publish,
+      subscribe: subscribe,
+    	type: type,
+    	sensor: sensor
+    };
+    user.graphCount++;
+
+    graphTitle.innerHTML = user.graph[0].title;
+
+  	var hist = PUBNUB.init({
+  		publish_key: user.graph[0].publish,
+  		subscribe_key: user.graph[0].subscribe
+  	});
+
+  	hist.flex_history = pubnub_flex_history;
+  	var flex_history_callback = function(result) {
+  	  if (!result.error) {
+        //console.log(result.operation + " completed", result);
+        pointBlks(result);
+  	  }
+  	  else { console.warn(result.operation + " failed", result); }
+  	}
+
+    var dayStart = 1464418800;
+    var plotGap = 8640;//2hr 24m
+    var plotCnt = 0;
+    var dataArray = [];
+
+    var options = {
+      channel: user.graph[0].channel,
+      between: [dayStart, dayStart+plotGap]
+    }
+
+    hist.flex_history(options, flex_history_callback);
+
+    function pointBlks(blk){
+			var dataChunk = [];
+			for (var i = 0; i < blk.count; i++){
+        //dataChunk[i] = blk.messages[i].message.light;
+				dataChunk[i] = blk.messages[i].message.light;
+        dataArray = dataArray.concat(dataChunk);
+			}
+      //dataArray = dataArray.concat(dataChunk);
+      dayStart+=plotGap;  plotCnt++;
+      options.between = [dayStart, dayStart+plotGap];
+      if (plotCnt < 10){
+        hist.flex_history(options, flex_history_callback);
+      }
+			console.log(dataArray);
+    }
+
+    // var options = {
+    //   channel: user.graph[0].channel,
+    //   before:  1464505200,
+    //   msgcount: 960
+    // }
+    // hist.flex_history(options, flex_history_callback);
+    //
+    // var plots = [];
+    // var times = [];
+    // function get480From1k(raw){
+    //   for (var i = 0; i < 480; i++){
+    //     plots[i] = raw.messages[i].message.light;
+    //     var y = raw.messages[i].timetoken;
+  	// 		var postTime = new Date(y/1e4);
+    //     times[i] = postTime;
+    //   }
+    // }
+    // dataArray[plotCnt] = dayData.messages[0].message.temp
+
+    // var dayStart = 1464418800;
+    // var plotGap = 180;
+    // var plotsLimit = 10;
+    // var plotCnt = 0;
+    // var dataArray = [];
+    //
+    // var options = {
+    //   channel: user.graph[0].channel,
+    //   between: [dayStart, dayStart+plotGap]
+    // }
+    // hist.flex_history(options, flex_history_callback);
+
+
+    // for (var i = 0; i < 480; i++){
+    //   hist.flex_history(options, flex_history_callback);
+    // }
+
+
+
+/* !!!!!!!!!!NOTES!!!!!!!!!!
+  - for my user name right now, everything is in line wiht how new users
+    will be created. Execpt channel is '1a'.
+  -
+
+*/
+
+  </script>
+</body>
+</html>

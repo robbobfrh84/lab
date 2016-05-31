@@ -1,0 +1,144 @@
+<!doctype html>
+<head>
+	<meta charset="utf-8">
+</head>
+<body>
+	<p id='light' style='margin: 5px;'>Light: </p>
+	<p id='temp' style='margin: 5px;'>Tempurature: </p>
+  <p id='press' style='margin: 5px;'>Pressure: </p>
+	<svg id='cont' width="10000" height="512" viewbox'0 0 100000 512'>
+	</svg>
+	<script src="http://cdn.pubnub.com/pubnub-3.7.15.min.js"></script>
+	<script src="http://cdn.rawgit.com/scalabl3/pubnub-flex-history/v1.05/pubnub-flex-history-min.js"></script>
+	<script>
+	var svgElement = 'http://www.w3.org/2000/svg';
+  var ardDate;
+	var settings = {
+		channel: '1a',
+		publish_key: 'pub-c-6d531795-b849-4e94-b216-b518015fa7df',
+		subscribe_key: 'sub-c-65f59724-23b5-11e6-8bc8-0619f8945a4f'
+	};
+	var pubnub = PUBNUB(settings);
+
+  var cnt = 0;
+	pubnub.subscribe({
+	  channel: '1a',
+	  callback: function(m) {
+      var lightA = m.light/2;
+      var tempA = (m.temp-8000000)/800;
+      var pressA = (m.press-6700000)/330;
+
+			light.innerHTML = 'Light: '+m.light;
+      temp.innerHTML = 'Raw Tempurature: '+m.temp+' /adjusted: '+tempA;
+			press.innerHTML = 'Raw Pressure: '+m.press+' /adjusted: '+pressA;
+
+      var newl = document.createElementNS(svgElement, 'line');
+      var newt = document.createElementNS(svgElement, 'line');
+      var newp = document.createElementNS(svgElement, 'line');
+
+      newl.setAttributeNS(null, 'x1', cnt);
+      newl.setAttributeNS(null, 'y1', 512);
+      newl.setAttributeNS(null, 'x2', cnt);
+      newl.setAttributeNS(null, 'y2', 512-lightA+'px');
+      newl.setAttributeNS(null, 'stroke', 'goldenrod');
+      newl.setAttributeNS(null, 'stroke-width', 3);
+
+      newt.setAttributeNS(null, 'x1', cnt);
+      newt.setAttributeNS(null, 'y1', 512);
+      newt.setAttributeNS(null, 'x2', cnt);
+      newt.setAttributeNS(null, 'y2', 512-tempA+'px');
+      newt.setAttributeNS(null, 'stroke', 'rgba(200,0,0,0.5)');
+      newt.setAttributeNS(null, 'stroke-width', 3);
+
+      newp.setAttributeNS(null, 'x1', cnt);
+      newp.setAttributeNS(null, 'y1', 512);
+      newp.setAttributeNS(null, 'x2', cnt);
+      newp.setAttributeNS(null, 'y2', 512-pressA+'px');
+      newp.setAttributeNS(null, 'stroke', 'rgba(0,0,200,0.5)');
+      newp.setAttributeNS(null, 'stroke-width', 3);
+
+      document.getElementById('cont').appendChild(newl);
+      document.getElementById('cont').appendChild(newt);
+      document.getElementById('cont').appendChild(newp);
+
+      cnt++;
+	  },
+	  error: function(err) {console.log(err);}
+	});
+
+	var hist;
+	var lightHist = PUBNUB.init({
+		publish_key: 'pub-c-6d531795-b849-4e94-b216-b518015fa7df',
+		subscribe_key: 'sub-c-65f59724-23b5-11e6-8bc8-0619f8945a4f'
+	});
+
+	lightHist.flex_history = pubnub_flex_history;
+	var sampleArray = [];
+
+	var flex_history_callback = function(result) {
+	  if (!result.error) {
+	    console.log(result.operation + " completed", result);
+	    hist = result;
+			plotAll();
+			// for (var i = 0; i < 480; i++){
+			// 	sampleArray[i] = Math.round((hist.messages[i+3800].message.temp-7000000)/5000);
+			// }
+			// document.write(sampleArray);
+	  }
+	  else {
+	    console.warn(result.operation + " failed", result);
+	  }
+	}
+
+	var getAll = {
+	  channel: '1a',
+	  getall: true
+	}
+
+	lightHist.flex_history(getAll, flex_history_callback);
+
+	function plotAll(){
+		for (var i = 0; i < hist.count; i++){
+
+			var lightA = hist.messages[i].message.light/2;
+			var tempA = (hist.messages[i].message.temp-7000000)/5000;
+			var pressA = (hist.messages[i].message.press-6450000)/1000;
+
+			var newl = document.createElementNS(svgElement, 'line');
+			var newt = document.createElementNS(svgElement, 'line');
+			var newp = document.createElementNS(svgElement, 'line');
+
+			var y = hist.messages[i].timetoken;
+			var postTime = new Date(y/1e4);
+			newl.setAttributeNS(null, 'id', postTime);
+      newl.setAttributeNS(null, 'x1', i-3500);
+      newl.setAttributeNS(null, 'y1', 512);
+      newl.setAttributeNS(null, 'x2', i-3500);
+			newl.setAttributeNS(null, 'y2', 512-lightA+'px');
+      newl.setAttributeNS(null, 'stroke', 'goldenrod');
+      newl.setAttributeNS(null, 'stroke-width', 3);
+
+			newt.setAttributeNS(null, 'id', postTime);
+      newt.setAttributeNS(null, 'x1', i-3500);
+      newt.setAttributeNS(null, 'y1', 512);
+      newt.setAttributeNS(null, 'x2', i-3500);
+			newt.setAttributeNS(null, 'y2', 512-tempA+'px');
+      newt.setAttributeNS(null, 'stroke', 'rgba(200,0,0,0.5)');
+      newt.setAttributeNS(null, 'stroke-width', 3);
+
+			newp.setAttributeNS(null, 'id', postTime);
+			newp.setAttributeNS(null, 'x1', i-3500);
+			newp.setAttributeNS(null, 'y1', 512);
+			newp.setAttributeNS(null, 'x2', i-3500);
+			newp.setAttributeNS(null, 'y2', 512-pressA+'px');
+			newp.setAttributeNS(null, 'stroke', 'rgba(0,0,200,0.5)');
+			newp.setAttributeNS(null, 'stroke-width', 3);
+
+			document.getElementById('cont').appendChild(newl);
+			document.getElementById('cont').appendChild(newt);
+			document.getElementById('cont').appendChild(newp);
+		}
+	}
+	</script>
+</body>
+</html>
