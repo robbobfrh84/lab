@@ -8,6 +8,8 @@
   <script src="http://cdn.pubnub.com/pubnub-3.7.15.min.js"></script>
 	<script src="http://cdn.rawgit.com/scalabl3/pubnub-flex-history/v1.05/pubnub-flex-history-min.js"></script>
 	<script>
+
+//----------Build Proto User Data and Seed Graph------------------------------//
     var svgElement = 'http://www.w3.org/2000/svg';
     var userName = 'robbobfrh84';
     var user_id = '1234!@#$';
@@ -34,10 +36,11 @@
     	type: type,
     	sensor: sensor
     };
-    user.graphCount++;
 
+    user.graphCount++;
     graphTitle.innerHTML = user.graph[0].title;
 
+//--------------------startup PubNub Contact----------------------------------//
   	var hist = PUBNUB.init({
   		publish_key: user.graph[0].publish,
   		subscribe_key: user.graph[0].subscribe
@@ -45,18 +48,15 @@
 
   	hist.flex_history = pubnub_flex_history;
   	var flex_history_callback = function(result) {
-  	  if (!result.error) {
-        //console.log(result.operation + " completed", result);
+  	  if (!result.error) { //console.log(result.operation + " completed", result);
         pointBlks(result);
   	  }
   	  else { console.warn(result.operation + " failed", result); }
   	}
 
     var dayStart = 1464418800;
-    var plotGap = 8640;//2hr 24m
+    var plotGap = 8640; //2hr 24m
     var plotCnt = 0;
-    var dataArray = [];
-
     var options = {
       channel: user.graph[0].channel,
       between: [dayStart, dayStart+plotGap]
@@ -64,59 +64,49 @@
 
     hist.flex_history(options, flex_history_callback);
 
+		var dataArray = [];
+		var timeArray = [];
     function pointBlks(blk){
-			var dataChunk = [];
+			//var dataChunk = [];
+			// make scope vars!!!!!!!!!!!!!!
 			for (var i = 0; i < blk.count; i++){
         //dataChunk[i] = blk.messages[i].message.light;
-				dataChunk[i] = blk.messages[i].message.light;
-        dataArray = dataArray.concat(dataChunk);
+				//dataChunk[i] = blk.messages[i].message.light;
+        dataArray = dataArray.concat(blk.messages[i].message.light);
+				timeArray = timeArray.concat(blk.messages[i].timetoken);
+
 			}
       //dataArray = dataArray.concat(dataChunk);
       dayStart+=plotGap;  plotCnt++;
       options.between = [dayStart, dayStart+plotGap];
       if (plotCnt < 10){
         hist.flex_history(options, flex_history_callback);
-      }
-			console.log(dataArray);
+      } else {
+				console.log(dataArray);
+				console.log(timeArray);
+        under480(dataArray,timeArray);
+			}
     }
 
-    // var options = {
-    //   channel: user.graph[0].channel,
-    //   before:  1464505200,
-    //   msgcount: 960
-    // }
-    // hist.flex_history(options, flex_history_callback);
-    //
-    // var plots = [];
-    // var times = [];
-    // function get480From1k(raw){
-    //   for (var i = 0; i < 480; i++){
-    //     plots[i] = raw.messages[i].message.light;
-    //     var y = raw.messages[i].timetoken;
-  	// 		var postTime = new Date(y/1e4);
-    //     times[i] = postTime;
-    //   }
-    // }
-    // dataArray[plotCnt] = dayData.messages[0].message.temp
-
-    // var dayStart = 1464418800;
-    // var plotGap = 180;
-    // var plotsLimit = 10;
-    // var plotCnt = 0;
-    // var dataArray = [];
-    //
-    // var options = {
-    //   channel: user.graph[0].channel,
-    //   between: [dayStart, dayStart+plotGap]
-    // }
-    // hist.flex_history(options, flex_history_callback);
-
-
-    // for (var i = 0; i < 480; i++){
-    //   hist.flex_history(options, flex_history_callback);
-    // }
-
-
+var gData = [];
+var gTime = [];
+function under480(d, t){
+	for (var i = 0; i < 960; i+=2){
+		if (d[i] && d[i-1]){
+			gData = gData.concat((d[i]+d[i-1])/2);
+			gData = tData.concat((t[i]+t[i-1])/2);
+		}
+		else if (d[i] && !d[i-1]){
+      gData = tData.concat(d[i]);
+			gData = tData.concat(d[i]);
+			console.log('No second data point');
+		} else {
+			console.log("No data at this index...");
+			//gData = gData.concat(null);
+		}
+	}
+  console.log(gData);
+}
 
 /* !!!!!!!!!!NOTES!!!!!!!!!!
   - for my user name right now, everything is in line wiht how new users
