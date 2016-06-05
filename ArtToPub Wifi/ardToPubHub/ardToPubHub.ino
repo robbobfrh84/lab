@@ -15,7 +15,7 @@ int led = 5;
 int delayTime = 90000;
 
 void setup() {
-  Serial.begin(115200); 
+  Serial.begin(9600); 
   delay(10);
   pinMode(light, INPUT);
   //pinMode(led, OUTPUT);

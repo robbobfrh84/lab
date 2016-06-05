@@ -38,7 +38,7 @@
     };
 
     user.graphCount++;
-    graphTitle.innerHTML = user.graph[0].title;
+    graphTitle.innerHTML = user.graph[0].title+'<br><br>';
 
 //--------------------startup PubNub Contact----------------------------------//
   	var hist = PUBNUB.init({
@@ -48,21 +48,22 @@
 
   	hist.flex_history = pubnub_flex_history;
   	var flex_history_callback = function(result) {
-  	  if (!result.error) { //console.log(result.operation + " completed", result);
+  	  if (!result.error) { console.log(result.operation + " completed", result);
         pointBlks(result);
   	  }
   	  else { console.warn(result.operation + " failed", result); }
   	}
 
-    var dayStart = 1464591600;
-    var plotGap = 8640; //2hr 24m
+    var dayStart = 1464764400;
     var plotCnt = 0;
+		var gap = 90;
+
     var options = {
       channel: user.graph[0].channel,
-      between: [dayStart, dayStart+plotGap]
+      between: [dayStart, dayStart+gap]
     }
 
-    hist.flex_history(options, flex_history_callback);
+    //hist.flex_history(options, flex_history_callback);
 
 		var lightArray = [];
 		var tempArray = [];
@@ -70,16 +71,23 @@
 		var timeArray = [];
 
     function pointBlks(blk){
-			for (var i = 0; i < blk.count; i++){
-        lightArray = lightArray.concat(blk.messages[i].message.light);
-				tempArray = tempArray.concat(blk.messages[i].message.temp);
-				pressArray = pressArray.concat(blk.messages[i].message.press);
-				timeArray = timeArray.concat(blk.messages[i].timetoken);
+			if (blk.count === 0){
+				lightArray = lightArray.concat(null);
+				tempArray = tempArray.concat(null);
+				pressArray = pressArray.concat(null);
+				timeArray = timeArray.concat(null);
+			} else {
+				for (var i = 0; i < blk.count; i++){
+	        lightArray = lightArray.concat(blk.messages[i].message.light);
+					tempArray = tempArray.concat(blk.messages[i].message.temp);
+					pressArray = pressArray.concat(blk.messages[i].message.press);
+					timeArray = timeArray.concat(blk.messages[i].timetoken);
+				}
 			}
-
-      dayStart+=plotGap;  plotCnt++;
-      options.between = [dayStart, dayStart+plotGap];
-      if (plotCnt < 10){
+      dayStart+=gap;  plotCnt++;
+      options.between = [dayStart, dayStart+gap];
+      if (plotCnt < 86400/gap){
+				console.log('plotCnt...');
         hist.flex_history(options, flex_history_callback);
       } else {
         under480(lightArray,tempArray,pressArray,timeArray);
@@ -90,6 +98,7 @@
 		var tData = [];
 		var pData = [];
 		var time = [];
+
 		function under480(l,tp,p,t){
 			for (var i = 0; i < 960; i+=2){
 				if (l[i] && l[i-1]){
@@ -98,35 +107,28 @@
 					pData = pData.concat((p[i]+p[i-1])/2);
 					time = time.concat(t[i]);
 				}
-				else if (l[i] && !l[i-1]){
+				else if (l[i] && !l[i-1]){ console.log('No second data point');
 		      lData = lData.concat(l[i]);
 					tData = tData.concat(tp[i]);
 					pData = pData.concat(p[i]);
 					time = time.concat(t[i]);
-					console.log('No second data point');
-				} else {
-					console.log("No data at this index...");
-					//gData = gData.concat(null);
-					//
-					//NULLL HERE!!!
-					//
+				} else { console.log("No data at this index...");
+					lData = lData.concat(null);
+					tData = tData.concat(null);
+					pData = pData.concat(null);
+          time = time.concat(null);
 				}
 			}
 		  console.log(lData);
 			console.log(tData);
 			console.log(pData);
 			console.log(time);
-			graphTitle.innerHTML = 'Light: '+lData+'<br>Temp: '+tData+'<br>Press: '+pData+'<br>Time: '+time+'<br>';
-
-
+			graphTitle.innerHTML = graphTitle.innerHTML+'<br><br><br>'+
+			'var LightR = ['+lData+']; <br>'+
+			'var TempR = ['+tData+']; <br>'+
+			'var PressR = ['+pData+']; <br>'+
+			'var TimeR = ['+time+']; ';
 		}
-
-/* !!!!!!!!!!NOTES!!!!!!!!!!
-  - for my user name right now, everything is in line wiht how new users
-    will be created. Execpt channel is '1a'.
-  -
-
-*/
 
   </script>
 	<script src='hardHistory.js'></script>
