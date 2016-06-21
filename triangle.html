@@ -6,46 +6,54 @@
   #divFrame {
     background-color: rgb(240,234,214);
     border-radius: 10px;
-    width: 532px;
-    height: 532px;
+    width: 932px;
+    height: 932px;
   }
 </style>
 <body>
   <div id='divFrame' >
-    <svg xmlns="http://www.w3.org/2000/svg" id='frame' width="532" height="532" viewBox"0 0 532 532"></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" id='frame' width="932" height="932" viewBox"0 0 932 932"></svg>
   </div>
   <script>
     var b = 10; //border
     var l = 512; //display width
+    var stage = 6;
 
-    frame.innerHTML += "<line stroke=cornflowerblue stroke-width=3 "+
-    "x1="+(  (l/2)+b  )+"     y1="+(  0+b  )+" "+
-    "x2="+(  l+b  )+"         y2="+(  l+b  )+" />";
+    for (var i = 1; i <= stage; i++){
+      var shift = l/(Math.pow(2,i));
+      var key = [];
 
-    frame.innerHTML += "<line stroke=cornflowerblue stroke-width=3 "+
-    "x1="+(  l+b  )+"         y1="+(  l+b  )+" "+
-    "x2="+(  0+b  )+"         y2="+(  l+b  )+" />";
-
-    frame.innerHTML += "<line stroke=cornflowerblue stroke-width=3 "+
-    "x1="+(  0+b  )+"         y1="+(  l+b  )+" "+
-    "x2="+(  (l/2)+b  )+"     y2="+(  0+b  )+" />";
-
-    frame.innerHTML += "<circle fill=firebrick r=3 "+"cx="+(  (l/2)+b  )+" cy="+(  0+b  )+" />";
-    frame.innerHTML += "<circle fill=firebrick r=3 "+"cx="+(  l+b  )+"     cy="+(  l+b  )+" />";
-    frame.innerHTML += "<circle fill=firebrick r=3 "+"cx="+(  0+b  )+"     cy="+(  l+b  )+" />";
-
-    for (var i = 0; i <= 4; i++){
-      if (i === 2){
-        for (var j = 0; j < 9; j++) {
-          var s = (l/(Math.pow(2,i+1))); //space between line...
-          frame.innerHTML += "<line stroke=red stroke-width=4 "+
-          "x1="+(  (s*j)+b  )+"     y1="+(  (512-(l/(Math.pow(2,i))))+b  )+" "+
-          "x2="+(  (l/(Math.pow(2,i)))+b  )+"                       y2="+(  l+b  )+" />";
+      for (var j = 0; j <= Math.pow(2,i-1); j++){
+        var x = shift*(j-1);
+        var hold = 'x';
+        for (var p = 0; p < j; p++){
+          if(hold===key[p]){
+            hold = key[p];
+            key[p] = 0;
+          } else {
+            hold = key[p];
+            key[p] = 1
+          }
+        }
+        //console.log("key ", key);
+        for (var k = 0; k < j; k++){
+          var x = shift*(j-1);
+          if (key[k] !== 0){
+            frame.innerHTML += "<line stroke=cornflowerblue stroke-width=2 "+
+            "x1="+(  l-(shift)-x-(k*shift)+b  )+"   y1="+(  l-(x*2)+(k*shift*2)-(shift*2)+b  )+" "+
+            "x2="+(  l-(shift*2)-x-(k*shift)+b  )+" y2="+(  l-(x*2)+(k*shift*2)+b  )+" />";
+            frame.innerHTML += "<line stroke=green stroke-width=2 "+
+            "x1="+(  l/2-shift-x+(k*shift*2)+b  )+"   y1="+(  shift*2+(x*2)+b  )+" "+
+            "x2="+(  l/2+shift-x+(k*shift*2)+b  )+"   y2="+(  shift*2+(x*2)+b  )+" />";
+            frame.innerHTML += "<line stroke=goldenrod stroke-width=2 "+
+            "x1="+(  (shift*2)+x+(k*shift)+b  )+"     y1="+(  l-(x*2)+(k*shift*2)+b  )+" "+
+            "x2="+(  shift+x+(k*shift)+b  )+"         y2="+(  l-(x*2)+(k*shift*2)-(shift*2)+b  )+" />";
+          }
         }
       }
-      frame.innerHTML += "<line stroke=green stroke-width=3 "+
-      "x1="+(  (l/(Math.pow(2,i+1)))+b  )+"     y1="+(  (512-(l/(Math.pow(2,i))))+b  )+" "+
-      "x2="+(  (l/(Math.pow(2,i)))+b  )+"                       y2="+(  l+b  )+" />";
+      frame.innerHTML += "<circle fill=firebrick r=3 "+"cx="+(  0+b  )+"     cy="+(  l+b  )+" />";
+      frame.innerHTML += "<circle fill=firebrick r=3 "+"cx="+(  (l/2)+b  )+" cy="+(  0+b  )+" />";
+      frame.innerHTML += "<circle fill=firebrick r=3 "+"cx="+(  l+b  )+"     cy="+(  l+b  )+" />";
     }
 
   </script>
