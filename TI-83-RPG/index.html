@@ -1,0 +1,79 @@
+<!DOCTYPE html><html lang="en"><meta charset="UTF-8">
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css'/>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.js'></script>
+<link rel='stylesheet' href='main.css'/>
+
+<body>
+  <svg xmlns="http://www.w3.org/2000/svg" id='universe' width=100vw height=100vh>
+  </svg>
+  <div id='cosmos'>
+    <div>-Spar-</div>
+    <br>
+    <div class='matchUp'>
+      <div class='sparDiv'>
+        <input value='Lemmen' id='sparTopName'></input>
+        <p class='sparText' id='sparTopText'>STUFF</p>
+      </div>
+      vs.
+      <div class='sparDiv'>
+        <input value='Sadle' id='sparBotName'></input>
+        <p class='sparText' id='sparBotText'>STUFF</p>
+      </div>
+    </div>
+    <div class=winner>
+
+    </div>
+    <br>
+
+    <button onclick='fight()'>FIGHT!</button>
+    <br>
+    <hr>
+    <table class="ui sortable celled table">
+      <thead>
+        <tr>
+          <td class='topBar' colspan='1'> - </td>
+          <td class='topBar' colspan='7'>Skills</td>
+          <td class='topBar' colspan='4'>Stats</td>
+        </tr>
+        <tr>
+          <th title="Name" rowspan="2" style='width: 70px;'>Name</th>
+          <th style='width: 50px;'>Spd.</th>
+          <th style='width: 50px;'>Stg.</th>
+          <th style='width: 50px;'>Exp.</th>
+          <th style='width: 50px;'>Itl.</th>
+          <th style='width: 50px;'>Edr.</th>
+          <th style='width: 50px;'>Chg.</th>
+          <th style='width: 50px;'>Wpw.</th>
+          <th id='ratCol' rowspan="2" style='width: 5px;'>Rat.</th>
+          <th rowspan="2" style='width: 5px;'>Rec.</th>
+          <th rowspan="2" style='width: 5px;'>&#9895</th>
+          <th rowspan="2" style='width: 5px;'>ID</th>
+        </tr>
+      </thead>
+      <tbody id='listAll'></tbody>
+      <tfoot>
+        <tr>
+          <th id='nameCnt'>Total: </th>
+          <th id='spdAve'>ave. 45</th>
+          <th id='stgAve'>ave.</th>
+          <th id='expAve'>ave.</th>
+          <th id='itlAve'>ave.</th>
+          <th id='edrAve'>ave.</th>
+          <th id='chgAve'>ave.</th>
+          <th id='wpwAve'>ave.</th>
+          <th id='ratAve'>ave.</th>
+          <th>-</th>
+          <th>-</th>
+          <th>-</th>
+        </tr>
+      </tfoot>
+    </table>
+    <hr>
+    <div>-Tournament-</div>
+
+    <br><hr>
+  </div>
+  <script src='main.js'></script>
+  <script src="jquery.tablesort.js"></script>
+</body></html>
