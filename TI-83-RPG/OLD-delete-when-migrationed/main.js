@@ -76,51 +76,6 @@ wpwAve.innerHTML = 'average<br>'+Math.round(((listData.willPower.reduce(function
 ratAve.innerHTML = 'average<br>'+Math.round(((listData.rat.reduce(function add(a, b){return a+b}, 0))/listData.rat.length)*100)/100;
 
 /*------------------------------------------------------------------------------
-**********                          SPAR                              **********
-------------------------------------------------------------------------------*/
-
-var top1;
-var bot1;
-
-window.onload = function () {
-  ratCol.click();
-  namesArr = listData.name;
-  top1 = randomSetSpar('sparTopName','sparTopText');
-  bot1 = randomSetSpar('sparBotName','sparBotText');
-  console.log('Top',top1);
-  console.log('Bot',bot1);
-}
-
-function randomSetSpar(input, text){
-  var randCharIndex = random(0,namesArr.length-1);
-  var f = getIndex(namesArr[randCharIndex]);
-  var s = f.skills
-  namesArr = remove(namesArr, randCharIndex);
-  document.getElementById(input).value = f.name;
-  document.getElementById(text).innerHTML = f.rat+'  -- < '+f.skills.speed+' , '
-  +s.strangth+' , '+s.experience+' , '+s.intelligence+' , '+s.endurance+' , '
-  +s.coaching+' , '+s.willPower+' >';
-  return f;
-  // !!!!! namesArr = listData.name; //repopulates possible fighters use depending on bracket
-}
-
-function fight(){
-  // !!!!! namesArr = listData.name; //repopulates possible fighters use depending on bracket
-  var r1 = random(-20,20)+random(-20,20)+random(-20,20);
-  var r2 = random(-20,20)+random(-20,20)+random(-20,20);
-  if (top1.skills.speed+r1 > bot1.skills.speed+r2) {
-    console.log(top1.name, 'WINS');
-  } else if (top1.skills.speed+r1 < bot1.skills.speed+r2){
-    console.log(bot1.name, 'WINS');
-  } else {
-    console.log('TIE');
-  }
-  console.log('SPEED: ',top1.skills.speed,'+(',r1,') --vs-- ',bot1.skills.speed,'(',r2,')');
-}
-
-
-
-/*------------------------------------------------------------------------------
 **********                 COMMONLY USED FUNTIONS                     **********
 ------------------------------------------------------------------------------*/
 function getIndex(name){
@@ -142,44 +97,15 @@ function random(min, max){
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
+function r3(){
+  return (random(-20,20)+random(-20,20)+random(-20,20));
+}
+
 /*------------------------------------------------------------------------------
 **********                 API / PUBNUB                     **********
 ------------------------------------------------------------------------------*/
 
-// var testdata = {
-//     fighters : {
-//       Dan : {
-//         age : 25,
-//         apeed : 19,
-//         active : true,
-//         id : 'TI83-00001'
-//       },
-//       Steve : {
-//         age : 34,
-//         apeed : 15,
-//         active : true,
-//         id : 'TI83-00002'
-//
-//       },
-//       Stan : {
-//         age : 35,
-//         speed : 30,
-//         active : true,
-//         id : 'TI83-00001'
-//       }
-//    },
-//    regions : [
-//      'Desert',
-//      'Mountain',
-//      'Coastal',
-//      'Southern'
-//    ]
-// }
-
-
-//!!!!
-//CHANGE CHANGELLLL
-//!!!!
+// uncomment out the call of pub(t) to reset charactors.
 var pubnub = PUBNUB.init({
     publish_key: 'pub-c-2d05fb4b-b891-4a99-97cc-e76315368262',
     subscribe_key: 'sub-c-e7bd0e06-be7c-11e6-9868-02ee2ddab7fe',
@@ -193,16 +119,16 @@ pubnub.subscribe({
     message : function (testdata) {
         console.log("Message Received.", testdata)
     },
-    //connect : pub
+    // connect : pub // This calls a function after subscribe sucessfull
 })
 
-var rdata;
+var returnData; //
 
 pubnub.history({
     channel : 'testdata',
     callback : function(m){
         console.log('hist,..',m)
-        rdata = m[0][0];
+        returnData = m[0][0];
     },
     count : 1, // 100 is the default
     reverse : false // false is the default
@@ -217,3 +143,4 @@ function pub(data) {
         }
     })
 }
+// pub(t);

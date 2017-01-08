@@ -1,80 +1,61 @@
-<!DOCTYPE html><html lang="en"><meta charset="UTF-8">
-<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css'/>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.js'></script>
-<script src="http://cdn.pubnub.com/pubnub-3.16.4.min.js"></script>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+<title>TI-83-RPG</title>
+<!--- Site CSS -->
+<link rel="stylesheet" type="text/css" href="semantic/components/reset.css">
+<link rel="stylesheet" type="text/css" href="semantic/components/site.css">
+<link rel="stylesheet" type="text/css" href="semantic/components/grid.css">
+<!--- Component CSS -->
+<link rel="stylesheet" type="text/css" href="semantic/components/menu.css">
+<link rel="stylesheet" type="text/css" href="semantic/components/input.css">
+<link rel="stylesheet" type="text/css" href="semantic/components/dropdown.css">
+<link rel="stylesheet" type="text/css" href="semantic/components/icon.css">
+<link rel="stylesheet" type="text/css" href="semantic/components/button.css">
+<link rel="stylesheet" type="text/css" href="semantic/components/transition.css">
+<!--- Example Libs -->
+<!-- <link rel="stylesheet" type="text/css" href="semantic/components/popup.css"> -->
+<script src="semantic/assets/library/jquery.min.js"></script>
+<script src="semantic/assets/library/iframe-content.js"></script>
+<!-- <script src="semantic/assets/show-examples.js"></script> -->
+<!-- <script type="text/javascript" src="semantic/components/popup.js"></script> -->
+<!--- Component JS -->
+<script type="text/javascript" src="semantic/components/transition.js"></script>
+<script type="text/javascript" src="semantic/components/dropdown.js"></script>
+
 <link rel='stylesheet' href='main.css'/>
 
+</head>
 <body>
-  <svg xmlns="http://www.w3.org/2000/svg" id='universe' width=100vw height=100vh>
-  </svg>
+  <svg xmlns="http://www.w3.org/2000/svg" id='universe' width=100vw height=100vh></svg>
   <div id='cosmos'>
-    <div>-Spar-</div>
-    <br>
-    <div class='matchUp'>
-      <div class='sparDiv'>
-        <input value='Lemmen' id='sparTopName'></input>
-        <p class='sparText' id='sparTopText'>STUFF</p>
-      </div>
-      vs.
-      <div class='sparDiv'>
-        <input value='Sadle' id='sparBotName'></input>
-        <p class='sparText' id='sparBotText'>STUFF</p>
+    <div class="ui massive secondary pointing menu">
+      <h2> TI-83-RPG </h2>
+      <a class="item active">
+        <img src='resources/home.svg' height='30px'/>
+      </a>
+      <a class="item">
+        BackStory
+      </a>
+      <div class="right menu">
+        <div class="ui dropdown item"><i class="large settings icon"></i><i class="dropdown icon"></i>
+          <div class="menu">
+            <a class="item">Add/Remove Fighter</a>
+            <a class="item">Stats</a>
+            <a class="item">Spar</a>
+            <a class="item">Tournament</a>
+          </div>
+        </div>
+        <div class="item">
+            <div class="ui brown inverted button">Sign Up</div>
+        </div>
       </div>
     </div>
-    <div class=winner>
-
-    </div>
-    <br>
-
-    <button onclick='fight()'>FIGHT!</button>
-    <br>
-    <hr>
-    <table class="ui sortable celled table">
-      <thead>
-        <tr>
-          <td class='topBar' colspan='1'> - </td>
-          <td class='topBar' colspan='7'>Skills</td>
-          <td class='topBar' colspan='4'>Stats</td>
-        </tr>
-        <tr>
-          <th title="Name" rowspan="2" style='width: 70px;'>Name</th>
-          <th style='width: 50px;' title='Speed' >Spd.</th>
-          <th style='width: 50px;' title='Strangth' >Stg.</th>
-          <th style='width: 50px;' title='Experience'>Exp.</th>
-          <th style='width: 50px;'>Itl.</th>
-          <th style='width: 50px;'>Edr.</th>
-          <th style='width: 50px;'>Chg.</th>
-          <th style='width: 50px;'>Wpw.</th>
-          <th id='ratCol' rowspan="2" style='width: 5px;'>Rat.</th>
-          <th rowspan="2" style='width: 5px;'>Rec.</th>
-          <th rowspan="2" style='width: 5px;'>&#9895</th>
-          <th rowspan="2" style='width: 5px;'>ID</th>
-        </tr>
-      </thead>
-      <tbody id='listAll'></tbody>
-      <tfoot>
-        <tr>
-          <th id='nameCnt'>Total: </th>
-          <th id='spdAve'>ave. 45</th>
-          <th id='stgAve'>ave.</th>
-          <th id='expAve'>ave.</th>
-          <th id='itlAve'>ave.</th>
-          <th id='edrAve'>ave.</th>
-          <th id='chgAve'>ave.</th>
-          <th id='wpwAve'>ave.</th>
-          <th id='ratAve'>ave.</th>
-          <th>-</th>
-          <th>-</th>
-          <th>-</th>
-        </tr>
-      </tfoot>
-    </table>
-    <hr>
-    <div>-Tournament-</div>
-
-    <br><hr>
   </div>
-  <script src='main.js'></script>
-  <script src="jquery.tablesort.js"></script>
-</body></html>
+</body>
+<script src='semantic_main.js'></script>
+</html>
