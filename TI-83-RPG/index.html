@@ -34,18 +34,22 @@
   <svg xmlns="http://www.w3.org/2000/svg" id='universe' width=100vw height=100vh></svg>
   <div id='cosmos'>
     <div class="ui massive secondary pointing menu">
-      <h2> TI-83-RPG </h2>
-      <a class="item active">
-        <img src='resources/home.svg' height='30px'/>
+      <a id='TI-83-RPG' class="active item">
+        <h2> TI-83-RPG </h2>
       </a>
-      <a class="item">
-        BackStory
+      <a id='backStoryIcon' class="item">
+        <img src='resources/backstory.svg' height='60px'/>
+      </a>
+      <a id='globeIcon' class="item">
+        <i class="big brown globe icon"></i>
       </a>
       <div class="right menu">
-        <div class="ui dropdown item"><i class="large settings icon"></i><i class="dropdown icon"></i>
+        <div class="ui dropdown item">
+          <img src='resources/home.svg' height='30px'/>
+          <i class="dropdown icon"></i>
           <div class="menu">
-            <a class="item">Add/Remove Fighter</a>
-            <a class="item">Stats</a>
+            <a class="item">View Fighters</a>
+            <a class="item">New Fighter</a>
             <a class="item">Spar</a>
             <a class="item">Tournament</a>
           </div>
@@ -54,6 +58,15 @@
             <div class="ui brown inverted button">Sign Up</div>
         </div>
       </div>
+    </div>
+    <div id='landingPageText' class='item'>
+      LANDING PAGE
+    </div>
+    <div id='backStoryText' class='item hidden'>
+      This is the back story....
+    </div>
+    <div id='communityText' class='item hidden'>
+      Global Community of Worlds!
     </div>
   </div>
 </body>
