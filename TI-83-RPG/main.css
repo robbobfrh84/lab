@@ -7,7 +7,6 @@ body {
   width: 100vw;
   height: 100vw;
   position: absolute; top: 0px; left: 0px;
-  /*pointer-events: none;*/
   padding: 0;
 }
 #universe {
@@ -22,6 +21,9 @@ body {
   width: 100% !important;
   margin-bottom: 0px !important;
 }
+.drop-down{
+  height: 50px !important;
+}
 #backStoryIcon {
   padding: 0px !important;
   padding-left: 20px !important;
@@ -33,6 +35,13 @@ body {
   padding-right: 0px !important;
   padding-top: 0px;
   padding-bottom: 12px;
+}
+#addFighterIcon{
+  margin: -10px !important;
+  height: 50px !important;
+}
+#sparIcon{
+  margin: -10px !important;
 }
 .dropdown.icon {
   margin-left: 5px !important;

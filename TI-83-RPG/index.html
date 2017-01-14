@@ -1,74 +1,43 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>TI-83-RPG</title>
+  <!--- Semantic Site CSS -->
+  <link rel="stylesheet" type="text/css" href="semantic/components/reset.css">
+  <link rel="stylesheet" type="text/css" href="semantic/components/site.css">
+  <link rel="stylesheet" type="text/css" href="semantic/components/grid.css">
+  <!--- Semantic Component CSS -->
+  <link rel="stylesheet" type="text/css" href="semantic/components/menu.css">
+  <link rel="stylesheet" type="text/css" href="semantic/components/input.css">
+  <link rel="stylesheet" type="text/css" href="semantic/components/dropdown.css">
+  <link rel="stylesheet" type="text/css" href="semantic/components/icon.css">
+  <link rel="stylesheet" type="text/css" href="semantic/components/button.css">
+  <link rel="stylesheet" type="text/css" href="semantic/components/transition.css">
+  <!--- Semantic Example Libs -->
+  <!-- <link rel="stylesheet" type="text/css" href="semantic/components/popup.css"> -->
+  <script src="semantic/assets/library/jquery.min.js"></script>
+  <script src="semantic/assets/library/iframe-content.js"></script>
+  <!-- <script src="semantic/assets/show-examples.js"></script> -->
+  <!-- <script type="text/javascript" src="semantic/components/popup.js"></script> -->
+  <!--- Semantic Component JS -->
+  <script type="text/javascript" src="semantic/components/transition.js"></script>
+  <script type="text/javascript" src="semantic/components/dropdown.js"></script>
 
-<title>TI-83-RPG</title>
-<!--- Site CSS -->
-<link rel="stylesheet" type="text/css" href="semantic/components/reset.css">
-<link rel="stylesheet" type="text/css" href="semantic/components/site.css">
-<link rel="stylesheet" type="text/css" href="semantic/components/grid.css">
-<!--- Component CSS -->
-<link rel="stylesheet" type="text/css" href="semantic/components/menu.css">
-<link rel="stylesheet" type="text/css" href="semantic/components/input.css">
-<link rel="stylesheet" type="text/css" href="semantic/components/dropdown.css">
-<link rel="stylesheet" type="text/css" href="semantic/components/icon.css">
-<link rel="stylesheet" type="text/css" href="semantic/components/button.css">
-<link rel="stylesheet" type="text/css" href="semantic/components/transition.css">
-<!--- Example Libs -->
-<!-- <link rel="stylesheet" type="text/css" href="semantic/components/popup.css"> -->
-<script src="semantic/assets/library/jquery.min.js"></script>
-<script src="semantic/assets/library/iframe-content.js"></script>
-<!-- <script src="semantic/assets/show-examples.js"></script> -->
-<!-- <script type="text/javascript" src="semantic/components/popup.js"></script> -->
-<!--- Component JS -->
-<script type="text/javascript" src="semantic/components/transition.js"></script>
-<script type="text/javascript" src="semantic/components/dropdown.js"></script>
-
-<link rel='stylesheet' href='main.css'/>
+  <link rel='stylesheet' href='main.css'/>
 
 </head>
 <body>
-  <svg xmlns="http://www.w3.org/2000/svg" id='universe' width=100vw height=100vh></svg>
-  <div id='cosmos'>
-    <div class="ui massive secondary pointing menu">
-      <a id='TI-83-RPG' class="active item">
-        <h2> TI-83-RPG </h2>
-      </a>
-      <a id='backStoryIcon' class="item">
-        <img src='resources/backstory.svg' height='60px'/>
-      </a>
-      <a id='globeIcon' class="item">
-        <i class="big brown globe icon"></i>
-      </a>
-      <div class="right menu">
-        <div class="ui dropdown item">
-          <img src='resources/home.svg' height='30px'/>
-          <i class="dropdown icon"></i>
-          <div class="menu">
-            <a class="item">View Fighters</a>
-            <a class="item">New Fighter</a>
-            <a class="item">Spar</a>
-            <a class="item">Tournament</a>
-          </div>
-        </div>
-        <div class="item">
-            <div class="ui brown inverted button">Sign Up</div>
-        </div>
-      </div>
-    </div>
-    <div id='landingPageText' class='item'>
-      LANDING PAGE
-    </div>
-    <div id='backStoryText' class='item hidden'>
-      This is the back story....
-    </div>
-    <div id='communityText' class='item hidden'>
-      Global Community of Worlds!
-    </div>
-  </div>
+
+    <main x="Hey!"></main>
+
 </body>
-<script src='semantic_main.js'></script>
+<script src='main.js'></script>
+<script src="riot/riot.min.js"></script>
+<script src="tags/all.js"></script>
+<script>
+  riot.mount('main');
+</script>
 </html>
