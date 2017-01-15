@@ -31,10 +31,12 @@
           </div>
         </div>
         <div class="item">
-            <div class="ui brown inverted button">Sign Up</div>
+          <sign-in-modal></sign-in-modal>
+          <sign-up-modal></sign-up-modal>
         </div>
       </div>
     </div>
+<!-- *************************************  DROPDOWN  *************************************** -->
     <div id='landingPage' class='item'>
     </div>
     <div id='backStoryPage' class='item hidden'>
@@ -57,8 +59,8 @@
       Spar Page
     </div>
   </div>
-
   <script>
+
     var lastPage = this.landingPage
 
     pageSwap(e){

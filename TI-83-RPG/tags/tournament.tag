@@ -1,7 +1,10 @@
 <tournament>
-  <div>
-    <input cvalue='4'></input>
-    <button class='input' value='4'>GO</button>
+    <div class="right item">
+      <div class="ui action input">
+        <input id='inputText' type='text' placeholder=Contenders... onkeyup={ buildBracket } >
+        <div class="ui button" onclick={ buildBracket }>Go</div>
+      </div>
+    </div>
     <br><hr><br>
     <span each={ matchup in bracket }>
       <div if={ matchup.length }>
@@ -11,14 +14,10 @@
         ------ { matchup } <br>
       </span>
     </span>
-
-  </div>
   <script>
 
   this.on('mount', function(){
-    this.contenders = 25
     this.bracket = [1,2]
-    this.buildBracket()
   })
 
   place(seed){
@@ -37,14 +36,16 @@
 
   }.bind(this)
 
-  buildBracket(){
-    for (var i = 3; i <= this.contenders; i++) {
-      this.place(i)
+  buildBracket(e){
+    if(e.keyCode === 13 || e.type === 'click'){
+      e.preventDefault(); // Ensure it is only this code that runs
+      this.contenders = inputText.value;
+      for (var i = 3; i <= this.contenders; i++) {
+        this.place(i)
+      }
+      console.log(this.contenders,'Contender Bracket('+this.bracket.length*2+')',this.bracket)
     }
-    console.log('bracket: ',this.bracket)
-    console.log('bracket size: ', this.bracket.length*2,'contenders.');
-  }.bind(this)
-
+  }
 
   </script>
 </tournament>

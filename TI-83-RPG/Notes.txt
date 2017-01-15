@@ -1,5 +1,6 @@
 CURRENT NOTES:
 
+- Man.... looking at how in the index.html page, we're calling the files locally, but maybe href vs src. maybe we dont' actually need to host these files... test ... 
 - checkout base-templete.html in mf2. Looks like they use a type of "ALL" files loaded in folder
 - - ^^^ may be a way to condense code base on index.html?
 
@@ -12,7 +13,7 @@ TO DO:
 
 
 - Create Dongeon master's in global.
-- Put Dongeon Master's link to view on landingPage. 
+- Put Dongeon Master's link to view on landingPage.
 - Create view fighter page with hard coded data.
 - - Included add fighter button
 - - create modal to pop up for both button on view fighter page AND dropdown.

@@ -1,6 +1,9 @@
 body {
   margin: 0;
 }
+
+/************************************** Main Tag **************************************/
+
 #cosmos{
   box-shadow: 0 0 3vw rgba(0,0,0,0.5) inset;
   background: url(resources/landerIcon.jpg) no-repeat fixed; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; position: relative;
@@ -48,4 +51,50 @@ body {
 }
 .hidden {
   display: none;
+}
+
+/************************************** SignIn/Up Modal Tag **************************************/
+
+.header {
+  padding: 6px !important;
+}
+.custom-inverted-input {
+  width: 400px !important;
+  background: rgba(197, 83, 83, 0.18) !important;
+  color: white !important;
+}
+.create-email-details {
+  background: rgba(101, 156, 239, 0.18) !important;
+}
+.create-user-details {
+  background: rgba(218, 165, 32, 0.18) !important;
+}
+.ui.input.focus input, .ui.input input:focus {
+  border-color: rgba(218, 165, 32, 0.5) !important;
+}
+.custom-button {
+  color: white !important;
+  font-weight: normal !important;
+  background: none !important;
+}
+.custom-button:hover {
+  background: rgba(255,255,255,0.1) !important;
+}
+.x-button {
+  padding-right: 150px !important;
+}
+.x-button:hover {
+  background: none !important;
+  color: firebrick !important;
+  padding-right: 150px !important;
+}
+.custom-button-2 {
+  padding-left: 5px !important;
+  padding-right: 5px !important;
+  margin-right: -12px !important;
+  margin-left: 5px !important;
+}
+.custom-button-2:hover {
+  background-color: rgba(0,0,0,0) !important;
+  color: rgba(255,255,255,0.5) !important;
 }

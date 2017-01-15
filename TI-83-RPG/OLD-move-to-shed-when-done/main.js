@@ -119,7 +119,7 @@ pubnub.subscribe({
     message : function (testdata) {
         console.log("Message Received.", testdata)
     },
-    // connect : pub // This calls a function after subscribe sucessfull
+    connect : pub // This calls a function after subscribe sucessfull
 })
 
 var returnData; //
@@ -127,10 +127,10 @@ var returnData; //
 pubnub.history({
     channel : 'testdata',
     callback : function(m){
-        console.log('hist,..',m)
-        returnData = m[0][0];
+        console.log('h=Hist,..',m)
+        returnData = m;
     },
-    count : 1, // 100 is the default
+    count : 100, // 100 is the default
     reverse : false // false is the default
 });
 
@@ -143,4 +143,4 @@ function pub(data) {
         }
     })
 }
-// pub(t);
+//pub(t);
