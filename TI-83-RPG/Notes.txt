@@ -1,5 +1,7 @@
 CURRENT NOTES:
 
+- I think I may have installed the semantic lib wrong by just placing it in the file. Think i need to run
+>>> npm install semantic-ui
 - Man.... looking at how in the index.html page, we're calling the files locally, but maybe href vs src. maybe we dont' actually need to host these files... test ... 
 - checkout base-templete.html in mf2. Looks like they use a type of "ALL" files loaded in folder
 - - ^^^ may be a way to condense code base on index.html?
