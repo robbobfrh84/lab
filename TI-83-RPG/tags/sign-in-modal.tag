@@ -11,7 +11,7 @@
     <h1 class="ui center aligned header"> Sign In </h1>
     <div class="ui center aligned header">
       <div class='ui input'>
-        <input id='userName' class='custom-inverted-input create-user-details' placeholder='UserName...' onkeyup={ changeInputField }></input>
+        <input id='userName' class='custom-inverted-input create-user-details' placeholder='Username or Email...' onkeyup={ changeInputField }></input>
       </div>
     </div>
     <div class="ui center aligned header">

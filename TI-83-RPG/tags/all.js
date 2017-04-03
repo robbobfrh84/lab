@@ -11,7 +11,7 @@ riot.tag2('main', '<svg xmlns="http://www.w3.org/2000/svg" id="universe" width="
 
 });
 
-riot.tag2('sign-in-modal', '<div class="ui brown inverted button" onclick="{showMore}">Sign In</div> <div class="ui basic modal"> <div class="ui right aligned header"> <div class="actions"> <div class="ui red deny button custom-button x-button"> <i class="remove icon"></i> </div> </div> </div> <h1 class="ui center aligned header"> Sign In </h1> <div class="ui center aligned header"> <div class="ui input"> <input id="userName" class="custom-inverted-input create-user-details" placeholder="UserName..." onkeyup="{changeInputField}"></input> </div> </div> <div class="ui center aligned header"> <div class="ui input"> <input id="password" type="password" class="custom-inverted-input" placeholder="Password..." onkeyup="{login}"></input> </div> </div> <div class="ui center aligned header"> <div class="ui green ok inverted button" onclick="{login}">Go</div> </div> <br> <div class="ui center aligned header"> <div class="actions"> <div class="ui deny button big custom-button" onclick="{openSignUp}"> <i class="large globe icon"></i> Don\'t have an account? &nbsp;&nbsp; Sign Up </div> </div> </div> </div>', '', '', function(opts) {
+riot.tag2('sign-in-modal', '<div class="ui brown inverted button" onclick="{showMore}">Sign In</div> <div class="ui basic modal"> <div class="ui right aligned header"> <div class="actions"> <div class="ui red deny button custom-button x-button"> <i class="remove icon"></i> </div> </div> </div> <h1 class="ui center aligned header"> Sign In </h1> <div class="ui center aligned header"> <div class="ui input"> <input id="userName" class="custom-inverted-input create-user-details" placeholder="Username or Email..." onkeyup="{changeInputField}"></input> </div> </div> <div class="ui center aligned header"> <div class="ui input"> <input id="password" type="password" class="custom-inverted-input" placeholder="Password..." onkeyup="{login}"></input> </div> </div> <div class="ui center aligned header"> <div class="ui green ok inverted button" onclick="{login}">Go</div> </div> <br> <div class="ui center aligned header"> <div class="actions"> <div class="ui deny button big custom-button" onclick="{openSignUp}"> <i class="large globe icon"></i> Don\'t have an account? &nbsp;&nbsp; Sign Up </div> </div> </div> </div>', '', '', function(opts) {
 
   this.on('mount', function(){
     this.button = $('.ui.basic.modal', this.root);
@@ -45,7 +45,7 @@ riot.tag2('sign-in-modal', '<div class="ui brown inverted button" onclick="{show
 
 });
 
-riot.tag2('sign-up-modal', '<div class="ui button custom-button custom-button-2" onclick="{showMore}">Sign Up</div> <div id="signUpModal" class="ui basic modal"> <div class="ui right aligned header"> <div class="actions"> <div class="ui red deny button custom-button x-button"> <i class="remove icon"></i> </div> </div> </div> <h1 class="ui center aligned header"> Create New Account </h1> <div class="ui center aligned header"> <div class="ui input"> <input id="enterEmail" class="custom-inverted-input create-email-details" placeholder="Enter Email..." onkeyup="{changeInputField}"></input> </div> </div> <div class="ui center aligned header"> <div class="ui input"> <input id="enterUserName" class="custom-inverted-input create-user-details" placeholder="UserName..." onkeyup="{changeInputField}"></input> </div> </div> <br> <div class="ui center aligned header"> <div class="ui input"> <input id="enterPassword" type="password" class="custom-inverted-input" placeholder="Enter Password" onkeyup="{changeInputField}"></input> </div> </div> <div class="ui center aligned header"> <div class="ui input"> <input id="reEnterPassword" type="password" class="custom-inverted-input" placeholder="Re-Enter Password" onkeyup="{requestAccount}"></input> </div> </div> <div class="ui center aligned header"> <div class="ui green ok inverted button" onclick="{requestAccont}">Go</div> </div> <br> </div>', '', '', function(opts) {
+riot.tag2('sign-up-modal', '<div class="ui tiny button custom-button custom-button-2" onclick="{showMore}">Sign Up</div> <div id="signUpModal" class="ui basic modal"> <div class="ui right aligned header"> <div class="actions"> <div class="ui red deny button custom-button x-button"> <i class="remove icon"></i> </div> </div> </div> <h1 class="ui center aligned header"> Create New Account </h1> <div class="ui center aligned header"> <div class="ui input"> <input id="enterEmail" class="custom-inverted-input create-email-details" placeholder="Enter Email..." onkeyup="{changeInputField}"></input> </div> </div> <div class="ui center aligned header"> <div class="ui input"> <input id="enterUserName" class="custom-inverted-input create-user-details" placeholder="UserName..." onkeyup="{changeInputField}"></input> </div> </div> <br> <div class="ui center aligned header"> <div class="ui input"> <input id="enterPassword" type="password" class="custom-inverted-input" placeholder="Enter Password" onkeyup="{changeInputField}"></input> </div> </div> <div class="ui center aligned header"> <div class="ui input"> <input id="reEnterPassword" type="password" class="custom-inverted-input" placeholder="Re-Enter Password" onkeyup="{requestAccount}"></input> </div> </div> <div class="ui center aligned header"> <div class="ui green ok inverted button" onclick="{requestAccont}">Go</div> </div> <br> </div>', '', '', function(opts) {
 
   this.on('mount', function(){
     this.button = $('.ui.basic.modal', this.root);
@@ -60,12 +60,14 @@ riot.tag2('sign-up-modal', '<div class="ui button custom-button custom-button-2"
       this.pass2 = reEnterPassword.value;
       console.log('Email:',this.email,'UserName:',this.userName);
       console.log('UserName:',this.pass1,'Pass:',this.pass2);
-      var accountRequest = {
+
+      accounts.users = {
           userName : this.userName,
           email : this.email,
           pass1 : this.pass1
       }
-      publish(accountRequest ,'accounts')
+      console.log(accounts);
+      putMyJson(accounts, userUri)
     }
   }.bind(this)
 

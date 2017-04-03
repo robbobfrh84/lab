@@ -63,7 +63,7 @@
 
     var lastPage = this.landingPage
 
-    pageSwap(e){
+    pageSwap(e){ // CONSIDER using riot to control pages within this Single Page App to replace Ids. could use show={ } and build an object that switches control between pages. 
       lastPage.className = 'item hidden';
       var newPage = document.getElementById(e);
       newPage.className = 'item';

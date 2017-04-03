@@ -1,5 +1,5 @@
 <sign-up-modal>
-  <div class="ui button custom-button custom-button-2" onclick={ showMore }>Sign Up</div>
+  <div class="ui tiny button custom-button custom-button-2" onclick={ showMore }>Sign Up</div>
   <div id='signUpModal' class="ui basic modal">
     <div class="ui right aligned header">
       <div class="actions">
@@ -50,12 +50,15 @@
       this.pass2 = reEnterPassword.value;
       console.log('Email:',this.email,'UserName:',this.userName);
       console.log('UserName:',this.pass1,'Pass:',this.pass2);
-      var accountRequest = {
+
+      //Should be a check for if you've got the API
+      accounts.users = {
           userName : this.userName,
           email : this.email,
           pass1 : this.pass1
       }
-      publish(accountRequest ,'accounts')
+      console.log(accounts);
+      putMyJson(accounts, userUri)
     }
   }
 

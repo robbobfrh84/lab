@@ -1,34 +1,34 @@
-CURRENT NOTES:
-
-- I think I may have installed the semantic lib wrong by just placing it in the file. Think i need to run
->>> npm install semantic-ui
-- Man.... looking at how in the index.html page, we're calling the files locally, but maybe href vs src. maybe we dont' actually need to host these files... test ... 
-- checkout base-templete.html in mf2. Looks like they use a type of "ALL" files loaded in folder
-- - ^^^ may be a way to condense code base on index.html?
-
-TO DO:
+***** Work Flow / Todos *****
 
 - Get data-someValue= { 'hello' } figured out. WHY? can you pass dynamic values the way you're doing it??? I know you can like this ...
 - review JS, remove junk/examples.
 - Can we condense the code by some *All in folder for Riot & semantic files in index.html????
 - Fuck it! Let's just make a shitty unsecure login with pubnub. AND/OR: take blocks tutorial to see if you can handle it there.
-
-
 - Create Dongeon master's in global.
 - Put Dongeon Master's link to view on landingPage.
 - Create view fighter page with hard coded data.
 - - Included add fighter button
 - - create modal to pop up for both button on view fighter page AND dropdown.
 
+***** CURRENT THOUGHTS/NOTES *****
+
+- convert get/post/put requests to vanella JS.
+- refactor sign in to be a form to remove need of id.
+- I think I may have installed the semantic lib wrong by just placing it in the file. Think i need to run
+>>> npm install semantic-ui
+- Man.... looking at how in the index.html page, we're calling the files locally, but maybe href vs src. maybe we dont' actually need to host these files... test ...
+- checkout base-templete.html in mf2. Looks like they use a type of "ALL" files loaded in folder
+- - ^^^ may be a way to condense code base on index.html?
+
 
 *** Links ***
+- Google API Client Libraries (javaScript): https://developers.google.com/api-client-library/javascript/start/start-js
 - Link to a guide that MIGHT be related to front end login's
 https://rethinkdb.com/blog/rethinkdb-pubnub/
 -
 
-*** OTHER NOTES ***
 
---- TERMINAL GUIDE TO RIOT.JS ---
+***** TERMINAL GUIDE TO RIOT.JS *****
 
 - cd to tags folder inside
 - cd desktop
