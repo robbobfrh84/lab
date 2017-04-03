@@ -1,0 +1,79 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title> HTML For </title>
+<style media="screen">
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 5px;
+    text-align: left;
+}
+.large-width {
+  width: 200px;
+}
+.large-height {
+  height: 25px;
+}
+.bg1 {
+  background-color: rgba(0,0,0,0.05);
+}
+.bg2 {
+  background-color: rgba(0,0,0,0.1);
+}
+.hide {
+  visibility: hidden;
+}
+</style>
+</head>
+  <body>
+    <table>
+      <caption> Static Table </caption>
+      <tr>
+        <td class="hide"></td>
+        <td colspan="2">Attributes</td>
+        <td colspan="2">Stats</td>
+      </tr>
+      <tr class="bg2">
+        <th class="large-width">Name</th>
+        <th>Speed</th>
+        <th>Strangth</th>
+        <th>Age</th>
+        <th>Gender</th>
+      </tr>
+      <tr>
+        <td>Ken</td>
+        <td>45</td>
+        <td>23</td>
+        <td>34</td>
+        <td>m</td>
+      </tr>
+      <tr>
+        <td>Barby</td>
+        <td>50</td>
+        <td>23</td>
+        <td>26</td>
+        <td>f</td>
+      </tr>
+      <tr class="large-height bg1">
+        <td>Average</td><td >?</td><td>?</td><td>?</td><td>?</td>
+      </tr>
+    </table>
+    <br>
+    <table>
+      <caption> Dynamic JS Object Table </caption>
+      <tr>
+        <td class="hide"></td>
+        <td colspan="2">Attributes</td>
+        <td colspan="2">Stats</td>
+      </tr>
+      <td></td><td></td><td></td><td></td>
+    </table>
+  </html>
+  </body>
+
+<script src="API_Tables.js"></script>
+
+<!-- *** NOTES ***
+- build satic version of your goal!
+-- Give Specific
+-->

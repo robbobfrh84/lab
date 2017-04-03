@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Multi HTML</title>
+    <style media="screen"> body { background-image: url("tx2.png"); } </style>
+  </head>
+  <body>
+    <h1 style="text-align: left;">HTML Imports</h1>
+
+    <div>
+      <a href='Default.md'> A Div </a>
+      <link rel="import" href="another.html"/>
+    </div>
+
+  </body>
+  <script type="text/javascript">
+    var doc= document.querySelector('link[rel="import"]').import;
+    console.log(doc)
+  </script>
+</html>
+
+<!--
+
+Work Flow ....
+- 
+
+
+Set up raw bones for…
+	- Embeded HTML tags
+		- Test structure ( index —> <page1></page1>
+						<page2> <page3> </page3> </page2>
+
+	- JS for conditional html tags x-if=“ … “
+	- JS for HTML arrays
+	- JS for HTML objects
+	- JS for dynic vars x{ … }x
+	- Basic Pass vars to
+	- Basic Pass vars Back
+	- basic api func (CRUD)
+
+——— dynamic .html IDEAS ———
+
+	- x-if=“ …  “
+	- x-each=“ … ”
+	- inside html tags for vars >>> 	x{ myCoolVar }x
+-->
