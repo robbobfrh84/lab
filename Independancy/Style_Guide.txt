@@ -1,0 +1,17 @@
+———best practices sheet ———
+folders / files ( Spaces_With_Underscores_No_rule_on_CAPITOLIZAtion)
+1 tab (2 spaces)
+
+html - double quotes (get used to using the auto cuz it forces doubles.
+css - class / ids (marching-ants-no-caps)
+css - } close braces stand alone, NO empty lines, even between <style></style>
+js - single quotes
+js - 1 empty line between functions and <script></scripts>.
+js - NO ;
+js - ????? what do we do about pig pens { } now that for/while don’t need them ONLY with one sub function…?
+js - ????? spaces on both sides, or one side for operators and {[(<>)]}
+
+Atom best practices:
+- ok so this is very general. but…
+	- if code overflows into right side of screen at HALF MacBook air width, refactor….
+	- WHY? its a generic though that’ll mean code looks better for PAIR PROGRAMMING

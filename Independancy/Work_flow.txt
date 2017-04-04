@@ -1,0 +1,24 @@
+1. lab
+2. Stage
+3. Breakdown
+4. Example
+5. Add
+6. ? Snippets
+
+1. lab
+- Create working example, style if you like, cuz you’ll 3. breakdown later
+
+2. Stage
+- when it works as you want, clean it up, especially the function that will be the only thing used and put into !_Stage_For-Library
+
+3. Breakdown
+- Review your work. better to let it sit for a bit, then create the file with specific .js name and place ONLY the function
+
+4. Example
+-
+
+5. Add
+- Create well named js file and add to appropriate place in Independancy_Project_Prototype
+
+6. ?
+- It might be really cool … create a more? prefix Snippets addition (make snippet for EVERY function in the your lib. Why? you may need to see wha the params are, so just doing  more? someFunction() will be really nice as to not have to nevegate to the folder and checkout the actual file.
