@@ -24,9 +24,10 @@
       <h5> No Space| -ind- |No Space </h5>
     </div> -->
 
-    <!-- <div for="i in obj" class='inline'> Dynamic Object
-      <h3> Country </h3>
-    </div> -->
+    <div for="i of obj" class='inline'>
+      <div indices="0"> Dynamic Object </div>
+      <h3> i </h3>
+    </div>
 
     <!-- <div for="_i_ of arr3" class='inline' >
       <div indices="0"> Dynamic Array #2 </div>
@@ -35,18 +36,28 @@
       <button indices="x2" > Static Data _i_ </button>
       <hr indices="0 2 :2 :0">
       ^^^ 0th index and 2nd, 2nd index to last and last
+      <div for="t of arr">
+        <p> G3: _i_ t</p>
+      </div>
     </div> -->
 
-    <div class="inline"> Basic Dynamic Array
+    <!-- <div class="inline"> Nested Array
       <div for="i of arr4" >
-        <div indices="0"> nested... </div>
         <h3> G1: i </h3>
-        <div>
-          <h4> G2: static </h4>
-          <h4> G2: i </h4>
+        <div for="j of arr5">
+          <h4> G2: i j </h4>
+          <div for="t of arr">
+            <p> ___G3: i j t</p>
+          </div>
+        </div>
+        <div for="j of arr5">
+          <h4> G2-2: i j </h4>
+          <div for="t of arr">
+            <p> ___G3-2: i j t</p>
+          </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
   </body>
 </html>
