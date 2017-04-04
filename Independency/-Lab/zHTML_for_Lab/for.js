@@ -3,23 +3,28 @@ class htmlFor {
   main (Obj, startTime = window.performance.now()) {
     var elements = document.querySelectorAll('[for]') // Grabs All tags with 'for' element
     for (let i = elements.length-1; i >= 0; i--) { // Loop through all tags with 'for' element. Needs to be in reverse cuz nested loops need to run first.
-      const [ node, condition, parent ] = elements[i].getAttribute('for').split(' ') // Grab 'for' elm string, split and declare node(ind/arr or key/obj), parent is html var
-      this.checkTags(Obj, elements[i], node, condition, parent)
+      let [ node, cnd, parent ] = elements[i].getAttribute('for').split(' ') // Grab 'for' elm string, split and declare node(ind/arr or key/obj), parent is html var
+      if (['in', 'of'].includes(cnd)) {
+        this.checkTags(Obj, elements[i], node, cnd, parent)
+      }
     }
     console.log((window.performance.now() - startTime) + ' milliseconds')
   }
 
-  checkTags (Obj, elm, node, condition, parent) {
+  checkTags (Obj, elm, node, cnd, parent) {
     let tags = elm.childNodes.length // Snatch this value as a seperate because length of childnodes will change dynamically, creating INFINATE LOOPS OF PERIL!
     for (const i in Obj[parent]) { // Loop through all indices/keys within the Object
-      //---------
-      console.log(elm, parent, i, Obj[parent][i])
-      //----------
       for (let j = 0; j < tags; j++) { // loop through all tags within element.
         let tag = elm.childNodes[j]
         if (tag.contentEditable) { // there's extra DOM stuff we dont' need, This will only duplicate tags we created.
-          let textArr = this.spacing(tag.innerHTML.split(' '), node, Obj[parent][i])
-          if (this.show(tag, i, Obj[parent])) { // returns bool, if we should show this tag, this.show also does the parsing for dynamic vars.
+
+          const [ val, ind, key ] = node.split(',')
+          console.log(ind, val, key)
+          const jVal = cnd === 'of' ? Obj[parent][i] : i
+          let textArr = this.place(tag.innerHTML.split(' '), ind, jVal) // here's where the InnerHTML text is swapped to match JS variables.
+          textArr = this.place(textArr, val, Obj[parent][i]) // here's where the InnerHTML text is swapped to match JS variables.
+          // const textArr = this.place(tag.innerHTML.split(' '), node, jVal) // here's where the InnerHTML text is swapped to match JS variables.
+          if (this.showAtIndices(tag, i, Obj[parent])) { // returns bool, if in the HTML indices attribute declares we shouldn't show this..
             this.newTag(elm, tag, textArr.join(' '))
           }
         }
@@ -34,7 +39,7 @@ class htmlFor {
     parent.appendChild(child)
   }
 
-  show (tag, i, l, indices) {
+  showAtIndices (tag, i, l, indices) {
     if (tag.getAttribute('indices')) indices = tag.getAttribute('indices').split(' ') // If the tag has the custom indices attribute, catch it as array here.
     if (!indices) return true // if the tag doesn't have that attr, return 1 and make it.
     for (const j of indices) {
@@ -45,7 +50,7 @@ class htmlFor {
     return (indices.includes(i) || indices.includes(':'+(l.length-i-1))) // return true if indices attribute contains index or reveerse index :N order
   }
 
-  spacing (arr, key, jVal) {
+  place (arr, key, jVal) {
     for (const w in arr) {
       if (arr[w] === key) {
         arr[w] = jVal
@@ -60,6 +65,7 @@ class htmlFor {
         arr.splice(w, 2, jVal + arr[parseInt(w)+1])
       }
     }
+    console.log('bot', arr)
     return arr
   }
 }
@@ -83,15 +89,15 @@ class htmlFor {
 
 /********** ToDo **********
 - Objects
-- double check is 'of' the correct condition, also you don't have 'in'(or whichever the other is. )
-- remove global vars ... ? but why, i should understand why (closures)
+  - for="k,v of obj" || for="value,key,index of obj"
+  - the 'of' doesn't have a function/use, have yet to impliment 'in'
+  - moving forward with dynamic vars ( js="x = arr" ), we'll wanna loop
 - checkout the spaces function again see if it can be a switch.
 - I think it's important to control the html vars in the .html page. So add that functionality.
 - Clean, Note, convert more and simpler examples.
-// ADD: arr.substr(index) It'll chop off first index,, not zeroth.
-// ADD: string.parseInt(stringLiteralAsNumber)
 **********/
 
 /********** WHAT TO SAVE FOR LATER ? **********
-- handing dynamic html tags within attributes like class or id.
+- handing dynamic html tags within attributes like class or id, && || innerhtml {{ poop }}. Do I want to use this same {{ poop }} for HTML_for_?
+- QUESTION: (closures)- remove global vars ... ? but why, i should understand why (closures)
 **********/

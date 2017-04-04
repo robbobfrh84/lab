@@ -22,7 +22,6 @@ MY quotes / terms / ideas
 	- Write a Node.js program that watches your folder, and AUTOmatically adds the function to 	  your library
 
 ——— Tech Purpose / Goal ———
-
 - To create a resource for building SPAs with ONLY… HTML (+Canvas)  / CSS / JS(ES6)
 - backend ?
 - Will included
