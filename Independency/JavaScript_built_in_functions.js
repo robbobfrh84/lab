@@ -5,6 +5,8 @@ arr.join(' ') // >String. joins array with spaces between indices.
 
 /******** DataTypes *******/
 parseInt(stringLiteralAsNumber) // >Intiger. converts string num to intiger.
+int.toString() // String. converts int to String
+
 
 /******** DOM interactions *******/
 document.querySelectorAll('[for]') // >Array of DOM objects with for attribute
