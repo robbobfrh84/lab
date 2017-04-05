@@ -45,9 +45,3 @@ MY quotes / terms / ideas
 	- Basic Pass vars to
 	- Basic Pass vars Back
 	- basic api func (CRUD)
-
-——— dynamic .html IDEAS ———
-
-	- x-if=“ …  “
-	- x-each=“ … ”
-	- inside html tags for vars >>> 	x{ myCoolVar }x

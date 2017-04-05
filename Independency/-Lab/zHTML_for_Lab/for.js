@@ -10,7 +10,7 @@ class htmlFor {
   }
 
   checkTags (Obj, elm, node, parent, [ val, key, ind ] = node.split(',')) {
-    let tags = elm.childNodes.length // Snatch this value as a seperate because length of childnodes will change dynamically, creating INFINATE LOOPS OF PERIL!
+    const tags = elm.childNodes.length // Snatch this value as a seperate because length of childnodes will change dynamically, creating INFINATE LOOPS OF PERIL!
     for (const i in Obj[parent]) { // Loop through all indices/keys within the Object
       for (let j = 0; j < tags; j++) { // loop through all tags within element.
         if (elm.childNodes[j].contentEditable) {
@@ -21,9 +21,8 @@ class htmlFor {
     for (let i = 0; i < tags; i++) elm.removeChild(elm.childNodes[0])
   }
 
-  valueTypes(elm, i, tag, val, key, ind, jVal) {
+  valueTypes(elm, i, tag, val, key, ind, jVal, textArr) {
     const startArr = tag.innerHTML.split(' ')
-    let textArr;
     if (val) textArr = this.place(startArr, val, jVal[i]) // here's where the InnerHTML text is swapped to match JS variables.
     if (key) textArr = this.place(startArr, key, i)
     if (ind) textArr = this.place(startArr, ind, Object.keys(jVal).indexOf(i))
@@ -35,14 +34,11 @@ class htmlFor {
   place (arr, key, jVal) {
     for (const w in arr) {
       if (arr[w] === key) {
-        arr[w] = jVal
-        continue
+        arr[w] = jVal; continue
       } else if (arr[w] === '-' + key + '-') {
-        arr.splice(w-1, 3, arr[w-1] + jVal + arr[parseInt(w)+1])
-        continue
+        arr.splice(w-1, 3, arr[w-1] + jVal + arr[parseInt(w)+1]); continue
       } else if (arr[w] === '-' + key ) {
-        arr.splice(w-1, 2, arr[w-1] + jVal)
-        continue
+        arr.splice(w-1, 2, arr[w-1] + jVal); continue
       } else if (arr[w] === key + '-') {
         arr.splice(w, 2, jVal + arr[parseInt(w)+1])
       }
@@ -92,7 +88,6 @@ class htmlFor {
 /********** ToDo **********
 - Objects
   - for="k,v of obj" || for="value,key,index of obj"
-  - the 'of' doesn't have a function/use, have yet to impliment 'in'
   - moving forward with dynamic vars ( js="x = arr" ), we'll wanna loop
 - checkout the spaces function again see if it can be a switch.
 - Prob should create attirutes for forIndex='i' & forKey='k'
@@ -102,6 +97,7 @@ class htmlFor {
 - Clean, Note, convert more and simpler examples.
 - !CHECK FIST & ADD: Object.keys(obj).indexOf(key)
 - !CHECK FIST & ADD: Array.isArray(obj) > returns false
+- create var.js > var="htmlVar == jsVar" (don't use dot n)
 **********/
 
 /********** WHAT TO SAVE FOR LATER ? **********

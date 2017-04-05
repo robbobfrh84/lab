@@ -20,5 +20,5 @@ parent.appendChild(newTag) // puts tag into DOM
 /******** RegExp *******/
 new RegExp(conditionArr.join('|')).test(toSearchThroughArr) // test is NOT poop in this.
 
-/******** RegExp *******/
+/******** quick functions *******/
 (function (){ console.log('will auto fire') })() // self-invoking function
