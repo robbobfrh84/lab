@@ -1,6 +1,18 @@
-class htmlFor {
+class htmlJS {
 
-  main (Obj, startTime = window.performance.now()) {
+  htmlVar (Obj) {
+    var elements = document.querySelectorAll('[var]') // Grabs All tags with 'var' element
+    console.log(elements)
+    // loop through 'var' attributes
+    // grab new var and key
+    for (const elm in elements) {
+      console.log(elm)
+    }
+    console.log(Obj.str)
+    console.log()
+  }
+
+  htmlFor (Obj, startTime = window.performance.now()) {
     var elements = document.querySelectorAll('[for]') // Grabs All tags with 'for' element
     for (let i = elements.length-1; i >= 0; i--) { // Loop through all tags with 'for' element. Needs to be in reverse cuz nested loops need to run first.
       let [ node, parent ] = elements[i].getAttribute('for').split(' ') // Grab 'for' elm string, split and declare node(ind/arr or key/obj), parent is html var
@@ -68,6 +80,8 @@ class htmlFor {
 
 (function (){
   var Obj = {
+    str: 'Hello Earthling!',
+    str2: 'Hello Alien!',
     arr: ['1st', '2nd', '3rd'],
     arr2: ['purple', 'green', 'blue', 'orange', 'black', 'blue', 'pink', 'white'],
     arr3: ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight',
@@ -75,25 +89,38 @@ class htmlFor {
           'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty'],
     arr4: ['xXx', 'yYy'],
     arr5: ['nest1', 'nest2'],
-    obj: { Name: 'Tom', Age: '32', Height: '5'+"' "+'11"' },
+    obj: {
+      Name: 'Tom',
+      Age: '32',
+      Height: '5'+"' "+'11"'
+    },
     obj2: {
       Name: 'Tom',
-      Pets: { cats: 2, dogs: 1 },
+      Age: '32',
+      Pets: {
+        cats: 2,
+        dogs: 1
+      },
       array: ['a', 'b', 'c']
     }
   }
-  let h1 = new htmlFor
-  h1.main(Obj)
+  let h1 = new htmlJS
+  h1.htmlFor(Obj)
+  let h2 = new htmlJS
+  h2.htmlVar(Obj)
 })()
 
 /********** ToDo **********
+- declare js vars with var="Obj.arr[0]" < will be same or var="poo=Obj.arr[0]",
+- first. create new attr var='', just like for, and catch/match
+
+
+
 - ah shit. need to handle dot nodation handing... _i_.name[0]
   - a.) if not specify JSON
   - b.) I CONTROL this. easiest to split('.') add if last index === .
 - Give attributes index="ind" key="key"
 - checkout the spaces function again see if it can be a switch.
-- Prob should create attirutes for forIndex='i' & forKey='k'
-- declare js vars with var="Obj.arr[0]" < will be same or var="poo=Obj.arr[0]",
 - I think it's important to control the html vars in the .html page. So add that functionality.
 - Clean, Note, convert more and simpler examples.
 - !CHECK FIST & ADD: Object.keys(obj).indexOf(key)

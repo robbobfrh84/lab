@@ -1,56 +1,64 @@
 <!DOCTYPE html><html><head><meta charset="utf-8"><title> html for Arr </title>
-  <link rel="stylesheet" href="for.css">
+  <link rel="stylesheet" href="htmlJS.css">
 </head>
   <body>
 
+<!-- ++++++++++++++++++ Var +++++++++++++++++++++ -->
+
+    <div class="inline"> JS var Example
+      <h3 var="Obj.str=x"> x </h3>
+      <h3 var="Obj.str=y"> y </h3>
+
+    </div>
+
 <!-- ++++++++++++++++++ Arrays +++++++++++++++++++++ -->
 
-    <div class='inline'> Static example
+    <!-- <div class="inline"> Static example
       <h3> a </h3>
       <h3> b </h3>
       <h3> c </h3>
-    </div>
+    </div> -->
 
-    <div class="inline"> Dynamic Array (value)
+    <!-- <div class="inline"> Dynamic Array (value)
       <div for="v arr">
         <h3> v Place </h3>
       </div>
-    </div>
+    </div> -->
 
-    <div class="inline"> Dynamic Array (index)
+    <!-- <div class="inline"> Dynamic Array (index)
       <div for=",,i arr">
         <h3> Index is at i </h3>
       </div>
-    </div>
+    </div> -->
 
-    <div class="inline"> Array (value, ,index)
+    <!-- <div class="inline"> Array (value,,index)
       <div for="val,,ind arr">
         <h3> val is at ind </h3>
       </div>
-    </div>
+    </div> -->
 
-    <div for="v arr" class='inline'>
+    <!-- <div for="v arr" class="inline">
       <div indices="0"> Addressing Spaces </div>
       <hr>
       <p> v -multi- v </p>
       <h5> Space v- No Space </h5>
       <h5> No Space | -v | Space </h5>
       <h5> No Space| -v- |No Space </h5>
-    </div>
+    </div> -->
 
-    <div for="_v_ arr3" class='inline'>
+    <!-- <div for="_v_ arr3" class="inline">
       <div indices="0"> Dynamic Array #2 </div>
       <h3> _v_ multiIndex _v_ </h3>
-      <p indices='s4 e11'> Start@4 End @11 </p>
+      <p indices="s4 e11"> Start@4 End @11 </p>
       <button indices="x2" > Static Data _v_ </button>
       <hr indices="0 2 :2 :0">
       ^^^ 0th index and 2nd, 2nd index to last and last
       <div for="t arr">
         <p> G3: _v_ t</p>
       </div>
-    </div>
+    </div> -->
 
-    <div class="inline"> Nested Array
+    <!-- <div class="inline"> Nested Array
       <div for="v arr4">
         <h3> G1: v </h3>
         <div for="j arr5">
@@ -66,24 +74,31 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
 <!-- ++++++++++++++++++ OBJECTS +++++++++++++++++++++ -->
 
-    <div class="inline"> Basic Dynamic Object
+    <!-- <div class="inline"> Basic Dynamic Object
       <div for="v,k obj" >
         <p> k- : </p>
         <h3> v </h3>
       </div>
-    </div>
+    </div> -->
 
-    <div class="inline"> Basic Dynamic Object
+    <!-- <div class="inline"> Basic Dynamic Object
       <div for="v,k,i obj" >
-        <div indices="0"> do indices work? </div>
+        <div indices="0"> for=(val,key,ind  obj) </div>
         <h3> k- : v [ -i- ]</h3>
       </div>
-    </div>
+    </div> -->
+
+    <!-- <div class="inline"> Embeded Data
+      <div for="v,k,i obj2" >
+        <div indices="0"> for=(val,key,ind  obj) </div>
+        <h3> k- : v [ -i- ]</h3>
+      </div>
+    </div> -->
 
   </body>
 </html>
-<script src='for.js'></script>
+<script src='htmlJS.js'></script>
