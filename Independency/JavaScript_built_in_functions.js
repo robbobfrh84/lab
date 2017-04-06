@@ -1,12 +1,18 @@
-/******** String Parsing *******/
+/******** String/Arr Parsing *******/
 arr.includes(value) // >Booloan. If the value is represented in the array.
 arrStr.substr(index+) // >Arr/string. remove the index, oddly, it's not a 0th index, but first.
 arr.join(' ') // >String. joins array with spaces between indices.
+str.split('-') // >Arr. Splits str at -
+str.split(/[.\[\]]/) // >Arr removes . [ ]
+"Obj.str2[1].more".split(/[.\[\]]/).filter(Boolean) // >Arr removes . [ ] But! with this string it'll leave a dead "", the filter removes that. 
 
-/******** DataTypes *******/
+/******** DataTypes (changing / descovering)*******/
 parseInt(stringLiteralAsNumber) // >Intiger. converts string num to intiger.
-int.toString() // String. converts int to String
+int.toString() // >String. converts int to String
+Array.isArray(obj) // >Bool. wheather or not it's an array or Object. WHY NOT? typeOf, because Arr & Obj both return as Obj's
 
+/******** Objects *******/
+Object.keys(obj).indexOf('key') // >Intiger. find the index of a key within an object.
 
 /******** DOM interactions *******/
 document.querySelectorAll('[for]') // >Array of DOM objects with for attribute
@@ -18,7 +24,7 @@ newTag.appendChild(textElm) // puts text elm inside new tag
 parent.appendChild(newTag) // puts tag into DOM
 
 /******** RegExp *******/
-new RegExp(conditionArr.join('|')).test(toSearchThroughArr) // test is NOT poop in this.
+new RegExp(aBunchOfcharsArr.join('|')).test(toSearchThroughArr) // >Bool if ALL conditions are met. test() is NOT poop in this.
 
 /******** quick functions *******/
 (function (){ console.log('will auto fire') })() // self-invoking function

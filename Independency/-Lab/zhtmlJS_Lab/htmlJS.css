@@ -1,5 +1,6 @@
 body {
-  background-image: url("darkGrayGainy.png");
+  background-color: #555;
+  /*background-image: url("darkGrayGainy.png");*/
 }
 h3, h5, .inline {
   background-color: cornflowerblue;
@@ -19,4 +20,7 @@ h4, p {
   display: inline-block;
   vertical-align: top;
   box-shadow: 2px 2px 2px #333;
+}
+.testy {
+  background-color: red;
 }

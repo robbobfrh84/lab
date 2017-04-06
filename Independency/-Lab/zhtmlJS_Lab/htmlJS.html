@@ -6,47 +6,80 @@
 <!-- ++++++++++++++++++ Var +++++++++++++++++++++ -->
 
     <div class="inline"> JS var Example
-      <h3 var="Obj.str=x"> x </h3>
-      <h3 var="Obj.str=y"> y </h3>
-
+      <div> var="x str" </div>
+      <div var="x str">
+        <h3> x </h3>
+      </div>
+      <div> var="y obj2.arr[1].more" </div>
+      <div var="y obj2.arr[1].more">
+        <h3> y </h3>
+        <div var="z str2">
+          <p> z </p>
+        </div>
+      </div>
     </div>
+
+    <div class="inline"> var+far embeded
+      <div var="poop arr2[2]">
+        <h3> poop </h3>
+        <div var="y obj2.arr[1].more">
+          <h3 style='background-color: green;'> y </h3>
+          <div var="a arr[2]">
+            <p> z </p>
+            <div for="v arr">
+              <h3> v Place </h3>
+              <div var="ft arr2[3]">
+                <p> ft </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- <div var="Obj.str=x, Obj.str2=y"> x
+      <h3> y </h3>
+      <h3> x y </h3>
+      <p var="z Obj.str2"> z </p>
+    </div> -->
 
 <!-- ++++++++++++++++++ Arrays +++++++++++++++++++++ -->
 
-    <!-- <div class="inline"> Static example
+    <div class="inline"> Static example
       <h3> a </h3>
       <h3> b </h3>
       <h3> c </h3>
-    </div> -->
+    </div>
 
-    <!-- <div class="inline"> Dynamic Array (value)
+    <div class="inline"> Dynamic Array (value)
       <div for="v arr">
         <h3> v Place </h3>
       </div>
-    </div> -->
+    </div>
 
-    <!-- <div class="inline"> Dynamic Array (index)
+    <div class="inline"> Dynamic Array (index)
       <div for=",,i arr">
         <h3> Index is at i </h3>
       </div>
-    </div> -->
+    </div>
 
-    <!-- <div class="inline"> Array (value,,index)
+    <div class="inline"> Array (value,,index)
       <div for="val,,ind arr">
         <h3> val is at ind </h3>
       </div>
-    </div> -->
+    </div>
 
-    <!-- <div for="v arr" class="inline">
+    <div for="v arr" class="inline">
       <div indices="0"> Addressing Spaces </div>
       <hr>
       <p> v -multi- v </p>
-      <h5> Space v- No Space </h5>
+      <h5> Space | v- | No Space </h5>
       <h5> No Space | -v | Space </h5>
-      <h5> No Space| -v- |No Space </h5>
-    </div> -->
+      <h5> No Space | -v- | No Space </h5>
+    </div>
 
-    <!-- <div for="_v_ arr3" class="inline">
+    <div for="_v_ arr3" class="inline">
       <div indices="0"> Dynamic Array #2 </div>
       <h3> _v_ multiIndex _v_ </h3>
       <p indices="s4 e11"> Start@4 End @11 </p>
@@ -56,9 +89,9 @@
       <div for="t arr">
         <p> G3: _v_ t</p>
       </div>
-    </div> -->
+    </div>
 
-    <!-- <div class="inline"> Nested Array
+    <div class="inline"> Nested Array
       <div for="v arr4">
         <h3> G1: v </h3>
         <div for="j arr5">
@@ -74,30 +107,30 @@
           </div>
         </div>
       </div>
-    </div> -->
+    </div>
 
 <!-- ++++++++++++++++++ OBJECTS +++++++++++++++++++++ -->
 
-    <!-- <div class="inline"> Basic Dynamic Object
+    <div class="inline"> Basic Dynamic Object
       <div for="v,k obj" >
         <p> k- : </p>
         <h3> v </h3>
       </div>
-    </div> -->
+    </div>
 
-    <!-- <div class="inline"> Basic Dynamic Object
+    <div class="inline"> Basic Dynamic Object
       <div for="v,k,i obj" >
         <div indices="0"> for=(val,key,ind  obj) </div>
         <h3> k- : v [ -i- ]</h3>
       </div>
-    </div> -->
+    </div>
 
-    <!-- <div class="inline"> Embeded Data
+    <div class="inline"> Embeded Data
       <div for="v,k,i obj2" >
         <div indices="0"> for=(val,key,ind  obj) </div>
         <h3> k- : v [ -i- ]</h3>
       </div>
-    </div> -->
+    </div>
 
   </body>
 </html>

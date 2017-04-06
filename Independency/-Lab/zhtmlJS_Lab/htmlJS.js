@@ -1,32 +1,45 @@
 class htmlJS {
 
   htmlVar (Obj) {
-    var elements = document.querySelectorAll('[var]') // Grabs All tags with 'var' element
-    console.log(elements)
-    // loop through 'var' attributes
-    // grab new var and key
-    for (const elm in elements) {
-      console.log(elm)
+    const elm = document.querySelectorAll('[var]') // Grabs All tags with 'var' element
+    console.log(elm)
+    for (let i = elm.length-1; i >= 0; i--) {
+      let [ hVar, jVar ] = elm[i].getAttribute('var').split(' ') // Grab 'var' elm string. html var name = JS var
+      const tags = elm[i].childNodes.length // Snatch this value as a seperate because length of childnodes will change dynamically, creating INFINATE LOOPS OF PERIL!
+      //
+      const pVar = jVar.split(/[.\[\]]/).filter(Boolean)
+      jVar = Obj
+      for (const p of pVar) {
+        jVar = jVar[p]
+      } // ^^^ ES6 inline fuc here?
+      // >>> MULIPLE vars here: we'll want to loop each
+      for (let j = 0; j < tags; j++) { // loop through all tags within element.
+        if (elm[i].childNodes[j].contentEditable) { // there's extra DOM stuff we dont' need, This will only duplicate tags we created.
+          const tag = elm[i].childNodes[j]
+          const textArr = this.place(tag.innerHTML.split(' '), hVar, jVar) // here's where the InnerHTML text is swapped to match JS variables.
+          // this.newTag(elm[i], tag, textArr.join(' '), false)
+          tag.innerHTML = textArr.join(' ')
+        }
+      }
+      // for (let ii = 0; ii < tags; ii++) elm[i].removeChild(elm[i].childNodes[0])
     }
-    console.log(Obj.str)
-    console.log()
   }
 
-  htmlFor (Obj, startTime = window.performance.now()) {
-    var elements = document.querySelectorAll('[for]') // Grabs All tags with 'for' element
-    for (let i = elements.length-1; i >= 0; i--) { // Loop through all tags with 'for' element. Needs to be in reverse cuz nested loops need to run first.
-      let [ node, parent ] = elements[i].getAttribute('for').split(' ') // Grab 'for' elm string, split and declare node(ind/arr or key/obj), parent is html var
-      this.checkTags(Obj, elements[i], node, parent)
+  htmlFor (Obj) {
+    const elm = document.querySelectorAll('[for]') // Grabs All tags with 'for' element
+    for (let i = elm.length-1; i >= 0; i--) { // Loop through all tags with 'for' element. Needs to be in reverse cuz nested loops need to run first.
+      let [ node, parent ] = elm[i].getAttribute('for').split(' ') // Grab 'for' elm string, split and declare node(ind/arr or key/obj), parent is html var
+      this.checkTags(Obj, elm[i], node, parent)
     }
-    console.log((window.performance.now() - startTime) + ' milliseconds')
   }
 
   checkTags (Obj, elm, node, parent, [ val, key, ind ] = node.split(',')) {
     const tags = elm.childNodes.length // Snatch this value as a seperate because length of childnodes will change dynamically, creating INFINATE LOOPS OF PERIL!
     for (const i in Obj[parent]) { // Loop through all indices/keys within the Object
       for (let j = 0; j < tags; j++) { // loop through all tags within element.
-        if (elm.childNodes[j].contentEditable) {
-          this.valueTypes(elm, i, elm.childNodes[j], val, key, ind, Obj[parent]) // there's extra DOM stuff we dont' need, This will only duplicate tags we created.
+        let tag = elm.childNodes[j]
+        if (tag.contentEditable) { // there's extra DOM stuff we dont' need, This will only duplicate tags we created.
+          this.valueTypes(elm, i, tag, val, key, ind, Obj[parent])
         }
       }
     }
@@ -39,7 +52,7 @@ class htmlJS {
     if (key) textArr = this.place(startArr, key, i)
     if (ind) textArr = this.place(startArr, ind, Object.keys(jVal).indexOf(i))
     if (this.showAtIndices(tag, i, jVal)) { // returns bool, if in the HTML indices attribute declares we shouldn't show this..
-      this.newTag(elm, tag, textArr.join(' '))
+      this.newTag(elm, tag, textArr.join(' '), true)
     }
   }
 
@@ -70,18 +83,40 @@ class htmlJS {
     return (indices.includes(i) || indices.includes(':'+(l.length-i-1))) // return true if indices attribute contains index or reveerse index :N order
   }
 
-  newTag (parent, tag, innerHTML) {
-    let child = document.createElement(tag.localName)
-    child.innerHTML = innerHTML
-    parent.appendChild(child)
+  newTag (parent, tag, innerHTML, createTag) {
+    // if (tag.childElementCount) {
+    //   for (const childTag of tag.childNodes) {
+    //     if (childTag.contentEditable) {
+    //       console.log('-', tag, childTag, childTag.innerHTML)
+    //       this.newTag(tag, childTag, childTag.innerHTML, createTag)
+    //       tag.removeChild(tag.childNodes[0])
+    //       // break
+    //     }
+    //   }
+    // }
+    // console.log(tag.childElementCount, tag, innerHTML)
+
+    if (createTag) {
+      let child = document.createElement(tag.localName)
+      child.innerHTML = innerHTML
+      parent.appendChild(child)
+    } else {
+      tag.innerHTML = innerHTML
+    }
+    // console.log('tag', tag)
+    // parent.appendChild(tag)
+    // console.log('af', tag)
+    // WARNING!!!! you need to account for when there's a new ELM to create.
   }
 
 }
 
 (function (){
-  var Obj = {
+  startTime = window.performance.now()
+  var html = {
     str: 'Hello Earthling!',
     str2: 'Hello Alien!',
+    int: 49,
     arr: ['1st', '2nd', '3rd'],
     arr2: ['purple', 'green', 'blue', 'orange', 'black', 'blue', 'pink', 'white'],
     arr3: ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight',
@@ -101,34 +136,34 @@ class htmlJS {
         cats: 2,
         dogs: 1
       },
-      array: ['a', 'b', 'c']
+      arr: ['a', { more: 'ok'} , 'c']
     }
   }
-  let h1 = new htmlJS
-  h1.htmlFor(Obj)
   let h2 = new htmlJS
-  h2.htmlVar(Obj)
+  h2.htmlVar(html)
+  let h1 = new htmlJS
+  h1.htmlFor(html)
+  console.log((window.performance.now() - startTime) + ' milliseconds')
 })()
 
 /********** ToDo **********
-- declare js vars with var="Obj.arr[0]" < will be same or var="poo=Obj.arr[0]",
-- first. create new attr var='', just like for, and catch/match
-
-
-
-- ah shit. need to handle dot nodation handing... _i_.name[0]
-  - a.) if not specify JSON
-  - b.) I CONTROL this. easiest to split('.') add if last index === .
+// HOW I LEFT IT...working but pretty messy ...
+// REVIEW & push to github as is!
+// THEN, refactor...
+// next step will be...
+// adding multiple vars.
+// -> then, notation INSIDE var= or for=?. Hypothetically, we could just add html to body and dot notate from there.
+// ^^^ hopefully this will just be to build a function the notates through our object and call it for for=""
+// -> combine functions ONLY if it make since... looks like there are a lot of redundances to include.
+// reverse DOSN"T always work. We need to either go back to making it recursive, OR replicate the for/var elements.
+- integrate with htmlFor
+- add dot.notation handling && || bracket[notation] (_i_.name[0]) ELSE JSON print
+-------
 - Give attributes index="ind" key="key"
-- checkout the spaces function again see if it can be a switch.
 - I think it's important to control the html vars in the .html page. So add that functionality.
 - Clean, Note, convert more and simpler examples.
-- !CHECK FIST & ADD: Object.keys(obj).indexOf(key)
-- !CHECK FIST & ADD: Array.isArray(obj) > returns false
-- create var.js > var="htmlVar == jsVar" (don't use dot n)
-**********/
 
-/********** WHAT TO SAVE FOR LATER ? **********
+********** WHAT TO SAVE FOR LATER ? **********
 - handing dynamic html tags within attributes like class or id, && || innerhtml {{ poop }}. Do I want to use this same {{ poop }} for HTML_for_?
 - QUESTION: (closures)- remove global vars ... ? but why, i should understand why (closures)
 **********/
