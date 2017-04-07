@@ -3,33 +3,40 @@
 </head>
   <body>
 
+    <div class="inline"> Static example
+      <h3> a </h3>
+      <h3> b </h3>
+      <h3> c </h3>
+    </div>
+
 <!-- ++++++++++++++++++ Var +++++++++++++++++++++ -->
 
     <div class="inline"> JS var Example
-      <div> var="x str" </div>
       <div var="x str">
         <h3> x </h3>
       </div>
-      <div> var="y obj2.arr[1].more" </div>
       <div var="y obj2.arr[1].more">
         <h3> y </h3>
-        <div var="z str2">
-          <p> z </p>
-        </div>
+      </div>
+      <div var="z obj2">
+        <p> ? z.arr[1].more </p>
+      </div>
+      <div var="y obj2.arr[1].more">
+        <h3> ? y Green </h3>
       </div>
     </div>
 
     <div class="inline"> var+far embeded
       <div var="poop arr2[2]">
-        <h3> poop </h3>
+        <h3> poop Top </h3>
         <div var="y obj2.arr[1].more">
-          <h3 style='background-color: green;'> y </h3>
+          <h3 style='background-color: green;'> y Green</h3>
           <div var="a arr[2]">
-            <p> z </p>
+            <p> a </p>
             <div for="v arr">
               <h3> v Place </h3>
               <div var="ft arr2[3]">
-                <p> ft </p>
+                <p> ft v </p>
               </div>
             </div>
           </div>
@@ -37,20 +44,15 @@
       </div>
     </div>
 
-
-    <!-- <div var="Obj.str=x, Obj.str2=y"> x
-      <h3> y </h3>
-      <h3> x y </h3>
-      <p var="z Obj.str2"> z </p>
-    </div> -->
+    <div class="inline"> Multi var
+      <div for="v,,i arr" var="x str2, y arr2[4]">
+        <div var="z str">
+          <p style="background-color: #eee;"> v- : x y z i </p>
+        </div>
+      </div>
+    </div>
 
 <!-- ++++++++++++++++++ Arrays +++++++++++++++++++++ -->
-
-    <div class="inline"> Static example
-      <h3> a </h3>
-      <h3> b </h3>
-      <h3> c </h3>
-    </div>
 
     <div class="inline"> Dynamic Array (value)
       <div for="v arr">
@@ -127,7 +129,7 @@
 
     <div class="inline"> Embeded Data
       <div for="v,k,i obj2" >
-        <div indices="0"> for=(val,key,ind  obj) </div>
+        <div indices="0"> for=(val,key,ind obj) </div>
         <h3> k- : v [ -i- ]</h3>
       </div>
     </div>
