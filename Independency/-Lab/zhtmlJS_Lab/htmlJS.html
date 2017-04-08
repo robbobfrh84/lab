@@ -3,95 +3,89 @@
 </head>
   <body>
 
-    <div class="inline"> Static example
+    <div class="inline"> <strong> Static example </strong>
       <h3> a </h3>
       <h3> b </h3>
       <h3> c </h3>
     </div>
 
-<!-- ++++++++++++++++++ Var +++++++++++++++++++++ -->
+<!-- ++++++++++++++++++ VAR +++++++++++++++++++++ -->
 
-    <div class="inline"> JS var Example
+    <div class="inline"> <strong> HTML var* Example </strong>
+      Single:
       <div var="x str">
         <h3> x </h3>
       </div>
-      <div var="y obj2.arr[1].more">
-        <h3> y </h3>
-      </div>
-      <div var="z obj2">
-        <p> ? z.arr[1].more </p>
-      </div>
-      <div var="y obj2.arr[1].more">
-        <h3> ? y Green </h3>
-      </div>
-    </div>
-
-    <div class="inline"> var+far embeded
-      <div var="poop arr2[2]">
-        <h3> poop Top </h3>
-        <div var="y obj2.arr[1].more">
-          <h3 style='background-color: green;'> y Green</h3>
-          <div var="a arr[2]">
-            <p> a </p>
-            <div for="v arr">
-              <h3> v Place </h3>
-              <div var="ft arr2[3]">
-                <p> ft v </p>
-              </div>
-            </div>
-          </div>
+      Multiple:
+      <div var="y obj2.arr[1].more, z str2, p str">
+        <h3> y / z </h3>
+        Nested and Sub.varible:
+        <div var="d obj2">
+          <h3> d.arr[1].more / p </h3>
         </div>
       </div>
     </div>
 
-    <div class="inline"> Multi var
-      <div for="v,,i arr" var="x str2, y arr2[4]">
-        <div var="z str">
-          <p style="background-color: #eee;"> v- : x y z i </p>
-        </div>
-      </div>
-    </div>
+<!-- ++++++++++++++++++ FOR Arrays +++++++++++++++++++++ -->
 
-<!-- ++++++++++++++++++ Arrays +++++++++++++++++++++ -->
-
-    <div class="inline"> Dynamic Array (value)
+    <div class="inline"> <strong> HTML *for* Array </strong>
+      for="v arr"
       <div for="v arr">
         <h3> v Place </h3>
       </div>
-    </div>
-
-    <div class="inline"> Dynamic Array (index)
+      for=",,i arr"
       <div for=",,i arr">
         <h3> Index is at i </h3>
       </div>
-    </div>
-
-    <div class="inline"> Array (value,,index)
+      for="val,,ind arr"
       <div for="val,,ind arr">
         <h3> val is at ind </h3>
       </div>
     </div>
 
-    <div for="v arr" class="inline">
-      <div indices="0"> Addressing Spaces </div>
-      <hr>
-      <p> v -multi- v </p>
-      <h5> Space | v- | No Space </h5>
-      <h5> No Space | -v | Space </h5>
-      <h5> No Space | -v- | No Space </h5>
+<!-- ++++++++++++++++++ Spacing +++++++++++++++++++++ -->
+
+    <div class="inline"> <strong> Spacing </strong>
+      <div var="v int" >
+        <h5> Space| v- |No Space </h5>
+        <h5> No Space | -v | Space </h5>
+        <h5> No Space| -v- |No Space </h5>
+      </div>
     </div>
 
+<!-- ++++++++++++++++++ FOR OBJECTS +++++++++++++++++++++ -->
+
+    <div class="inline"> <strong> HTML *for* Object </strong>
+      for="v,k obj"
+      <div for="v,k obj">
+        <h3> k- : v </h3>
+      </div>
+      for=(val,key,ind  obj)
+      <div for="v,k,i obj" >
+        <h3> k- : v [ -i- ]</h3>
+      </div>
+    </div>
+
+    <div class="inline"> <strong> Embeded JSON </strong> <br>
+      for=(val,key,ind obj)
+      <div for="v,k,i obj2" >
+        <h3> k- : v [ -i- ]</h3>
+      </div>
+    </div>
+
+<!-- ++++++++++++++++++ Indices +++++++++++++++++++++ -->
+
     <div for="_v_ arr3" class="inline">
-      <div indices="0"> Dynamic Array #2 </div>
+      <strong indices="0"> Limited Indices </strong>
       <h3> _v_ multiIndex _v_ </h3>
       <p indices="s4 e11"> Start@4 End @11 </p>
       <button indices="x2" > Static Data _v_ </button>
       <hr indices="0 2 :2 :0">
       ^^^ 0th index and 2nd, 2nd index to last and last
-      <div for="t arr">
-        <p> G3: _v_ t</p>
-      </div>
     </div>
+
+
+<!-- ++++++++++++ Nested Combining and Testing +++++++++++++++++++++ -->
 
     <div class="inline"> Nested Array
       <div for="v arr4">
@@ -111,26 +105,33 @@
       </div>
     </div>
 
-<!-- ++++++++++++++++++ OBJECTS +++++++++++++++++++++ -->
-
-    <div class="inline"> Basic Dynamic Object
-      <div for="v,k obj" >
-        <p> k- : </p>
-        <h3> v </h3>
+    <div class="inline"> <strong> var+far embeded </strong>
+      <div var="poop arr2[2]">
+        <h3> poop Top </h3>
+        <div var="y obj2.arr[1].more">
+          <h3 style='background-color: green;'> y Green</h3>
+          <div var="a arr[2]">
+            <p> a </p>
+            <div for="v arr">
+              <h3> v Place </h3>
+              <div var="ft arr2[3]">
+                <p style='color: orange;'> ft v </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="inline"> Basic Dynamic Object
-      <div for="v,k,i obj" >
-        <div indices="0"> for=(val,key,ind  obj) </div>
-        <h3> k- : v [ -i- ]</h3>
-      </div>
-    </div>
-
-    <div class="inline"> Embeded Data
-      <div for="v,k,i obj2" >
-        <div indices="0"> for=(val,key,ind obj) </div>
-        <h3> k- : v [ -i- ]</h3>
+    <div for="_v_ arr3" class="inline">
+      <div indices="0"> Trying to Break it... </div>
+      <h3> _v_ multiIndex _v_ </h3>
+      <p indices="s4 e11"> Start@4 End @11 </p>
+      <button indices="x2" > Static Data _v_ </button>
+      <hr indices="0 2 :2 :0">
+      ^^^ 0th index and 2nd, 2nd index to last and last
+      <div for="t arr">
+        <p> G3: _v_ t</p>
       </div>
     </div>
 

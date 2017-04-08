@@ -1,51 +1,44 @@
 class htmlJS {
 
-  htmlVar (Obj) {
-    const elm = document.querySelectorAll('[var]') // Grabs All tags with 'var' element
-    for (let i = document.querySelectorAll('[var]').length-1; i >= 0; i--) {
-      const arrVar = elm[i].getAttribute('var').split(',')
+  getTag(Obj, tag, elm = document.querySelectorAll('['+tag+']')) { // Grabs All tags with 'for' element
+    for (let i = elm.length-1; i >= 0; i--) { // Loop through all tags with 'for' element. Needs to be in reverse cuz nested loops need to run first.
       const tags = elm[i].childNodes.length // Snatch this value as a seperate because length of childnodes will change dynamically, creating INFINATE LOOPS OF PERIL!
-      for (const vLen of arrVar) {
-        let [ hVar, jVar ] = vLen.split(' ').filter(Boolean)
-        jVar = this.getDir(Obj, jVar)
-        for (let j = 0; j < tags; j++) { // loop through all tags within element.
-          if (elm[i].childNodes[j].contentEditable) { // there's extra DOM stuff we dont' need, This will only duplicate tags we created.
-            const tag = elm[i].childNodes[j]
-            const textArr = this.place(tag.innerHTML.split(' '), hVar, jVar) // here's where the InnerHTML text is swapped to match JS variables.
-            tag.innerHTML = textArr.join(' ')
-          }
+      const txt = elm[i].getAttribute(tag)
+      switch (tag) {
+        case 'var': this.varJS(Obj, elm[i], tags, txt.split(',')); break
+        case 'for': this.forJS(Obj, elm[i], tags, txt.split(' ')); break
+      }
+    }
+  }
+
+  varJS (Obj, elm, tags, arrVar) {
+    for (const vLen of arrVar) {
+      let [ hVar, jVar ] = vLen.split(' ').filter(Boolean)
+      jVar = this.getDir(Obj, jVar)
+      for (let j = 0; j < tags; j++) { // loop through all tags within element.
+        const tag = elm.childNodes[j]
+        if (elm.childNodes[j].contentEditable) { // there's extra DOM stuff we dont' need, This will only duplicate tags we created.
+          tag.innerHTML = this.place(tag.innerHTML.split(' '), hVar, jVar).join(' ') // here's where the InnerHTML text is swapped to match JS variables.
         }
       }
     }
   }
 
-  htmlFor (Obj) {
-    const elm = document.querySelectorAll('[for]') // Grabs All tags with 'for' element
-    for (let i = elm.length-1; i >= 0; i--) { // Loop through all tags with 'for' element. Needs to be in reverse cuz nested loops need to run first.
-      const tags = elm[i].childNodes.length // Snatch this value as a seperate because length of childnodes will change dynamically, creating INFINATE LOOPS OF PERIL!
-      const [ node, parent ] = elm[i].getAttribute('for').split(' ') // Grab 'for' elm string, split and declare node(ind/arr or key/obj), parent is html var
-      this.checkTags(Obj, elm[i], node, parent, tags)
-    }
-  }
-
-  getDir (Obj, jVar) { // Grab 'var' elm string. html var name = JS var
-    const pVar = jVar.split(/[.\[\]]/).filter(Boolean)
-    for (const p of pVar) {
-      Obj = Obj[p]
-    } // ^^^ ES6 inline fuc here?
-    return Obj
-  }
-
-  checkTags (Obj, elm, node, parent, tags, [ val, key, ind ] = node.split(',')) {
+  forJS (Obj, elm, tags, [ node, parent ], [ val, key, ind ] = node.split(',')) {
     for (const i in Obj[parent]) { // Loop through all indices/keys within the Object
       for (let j = 0; j < tags; j++) { // loop through all tags within element.
-        let tag = elm.childNodes[j]
+        const tag = elm.childNodes[j]
         if (tag.contentEditable) { // there's extra DOM stuff we dont' need, This will only duplicate tags we created.
           this.valueTypes(elm, i, tag, val, key, ind, Obj[parent])
         }
       }
     }
     for (let i = 0; i < tags; i++) elm.removeChild(elm.childNodes[0])
+  }
+
+  getDir (Obj, jVar) { // Grab 'var' elm string. html var name = JS var
+    for (const p of jVar.split(/[.\[\]]/).filter(Boolean)) Obj = Obj[p]
+    return Obj
   }
 
   valueTypes(elm, i, tag, val, key, ind, jVal, textArr) {
@@ -97,8 +90,8 @@ class htmlJS {
 }
 
 (function (){
-  startTime = window.performance.now()
-  var html = {
+  const startTime = window.performance.now()
+  let html = {
     str: 'Hello Earthling!',
     str2: 'Hello Alien!',
     int: 49,
@@ -124,29 +117,21 @@ class htmlJS {
       arr: ['a', { more: 'ok'} , 'c']
     }
   }
-  let h2 = new htmlJS
-  h2.htmlVar(html)
   let h1 = new htmlJS
-  h1.htmlFor(html)
+  h1.getTag(html, 'var')
+  h1.getTag(html, 'for')
   console.log((window.performance.now() - startTime) + ' milliseconds')
 })()
 
 /********** ToDo **********
-- show JSON for expanded
-- add dot notate for var,
-- ? ? ? add notate for embeded arrs in objs or objs in arrs
-- add dot.notation handling && || bracket[notation] (_i_.name[0]) ELSE JSON print
---- then, notation INSIDE var= or for=?. Hypothetically, we could just add html to body and dot notate from there.
---- hopefully this will just be to build a function the notates through our object and call it for for=""
-- integrate with htmlFor: combine functions ONLY if it make since... looks like there are a lot of redundances to include.
--------
+
 - Give attributes index="ind" key="key"
 - I think it's important to control the html vars in the .html page. So add that functionality.
+
 - Clean, Note, convert more and simpler examples.
-  - CHECK FOR CONST vs LET vs VAR
-  - move vars UP the nest, create it (20x or 2x) > (1x v 2x)
 
 ********** WHAT TO SAVE FOR LATER ? **********
 - handing dynamic html tags within attributes like class or id, && || innerhtml {{ poop }}. Do I want to use this same {{ poop }} for HTML_for_?
 - QUESTION: (closures)- remove global vars ... ? but why, i should understand why (closures)
+-- BUG: the forJS loop is wastefull, should only loop through length of obj/arr AFTER we chect to see if it's been dynamically created.
 **********/
