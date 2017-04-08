@@ -1,10 +1,10 @@
 class htmlJS {
 
   htmlVar (Obj) {
-    const element = document.querySelectorAll('[var]') // Grabs All tags with 'var' element
-    for (const elm in element) {
-      const arrVar = elm.getAttribute('var').split(',')
-      const tags = elm.childNodes.length // Snatch this value as a seperate because length of childnodes will change dynamically, creating INFINATE LOOPS OF PERIL!
+    const elm = document.querySelectorAll('[var]') // Grabs All tags with 'var' element
+    for (let i = document.querySelectorAll('[var]').length-1; i >= 0; i--) {
+      const arrVar = elm[i].getAttribute('var').split(',')
+      const tags = elm[i].childNodes.length // Snatch this value as a seperate because length of childnodes will change dynamically, creating INFINATE LOOPS OF PERIL!
       for (const vLen of arrVar) {
         let [ hVar, jVar ] = vLen.split(' ').filter(Boolean)
         jVar = this.getDir(Obj, jVar)
