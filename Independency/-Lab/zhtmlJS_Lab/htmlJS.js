@@ -1,3 +1,8 @@
+var pages = {
+  index: index,
+  page2: () => 'page two placeholder'
+}
+
 class htmlJS {
 
   getTag (Obj, tag, elm = document.querySelectorAll('['+tag+']')) { // Grabs All tags with 'for' element
@@ -25,11 +30,12 @@ class htmlJS {
   }
 
   forJS (Obj, elm, tags, [ node, parent ], [ val, key, ind ] = node.split(',')) {
-    for (const i in Obj[parent]) { // Loop through all indices/keys within the Object
+    parent = this.getDir(Obj, parent)
+    for (const i in parent) { // Loop through all indices/keys within the Object
       for (let j = 0; j < tags; j++) { // loop through all tags within element.
         const tag = elm.childNodes[j]
         if (tag.contentEditable) { // there's extra DOM stuff we dont' need, This will only duplicate tags we created.
-          this.valueTypes(elm, i, tag, val, key, ind, Obj[parent])
+          this.valueTypes(elm, i, tag, val, key, ind, parent)
         }
       }
     }
@@ -89,7 +95,7 @@ class htmlJS {
 
 }
 
-(function (){
+(function () {
   const startTime = window.performance.now()
   let html = {
     str: 'Hello Earthling!',
@@ -114,9 +120,15 @@ class htmlJS {
         cats: 2,
         dogs: 1
       },
-      arr: ['a', { more: 'ok'} , 'c']
+      arr: ['a', { more: 'ok'} , 'c'],
+      arr2: ['Ace', 'Queen', 'King']
     }
   }
+  for (const i in pages) {
+    console.log('func', i, pages[i]())
+    html[i] = pages[i]()
+  }
+  console.log(html)
   let h1 = new htmlJS
   h1.getTag(html, 'var')
   h1.getTag(html, 'for')
@@ -124,10 +136,9 @@ class htmlJS {
 })()
 
 /********** ToDo **********
-
-- I think it's important to control the html vars in the .html page. So add that functionality.
--- BUG: the forJS loop is wastefull, should only loop through length of obj/arr AFTER we chect to see if it's been dynamically created.
 - NOTES: be thorough.
+- So the html/js relay, rely's on login the function in the js, and match the naming. COULD be done differently, i.e. scoped by just doing a completely new class that passes (index) object, JUST that. ignoring HTML, after HTML has run through... should work. BUT will mess with previous html. prob. sorry if you've read this far and realized i'm rambling....
+- Ok..... maybe we should wait to see how imports is handles before adding multi page functionality.
 - ONE more look through.
 - move to Review.
 
