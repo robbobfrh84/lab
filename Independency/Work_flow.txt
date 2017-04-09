@@ -1,3 +1,5 @@
+*** last i looked, this maybe stale and consider removing/merging with Notes_Vision ***
+
 1. lab
 2. Stage
 3. Breakdown

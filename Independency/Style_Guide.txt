@@ -2,16 +2,35 @@
 folders / files ( Spaces_With_Underscores_No_rule_on_CAPITOLIZAtion)
 1 tab (2 spaces)
 
-html - double quotes (get used to using the auto cuz it forces doubles.
+*** HTML ***
+- double quotes (get used to using the auto cuz it forces doubles.
+- <script> & <body> get 1 line to breath (else, stack to your pleasure OR, ending </html>)
+
+*** CSS ***
 css - class / ids (marching-ants-no-caps)
 css - } close braces stand alone, NO empty lines, even between <style></style>
-js - single quotes
-js - 1 empty line between functions and <script></scripts>.
-js - NO ;
-js - ????? what do we do about pig pens { } now that for/while don’t need them ONLY with one sub function…?
-js - ????? spaces on both sides, or one side for operators and {[(<>)]}
 
-Atom best practices:
+JAVASCRIPT
+- JS - ES6 When possible. 
+- JS - single quotes
+- JS - camelCase. abbreviates can be all uppercase only if second word. 
+- JS - 1 empty line between functions and <script></scripts>.
+— JS - NO ; (with exception…)
+- JS - ^^^ only inline \; with ; continue, ; break, ; return
+- JS - Only emit { } for in-line for/if statements. 
+- JS - Destructuring: allow extra space >>> const [ one, who ] = arr
+- JS - Arrays: tight, with comma right after space after 
+       >>> arr = [one, two, three]
+- JS - Objects = {
+         one: ‘tight semi-colon, space after’,
+	 two: {
+	   example: ‘like so’
+	 }
+       }
+- JS - instantiated functions getSpace () { — called function doNot()
+
+
+best practices:
 - ok so this is very general. but…
-	- if code overflows into right side of screen at HALF MacBook air width, refactor….
-	- WHY? its a generic though that’ll mean code looks better for PAIR PROGRAMMING
+  - if code overflows into right side of screen at HALF MacBook air width, refactor….
+  - WHY? its a generic though that’ll mean code looks better for PAIR PROGRAMMING

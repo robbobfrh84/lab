@@ -1,6 +1,6 @@
 class htmlJS {
 
-  getTag(Obj, tag, elm = document.querySelectorAll('['+tag+']')) { // Grabs All tags with 'for' element
+  getTag (Obj, tag, elm = document.querySelectorAll('['+tag+']')) { // Grabs All tags with 'for' element
     for (let i = elm.length-1; i >= 0; i--) { // Loop through all tags with 'for' element. Needs to be in reverse cuz nested loops need to run first.
       const tags = elm[i].childNodes.length // Snatch this value as a seperate because length of childnodes will change dynamically, creating INFINATE LOOPS OF PERIL!
       const txt = elm[i].getAttribute(tag)
@@ -41,7 +41,7 @@ class htmlJS {
     return Obj
   }
 
-  valueTypes(elm, i, tag, val, key, ind, jVal, textArr) {
+  valueTypes (elm, i, tag, val, key, ind, jVal, textArr) {
     const startArr = tag.innerHTML.split(' ')
     if (val) textArr = this.place(startArr, val, jVal[i]) // here's where the InnerHTML text is swapped to match JS variables.
     if (key) textArr = this.place(startArr, key, i)
@@ -125,13 +125,10 @@ class htmlJS {
 
 /********** ToDo **********
 
-- Give attributes index="ind" key="key"
 - I think it's important to control the html vars in the .html page. So add that functionality.
-
-- Clean, Note, convert more and simpler examples.
-
-********** WHAT TO SAVE FOR LATER ? **********
-- handing dynamic html tags within attributes like class or id, && || innerhtml {{ poop }}. Do I want to use this same {{ poop }} for HTML_for_?
-- QUESTION: (closures)- remove global vars ... ? but why, i should understand why (closures)
 -- BUG: the forJS loop is wastefull, should only loop through length of obj/arr AFTER we chect to see if it's been dynamically created.
+- NOTES: be thorough.
+- ONE more look through.
+- move to Review.
+
 **********/
