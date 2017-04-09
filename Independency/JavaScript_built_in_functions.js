@@ -4,7 +4,7 @@ arrStr.substr(index+) // >Arr/string. remove the index, oddly, it's not a 0th in
 arr.join(' ') // >String. joins array with spaces between indices.
 str.split('-') // >Arr. Splits str at -
 str.split(/[.\[\]]/) // >Arr removes . [ ]
-"Obj.str2[1].more".split(/[.\[\]]/).filter(Boolean) // >Arr removes . [ ] But! with this string it'll leave a dead "", the filter removes that. 
+"Obj.str2[1].more".split(/[.\[\]]/).filter(Boolean) // >Arr removes . [ ] But! with this string it'll leave a dead "", the filter removes that.
 
 /******** DataTypes (changing / descovering)*******/
 parseInt(stringLiteralAsNumber) // >Intiger. converts string num to intiger.
@@ -28,3 +28,9 @@ new RegExp(aBunchOfcharsArr.join('|')).test(toSearchThroughArr) // >Bool if ALL 
 
 /******** quick functions *******/
 (function (){ console.log('will auto fire') })() // self-invoking function
+
+
+/******** events *******/
+Event Listener Types = [ click, keyup, keydown, keypress ]
+inputId.addEventListener("keypress", function (e) { if (e.keyCode == 13) { ?? }}
+inputId.addEventListener("keypress", function (e) { if (e.keyCode == 13) { ?? }}) // ??=add stuff to do when "enter" is pressed while filling out input tag.
