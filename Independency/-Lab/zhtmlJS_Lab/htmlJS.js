@@ -137,7 +137,9 @@ class htmlJS {
 
 /********** ToDo **********
 - NOTES: be thorough.
-- So the html/js relay, rely's on login the function in the js, and match the naming. COULD be done differently, i.e. scoped by just doing a completely new class that passes (index) object, JUST that. ignoring HTML, after HTML has run through... should work. BUT will mess with previous html. prob. sorry if you've read this far and realized i'm rambling....
+- break up example and copy/paste version
+  - .js file should stand alone. ie. NO object. should just handle from index.html
+  - INCLUDE index.html file that ONLY gives a simple BLANK exampleObect = { key: 'value'}, and one-line example. NOTHING else. the examples will be in the EXAMPLE file.
 - Ok..... maybe we should wait to see how imports is handles before adding multi page functionality.
 - ONE more look through.
 - move to Review.
