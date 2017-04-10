@@ -1,12 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Basic HTML Imports</title>
-    <!-- Pull in our blog post example -->
-    <link rel="import" href="another.html">
-  </head>
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Multi HTML</title>
+  <style media="screen"> body { background-image: url("tx2.png"); } </style>
+</head>
   <body>
-    <p>Hello World!</p>
+    <h1 style="text-align: left;">HTML Imports</h1>
+
+    <div>
+      <a href='Default.md'> A Div </a>
+      <link rel="import" href="another.html">
+    </div>
+
   </body>
+<script type="text/javascript">
+
+var link = document.querySelector('link[rel=import]');
+var content = link.import.querySelector('#blog-post');
+document.body.appendChild(document.importNode(content, true));
+
+</script>
 </html>
+
+<!--
+
+-->
