@@ -1,0 +1,12 @@
+<script>
+  var proto = Object.create(HTMLElement.prototype);
+  proto.createdCallback = function() {
+    this.innerHTML = 'PageA: Hello, <b>' +
+                     (this.getAttribute('name') || '?') + '</b>';
+  };
+  document.registerElement('say-hi', {prototype: proto});
+
+  var fileName = document.currentScript.baseURI.split('/')
+  fileName = fileName[fileName.length-1]
+  console.log('filename: ', fileName)
+</script>

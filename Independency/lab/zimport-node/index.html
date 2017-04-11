@@ -1,25 +1,48 @@
 <!DOCTYPE html><html><head><meta charset="utf-8"><title>Multi HTML</title>
   <style media="screen"> body { background-image: url("tx2.png"); } </style>
+  <link rel="import" href="another.html">
+  <link rel="import" href="pageA.html">
+  <link rel="import" href="pageB.html">
 </head>
   <body>
     <h1 style="text-align: left;">HTML Imports</h1>
-
-    <div>
-      <a href='Default.md'> A Div </a>
-      <link rel="import" href="another.html">
-
-    </div>
-
+    <hr>
+    <shadow-element>
+      <div>( I'm in the light dom (Written in index.html)) </div>
+    </shadow-element>
+    <hr>
+    <say-hi name="Bob"></say-hi>
+    <hr>
+    <page-b name="Bob Main"></page-b>
+    <hr>
   </body>
-<script type="text/javascript">
-
-var link = document.querySelector('link[rel=import]');
-var content = link.import.querySelector('#blog-post');
-document.body.appendChild(document.importNode(content, true));
-
-</script>
 </html>
 
 <!--
+*** WARNING: must cd to same dir as > index.html >>> http-server -c-1 : got to Local 8080 to see touched changes.
+  - ALSO, you can >>> http-server -c-1 -p 8010 <<< will change port to 8010. Somtimes there's  confict for some reason.
+
+*** NEXT THREE STEPS ***
+- create standalone JS file called first called routes.js
+  - you need this, because that fucntion you got from the demo is like 7 lines long and should be 1 called from a js file that's already been loaded. also, that file can handle routs. 
+- create third page
+- make third page display / hide on click
+
+*** GOALS ... Notes***
+- make list of simple goals.
+  - Navbar: with page Home, A & B
+    - highlight page
+  - Landing: with heading
+  - Page A: heading with status component
+  - Page B: heading with 2x status components
+  - Status Compontent:
+    - shows what page your on. has input field with message that can change and update, carriest though whatever page your on.
+  - Routing for home, pageA, pageB
+  - will need to check on gh-pages to make sure router links work.
+
+.... I really think there's not much more than the basics we can do here ... this, htmlJS and both together really something to drive them. I think you'll be ready rather soon to do your first solid shell concept.
+
+*** LINKS ***
+https://www.html5rocks.com/en/tutorials/webcomponents/imports/
 
 -->
