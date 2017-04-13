@@ -1,22 +1,36 @@
 <!DOCTYPE html><html><head><meta charset="utf-8"><title>Multi HTML</title>
-  <style media="screen"> body { background-image: url("tx2.png"); } </style>
+  <link rel="stylesheet" href="main.css">
   <link rel="import" href="another.html">
   <link rel="import" href="pageA.html">
   <link rel="import" href="pageB.html">
 </head>
-  <body>
-    <h1 style="text-align: left;">HTML Imports</h1>
-    <hr>
-    <shadow-element>
-      <div>( I'm in the light dom (Written in index.html)) </div>
-    </shadow-element>
-    <hr>
-    <say-hi name="Bob"></say-hi>
-    <hr>
-    <page-b name="Bob Main"></page-b>
-    <hr>
-  </body>
+<body>
+    <nav class="mynav">
+      <ul>
+        <li><a href="">Home</a></li>
+        <li><a href="">About</a></li>
+        <li><a href="">Company</a></li>
+        <li><a href="">Work</a></li>
+        <li><a href="">Clients</a></li>
+        <li><a href="">Contact</a></li>
+      </ul>
+    </nav>
+
+<span class="target"></span>
+<h1 style="text-align: left;">HTML Imports</h1>
+<hr>
+<shadow-element>
+  <div>( I'm in the light dom (Written in index.html)) </div>
+</shadow-element>
+<hr>
+<say-hi name="Bob"></say-hi>
+<hr>
+<page-b name="Bob Main"></page-b>
+<hr>
+
+</body>
 </html>
+<script type="text/javascript" src="main.js"></script>
 
 <!--
 *** WARNING: must cd to same dir as > index.html >>> http-server -c-1 : got to Local 8080 to see touched changes.
@@ -24,7 +38,7 @@
 
 *** NEXT THREE STEPS ***
 - create standalone JS file called first called routes.js
-  - you need this, because that fucntion you got from the demo is like 7 lines long and should be 1 called from a js file that's already been loaded. also, that file can handle routs. 
+  - you need this, because that fucntion you got from the demo is like 7 lines long and should be 1 called from a js file that's already been loaded. also, that file can handle routs.
 - create third page
 - make third page display / hide on click
 
