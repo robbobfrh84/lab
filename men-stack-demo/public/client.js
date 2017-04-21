@@ -21,6 +21,7 @@ function renderData(data){
   }
 }
 
+
 function newTag (parent, tag, innerHTML) {
   // if text??? else  vvv
   let child = document.createElement(tag)
@@ -32,7 +33,7 @@ function newTag (parent, tag, innerHTML) {
 /***** NOTE(s) *****
 - convert all to vanella JS
 - make input only input when you click 'edit', make edit turn to save.
-- make dated actually changed on B.E. 
+- make dated actually changed on B.E.
 - add removedata() & remove data on backend
 
 - CREATE BASIC add/remove childed functions to myFuncs
