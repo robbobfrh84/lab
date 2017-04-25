@@ -21,7 +21,6 @@ function renderData(data){
   }
 }
 
-
 function newTag (parent, tag, innerHTML) {
   // if text??? else  vvv
   let child = document.createElement(tag)
