@@ -1,0 +1,10 @@
+*** Step by step guite to setting up a basic CRUD men app with
+MongoDB and Express. Link: https://zellwk.com/blog/crud-express-mongodb/
+
+- $ cd to dir to create new project folder then...
+- $ mkdir name-of-project (Will create a new directory/folder for projectfiles)
+- $ npm init (created package.jason file)
+- !!! hit <enter> through all prompts until you get back to $ ... (or add info if you want)
+- $ touch new-text-file-for-notes.txt (if you want a notes folder)
+- $ touch server.js
+- $ npm install express --save
