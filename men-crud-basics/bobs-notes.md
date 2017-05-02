@@ -1,4 +1,4 @@
-#Step by step guite to setting up a basic CRUD men app with...
+# Step by step guite to setting up a basic CRUD men app with...
 
 - MongoDB and Express. <https://zellwk.com/blog/crud-express-mongodb/>
 - You'll need to install mongodb with brew: <http://blog.troygrosfield.com/2011/03/21/installing-and-running-mongodb-on-a-mac/>
@@ -32,7 +32,7 @@
 
 `$ touch index.html`
 
-#Where i left it !!!!
+# Where i left it !!!!
 - ok, so I seem to have got the mongodb database up and running
 on the localhost
 - to do this start terminal run $ mongod
