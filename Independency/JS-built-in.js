@@ -5,6 +5,7 @@ arr.join(' ') // >String. joins array with spaces between indices.
 str.split('-') // >Arr. Splits str at -
 str.split(/[.\[\]]/) // >Arr removes . [ ]
 "Obj.str2[1].more".split(/[.\[\]]/).filter(Boolean) // >Arr removes . [ ] But! with this string it'll leave a dead "", the filter removes that.
+JSON.parse(data) // > Object from string of data.
 
 /******** DataTypes (changing / descovering)*******/
 parseInt(stringLiteralAsNumber) // >Intiger. converts string num to intiger.
@@ -22,6 +23,7 @@ var newTag = document.createElement('html') // creats new tag
 var textElm = document.createTextNode('Some text') // creates text elm
 newTag.appendChild(textElm) // puts text elm inside new tag
 parent.appendChild(newTag) // puts tag into DOM
+onDOMContentLoaded = ( => { console.log("Dom is ready!") })() // odd i know. but will fire when dom is completely loaded.
 
 /******** RegExp *******/
 new RegExp(aBunchOfcharsArr.join('|')).test(toSearchThroughArr) // >Bool if ALL conditions are met. test() is NOT poop in this.

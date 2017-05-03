@@ -38,7 +38,7 @@ A few handy commands and info on Mongo commands in terminal.
 All databases on your local computer can be found by opening the finder and then hitting the 'GO' tab and selecting computer. The encrypitic datebases are updated there.
 
 to create your own collection in the default database. Open a new terminal window and ...
-<br> `$ mongo`
+<br> `$ mongod`
 
 This will open the MongoDB shel. Create a new Collecition by...
 <br> `> db.my_whatever.save( { 'name' : 'bob', 'age' : '32' } )`
