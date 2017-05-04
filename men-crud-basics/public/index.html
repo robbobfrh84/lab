@@ -27,7 +27,7 @@
         } else { console.log('server error...') }
       }
       xhr.onerror = () => { console.log('request error') }
-      xhr.send();
+      xhr.send()
     }
 
     function post(){
@@ -53,24 +53,28 @@
               console.log('Successfully Updated: ', userInfo)
           }
       };
-      xhr.send(JSON.stringify(newObj));
-
-
-      // // *** check if it's been changed...
-      // for (var i = 0; i < newQuote.length; i++) {
-      //   console.log(quotes[ind][newQuote[i].name], newQuote[i].value, newQuote[i].name)
-      // }
-
-      /***** NEEXT !!!!!
-      - git.
-      - post.
-      - web api
-      - clean up and refactor
-      *****/
+      xhr.send(JSON.stringify(newObj))
     }
 
-    function del(ind){
-      console.log('del', ind)
+    function del(ind, id){
+      const xhr = new XMLHttpRequest()
+      xhr.open('DELETE', loc)
+      xhr.setRequestHeader('Content-Type', 'application/json')
+      xhr.onload = function() {
+          if (xhr.status === 200) {
+              const userInfo = JSON.parse(xhr.responseText)
+              console.log(userInfo.n)
+              if (userInfo.n) {
+                while (db.hasChildNodes()){db.removeChild(db.lastChild)}
+                quotes.splice(ind, 1)
+                render(quotes)
+                console.log('Successfully Updated: ', userInfo)
+              } else {
+                console.log('data not found')
+              }
+          }
+      };
+      xhr.send(JSON.stringify({_id: id}))
     }
 
     function render(data){
@@ -79,10 +83,10 @@
         newTag(db, 'input', {className: 'quote '+v._id, value: v.quote, name: 'quote'})
         newTag(db, 'button', {
           innerHTML: 'update/put',
-          e: ['click', e=>{put(quotes.indexOf(v), v._id)} ]
+          e: ['click', e=>{put(quotes.indexOf(v))} ]
         })
         newTag(db, 'button', {innerHTML: 'delete',
-          e: ['click', e=>{del(quotes.indexOf(v), v._id)} ]
+          e: ['click', e=>{del(quotes.indexOf(v), (v._id))} ]
         })
         newTag(db, null, {innerHTML:'<br>'})
       }

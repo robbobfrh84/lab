@@ -1,7 +1,8 @@
 /******** String/Arr Parsing *******/
 arr.includes(value) // >Booloan. If the value is represented in the array.
-arrStr.substr(index+) // >Arr/string. remove the index, oddly, it's not a 0th index, but first.
-arr.indexof(value) // >Integer. can even be entire object in array!
+str.substr(index+) // >string. custs string at the index. returns 2nd half, str dosn't change., oddly, it's not a 0th index, but first.
+arr.splice(i, 1) // removes index at i. the second param tells how many additional beyond.
+arr.indexOf(value) // >Integer. can even be entire object in array!
 arr.join(' ') // >String. joins array with spaces between indices.
 str.split('-') // >Arr. Splits str at -
 str.split(/[.\[\]]/) // >Arr removes . [ ]

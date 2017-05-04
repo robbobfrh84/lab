@@ -44,3 +44,14 @@ app.put('/quotes', (req, res)=>{
       }
     )
 })
+
+app.delete('/quotes', (req, res)=>{
+  db.collection('quotes')
+    .remove(
+      {_id: '590935d9092bec05a9eebd85'},
+      (err, result) => {
+        if (err) return res.send(err)
+        res.send(result)
+      }
+    )
+})
