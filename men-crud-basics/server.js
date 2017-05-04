@@ -18,11 +18,19 @@ MongoClient.connect(url, (err, database)=>{
     console.log('Connected to Server @ :3000')
   })
 });
-
-app.post('/quotes', (req, res)=>{
+ /**** HTML FORM POST REQUEST ONLY*****/
+app.post('/quotes/form', (req, res)=>{
   db.collection('quotes').save(req.body, (err, results) => {
     if (err) console.log(err)
     res.redirect('/')
+  })
+})
+
+/**** JS onClick POST REQUEST ONLY*****/
+app.post('/quotes', (req, res)=>{
+  db.collection('quotes').save(req.body, (err, results) => {
+    if (err) console.log(err)
+    res.send(results.ops[0])
   })
 })
 
@@ -48,7 +56,7 @@ app.put('/quotes', (req, res)=>{
 app.delete('/quotes', (req, res)=>{
   db.collection('quotes')
     .remove(
-      {_id: '590935d9092bec05a9eebd85'},
+      {_id: ObjectId(req.body._id)},
       (err, result) => {
         if (err) return res.send(err)
         res.send(result)

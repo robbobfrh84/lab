@@ -3,23 +3,31 @@
 
   <body>
     <span style='margin-right: 95px;'> Name </span><span> Quote </span>
-    <form action="/quotes" method="POST" style="margin-bottom: 20px;">
+    <form action="/quotes/form" method="POST" style="margin-bottom: 20px;">
       <input style='margin-right: 5px;' type="text" name="name">
       <input class="quote" type="text" name="quote">
-      <button type="submit"> Create/post </button>
+      <button type="submit"> Create/post </button> html '< form >' post
     </form>
     <div id='db'></div>
+    <br>
+    <span style='margin-right: 95px;'> Name </span><span> Quote </span>
+    <div style="margin-bottom: 20px;">
+      <input id='nameInput' style='margin-right: 5px;'>
+      <input id='quoteInput' class="quote">
+      <button onclick="post()"> Create/post </button>  JS onClick() post
+    </div>
+
   </body>
 
   <script type="text/javascript">
 
     var quotes
     var loc = '/quotes'
-    onDOMContentLoaded = (()=>{ get(loc) })()
+    onDOMContentLoaded = (()=>{ get() })()
 
-    function get(location){
+    function get(){
       const xhr = new XMLHttpRequest()
-      xhr.open('GET', location, true)
+      xhr.open('GET', loc, true)
       xhr.onload = ()=>{
         if (xhr.status >= 200 && xhr.status < 400) {
           quotes = JSON.parse(xhr.responseText)
@@ -31,7 +39,21 @@
     }
 
     function post(){
-      console.log('post')
+      console.log('POST', nameInput.value, quoteInput.value)
+      const newObj = {
+          name: nameInput.value,
+          quote: quoteInput.value
+      }
+      const xhr = new XMLHttpRequest()
+      xhr.open('POST', loc, true)
+      xhr.setRequestHeader('Content-Type', 'application/json')
+      xhr.onload = ()=>{
+        if (xhr.status === 200) {
+          update('post', JSON.parse(xhr.responseText))
+        } else { console.log('server error...') }
+      }
+      xhr.onerror = () => { console.log('request error') }
+      xhr.send(JSON.stringify(newObj))
     }
 
     function put(ind){
@@ -42,39 +64,41 @@
           quote: newQ[1].value
       }
       const xhr = new XMLHttpRequest()
-      xhr.open('PUT', loc)
+      xhr.open('PUT', loc, true)
       xhr.setRequestHeader('Content-Type', 'application/json')
-      xhr.onload = function() {
+      xhr.onload = ()=>{
           if (xhr.status === 200) {
-              const userInfo = JSON.parse(xhr.responseText)
-              while (db.hasChildNodes()){db.removeChild(db.lastChild)}
-              quotes[ind] = newObj
-              render(quotes)
-              console.log('Successfully Updated: ', userInfo)
-          }
+            update('put', newObj, JSON.parse(xhr.responseText), ind)
+          } else { console.log('server error...') }
       };
+      xhr.onerror = () => { console.log('request error') }
       xhr.send(JSON.stringify(newObj))
     }
 
     function del(ind, id){
       const xhr = new XMLHttpRequest()
-      xhr.open('DELETE', loc)
+      xhr.open('DELETE', loc, true)
       xhr.setRequestHeader('Content-Type', 'application/json')
-      xhr.onload = function() {
+      xhr.onload = ()=>{
           if (xhr.status === 200) {
-              const userInfo = JSON.parse(xhr.responseText)
-              console.log(userInfo.n)
-              if (userInfo.n) {
-                while (db.hasChildNodes()){db.removeChild(db.lastChild)}
-                quotes.splice(ind, 1)
-                render(quotes)
-                console.log('Successfully Updated: ', userInfo)
-              } else {
-                console.log('data not found')
-              }
-          }
+            update('del', null, JSON.parse(xhr.responseText), ind)
+          } else { console.log('server error...') }
       };
+      xhr.onerror = () => { console.log('request error') }
       xhr.send(JSON.stringify({_id: id}))
+    }
+
+    function update(type, newObj, userInfo, ind) {
+      if (type === 'post' || userInfo.n) {
+        while (db.hasChildNodes()){db.removeChild(db.lastChild)}
+        if (type === 'del') quotes.splice(ind, 1)
+        if (type === 'put') quotes[ind] = newObj
+        if (type === 'post') quotes.push(newObj)
+        render(quotes)
+        console.log('Successfully Updated: ', userInfo)
+      } else {
+        console.log('data not found')
+      }
     }
 
     function render(data){
