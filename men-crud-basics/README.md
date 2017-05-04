@@ -71,3 +71,12 @@ To navagate into a different db...
 <br> `> use my_other_db`
 
 Now you can '> show collections' to nevagate around your dbs at this level.
+
+## All Set up?
+##### Basic Steps to run from reboot...
+
+- open terminal
+- `$ sudo mongod`
+- **NEW** terminal window & `$ cd` to project folder and open atom
+- `$ npm run dev`
+- open browser to <http://localhost:3000/>

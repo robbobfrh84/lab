@@ -22,7 +22,8 @@
       xhr.open('GET', location, true)
       xhr.onload = ()=>{
         if (xhr.status >= 200 && xhr.status < 400) {
-          render(JSON.parse(xhr.responseText))
+          quotes = JSON.parse(xhr.responseText)
+          render(quotes)
         } else { console.log('server error...') }
       }
       xhr.onerror = () => { console.log('request error') }
@@ -34,25 +35,25 @@
     }
 
     function put(ind){
-      //
-      var newQuote = document.getElementsByClassName(quotes[ind]._id)
-      // console.log('newQuote', newQuote, newQuote.name, newQuote.quote)
-      console.log('---', ind, quotes[ind].name, newQuote[1].value)
-
-      var xhr = new XMLHttpRequest();
-      xhr.open('PUT', loc);
-      xhr.setRequestHeader('Content-Type', 'application/json');
+      const newQ = document.getElementsByClassName(quotes[ind]._id)
+      const newObj = {
+          _id: quotes[ind]._id,
+          name: newQ[0].value,
+          quote: newQ[1].value
+      }
+      const xhr = new XMLHttpRequest()
+      xhr.open('PUT', loc)
+      xhr.setRequestHeader('Content-Type', 'application/json')
       xhr.onload = function() {
           if (xhr.status === 200) {
-              var userInfo = JSON.parse(xhr.responseText);
-              console.log('FE userInfo', userInfo)
+              const userInfo = JSON.parse(xhr.responseText)
+              while (db.hasChildNodes()){db.removeChild(db.lastChild)}
+              quotes[ind] = newObj
+              render(quotes)
+              console.log('Successfully Updated: ', userInfo)
           }
       };
-      xhr.send(JSON.stringify({
-          _id: quotes[ind]._id,
-          name: newQuote[0].value,
-          quote: newQuote[1].value
-      }));
+      xhr.send(JSON.stringify(newObj));
 
 
       // // *** check if it's been changed...
@@ -72,19 +73,18 @@
       console.log('del', ind)
     }
 
-    function render(data, p = document.getElementById('db')){
-      quotes = data
+    function render(data){
       for (const v of data) {
-        newTag(p, 'input', {className: v._id, name: 'name', value: v.name})
-        newTag(p, 'input', {className: 'quote '+v._id, value: v.quote, name: 'quote'})
-        newTag(p, 'button', {
+        newTag(db, 'input', {className: v._id, name: 'name', value: v.name})
+        newTag(db, 'input', {className: 'quote '+v._id, value: v.quote, name: 'quote'})
+        newTag(db, 'button', {
           innerHTML: 'update/put',
-          e: ['click', e=>{put(quotes.indexOf(v))} ]
+          e: ['click', e=>{put(quotes.indexOf(v), v._id)} ]
         })
-        newTag(p, 'button', {innerHTML: 'delete',
-          e: ['click', e=>{del(quotes.indexOf(v))} ]
+        newTag(db, 'button', {innerHTML: 'delete',
+          e: ['click', e=>{del(quotes.indexOf(v), v._id)} ]
         })
-        newTag(p, null, {innerHTML:'<br>'})
+        newTag(db, null, {innerHTML:'<br>'})
       }
     }
 

@@ -22,6 +22,7 @@ document.querySelectorAll('[for]') // >Array of DOM objects with for attribute
 tag.getAttribute('attribute') // >String Gets html's tag element DOM attributes.
 tag.Some_Attribue = 'value' // many html attributes can be added dot.notation.style
 tag.removeChild(tag.childNodes[0]) // removes first child within html's tag.
+while (tag.hasChildNodes()) { tag.removeChild(tag.lastChild) } // remove ALL children
 var newTag = document.createElement('html') // creats new tag
 var textElm = document.createTextNode('Some text') // creates text elm
 newTag.appendChild(textElm) // puts text elm inside new tag
