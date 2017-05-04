@@ -1,5 +1,6 @@
 <!DOCTYPE html><html><head><meta charset="utf-8"><title> MEN CRUD Basics </title>
 </head>
+
   <body>
     <span style='margin-right: 95px;'> Name </span><span> Quote </span>
     <form action="/quotes" method="POST" style="margin-bottom: 20px;">
@@ -7,22 +8,25 @@
       <input class="quote" type="text" name="quote">
       <button type="submit"> Create/post </button>
     </form>
+    <div id='db'></div>
   </body>
+
   <script type="text/javascript">
 
-    onDOMContentLoaded = (()=>{ get('/quotes') })()
     var quotes
+    var loc = '/quotes'
+    onDOMContentLoaded = (()=>{ get(loc) })()
 
     function get(location){
-      var request = new XMLHttpRequest();
-      request.open('GET', '/quotes', true);
-      request.onload = ()=>{
-        if (request.status >= 200 && request.status < 400) {
-          render(JSON.parse(request.responseText))
-        } else { console.log('server error') }
+      const xhr = new XMLHttpRequest()
+      xhr.open('GET', location, true)
+      xhr.onload = ()=>{
+        if (xhr.status >= 200 && xhr.status < 400) {
+          render(JSON.parse(xhr.responseText))
+        } else { console.log('server error...') }
       }
-      request.onerror = () => { console.log('request error') }
-      request.send();
+      xhr.onerror = () => { console.log('request error') }
+      xhr.send();
     }
 
     function post(){
@@ -30,40 +34,79 @@
     }
 
     function put(ind){
+      //
       var newQuote = document.getElementsByClassName(quotes[ind]._id)
-      for (var i = 0; i < newQuote.length; i++) {
-        console.log(quotes[ind][newQuote[i].name], newQuote[i].value, newQuote[i].name)
-        // !!! if they're NOT the same....
-      }
+      // console.log('newQuote', newQuote, newQuote.name, newQuote.quote)
+      console.log('---', ind, quotes[ind].name, newQuote[1].value)
+
+      var xhr = new XMLHttpRequest();
+      xhr.open('PUT', loc);
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.onload = function() {
+          if (xhr.status === 200) {
+              var userInfo = JSON.parse(xhr.responseText);
+              console.log('FE userInfo', userInfo)
+          }
+      };
+      xhr.send(JSON.stringify({
+          _id: quotes[ind]._id,
+          name: newQuote[0].value,
+          quote: newQuote[1].value
+      }));
+
+
+      // // *** check if it's been changed...
+      // for (var i = 0; i < newQuote.length; i++) {
+      //   console.log(quotes[ind][newQuote[i].name], newQuote[i].value, newQuote[i].name)
+      // }
+
+      /***** NEEXT !!!!!
+      - git.
+      - post.
+      - web api
+      - clean up and refactor
+      *****/
     }
 
-    function del(){
-      console.log('del')
+    function del(ind){
+      console.log('del', ind)
     }
 
-    function render(data){
+    function render(data, p = document.getElementById('db')){
       quotes = data
-      console.log(data)
-      for (var i = 0; i < data.length; i++) {
-        newTag(document.getElementsByTagName('body')[0], 'div',
-          '<input class="'+data[i]._id + '" value="' + data[i].name + '" name="name"/>'
-          + '&nbsp <input class="quote '+data[i]._id
-          + '" value="' + data[i].quote + '" name="quote"/>'
-          + '&nbsp <button onclick="put('+i+')"> Update/put </button>'
-          + '&nbsp <button onclick="del()"> delete </button>')
+      for (const v of data) {
+        newTag(p, 'input', {className: v._id, name: 'name', value: v.name})
+        newTag(p, 'input', {className: 'quote '+v._id, value: v.quote, name: 'quote'})
+        newTag(p, 'button', {
+          innerHTML: 'update/put',
+          e: ['click', e=>{put(quotes.indexOf(v))} ]
+        })
+        newTag(p, 'button', {innerHTML: 'delete',
+          e: ['click', e=>{del(quotes.indexOf(v))} ]
+        })
+        newTag(p, null, {innerHTML:'<br>'})
       }
     }
 
-    function newTag (parent, tag, innerHTML) {
-      let child = document.createElement(tag)
-      child.innerHTML = innerHTML
-      parent.appendChild(child)
+    function newTag(par, tag, attr) {
+      const child = document.createElement(tag)
+      for (const att in attr) {
+        if (att === 'e') {
+          child.addEventListener(attr.e[0], attr.e[1])
+        } else {
+          child[att] = attr[att]
+        }
+      }
+      par.appendChild(child)
     }
 
   </script>
   <style media="screen">
     body {
       background-color: #ccc;
+    }
+    input, button {
+      margin: 3px;
     }
     .quote {
       width: 400px;

@@ -31,6 +31,17 @@ build Front-end directory (like the idea of having the FE files under /public)
 <br>`$ cd public`
 <br>`$ touch index.html`
 
+When you've added code to index.html and server.js
+<br>`$ node server.js`
+- REMEBER: you'll have to control+c in terminal and run `$ node server.js` when changing server.js
+- OR: install nodemon dependancie, It'll auto restart sever when server.js is changed
+  - `$ npm install nodemon --save-dev` only saves on dev enviro
+  - `$ ./node_modules/.bin/nodemon server.js`
+    - Simplify by using "scripts" in package.json and add
+      - "dev": "nodemon server.js" then in terminal just type...
+      <br> `$ npm run dev`
+  - ! same as > `$ node server.js`, but updates.
+
 ## MongoDB and terminal
 
 A few handy commands and info on Mongo commands in terminal.
@@ -38,7 +49,9 @@ A few handy commands and info on Mongo commands in terminal.
 All databases on your local computer can be found by opening the finder and then hitting the 'GO' tab and selecting computer. The encrypitic datebases are updated there.
 
 to create your own collection in the default database. Open a new terminal window and ...
-<br> `$ mongod`
+<br> `$ mongod` or `$ sudo mongod`, ..then
+<br> `$ mongo`
+- If `$ mongo` dosn't open shell, you'll have to `$ sudo mongod`
 
 This will open the MongoDB shel. Create a new Collecition by...
 <br> `> db.my_whatever.save( { 'name' : 'bob', 'age' : '32' } )`
@@ -58,13 +71,3 @@ To navagate into a different db...
 <br> `> use my_other_db`
 
 Now you can '> show collections' to nevagate around your dbs at this level.
-
-
-
-# Where i left it !!!!
-- ok, so I seem to have got the mongodb database up and running
-on the localhost
-- to do this start terminal run $ mongod
-- let it sit waiting. THEN, open new termianla and cd to project
-and `node server.js`
-- ok looks to be working, follow here for CRUD operations inline with other tutorial: http://mongodb.github.io/node-mongodb-native/2.0/overview/quickstart/
