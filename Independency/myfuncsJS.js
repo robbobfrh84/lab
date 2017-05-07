@@ -1,9 +1,10 @@
 /******************* TO ADD ***********************
-innerhtml
+- easy raw innerhtml
 
 **************************************************/
 
-
+/***** Dynamically create complete html Tags *****/
+onDOMContentLoaded = (()=>{ callSomeFunction() })()
 
 /***** Dynamically create complete html Tags *****/
 function newTag(par, tag, attr) {
