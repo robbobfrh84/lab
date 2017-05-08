@@ -1,3 +1,5 @@
+NOTE(May 8th, 2017): Realized with the addition of the anime-GFX-Lab, some things should be moved there that aren’t directly related to pure copy/paste functionality. This brings into question where or not we want to have templets/tutorials within the IndyJS directory at all. Rather create a tutorial repo in github where that’d live…
+
 *** Tech Purpose / Goal ***
 - To create a resource for building SPAs with ONLY… HTML (+Canvas)  / CSS / JS(ES6)
 - OK to jump around. That’s what I want more than anything. In CONTROL, but really free 
