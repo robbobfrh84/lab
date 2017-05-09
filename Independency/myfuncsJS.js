@@ -8,6 +8,7 @@ onDOMContentLoaded = (()=>{ callSomeFunction() })()
 
 /***** Dynamically create complete html Tags *****/
 function newTag(par, tag, attr) {
+  const parent = document.getElementById(par)
   const child = document.createElement(tag)
   for (const att in attr) {
     if (att === 'e') {
@@ -16,13 +17,13 @@ function newTag(par, tag, attr) {
       child[att] = attr[att]
     }
   }
-  par.appendChild(child)
+  parent.appendChild(child)
 }
 /***** ^^^ EXAMPLE ^^^ *****/
 // newTag(p, 'button', {
 //   innerHTML: 'update/put',
-//   className: 'all-right'
-//   id: '2348u98fj'
+//   className: 'all-right',
+//   id: '2348u98fj',
 //   e: ['click', (e)=>{put(v._id); console.log(Object.keys(quotes)) } ]
 // })
 // newTag(p, 'br') // will just add a <br>

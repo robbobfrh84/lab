@@ -37,8 +37,10 @@ new RegExp(aBunchOfcharsArr.join('|')).test(toSearchThroughArr) // >Bool if ALL 
 (function (){ console.log('will auto fire') })() // self-invoking function
 ES6 (()=>{ console.log('will auto fire') })() // self-invoking function
 
-
 /******** events *******/
 Event Listener Types = [ click, keyup, keydown, keypress ]
 inputId.addEventListener("keypress", function (e) { if (e.keyCode == 13) { ?? }}
 inputId.addEventListener("keypress", function (e) { if (e.keyCode == 13) { ?? }}) // ??=add stuff to do when "enter" is pressed while filling out input tag.
+
+/******** loops *******/
+array.forEach(function(value, i) { console.log(value, i) }) // value is object/array/var, whatever of ARRAY, i is index
