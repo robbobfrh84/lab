@@ -3,15 +3,15 @@
 <style> #myCanvas2 { background: #bbb; margin: auto;} </style>
 <script src="canvas.js"></script>
 <canvas id="myCanvas"></canvas>
-<br> <br> InnerHtml Script <br>
+<br> <br> InnerHtml Script <button onclick='c2.clear()'> clear</button>
+ <br>
 <canvas id="myCanvas2">
   <script>
     var c2 = new canvasJS
     c2.new('myCanvas2', 500,200)
-    console.log(c2)
     c2.line(400,10,140,155) // default black and 1 px thick
     c2.line(85,5,10,170,'red',4)
-    c2.line(15,25,350,100,'blue',6)
+    c2.line(15,25,150,90,'blue',2)
   </script>
 </canvas>
 
@@ -31,9 +31,9 @@
   c.cir(200, 75, 25, 'firebrick', 10, 'green')
   c.arc(0, Math.PI*0.5, 300, 50, 35, 'green', 10, 'red')
   c.arc(0, Math.PI, 400, 50, 35, 'green', 10, 'red')
-  c.arc(0, Math.PI*1.5, 500, 50, 35, 'green', 10, 'red')
-  c.arc(0, Math.PI*1.5, 600, 50, 35, 'rgba(0,0,0,0)', 10, 'red')
-  c.cir(700, 75, 25, 'orange', 10, 'blue')
+  c.arc(0, Math.PI*1.5, 485, 50, 35, 'green', 10, 'red')
+  c.arc(0, Math.PI*1.5, 570, 50, 35, 'rgba(0,0,0,0)', 10, 'red')
+  c.cir(640, 75, 25, 'orange', 10, 'blue')
 
   //rectangles
   c.rec(10,150,100,50)
@@ -41,13 +41,35 @@
   c.rec(290,150,100,50, 'red', 10, 'green')
 
   //path
+  c.path(15,250, [
+    ['l',30,275],
+    ['l',60,300],
+    ['l',80,270],
+    ['l',15,250]
+  ], 4, 'cornflowerblue', 'green')
+  c.path(115,250, [
+    ['l',130,275],
+    ['l',160,300],
+    ['l',180,270],
+    ['l',115,250]
+  ], 4, 'cornflowerblue')
+  //quadratic curve
+  c.path(230,230, [
+    ['b',200,300,300,300]
+  ])
+  //bezier curve
 
   //text
   c.text('Yoo!', 400, 200)
   c.text('Yoo!', 420, 200, 50, 'arial')
 
+  // scale
+  c.line(6,30,20,60, 'teal', 2)
+  c.scale(2,2)
+  c.line(6,30,20,60, 'teal', 2)
 
-
+  // clear
+  // c.clear()
 
 </script>
 
