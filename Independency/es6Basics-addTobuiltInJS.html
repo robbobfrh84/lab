@@ -1,0 +1,65 @@
+<html><body></body>
+<script type="text/javascript">
+// https://www.youtube.com/watch?v=AfWYO8t7ed4&t=337s
+var main = function () {
+	h("<h2 style='margin: 0px;'> Bob's ES6 Basics </h2>")
+
+
+	/* ----------- destructuring ---------- */h("<hr>")
+	// Objects
+	var obj = { age: 24, name: 'Jim' }
+	var { age, name } = obj // age === 24 and name === 'Jim'
+	// Arrays
+	var arr = [ 8 , 5 , 3 ]
+	var [ first, second ] = arr // first === 8, second === 5
+
+	function func ({ age, name }) { // here's where destructuring as an arg is good
+		p("age: "+age)
+	}
+	func(obj)
+
+	Promise.all([ obj.age, obj.name ]).then(function([results1, results2]) {
+		// Do something... still not sure on Promise...
+	});
+
+	class Polygon {
+		constructor(height, width) {
+			this.name = 'Polygon'
+			this.height = 'height'
+			this.width = 'width'
+		}
+		sayName() {
+			p('Hi, I am a ' + this.name + '.')
+		}
+		sayHistory() {
+			p('"Polygon" is dirived from the Greek polus (many) ' +
+			'and gonia (angle)')
+		}
+	}
+
+	let p1 = new Polygon(300,400)
+	p1.sayName()
+	p1.sayHistory()
+	p(JSON.stringify(p1))
+
+
+
+	/* ----------- ????? ---------- */h("<hr>")
+
+	// browser printing (this isn't a ES6 thing, just for ease of cheat-sheeting ...
+	p("obj: "+JSON.stringify(obj))
+}
+
+function p (text, state) {
+	state === 'html' ? document.body.innerHTML+=text : null
+	var z = document.createElement('span')
+	z.textContent=text
+	document.body.appendChild(z)
+	!state ? document.body.innerHTML+='<br>' : null
+}
+function h(html) { document.body.innerHTML+=html }
+
+main()
+
+</script>
+</html>
