@@ -136,6 +136,8 @@ class htmlJS {
 })()
 
 /********** ToDo **********
+- isolate like canvas.js and check canvas-bracket.js for additions/changes.
+- change name to html.js
 - NOTES: be thorough.
 - break up example and copy/paste version
   - .js file should stand alone. ie. NO object. should just handle from index.html
