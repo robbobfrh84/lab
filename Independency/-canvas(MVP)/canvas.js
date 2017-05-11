@@ -50,9 +50,9 @@ class canvasJS {
     this.ctx.stroke()
   }
 
-  text (content, x, y, font, style) {
+  text (content, x, y, font, style, fillColor) {
     this.ctx.font = font+'px '+style
-    this.ctx.fillStyle = 'green'
+    this.ctx.fillStyle = fillColor
     this.ctx.fillText(content, x, y)
   }
 
