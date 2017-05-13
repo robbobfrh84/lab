@@ -1,7 +1,3 @@
-var pages = {
-  index: index,
-  page2: () => 'page two placeholder'
-}
 
 class htmlJS {
 
@@ -97,41 +93,19 @@ class htmlJS {
 
 (function () {
   const startTime = window.performance.now()
-  let html = {
-    str: 'Hello Earthling!',
-    str2: 'Hello Alien!',
-    int: 49,
-    arr: ['1st', '2nd', '3rd'],
-    arr2: ['purple', 'green', 'blue', 'orange', 'black', 'blue', 'pink', 'white'],
-    arr3: ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight',
-          'nine', 'ten', 'eleven', 'twelve', 'thirdteen', 'fourteen', 'fifteen',
-          'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty'],
-    arr4: ['xXx', 'yYy'],
-    arr5: ['nest1', 'nest2'],
-    obj: {
-      Name: 'Tom',
-      Age: '32',
-      Height: '5'+"' "+'11"'
-    },
-    obj2: {
-      Name: 'Tom',
-      Age: '32',
-      Pets: {
-        cats: 2,
-        dogs: 1
-      },
-      arr: ['a', { more: 'ok'} , 'c'],
-      arr2: ['Ace', 'Queen', 'King']
-    }
+
+  let scripts = document.getElementsByTagName('script')
+  console.log('scripts', scripts)
+  let x = {}
+  for (const script of scripts) {
+    x.y = script.getAttribute('name')
+    if (x) console.log('name: ', x[script.getAttribute('name')])
   }
-  for (const i in pages) {
-    console.log('func', i, pages[i]())
-    html[i] = pages[i]()
-  }
-  console.log(html)
+
   let h1 = new htmlJS
-  h1.getTag(html, 'var')
-  h1.getTag(html, 'for')
+  h1.getTag(tester(), 'var')
+  h1.getTag(tester(), 'for')
+
   console.log((window.performance.now() - startTime) + ' milliseconds')
 })()
 

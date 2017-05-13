@@ -1,5 +1,5 @@
 <!DOCTYPE html><html><head><meta charset="utf-8"><title> html for Arr </title>
-<link rel="stylesheet" href="htmlJS.css">
+<link rel="stylesheet" href="tester.css">
 </head>
   <body>
 
@@ -88,7 +88,6 @@
       ^^^ 0th index and 2nd, 2nd index to last and last
     </div>
 
-
 <!-- ++++++++++++ Nested Combining and Testing +++++++++++++++++++++ -->
 
     <div class="inline"> Nested Array
@@ -139,30 +138,49 @@
       </div>
     </div>
 
-    <div class="inline" var="h index.str">
-      <strong> Index.html </strong>
+    <div class="inline" var="h str">
+      <strong> tester.html </strong>
       <h3> h </h3>
     </div>
 
-    <div class="inline"> <strong> Index.html </strong>
-      <div for="v,k index.obj">
+    <div class="inline"> <strong> tester.html </strong>
+      <div for="v,k obj">
         <h3> " -k- ": v </h3>
       </div>
     </div>
 
   </body>
 </html>
-<script type="text/javascript">
-  function index () {
+<script name='tester'>
+  tester = () => {
     return {
+      str: 'Hello Earthling!',
+      str2: 'Hello Alien!',
+      int: 49,
+      arr: ['1st', '2nd', '3rd'],
+      arr2: ['purple', 'green', 'blue', 'orange', 'black', 'blue', 'pink', 'white'],
+      arr3: ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight',
+            'nine', 'ten', 'eleven', 'twelve', 'thirdteen', 'fourteen', 'fifteen',
+            'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty'],
+      arr4: ['xXx', 'yYy'],
+      arr5: ['nest1', 'nest2'],
       obj: {
-        one: 'first (html)',
-        two: '2nd (html)',
-        three: '3rd (html)'
+        Name: 'Tom',
+        Age: '32',
+        Height: '5'+"' "+'11"'
       },
-      str: 'hello from index.html'
+      obj2: {
+        Name: 'Tom',
+        Age: '32',
+        Pets: {
+          cats: 2,
+          dogs: 1
+        },
+        arr: ['a', { more: 'ok'} , 'c'],
+        arr2: ['Ace', 'Queen', 'King']
+      },
+      myFunc: ()=>{ console.log('hello from myFunc! & this.obj',this.obj)}
     }
   }
-  var x = 'hello'
 </script>
-<script src='htmlJS.js'></script>
+<script src='html.js'></script>
