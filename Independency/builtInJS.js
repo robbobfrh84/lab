@@ -44,3 +44,9 @@ inputId.addEventListener("keypress", function (e) { if (e.keyCode == 13) { ?? }}
 
 /******** loops *******/
 array.forEach(function(value, i) { console.log(value, i) }) // value is object/array/var, whatever of ARRAY, i is index
+
+/******** time *******/
+
+const startTime = window.performance.now()
+console.log((window.performance.now() - startTime) + ' milliseconds')
+OR window.date.now()

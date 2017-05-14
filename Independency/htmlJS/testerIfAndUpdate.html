@@ -1,0 +1,35 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title> htmlJS Update </title>
+  <link rel="stylesheet" href="tester.css">
+</head>
+  <body>
+    <h2 if='!list'>Build table by adding names and or numbers</h2>
+    <input id='iNum' style='width: 40px;' placeholder="num ..." onclick='add(e)'/>
+    <input id='iName' style='width: 300px;' placeholder="enter name ..."/>
+    <button onclick='add()'> Add More</button>
+    <br>
+    <table if='list' style='width: 500px;'>
+      <tr>
+        <th > Name </th>
+        <th style='width: 40px;'> Number </th>
+      </tr>
+    </table>
+    <p if='list'> <em> * You can also hit </em><strong>[enter]</strong><em> to add </em> </p>
+  </body>
+  <div if>
+</html>
+<script name='testerUpdate'>
+  testerUpdate = ()=>{
+    return {
+      list: []
+    }
+  }
+
+  iName.addEventListener("keypress", function (e) { if (e.keyCode == 13) { add() }})
+
+  add = ()=>{
+    console.log('add')
+    hH.update()
+  }
+
+</script>
+<script src='html.js'></script>

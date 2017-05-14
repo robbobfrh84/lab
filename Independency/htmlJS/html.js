@@ -8,6 +8,7 @@ class htmlJS {
       switch (tag) {
         case 'var': this.varJS(Obj, elm[i], tags, txt.split(',')); break
         case 'for': this.forJS(Obj, elm[i], tags, txt.split(' ')); break
+        case 'if': this.ifJS(Obj, elm[i], txt); break
       }
     }
   }
@@ -36,6 +37,18 @@ class htmlJS {
       }
     }
     for (let i = 0; i < tags; i++) elm.removeChild(elm.childNodes[0])
+  }
+
+  ifJS (Obj, elm, ifVar) {
+    if (ifVar[0] === '!') {
+      ifVar = ifVar.split('!')[1]
+      if (typeof Obj[ifVar] === 'boolean'){ if (Obj[ifVar] === true) elm.remove()}
+      else if (Obj[ifVar] && Object.keys(Obj[ifVar]).length) elm.remove()
+    } else {
+      if (!Obj[ifVar]) elm.remove()
+      else if (typeof Obj[ifVar] === 'boolean'){ if (Obj[ifVar] === false) elm.remove()}
+      else if (Obj[ifVar] && !Object.keys(Obj[ifVar]).length) elm.remove()
+    }
   }
 
   getDir (Obj, jVar) { // Grab 'var' elm string. html var name = JS var
@@ -89,25 +102,39 @@ class htmlJS {
     parent.appendChild(child)
   }
 
+  update(){
+    console.log('update')
+  }
+
 }
 
 (function () {
   const startTime = window.performance.now()
-
-  let scripts = document.getElementsByTagName('script')
-  console.log('scripts', scripts)
-  let x = {}
-  for (const script of scripts) {
-    x.y = script.getAttribute('name')
-    if (x) console.log('name: ', x[script.getAttribute('name')])
-  }
-
-  let h1 = new htmlJS
-  h1.getTag(tester(), 'var')
-  h1.getTag(tester(), 'for')
-
+  // let scripts = document.getElementsByTagName('script')
+  // for (const script of scripts) {
+  //   const y = script.getAttribute('name')
+  //   if (window[y]) {
+  //     let hH = new htmlJS
+  //     hH.getTag(window[y](), 'var')
+  //     hH.getTag(window[y](), 'for')
+  //     hH.getTag(window[y](), 'if')
+  //   }
+  // }
   console.log((window.performance.now() - startTime) + ' milliseconds')
 })()
+
+update = ()=>{
+  let scripts = document.getElementsByTagName('script')
+  for (const script of scripts) {
+    const y = script.getAttribute('name')
+    if (window[y]) {
+      let hH = new htmlJS
+      hH.getTag(window[y](), 'var')
+      hH.getTag(window[y](), 'for')
+      hH.getTag(window[y](), 'if')
+    }
+  }
+}
 
 /********** ToDo **********
 - isolate like canvas.js and check canvas-bracket.js for additions/changes.
