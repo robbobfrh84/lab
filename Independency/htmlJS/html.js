@@ -1,7 +1,6 @@
-
 class htmlJS {
 
-  getTag (Obj, tag, elm = document.querySelectorAll('['+tag+']')) { // Grabs All tags with 'for' element
+  getTag (Obj, tag, elm =  document.querySelectorAll('['+tag+']')) { // Grabs All tags with 'tag' element
     for (let i = elm.length-1; i >= 0; i--) { // Loop through all tags with 'for' element. Needs to be in reverse cuz nested loops need to run first.
       const tags = elm[i].childNodes.length // Snatch this value as a seperate because length of childnodes will change dynamically, creating INFINATE LOOPS OF PERIL!
       const txt = elm[i].getAttribute(tag)
@@ -40,14 +39,21 @@ class htmlJS {
   }
 
   ifJS (Obj, elm, ifVar) {
+    let hide = false
     if (ifVar[0] === '!') {
       ifVar = ifVar.split('!')[1]
-      if (typeof Obj[ifVar] === 'boolean'){ if (Obj[ifVar] === true) elm.remove()}
-      else if (Obj[ifVar] && Object.keys(Obj[ifVar]).length) elm.remove()
+      if (typeof Obj[ifVar] === 'boolean'){ if (Obj[ifVar] === true) hide = true}
+      else if (Obj[ifVar] && Object.keys(Obj[ifVar]).length) hide = true
     } else {
-      if (!Obj[ifVar]) elm.remove()
-      else if (typeof Obj[ifVar] === 'boolean'){ if (Obj[ifVar] === false) elm.remove()}
-      else if (Obj[ifVar] && !Object.keys(Obj[ifVar]).length) elm.remove()
+      if (!Obj[ifVar]) hide = true
+      else if (typeof Obj[ifVar] === 'boolean'){ if (Obj[ifVar] === false) hide = true}
+      else if (Obj[ifVar] && !Object.keys(Obj[ifVar]).length) hide = true
+    }
+    const oldDisplay = elm.style.display
+    if (hide) {
+      elm.className = 'htmlJS-display-none'
+    } else {
+      elm.classList.remove('htmlJS-display-none')
     }
   }
 
@@ -102,43 +108,52 @@ class htmlJS {
     parent.appendChild(child)
   }
 
-  update(){
-    console.log('update')
+  updateAll (className, data) {
+    className.getTag(data, 'var')
+    className.getTag(data, 'for')
+    className.getTag(data, 'if')
   }
 
 }
 
-(function () {
-  const startTime = window.performance.now()
-  // let scripts = document.getElementsByTagName('script')
-  // for (const script of scripts) {
-  //   const y = script.getAttribute('name')
-  //   if (window[y]) {
-  //     let hH = new htmlJS
-  //     hH.getTag(window[y](), 'var')
-  //     hH.getTag(window[y](), 'for')
-  //     hH.getTag(window[y](), 'if')
-  //   }
-  // }
-  console.log((window.performance.now() - startTime) + ' milliseconds')
+(()=>{
+  let style = document.createElement('style') // create a cssStyleClass to hide and unHide elements.
+  style.innerHTML = '.htmlJS-display-none { display: none; }'
+  document.getElementsByTagName('head')[0].appendChild(style)
 })()
 
-update = ()=>{
-  let scripts = document.getElementsByTagName('script')
-  for (const script of scripts) {
-    const y = script.getAttribute('name')
-    if (window[y]) {
-      let hH = new htmlJS
-      hH.getTag(window[y](), 'var')
-      hH.getTag(window[y](), 'for')
-      hH.getTag(window[y](), 'if')
-    }
-  }
-}
+
+// update = (obj)=>{
+//   // console.log(obj)
+//   let h = new htmlJS
+//   h.updateAll(h, obj)
+// }
+//
+
+// (()=>{
+//   const startTime = window.performance.now()
+//   let style = document.createElement('style') // create a cssStyleClass to hide and unHide elements.
+//   style.innerHTML = '.htmlJS-display-none { display: none; }'
+//   document.getElementsByTagName('head')[0].appendChild(style)
+//
+//   let scripts = document.getElementsByTagName('script')
+//   for (const script of scripts) {
+//     const y = script.getAttribute('name')
+//     if (window[y]) {
+//       const data = window[y]()
+//       let h = new htmlJS
+//       h.updateAll(h, data)
+//     }
+//   }
+//   console.log((window.performance.now() - startTime) + ' milliseconds')
+// })()
 
 /********** ToDo **********
 - isolate like canvas.js and check canvas-bracket.js for additions/changes.
-- change name to html.js
+- attributes are not preserved.
+- all () {
+  // update all attribute cammands if/for/var ... etc...
+}
 - NOTES: be thorough.
 - break up example and copy/paste version
   - .js file should stand alone. ie. NO object. should just handle from index.html

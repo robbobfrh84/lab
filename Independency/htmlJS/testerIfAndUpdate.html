@@ -3,33 +3,78 @@
 </head>
   <body>
     <h2 if='!list'>Build table by adding names and or numbers</h2>
-    <input id='iNum' style='width: 40px;' placeholder="num ..." onclick='add(e)'/>
+    <input style='width: 40px;' placeholder="num ..."/>
     <input id='iName' style='width: 300px;' placeholder="enter name ..."/>
-    <button onclick='add()'> Add More</button>
+    <button id='button1'> Add More</button>
     <br>
-    <table if='list' style='width: 500px;'>
-      <tr>
+    <table if='list' for='v list' style='width: 500px;'>
+      <tr indices="0">
         <th > Name </th>
         <th style='width: 40px;'> Number </th>
+      </tr>
+      <tr>
+        <td> v.name </td>
+        <td> v.number </td>
       </tr>
     </table>
     <p if='list'> <em> * You can also hit </em><strong>[enter]</strong><em> to add </em> </p>
   </body>
-  <div if>
 </html>
-<script name='testerUpdate'>
-  testerUpdate = ()=>{
-    return {
-      list: []
-    }
-  }
+<script src='html.js'></script>
+<script>
+// <script name='testerIfAndUpdate' htmlJS='replace_name_for_htmlJS'>
 
+  // really think about combining script OR: adding a specific dyanmic name that's lean... IF it's better to just do the class here then do it.
+
+  // var testerIfAndUpdate = {
+  //   list: []
+  // }
+  //
+  // iName.addEventListener("keypress", function (e) { if (e.keyCode == 13) { add() }})
+  //
+  //
+  // add = ()=>{
+  //   testerIfAndUpdate.list.push('hello')
+  //   console.log(testerIfAndUpdate.list)
+  //   update('testerIfAndUpdate', 'all')
+  // };
+
+// testerIfAndUpdate = ()=>{
+//   let data = {
+//     list: []
+//   }
+//   //iName.addEventListener("keypress", function (e) { if (e.keyCode == 13) { add() }})
+//   add = ()=>{
+//     data.list.push({ name: 'Testy', number: 1 })
+//     console.log('--&&--', data)
+//     update(data)
+//   }
+//   button1.addEventListener("click", function (e) { add() } )
+//   console.log('---It builds the function 3 times.')
+//   return data
+// }
+
+(( h = new htmlJS )=>{
+  // let h = new htmlJS
+  let data = {
+    list: [
+      { name: 'Testy', number: 1 },
+      { name: 'Testy2', number: 2 },
+      { name: 'Testy3', number: 3 }
+
+    ]
+  }
+  h.updateAll(h, data)
   iName.addEventListener("keypress", function (e) { if (e.keyCode == 13) { add() }})
-
   add = ()=>{
-    console.log('add')
-    hH.update()
+    data.list.push({ name: 'XTesty', number: 1 })
+    console.log('--&&--', data)
+    h.updateAll(h, data)
   }
+  button1.addEventListener("click", function (e) { add() } )
+  console.log('--- a')
+  return data
+})()
 
 </script>
-<script src='html.js'></script>
+<!-- <script src='html.js'></script> -->
