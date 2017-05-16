@@ -26,6 +26,7 @@ class htmlJS {
   }
 
   forJS (Obj, elm, tags, [ node, parent ], [ val, key, ind ] = node.split(',')) {
+    console.log('b---',Obj, elm, tags, [ node, parent ], [ val, key, ind ])
     parent = this.getDir(Obj, parent)
     for (const i in parent) { // Loop through all indices/keys within the Object
       for (let j = 0; j < tags; j++) { // loop through all tags within element.
@@ -58,12 +59,13 @@ class htmlJS {
   }
 
   getDir (Obj, jVar) { // Grab 'var' elm string. html var name = JS var
+    console.log('getDir: Obj, jVar', Obj, jVar)
     for (const p of jVar.split(/[.\[\]]/).filter(Boolean)) Obj = Obj[p]
     return Obj
   }
 
   valueTypes (elm, i, tag, val, key, ind, jVal, textArr) {
-    const startArr = tag.innerHTML.split(' ')
+    const startArr = tag.innerHTML.split(/[\n\ ]/)
     if (val) textArr = this.place(startArr, val, jVal[i]) // here's where the InnerHTML text is swapped to match JS variables.
     if (key) textArr = this.place(startArr, key, i)
     if (ind) textArr = this.place(startArr, ind, Object.keys(jVal).indexOf(i))
@@ -108,7 +110,7 @@ class htmlJS {
     parent.appendChild(child)
   }
 
-  updateAll (className, data) {
+  update (className, data) {
     className.getTag(data, 'var')
     className.getTag(data, 'for')
     className.getTag(data, 'if')

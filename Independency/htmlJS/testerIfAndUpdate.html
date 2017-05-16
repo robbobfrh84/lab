@@ -7,8 +7,8 @@
     <input id='iName' style='width: 300px;' placeholder="enter name ..."/>
     <button id='button1'> Add More</button>
     <br>
-    <table if='list' for='v list' style='width: 500px;'>
-      <tr indices="0">
+    <!-- <table if='list' for='v list' style='width: 500px;'>
+      <tr>
         <th > Name </th>
         <th style='width: 40px;'> Number </th>
       </tr>
@@ -16,65 +16,38 @@
         <td> v.name </td>
         <td> v.number </td>
       </tr>
-    </table>
+    </table> -->
+    <div for="v,k,i list">
+      <div>
+        v.name
+      </div>
+    </div>
     <p if='list'> <em> * You can also hit </em><strong>[enter]</strong><em> to add </em> </p>
   </body>
 </html>
 <script src='html.js'></script>
 <script>
-// <script name='testerIfAndUpdate' htmlJS='replace_name_for_htmlJS'>
-
-  // really think about combining script OR: adding a specific dyanmic name that's lean... IF it's better to just do the class here then do it.
-
-  // var testerIfAndUpdate = {
-  //   list: []
-  // }
-  //
-  // iName.addEventListener("keypress", function (e) { if (e.keyCode == 13) { add() }})
-  //
-  //
-  // add = ()=>{
-  //   testerIfAndUpdate.list.push('hello')
-  //   console.log(testerIfAndUpdate.list)
-  //   update('testerIfAndUpdate', 'all')
-  // };
-
-// testerIfAndUpdate = ()=>{
-//   let data = {
-//     list: []
-//   }
-//   //iName.addEventListener("keypress", function (e) { if (e.keyCode == 13) { add() }})
-//   add = ()=>{
-//     data.list.push({ name: 'Testy', number: 1 })
-//     console.log('--&&--', data)
-//     update(data)
-//   }
-//   button1.addEventListener("click", function (e) { add() } )
-//   console.log('---It builds the function 3 times.')
-//   return data
-// }
 
 (( h = new htmlJS )=>{
-  // let h = new htmlJS
+
   let data = {
     list: [
       { name: 'Testy', number: 1 },
-      { name: 'Testy2', number: 2 },
       { name: 'Testy3', number: 3 }
-
     ]
   }
-  h.updateAll(h, data)
-  iName.addEventListener("keypress", function (e) { if (e.keyCode == 13) { add() }})
+  console.log('--- a', data)
+
+  h.update(h, data)
   add = ()=>{
-    data.list.push({ name: 'XTesty', number: 1 })
+    data.list.push( { name: 'XTesty', number: 69 } )
     console.log('--&&--', data)
-    h.updateAll(h, data)
+    h.update(h, data)
   }
   button1.addEventListener("click", function (e) { add() } )
-  console.log('--- a')
-  return data
+  iName.addEventListener("keypress", function (e) { if (e.keyCode == 13) { add() }})
+
+  console.log('--- end of initial load --- \n\n\n')
 })()
 
 </script>
-<!-- <script src='html.js'></script> -->
