@@ -26,17 +26,32 @@ class htmlJS {
   }
 
   forJS (Obj, elm, tags, [ node, parent ], [ val, key, ind ] = node.split(',')) {
-    console.log('b---',Obj, elm, tags, [ node, parent ], [ val, key, ind ])
+    // console.log('b---',Obj, elm, tags, [ node, parent ], [ val, key, ind ])
+
+    // return to original state ..
+    // you need to clone nodes: because that'll maintain attributes. otherwise it's just removing them.
     parent = this.getDir(Obj, parent)
     for (const i in parent) { // Loop through all indices/keys within the Object
       for (let j = 0; j < tags; j++) { // loop through all tags within element.
         const tag = elm.childNodes[j]
         if (tag.contentEditable) { // there's extra DOM stuff we dont' need, This will only duplicate tags we created.
+
+          if (!tag.getAttribute('forinitialstate')) console.log('does not have new attr')
+
           this.valueTypes(elm, i, tag, val, key, ind, parent)
+          //
+          //
+          const attx = document.createAttribute('forinitialstate')
+          attx.value = "inner html of original tag."
+          tag.setAttributeNode(attx)
+          //
+          //
+          console.log('tags: ', tag)
+          if (tag.getAttribute('forinitialstate')) console.log('has new attr')
         }
       }
     }
-    for (let i = 0; i < tags; i++) elm.removeChild(elm.childNodes[0])
+    // for (let i = 0; i < tags; i++) elm.removeChild(elm.childNodes[0])
   }
 
   ifJS (Obj, elm, ifVar) {
@@ -59,7 +74,6 @@ class htmlJS {
   }
 
   getDir (Obj, jVar) { // Grab 'var' elm string. html var name = JS var
-    console.log('getDir: Obj, jVar', Obj, jVar)
     for (const p of jVar.split(/[.\[\]]/).filter(Boolean)) Obj = Obj[p]
     return Obj
   }
