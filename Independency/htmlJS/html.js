@@ -27,30 +27,36 @@ class htmlJS {
 
   forJS (Obj, elm, tags, [ node, parent ], [ val, key, ind ] = node.split(',')) {
     // console.log('b---',Obj, elm, tags, [ node, parent ], [ val, key, ind ])
-
-    // return to original state ..
-    // you need to clone nodes: because that'll maintain attributes. otherwise it's just removing them.
+    //
+    // NEW FUNC (OR: change newTag()) => you need to clone nodes: because that'll maintain attributes. otherwise it's just removing them.
+    // remove tag's that don't have forinitialstate.
+    // - - - AND set innerHTML back to forinitialstate
+    console.log('top', elm)
+    //
     parent = this.getDir(Obj, parent)
     for (const i in parent) { // Loop through all indices/keys within the Object
       for (let j = 0; j < tags; j++) { // loop through all tags within element.
         const tag = elm.childNodes[j]
         if (tag.contentEditable) { // there's extra DOM stuff we dont' need, This will only duplicate tags we created.
-
-          if (!tag.getAttribute('forinitialstate')) console.log('does not have new attr')
-
-          this.valueTypes(elm, i, tag, val, key, ind, parent)
           //
           //
+          // if (!tag.getAttribute('forinitialstate')) console.log('Is not initial...')
           const attx = document.createAttribute('forinitialstate')
-          attx.value = "inner html of original tag."
+          attx.value = tag.innerHTML
           tag.setAttributeNode(attx)
+          if (tag.getAttribute('forinitialstate') && !elm.getAttribute('initial-set')) {
+            console.log('!first time through!')
+            this.valueTypes(elm, i, tag, val, key, ind, parent)
+          }
           //
           //
-          console.log('tags: ', tag)
-          if (tag.getAttribute('forinitialstate')) console.log('has new attr')
         }
       }
     }
+    const initialSet = document.createAttribute('initial-set')
+    initialSet.value = true
+    elm.setAttributeNode(initialSet)
+    console.log('end elm: ', elm)
     // for (let i = 0; i < tags; i++) elm.removeChild(elm.childNodes[0])
   }
 
