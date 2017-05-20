@@ -3,6 +3,29 @@
 </head>
   <body>
 
+<!-- ++++++++ Dynically Updated Table & JS object ++++++++++ -->
+
+    <h2 if='!list'>Build table by adding names and or numbers</h2>
+    <input id='iName' style='width: 300px;' placeholder="enter name ..."/>
+    <input id='iNumber' style='width: 40px;' placeholder="num ..."/>
+    <button id='button1'> More </button>
+    <br><br>
+    <table if='list' style='width: 500px;'>
+      <tr for='v,k,i list[0]'>
+        <th> k </th>
+      </tr>
+      <tbody for='v list' >
+        <tr>
+          <td> v.name </td>
+          <td> v.number </td>
+        </tr>
+      </tbody>
+    </table>
+    <p if='list'> <em> * You can also hit </em><strong>[enter]</strong><em> to add </em> </p>
+    <br>    <br>    <br>
+
+<!-- ++++++++++++++++++ Static Example +++++++++++++++++++++ -->
+
     <div class="inline"> <strong> Static example </strong>
       <h3> a </h3>
       <h3> b </h3>
@@ -149,10 +172,27 @@
       </div>
     </div>
 
+    <br><br><br><br>
+
+
+    <table>
+      <tr for='v,k,i obj'>
+        <th> k </th>
+      </tr>
+      <tbody >
+        <tr for='v obj'>
+          <td> v </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <br><br><br><br>
+
   </body>
 </html>
 <script src='html.js'></script>
 <script>
+
 (( h = new htmlJS )=>{
 
   let data = {
@@ -168,8 +208,11 @@
     arr5: ['nest1', 'nest2'],
     obj: {
       Name: 'Tom',
-      Age: '32',
-      Height: '5'+"' "+'11"'
+      Age: '30',
+      Height: '5'+"' "+'10"',
+      Eyes: 'blue',
+      Hair: 'Red',
+      Weight: '200 lbs'
     },
     obj2: {
       Name: 'Tom',
@@ -181,8 +224,19 @@
       arr: ['a', { more: 'ok'} , 'c'],
       arr2: ['Ace', 'Queen', 'King']
     },
-    myFunc: ()=>{ console.log('hello from myFunc! & this.obj',this.obj)}
+    list: []
   }
+
+  add = ()=>{
+    data.list.push( { name: iName.value, number: iNumber.value } )
+    console.log('--updated data--', data)
+    h.update(h, data)
+    iName.focus()
+    iName.value = ""
+    iNumber.value = ""
+  }
+  button1.addEventListener("click", function (e) { add() } )
+  iNumber.addEventListener("keypress", function (e) { if (e.keyCode == 13) { add() }})
 
 h.update(h, data) })()
 

@@ -36,7 +36,9 @@ class htmlJS {
 
   forJS (Obj, elm, tags, [ node, parent ], [ val, key, ind ] = node.split(',')) {
     parent = this.getDir(Obj, parent)
-    for (let child of elm.querySelectorAll('[is-clone]')) elm.removeChild(child) // REMOVES all cloned elements from any previously loaded Doms.
+    for (let child of elm.querySelectorAll(':scope > [is-clone]')) {
+      elm.removeChild(child) // REMOVES all cloned elements from any previously loaded Doms.
+    }
     tags = elm.childNodes.length
     for (const i in parent) { // Loop through all indices/keys within the Object
       this.isInitial = true
@@ -86,7 +88,7 @@ class htmlJS {
       let r = arr[w][arr[w].length-1] === '-' ? '-' : ''
       let l = arr[w][0] === '-' ? '-' : ''
       const em = arr[w].split(/[\.\[\]]/).filter(Boolean)
-      if ((em[0] === key || em[0].slice(1) === key ) && em.length > 1) {
+      if ( em[0] && ((em[0] === key || em[0].slice(1) === key ) && em.length > 1)) {
         if (r) arr[w] = arr[w].slice(0, arr[w].length-1)
         if (l) arr[w] = arr[w].slice(1)
         arr[w] = this.getDir(jVal, arr[w].slice(2))
