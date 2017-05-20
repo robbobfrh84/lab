@@ -27,7 +27,10 @@ class htmlJS {
       jVar = this.getDir(Obj, jVar)
       for (let j = 0; j < tags; j++) { // loop through all tags within element.
         const tag = elm.childNodes[j]
-        if (elm.childNodes[j].contentEditable) { // there's extra DOM stuff we dont' need, This will only duplicate tags we created.
+        if (tag.wholeText && tag.wholeText.split(/[\n\ ]/).filter(Boolean).length) {
+          tag.textContent = this.place(tag.textContent.split(/[\n\ ]/), hVar, jVar).join(' ') // here's where the InnerHTML text is swapped to match JS variables.
+        } // ^^^ takes text wrettin between tags and includes it.
+        if (tag.contentEditable) { // there's extra DOM stuff we dont' need, This will only duplicate tags we created.
           tag.innerHTML = this.place(tag.innerHTML.split(/[\n\ ]/), hVar, jVar).join(' ') // here's where the InnerHTML text is swapped to match JS variables.
         }
       }
@@ -142,45 +145,3 @@ class htmlJS {
   style.innerHTML = '.htmlJS-hide { display: none; }'
   document.getElementsByTagName('head')[0].appendChild(style)
 })()
-
-
-// update = (obj)=>{
-//   // console.log(obj)
-//   let h = new htmlJS
-//   h.updateAll(h, obj)
-// }
-//
-
-// (()=>{
-//   const startTime = window.performance.now()
-//   let style = document.createElement('style') // create a cssStyleClass to hide and unHide elements.
-//   style.innerHTML = '.htmlJS-hide { display: none; }'
-//   document.getElementsByTagName('head')[0].appendChild(style)
-//
-//   let scripts = document.getElementsByTagName('script')
-//   for (const script of scripts) {
-//     const y = script.getAttribute('name')
-//     if (window[y]) {
-//       const data = window[y]()
-//       let h = new htmlJS
-//       h.updateAll(h, data)
-//     }
-//   }
-//   console.log((window.performance.now() - startTime) + ' milliseconds')
-// })()
-
-/********** ToDo **********
-- isolate like canvas.js and check canvas-bracket.js for additions/changes.
-- attributes are not preserved.
-- all () {
-  // update all attribute cammands if/for/var ... etc...
-}
-- NOTES: be thorough.
-- break up example and copy/paste version
-  - .js file should stand alone. ie. NO object. should just handle from index.html
-  - INCLUDE index.html file that ONLY gives a simple BLANK exampleObect = { key: 'value'}, and one-line example. NOTHING else. the examples will be in the EXAMPLE file.
-- Ok..... maybe we should wait to see how imports is handles before adding multi page functionality.
-- ONE more look through.
-- move to Review.
-
-**********/
