@@ -20,6 +20,7 @@ Object.keys(obj).indexOf('key') // >Intiger. find the index of a key within an o
 
 /******** DOM interactions *******/
 document.querySelectorAll('[for]') // >Array of DOM objects with for attribute
+tag.hasAttribute('attribute') // >Bool if it has the attr
 tag.getAttribute('attribute') // >String Gets html's tag element DOM attributes.
 tag.Some_Attribue = 'value' // many html attributes can be added dot.notation.style
 tag.removeChild(tag.childNodes[0]) // removes first child within html's tag.
@@ -28,7 +29,10 @@ var newTag = document.createElement('html') // creats new tag
 var textElm = document.createTextNode('Some text') // creates text elm
 newTag.appendChild(textElm) // puts text elm inside new tag
 parent.appendChild(newTag) // puts tag into DOM
-onDOMContentLoaded = ( => { console.log("Dom is ready!") })() // odd i know. but will fire when dom is completely loaded.
+//cloneNode
+let clone = tag.cloneNode(true)
+// FIRE when DOM is loaded. odd i know. but will fire when dom is completely loaded.
+onDOMContentLoaded = ( => { console.log("Dom is ready!") })()
 
 /******** RegExp *******/
 new RegExp(aBunchOfcharsArr.join('|')).test(toSearchThroughArr) // >Bool if ALL conditions are met. test() is NOT poop in this.

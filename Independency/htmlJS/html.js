@@ -1,6 +1,15 @@
+// MAKE NOTE OF RESERVED VAR NAMES
+// DOM attributes
+// - for
+// - var
+// - if
+// - is-clone
+// CSS
+// .htmlJS-hide
+
 class htmlJS {
 
-  getTag (Obj, tag, elm =  document.querySelectorAll('['+tag+']')) { // Grabs All tags with 'tag' element
+  getTag (Obj, tag, elm = document.querySelectorAll('['+tag+']')) { // Grabs All tags with 'tag' element
     for (let i = elm.length-1; i >= 0; i--) { // Loop through all tags with 'for' element. Needs to be in reverse cuz nested loops need to run first.
       const tags = elm[i].childNodes.length // Snatch this value as a seperate because length of childnodes will change dynamically, creating INFINATE LOOPS OF PERIL!
       const txt = elm[i].getAttribute(tag)
@@ -19,45 +28,23 @@ class htmlJS {
       for (let j = 0; j < tags; j++) { // loop through all tags within element.
         const tag = elm.childNodes[j]
         if (elm.childNodes[j].contentEditable) { // there's extra DOM stuff we dont' need, This will only duplicate tags we created.
-          tag.innerHTML = this.place(tag.innerHTML.split(' '), hVar, jVar).join(' ') // here's where the InnerHTML text is swapped to match JS variables.
+          tag.innerHTML = this.place(tag.innerHTML.split(/[\n\ ]/), hVar, jVar).join(' ') // here's where the InnerHTML text is swapped to match JS variables.
         }
       }
     }
   }
 
   forJS (Obj, elm, tags, [ node, parent ], [ val, key, ind ] = node.split(',')) {
-    // console.log('b---',Obj, elm, tags, [ node, parent ], [ val, key, ind ])
-    //
-    // NEW FUNC (OR: change newTag()) => you need to clone nodes: because that'll maintain attributes. otherwise it's just removing them.
-    // remove tag's that don't have forinitialstate.
-    // - - - AND set innerHTML back to forinitialstate
-    console.log('top', elm)
-    //
     parent = this.getDir(Obj, parent)
+    for (let child of elm.querySelectorAll('[is-clone]')) elm.removeChild(child) // REMOVES all cloned elements from any previously loaded Doms.
+    tags = elm.childNodes.length
     for (const i in parent) { // Loop through all indices/keys within the Object
+      this.isInitial = true
       for (let j = 0; j < tags; j++) { // loop through all tags within element.
         const tag = elm.childNodes[j]
-        if (tag.contentEditable) { // there's extra DOM stuff we dont' need, This will only duplicate tags we created.
-          //
-          //
-          // if (!tag.getAttribute('forinitialstate')) console.log('Is not initial...')
-          const attx = document.createAttribute('forinitialstate')
-          attx.value = tag.innerHTML
-          tag.setAttributeNode(attx)
-          if (tag.getAttribute('forinitialstate') && !elm.getAttribute('initial-set')) {
-            console.log('!first time through!')
-            this.valueTypes(elm, i, tag, val, key, ind, parent)
-          }
-          //
-          //
-        }
+        if (tag.contentEditable) this.valueTypes(elm, i, tag, val, key, ind, parent) // there's extra DOM stuff we dont' need, This will only duplicate tags we created.
       }
     }
-    const initialSet = document.createAttribute('initial-set')
-    initialSet.value = true
-    elm.setAttributeNode(initialSet)
-    console.log('end elm: ', elm)
-    // for (let i = 0; i < tags; i++) elm.removeChild(elm.childNodes[0])
   }
 
   ifJS (Obj, elm, ifVar) {
@@ -71,12 +58,7 @@ class htmlJS {
       else if (typeof Obj[ifVar] === 'boolean'){ if (Obj[ifVar] === false) hide = true}
       else if (Obj[ifVar] && !Object.keys(Obj[ifVar]).length) hide = true
     }
-    const oldDisplay = elm.style.display
-    if (hide) {
-      elm.className = 'htmlJS-display-none'
-    } else {
-      elm.classList.remove('htmlJS-display-none')
-    }
+    hide ? elm.className = 'htmlJS-hide' : elm.classList.remove('htmlJS-hide')
   }
 
   getDir (Obj, jVar) { // Grab 'var' elm string. html var name = JS var
@@ -90,24 +72,59 @@ class htmlJS {
     if (key) textArr = this.place(startArr, key, i)
     if (ind) textArr = this.place(startArr, ind, Object.keys(jVal).indexOf(i))
     if (this.showAtIndices(tag, i, jVal)) { // returns bool, if in the HTML indices attribute declares we shouldn't show this..
+      tag.className = 'htmlJS-hide'
       this.newTag(elm, tag, textArr.join(' '))
     }
   }
 
   place (arr, key, jVal) {
-    for (let w in arr) {
+    for (const w in arr) {
       if (typeof arr[w] === "object") arr[w] = JSON.stringify(arr[w]) // if var isn't a single value (meaning it's still an arr/obj) This will display the remaing data in JSON format.
-      const em = arr[w].split(/[.\[\]]/).filter(Boolean)
-      if (em[0] === key && em.length > 1) arr[w] = this.getDir(jVal, arr[w].slice(2))
-      if (arr[w] === key) {
-        arr[w] = jVal; continue
-      } else if (arr[w] === '-' + key + '-') {
-        arr.splice(w-1, 3, arr[w-1] + jVal + arr[parseInt(w)+1]); continue
-      } else if (arr[w] === '-' + key ) {
-        arr.splice(w-1, 2, arr[w-1] + jVal); continue
-      } else if (arr[w] === key + '-') {
-        arr.splice(w, 2, jVal + arr[parseInt(w)+1])
+      if (typeof arr[w] !== "string" || arr[w] === "") continue
+
+
+      let [ l, r, pass ] = [ '', '', false ]
+      if (arr[w][arr[w].length-1] === '-') r = '-'
+      if (arr[w][0] === '-') l = '-'
+
+      const em = arr[w].split(/[\.\[\]]/).filter(Boolean)
+
+      if ((em[0] === key || em[0].slice(1) === key ) && em.length > 1) {
+        if (r) arr[w] = arr[w].slice(0, arr[w].length-1)
+        if (l) arr[w] = arr[w].slice(1)
+        arr[w] = this.getDir(jVal, arr[w].slice(2))
+        console.log(em[0]+r, l+key+r, arr[w])
+        if ( l || r ) pass = true
       }
+      // console.log('----', arr[w], left+key+right)
+      if (arr[w] === l+key+r || pass) {
+        // console.log('pass', arr[w], l, key, r)
+        console.log(typeof jVal, arr[w])
+        const j = typeof jVal === 'object' ? arr[w] : jVal
+        if (!l && !r) {
+          // console.log('!left && !right')
+          arr[w] = jVal
+        } else if (l && r) {
+          //console.log('left && right', arr[w], arr, jVal)
+          arr.splice(w-1, 3, arr[w-1] + j + arr[parseInt(w)+1])
+          //console.log(arr)
+        } else if (l && !r) {
+          // console.log('left && !right')
+          arr.splice(w-1, 2, arr[w-1] + j)
+        } else if (!l && r) {
+          // console.log('!left && right')
+          arr.splice(w, 2, j + arr[parseInt(w)+1])
+        }
+      }
+      // if (arr[w] === key) {
+      //   arr[w] = jVal; continue
+      // } else if (arr[w] === '-' + key + '-') {
+      //   arr.splice(w-1, 3, arr[w-1] + jVal + arr[parseInt(w)+1]); continue
+      // } else if (arr[w] === '-' + key ) {
+      //   arr.splice(w-1, 2, arr[w-1] + jVal); continue
+      // } else if (arr[w] === key + '-') {
+      //   arr.splice(w, 2, jVal + arr[parseInt(w)+1])
+      // }
     }
     return arr
   }
@@ -125,7 +142,11 @@ class htmlJS {
   }
 
   newTag (parent, tag, innerHTML) {
-    let child = document.createElement(tag.localName)
+    let child = tag.cloneNode(true)
+    const attr = document.createAttribute('is-clone')
+    attr.value = true
+    child.setAttributeNode(attr)
+    child.classList.remove('htmlJS-hide')
     child.innerHTML = innerHTML
     parent.appendChild(child)
   }
@@ -138,9 +159,10 @@ class htmlJS {
 
 }
 
+// create a cssStyleClass to hide and unHide elements.
 (()=>{
-  let style = document.createElement('style') // create a cssStyleClass to hide and unHide elements.
-  style.innerHTML = '.htmlJS-display-none { display: none; }'
+  let style = document.createElement('style')
+  style.innerHTML = '.htmlJS-hide { display: none; }'
   document.getElementsByTagName('head')[0].appendChild(style)
 })()
 
@@ -155,7 +177,7 @@ class htmlJS {
 // (()=>{
 //   const startTime = window.performance.now()
 //   let style = document.createElement('style') // create a cssStyleClass to hide and unHide elements.
-//   style.innerHTML = '.htmlJS-display-none { display: none; }'
+//   style.innerHTML = '.htmlJS-hide { display: none; }'
 //   document.getElementsByTagName('head')[0].appendChild(style)
 //
 //   let scripts = document.getElementsByTagName('script')

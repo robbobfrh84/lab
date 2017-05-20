@@ -3,9 +3,9 @@
 </head>
   <body>
     <h2 if='!list'>Build table by adding names and or numbers</h2>
-    <input style='width: 40px;' placeholder="num ..."/>
+    <input id='iNumber' style='width: 40px;' placeholder="num ..."/>
     <input id='iName' style='width: 300px;' placeholder="enter name ..."/>
-    <button id='button1'> Add More</button>
+    <button id='button1'> Add More </button>
     <br>
     <!-- <table if='list' for='v list' style='width: 500px;'>
       <tr>
@@ -17,11 +17,27 @@
         <td> v.number </td>
       </tr>
     </table> -->
-    <div for="v,k,i list">
-      <div class="nothing">
-        v.name
+    <div var="x str, asdy list[0].name">
+      <div style='background-color: red;'>
+        x asdy- |  | -asdy how are you?
       </div>
     </div>
+
+    <div for="v,k,i list">
+      <div style='background-color: green;'>
+        Hello v.name- , your number is v.number v.default
+      </div>
+    </div>
+    -v- don't work for dot.notation
+    <hr>
+
+    <!-- <div for="v,k,i arr">
+      <div style='background-color: cornflowerblue;'>
+        v and more...
+      </div>
+    </div> -->
+
+
     <p if='list'> <em> * You can also hit </em><strong>[enter]</strong><em> to add </em> </p>
   </body>
 </html>
@@ -32,15 +48,17 @@
 
   let data = {
     list: [
-      { name: 'Testy', number: 1 },
-      { name: 'Testy3', number: 3 }
-    ]
+      { name: 'Testy', number: 11, default: true },
+      { name: 'Thad', number: 31 }
+    ],
+    arr: ['a','b','c','d'],
+    str: 'Hello'
   }
   console.log('--- a', data)
 
-  h.update(h, data)
   add = ()=>{
-    data.list.push( { name: 'XTesty', number: 69 } )
+    data.list.push( { name: iName.value, number: iNumber.value } )
+    data.arr.push(iName.value)
     console.log('--&&--', data)
     h.update(h, data)
   }
@@ -48,6 +66,7 @@
   iName.addEventListener("keypress", function (e) { if (e.keyCode == 13) { add() }})
 
   console.log('--- end of initial load --- \n\n\n')
-})()
+
+h.update(h, data) })()
 
 </script>

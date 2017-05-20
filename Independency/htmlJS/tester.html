@@ -14,7 +14,7 @@
     <div class="inline"> <strong> HTML var* Example </strong>
       Single:
       <div var="x str">
-        <h3> x </h3>
+        <h3> x repeat x </h3>
       </div>
       Multiple:
       <div var="y obj2.arr[1].more, z str2, p str">
@@ -151,8 +151,11 @@
 
   </body>
 </html>
-<script name='tester'>
-  var tester = {
+<script src='html.js'></script>
+<script>
+(( h = new htmlJS )=>{
+
+  let data = {
     str: 'Hello Earthling!',
     str2: 'Hello Alien!',
     int: 49,
@@ -180,5 +183,7 @@
     },
     myFunc: ()=>{ console.log('hello from myFunc! & this.obj',this.obj)}
   }
+
+h.update(h, data) })()
+
 </script>
-<script src='html.js'></script>
