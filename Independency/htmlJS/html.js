@@ -79,52 +79,27 @@ class htmlJS {
 
   place (arr, key, jVal) {
     for (const w in arr) {
+      let pass = false
       if (typeof arr[w] === "object") arr[w] = JSON.stringify(arr[w]) // if var isn't a single value (meaning it's still an arr/obj) This will display the remaing data in JSON format.
       if (typeof arr[w] !== "string" || arr[w] === "") continue
-
-
-      let [ l, r, pass ] = [ '', '', false ]
-      if (arr[w][arr[w].length-1] === '-') r = '-'
-      if (arr[w][0] === '-') l = '-'
-
+      // save if there's a hyphen at the bookends to shift later.
+      let r = arr[w][arr[w].length-1] === '-' ? '-' : ''
+      let l = arr[w][0] === '-' ? '-' : ''
       const em = arr[w].split(/[\.\[\]]/).filter(Boolean)
-
       if ((em[0] === key || em[0].slice(1) === key ) && em.length > 1) {
         if (r) arr[w] = arr[w].slice(0, arr[w].length-1)
         if (l) arr[w] = arr[w].slice(1)
         arr[w] = this.getDir(jVal, arr[w].slice(2))
-        console.log(em[0]+r, l+key+r, arr[w])
         if ( l || r ) pass = true
       }
-      // console.log('----', arr[w], left+key+right)
+      // this is where we used the left and right hyphens to shift if needed.
       if (arr[w] === l+key+r || pass) {
-        // console.log('pass', arr[w], l, key, r)
-        console.log(typeof jVal, arr[w])
         const j = typeof jVal === 'object' ? arr[w] : jVal
-        if (!l && !r) {
-          // console.log('!left && !right')
-          arr[w] = jVal
-        } else if (l && r) {
-          //console.log('left && right', arr[w], arr, jVal)
-          arr.splice(w-1, 3, arr[w-1] + j + arr[parseInt(w)+1])
-          //console.log(arr)
-        } else if (l && !r) {
-          // console.log('left && !right')
-          arr.splice(w-1, 2, arr[w-1] + j)
-        } else if (!l && r) {
-          // console.log('!left && right')
-          arr.splice(w, 2, j + arr[parseInt(w)+1])
-        }
+        if (!l && !r)  arr[w] = jVal
+        else if (l && r) arr.splice(w-1, 3, arr[w-1] + j + arr[parseInt(w)+1])
+        else if (l && !r) arr.splice(w-1, 2, arr[w-1] + j)
+        else if (!l && r) arr.splice(w, 2, j + arr[parseInt(w)+1])
       }
-      // if (arr[w] === key) {
-      //   arr[w] = jVal; continue
-      // } else if (arr[w] === '-' + key + '-') {
-      //   arr.splice(w-1, 3, arr[w-1] + jVal + arr[parseInt(w)+1]); continue
-      // } else if (arr[w] === '-' + key ) {
-      //   arr.splice(w-1, 2, arr[w-1] + jVal); continue
-      // } else if (arr[w] === key + '-') {
-      //   arr.splice(w, 2, jVal + arr[parseInt(w)+1])
-      // }
     }
     return arr
   }
