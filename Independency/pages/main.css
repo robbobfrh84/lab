@@ -1,0 +1,56 @@
+html *{
+  color: rgba(20,20,0,0.8);
+}
+body {
+  font-family: sans;
+  background-image: url("tx2.png");
+  margin-top: 0px;
+}
+span {
+  font-size: 20px;
+}
+/*******************************************************************************
+                                  NavBar
+*******************************************************************************/
+.navbar {
+  width: 100%;
+}
+.title {
+  cursor: pointer;
+  font-size: 30px;
+  float: left;
+}
+.nav {
+  float: right;
+  color: rgba(0,0,0,0.25);
+}
+.nav-button {
+  cursor: pointer;
+}
+.nav-button:hover, .title:hover {
+  color: rgba(50,0,0,0.25);
+}
+/*******************************************************************************
+                                * Landing Page *
+*******************************************************************************/
+.landing-body {
+  margin-top: 50px;
+  text-align: center;
+  font-size: 50px;
+  color: rgba(0,0,0,0.6);
+}
+.button {
+  width: 150px;
+  height: 100px;
+  font-family: sans;
+  background-color: rgba(50,0,0,0.05);
+  font-size: 30px;
+  border-style: solid;
+  cursor: pointer;
+  margin: 20px;
+  margin-top: 50px;
+
+}
+.button:hover {
+  background-color: rgba(50,0,0,0.1);
+}

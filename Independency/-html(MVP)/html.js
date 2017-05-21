@@ -1,4 +1,4 @@
-// MAKE NOTE OF RESERVED VAR NAMES
+// NOTE - RESERVED VAR NAMES
 // DOM attributes
 // - for
 // - var

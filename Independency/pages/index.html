@@ -1,24 +1,45 @@
 <!DOCTYPE html><html><head><meta charset="utf-8"><title>Multi HTML</title>
   <link rel="stylesheet" href="main.css">
-  <link rel="import" href="another.htmljs">
-  <!-- <link rel="import" href="pageA.html">
-  <link rel="import" href="pageB.html"> -->
+  <link rel="import" href="another.html">
+  <link rel="import" href="pageA.html">
+  <link rel="import" href="pageB.html">
+<script type="text/javascript" src="main.js"></script>
 </head>
 <body>
-    <nav class="mynav">
-      <ul>
-        <li><a href="">Home</a></li>
-        <li><a href="">About</a></li>
-        <li><a href="">Company</a></li>
-        <li><a href="">Work</a></li>
-        <li><a href="">Clients</a></li>
-        <li><a href="">Contact</a></li>
-      </ul>
-    </nav>
 
-<span class="target"></span>
-<h1 style="text-align: left;">HTML Imports</h1>
+  <table if='list' style='width: 100%;'>
+    <tr>
+      <th class="title">  PagesJS </th>
+      <th>
+        <div class="nav">
+          <span class="nav-button"> Info </span> &nbsp; :: &nbsp;
+          <span class="nav-button"> Data </span> &nbsp; :: &nbsp;
+          <span class="nav-button"> Login </span>
+        </div>
+      </th>
+    </tr>
+  </table>
+
+<hr style="margin-top: 0px;">
+
+<div class="landing-body">
+  Landing Page
+  <div class="landingpage-button-container">
+    <button style="border-color: rgba(100,0,0,0.3);" class="button"> Info </button>
+    <button style="border-color: rgba(0,100,0,0.3);" class="button"> Data </button>
+    <button style="border-color: rgba(0,0,100,0.3);" class="button"> Login </button>
+  </div>
+  <span style='width: 200px;'> Important number:
+  <input class="inputlg" type="text" name="" value="10">
+   </span>
+  <span> Important String: </span>
+  <input class="inputlg" type="text" name="" value="A string">
+
+
+</div>
+
 <hr>
+
 <shadow-element>
   <div>( I'm in the light dom (Written in index.html)) </div>
 </shadow-element>
@@ -30,11 +51,11 @@
 
 </body>
 </html>
-<script type="text/javascript" src="main.js"></script>
 
 <!--
 *** WARNING: must cd to same dir as > index.html >>> http-server -c-1 : got to Local 8080 to work.
   - ALSO, you can >>> http-server -c-1 -p 8010 <<< will change port to 8010. Somtimes there's  confict for some reason.
+  - ALOS, you may need to sudo kill -9 PID
 
 *** NEXT THREE STEPS ***
 - create standalone JS file called first called routes.js
