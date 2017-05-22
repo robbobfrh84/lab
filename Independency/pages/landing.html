@@ -1,0 +1,70 @@
+<template id="landing-id">
+
+  <div class="landing-body">
+    Landing Page
+    <div>
+      <button style="border-color: rgba(100,0,0,0.3);"> Info </button>
+      <button style="border-color: rgba(0,100,0,0.3);"> Data </button>
+      <button style="border-color: rgba(0,0,100,0.3);"> Login </button>
+    </div>
+    <span style='width: 200px;'> Important number:
+    <input class="inputlg" type="text" name="" value="10">
+     </span>
+    <span> Important String: </span>
+    <input id="input-string" class="inputlg" type="text" value="A string">
+  </div>
+
+  <link rel="stylesheet" href="main.css">
+  <style>
+    .landing-body {
+      margin-top: 50px;
+      text-align: center;
+      font-size: 50px;
+      color: rgba(0,0,0,0.6);
+    }
+    button {
+      width: 150px;
+      height: 100px;
+      font-family: sans;
+      background-color: rgba(50,0,0,0.05);
+      font-size: 30px;
+      border-style: solid;
+      cursor: pointer;
+      margin: 20px;
+      margin-top: 50px;
+
+    }
+    button:hover {
+      background-color: rgba(50,0,0,0.1);
+    }
+  </style>
+</template>
+
+<script>
+// (()=>{ console.log('adsf') })();
+var importDoc = document.currentScript.ownerDocument
+var proto2 = Object.create(HTMLElement.prototype)
+
+var template = importDoc.querySelector('#landing-id')
+var inputStr = template.content.getElementById('input-string')
+console.log('---',inputStr)
+inputStr.value = "Modified"
+
+;(function() {
+  proto2.createdCallback = function() {
+    // var template = importDoc.querySelector('#landing-id')
+    var clone = document.importNode(template.content, true)
+    var root = this.createShadowRoot()
+    root.appendChild(clone)
+  }
+  document.registerElement('landing-tag', {prototype: proto2});
+})();
+
+
+
+  // location.hash = "another"
+  // var fileName = document.currentScript.baseURI.split('/')
+  // fileName = fileName[fileName.length-1]
+  // console.log('filename: ', fileName)
+
+</script>

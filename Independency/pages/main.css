@@ -33,24 +33,3 @@ span {
 /*******************************************************************************
                                 * Landing Page *
 *******************************************************************************/
-.landing-body {
-  margin-top: 50px;
-  text-align: center;
-  font-size: 50px;
-  color: rgba(0,0,0,0.6);
-}
-.button {
-  width: 150px;
-  height: 100px;
-  font-family: sans;
-  background-color: rgba(50,0,0,0.05);
-  font-size: 30px;
-  border-style: solid;
-  cursor: pointer;
-  margin: 20px;
-  margin-top: 50px;
-
-}
-.button:hover {
-  background-color: rgba(50,0,0,0.1);
-}
