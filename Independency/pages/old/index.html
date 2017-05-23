@@ -4,37 +4,26 @@
   <link rel="import" href="landing.html">
 <!-- vvv... to remove ... vvv -->
   <link rel="import" href="another.html">
+  <link rel="import" href="pageA.html">
+  <link rel="import" href="pageB.html">
 <!-- ^^^... to remove ... ^^^ -->
-<script type="text/javascript" src="pages.js"></script>
 </head>
 <body>
 <navbar-tag></navbar-tag>
-<landing-tag serve="data" >
-  <div>
-    Somewhere
-  </div>
-</landing-tag>
+<landing-tag></landing-tag>
 
 <hr>
-<shadow-element name="Bob">
+<shadow-element>
   <div>( I'm in the light dom (Written in index.html)) </div>
 </shadow-element>
+<hr>
+<say-hi name="Bob"></say-hi>
+<hr>
+<page-b name="Bob Main"></page-b>
+<hr>
 
 </body>
 </html>
-<script>
-  var data = {
-    name: 'bob',
-    age: 49
-  }
-
-  var page = document.querySelector('landing-tag')
-  var x = { 'data': data }
-  page.setAttribute('serve', x[page.getAttribute('serve')])
-  console.log(page)
-
-
-</script>
 
 <!--
 *** WARNING: must cd to same dir as > index.html >>> http-server -c-1 : got to Local 8080 to work.
@@ -49,7 +38,6 @@
 
 *** GOALS ... Notes***
 - make list of simple goals.
-  - include end point routing /data & /info
   - Navbar: with page Home, A & B
     - highlight page
   - Landing: with heading
@@ -57,6 +45,7 @@
   - Page B: heading with 2x status components
   - Status Compontent:
     - shows what page your on. has input field with message that can change and update, carriest though whatever page your on.
+  - Routing for home, pageA, pageB
   - will need to check on gh-pages to make sure router links work.
 
 .... I really think there's not much more than the basics we can do here ... this, htmlJS and both together really something to drive them. I think you'll be ready rather soon to do your first solid shell concept.

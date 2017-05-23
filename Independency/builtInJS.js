@@ -32,7 +32,7 @@ parent.appendChild(newTag) // puts tag into DOM
 //cloneNode
 let clone = tag.cloneNode(true)
 // FIRE when DOM is loaded. odd i know. but will fire when dom is completely loaded.
-onDOMContentLoaded = ( => { console.log("Dom is ready!") })()
+onDOMContentLoaded = ( ()=> { console.log("Dom is ready!") })()
 
 /******** RegExp *******/
 new RegExp(aBunchOfcharsArr.join('|')).test(toSearchThroughArr) // >Bool if ALL conditions are met. test() is NOT poop in this.
@@ -43,7 +43,7 @@ ES6 (()=>{ console.log('will auto fire') })() // self-invoking function
 
 /******** events *******/
 Event Listener Types = [ click, keyup, keydown, keypress ]
-inputId.addEventListener("keypress", function (e) { if (e.keyCode == 13) { ?? }}
+inputId.addEventListener("keypress", function (e) { if (e.keyCode == 13) { ?? }})
 inputId.addEventListener("keypress", function (e) { if (e.keyCode == 13) { ?? }}) // ??=add stuff to do when "enter" is pressed while filling out input tag.
 
 /******** loops *******/

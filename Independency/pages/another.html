@@ -17,6 +17,8 @@
       var clone = document.importNode(template.content, true)
       var root = this.createShadowRoot()
       root.appendChild(clone)
+      this.innerHTML += 'Hello, <b>' +
+                       (this.getAttribute('name') || '?') + '</b>';
     }
     document.registerElement('shadow-element', {prototype: proto2});
   })();
