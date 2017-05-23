@@ -23,63 +23,49 @@ button:hover {
 }
 </style>
 <!-- < < < < < < < < < < < < < < < <  html > > > > > > > > > > > > > > > > > -->
-<div class="landing-container">
-  Landing Page
-  <div id='testy'>
-    TEST Click
+<content>
+  <div class="landing-container">
+    Landing Page
+    <div>
+      <button id="infoButton" style="border-color: rgba(100,0,0,0.3);"> Info </button>
+      <button style="border-color: rgba(0,100,0,0.3);"> Data </button>
+      <button style="border-color: rgba(0,0,100,0.3);"> Login </button>
+    </div>
+    <span> Important number: </span>
+    <input id="inputNumber" placeholder="Not Set...">
+    <span> Important String: </span>
+    <input id="inputString" placeholder="Not Set...">
   </div>
-  <div>
-    <button id="infoButton" style="border-color: rgba(100,0,0,0.3);"> Info </button>
-    <button style="border-color: rgba(0,100,0,0.3);"> Data </button>
-    <button style="border-color: rgba(0,0,100,0.3);"> Login </button>
-  </div>
-  <span style='width: 200px;'> Important number:
-  <input class="inputlg" type="text" name="" value="10">
-   </span>
-  <span> Important String: </span>
-  <input id="input-string" class="inputlg" type="text" value="A string">
-</div>
+</content>
 </template>
 <!-- () () () () () () () () () ()  JavaScript () () () () () () () () () () -->
+<script type="text/javascript" src="component.js"></script>
 <script>
-// (()=>{ console.log('adsf') })();
-// my thoughts...
-// make each page page fire manually (need to figure this out)
-// either set it up to fire on startup like the landing and navbar,
-// but save other pages to fire on click or some other events
-// here's the trick! "serve='data'" + updateServe() on pages.js
-// may need to destroy 'somehow' as well.
-// ALSO: can we do all of the routing/updating on pages.js (Even handle html.js?)
 
-var importDoc = document.currentScript.ownerDocument
-var proto2 = Object.create(HTMLElement.prototype)
+((c = new componentJS)=>{
 
-var template = importDoc.querySelector('#landing-id')
-var inputStr = template.content.getElementById('input-string')
-inputStr.value = "Modified"
+  // var importDoc = document.currentScript.ownerDocument
+  // var proto = Object.create(HTMLElement.prototype)
+  //
+  // proto.createdCallback = function() {
+  //   var template = importDoc.querySelector('#landing-id')
+  //   var clone = document.importNode(template.content, true)
+  //   var root = this.createShadowRoot()
+  //   root.appendChild(clone)
+  //   var infoButton = template.content.getElementById('infoButton')
+  //   infoButton.addEventListener('click', important.bind(this), false)
+  //   this.appendChild(template.content)
+  // }
 
-;(function() {
-  proto2.createdCallback = function() {
-    var clone = document.importNode(template.content, true)
-
-    var testy = template.content.getElementById('testy')
-    console.log(testy)
-    testy.addEventListener('click', function () {
-      console.log('asdf')
-    }, false)
-
-    var root = this.createShadowRoot()
-    root.appendChild(clone)
-    var serveData = this.getAttribute('serve')
-    console.log(serveData)
+  important = function() {
+    const data = JSON.parse(this.getAttribute('serve'))
+    inputString.value = data.string
+    inputNumber.value = data.number
   }
 
-  document.registerElement('landing-tag', {prototype: proto2});
-})();
-
-run = ()=>{
-  console.log('click')
-}
+  //document.registerElement('landing-tag', {prototype: proto})
+  c.newElm()
+})()
 
 </script>
 <!--  / / / / / / / / / / / / / / /   Notes    / / / / / / / / / / / / / / / -->

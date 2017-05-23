@@ -5,13 +5,12 @@
 <!-- vvv... to remove ... vvv -->
   <link rel="import" href="another.html">
 <!-- ^^^... to remove ... ^^^ -->
-<script type="text/javascript" src="pages.js"></script>
 </head>
 <body>
 <navbar-tag></navbar-tag>
 <landing-tag serve="data" >
   <div>
-    Somewhere
+    Light Dom: landing-tag
   </div>
 </landing-tag>
 
@@ -22,21 +21,35 @@
 
 </body>
 </html>
+<!-- <script type="text/javascript" src="component.js"></script> -->
 <script>
+
+(()=>{
+
   var data = {
-    name: 'bob',
-    age: 49
+    string: "Sup, Ya'll",
+    number: 49
   }
 
-  var page = document.querySelector('landing-tag')
-  var x = { 'data': data }
-  page.setAttribute('serve', x[page.getAttribute('serve')])
-  console.log(page)
+  var [ x, page ] = [ { 'data': data }, document.querySelector('landing-tag') ]
+  page.setAttribute('serve', JSON.stringify(x[page.getAttribute('serve')]))
 
+})()
 
 </script>
 
 <!--
+
+// Change to components....????
+
+// my thoughts...
+// make each page page fire manually (need to figure this out)
+// either set it up to fire on startup like the landing and navbar,
+// but save other pages to fire on click or some other events
+// here's the trick! "serve='data'" + updateServe() on pages.js
+// may need to destroy 'somehow' as well.
+// ALSO: can we do all of the routing/updating on pages.js (Even handle html.js?)
+
 *** WARNING: must cd to same dir as > index.html >>> http-server -c-1 : got to Local 8080 to work.
   - ALSO, you can >>> http-server -c-1 -p 8010 <<< will change port to 8010. Somtimes there's  confict for some reason.
   - ALOS, you may need to sudo kill -9 PID
