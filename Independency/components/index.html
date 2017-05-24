@@ -1,5 +1,7 @@
 <!DOCTYPE html><html><head><meta charset="utf-8"><title>Multi HTML</title>
   <link rel="stylesheet" href="main.css">
+  <script type="text/javascript" src="component.js"></script>
+
   <link rel="import" href="navbar.html">
   <link rel="import" href="landing.html">
 <!-- vvv... to remove ... vvv -->
@@ -7,8 +9,8 @@
 <!-- ^^^... to remove ... ^^^ -->
 </head>
 <body>
-<navbar-tag></navbar-tag>
-<landing-tag serve="data" >
+<navbar-tag serve="data"></navbar-tag>
+<landing-tag serve="data">
   <div>
     Light Dom: landing-tag
   </div>
@@ -20,8 +22,9 @@
 </shadow-element>
 
 </body>
+
 </html>
-<!-- <script type="text/javascript" src="component.js"></script> -->
+
 <script>
 
 (()=>{
@@ -32,6 +35,9 @@
   }
 
   var [ x, page ] = [ { 'data': data }, document.querySelector('landing-tag') ]
+  page.setAttribute('serve', JSON.stringify(x[page.getAttribute('serve')]))
+
+  var [ x, page ] = [ { 'data': data }, document.querySelector('navbar-tag') ]
   page.setAttribute('serve', JSON.stringify(x[page.getAttribute('serve')]))
 
 })()

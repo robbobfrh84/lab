@@ -25,11 +25,11 @@ button:hover {
 <!-- < < < < < < < < < < < < < < < <  html > > > > > > > > > > > > > > > > > -->
 <content>
   <div class="landing-container">
-    Landing Page
+    <div id='dataShell'> Landing Page </Div>
     <div>
       <button id="infoButton" style="border-color: rgba(100,0,0,0.3);"> Info </button>
-      <button style="border-color: rgba(0,100,0,0.3);"> Data </button>
-      <button style="border-color: rgba(0,0,100,0.3);"> Login </button>
+      <button id="dataButton" style="border-color: rgba(0,100,0,0.3);"> Data </button>
+      <button id="loginButton" style="border-color: rgba(0,0,100,0.3);"> Login </button>
     </div>
     <span> Important number: </span>
     <input id="inputNumber" placeholder="Not Set...">
@@ -39,32 +39,30 @@ button:hover {
 </content>
 </template>
 <!-- () () () () () () () () () ()  JavaScript () () () () () () () () () () -->
-<script type="text/javascript" src="component.js"></script>
 <script>
 
-((c = new componentJS)=>{
+(()=>{ let c = new componentJS
 
-  // var importDoc = document.currentScript.ownerDocument
-  // var proto = Object.create(HTMLElement.prototype)
-  //
-  // proto.createdCallback = function() {
-  //   var template = importDoc.querySelector('#landing-id')
-  //   var clone = document.importNode(template.content, true)
-  //   var root = this.createShadowRoot()
-  //   root.appendChild(clone)
-  //   var infoButton = template.content.getElementById('infoButton')
-  //   infoButton.addEventListener('click', important.bind(this), false)
-  //   this.appendChild(template.content)
-  // }
-
-  important = function() {
+  infoClick = function() {
     const data = JSON.parse(this.getAttribute('serve'))
     inputString.value = data.string
     inputNumber.value = data.number
   }
 
-  //document.registerElement('landing-tag', {prototype: proto})
-  c.newElm()
+  dataClick = function () {
+    dataShell.innerHTML = '!)10@(29#*38$&47%^)'
+  }
+
+  loginClick = function () {
+    loginButton.innerHTML = '!'
+  }
+
+  c.addEvent('click', 'infoButton', infoClick)
+  c.addEvent('click', 'dataButton', dataClick)
+  c.addEvent('click', 'loginButton', loginClick)
+
+
+  c.newElm('landing-tag', '#landing-id')
 })()
 
 </script>
