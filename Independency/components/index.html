@@ -1,26 +1,15 @@
 <!DOCTYPE html><html><head><meta charset="utf-8"><title>Multi HTML</title>
+
   <link rel="stylesheet" href="main.css">
   <script type="text/javascript" src="component.js"></script>
+  <link rel="import" href="html-components/navbar.html">
+  <link rel="import" href="html-components/landing.html">
 
-  <link rel="import" href="navbar.html">
-  <link rel="import" href="landing.html">
-<!-- vvv... to remove ... vvv -->
-  <link rel="import" href="another.html">
-<!-- ^^^... to remove ... ^^^ -->
 </head>
+
 <body>
 <navbar-tag serve="data"></navbar-tag>
-<landing-tag serve="data">
-  <div>
-    Light Dom: landing-tag
-  </div>
-</landing-tag>
-
-<hr>
-<shadow-element name="Bob">
-  <div>( I'm in the light dom (Written in index.html)) </div>
-</shadow-element>
-
+<landing-tag serve="data"></landing-tag>
 </body>
 
 </html>
@@ -43,39 +32,24 @@
 })()
 
 </script>
+<!--  * * * * * *   TERMINAL STEPS TO PREVIEW IN BROWSER   * * * * * * * * * * *
+- >>> cd    (to directory this file is located in)
+- >>> http-server -c-1    (got to Local 8080 to work.
+- Open browser and go to http://localhost:8080/ if this file is index.html
+- IF other the main .html file isn't index.html, just add the endpoint of the file
+- Like: http://localhost:8080/template.html
+- ALSO, you can >>> http-server -c-1 -p 8010 <<< will change port to 8010. Somtimes there's  confict for some reason.
+- ALOS, you may need to sudo kill -9 PID if port has conflict. (use >>> top    (to find out PID))
+-->
 
-<!--
 
-// Change to components....????
+<!-- / / / / / / / / / / / / / / /    Notes    / / / / / / / / / / / / / / / / /
 
-// my thoughts...
-// make each page page fire manually (need to figure this out)
-// either set it up to fire on startup like the landing and navbar,
-// but save other pages to fire on click or some other events
-// here's the trick! "serve='data'" + updateServe() on pages.js
-// may need to destroy 'somehow' as well.
-// ALSO: can we do all of the routing/updating on pages.js (Even handle html.js?)
-
-*** WARNING: must cd to same dir as > index.html >>> http-server -c-1 : got to Local 8080 to work.
-  - ALSO, you can >>> http-server -c-1 -p 8010 <<< will change port to 8010. Somtimes there's  confict for some reason.
-  - ALOS, you may need to sudo kill -9 PID
-
-*** NEXT THREE STEPS ***
-- create standalone JS file called first called routes.js
-  - you need this, because that fucntion you got from the demo is like 7 lines long and should be 1 called from a js file that's already been loaded. also, that file can handle routs.
-- create third page
-- make third page display / hide on click
+- Can we do all of the routing/updating on pages.js (Even handle html.js?)
 
 *** GOALS ... Notes***
 - make list of simple goals.
   - include end point routing /data & /info
-  - Navbar: with page Home, A & B
-    - highlight page
-  - Landing: with heading
-  - Page A: heading with status component
-  - Page B: heading with 2x status components
-  - Status Compontent:
-    - shows what page your on. has input field with message that can change and update, carriest though whatever page your on.
   - will need to check on gh-pages to make sure router links work.
 
 .... I really think there's not much more than the basics we can do here ... this, htmlJS and both together really something to drive them. I think you'll be ready rather soon to do your first solid shell concept.

@@ -1,0 +1,83 @@
+<template id="navbar-id">
+<style>
+.navbar {
+  width: 100%;
+}
+.title {
+  cursor: pointer;
+  font-size: 30px;
+  float: left;
+}
+.nav {
+  float: right;
+  color: rgba(0,0,0,0.25);
+}
+.nav-button {
+  cursor: pointer;
+}
+.nav-button:hover, .title:hover {
+  color: rgba(50,0,0,0.25);
+}
+</style>
+<!-- < < < < < < < < < < < < < < < <  html > > > > > > > > > > > > > > > > > -->
+<content>
+<table if='list' style='width: 100%;'>
+  <tr>
+    <th id='title' class="title gray1"> PagesJS </th>
+    <th>
+      <div class="nav">
+        <span id='infoButton' class="nav-button gray1"> Info </span> &nbsp; :: &nbsp;
+        <span id='dataButton' class="nav-button gray1"> Data </span> &nbsp; :: &nbsp;
+        <span id='loginButton' class="nav-button gray1"> Login </span>
+      </div>
+    </th>
+  </tr>
+</table>
+<hr style="margin-top: 0px;">
+</content>
+</template>
+<!-- () () () () () () () () () ()  JavaScript () () () () () () () () () () -->
+<script>
+
+(()=>{ let c = new componentJS
+
+  infoClick = function(e) {
+    console.log(e)
+    const data = JSON.parse(this.getAttribute('serve'))
+    inputString.value = data.string
+    inputNumber.value = data.number
+    console.log(infoClick)
+  }
+
+  dataClick = function (e) {
+    console.log(e)
+    title.innerHTML = '!)10@(29#*38$&47%^)'
+  }
+
+  loginClick = function (e) {
+    console.log(e)
+    e.target.innerHTML = '!'
+  }
+
+  c.addEvent('click', 'infoButton', infoClick)
+  c.addEvent('click', 'dataButton', dataClick)
+  c.addEvent('click', 'loginButton', loginClick, 'landing-html')
+
+  c.newElm('navbar-tag', '#navbar-id')
+})()
+
+  // (function() {
+  //   const importDoc = document.currentScript.ownerDocument
+  //   const proto = Object.create(HTMLElement.prototype)
+  //   proto.createdCallback = function() {
+  //     const template = importDoc.querySelector('#navbar-tag')
+  //     const clone = document.importNode(template.content, true)
+  //     let root = this.createShadowRoot()
+  //     root.appendChild(clone)
+  //   }
+  //   document.registerElement('navbar-tag', {prototype: proto});
+  // })();
+</script>
+<!--  / / / / / / / / / / / / / / /   Notes    / / / / / / / / / / / / / / / / /
+
+-->
