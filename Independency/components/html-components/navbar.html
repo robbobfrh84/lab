@@ -1,4 +1,4 @@
-<template id="navbar-id">
+<template id="navbar">
 <style>
 .navbar {
   width: 100%;
@@ -23,7 +23,7 @@
 <content>
 <table if='list' style='width: 100%;'>
   <tr>
-    <th id='title' class="title gray1"> PagesJS </th>
+    <th id='title' class="title gray1"> ComponentsJS </th>
     <th>
       <div class="nav">
         <span id='infoButton' class="nav-button gray1"> Info </span> &nbsp; :: &nbsp;
@@ -39,43 +39,33 @@
 <!-- () () () () () () () () () ()  JavaScript () () () () () () () () () () -->
 <script>
 
-(()=>{ let c = new componentJS
+(( c = new componentJS )=>{
 
-  infoClick = function(e) {
-    console.log(e)
-    const data = JSON.parse(this.getAttribute('serve'))
-    inputString.value = data.string
-    inputNumber.value = data.number
-    console.log(infoClick)
+  let infoClick = ()=>{
+    const { string, number } = c.getData('navbar-tag')
+    inputString.value = string
+    inputNumber.value = number
   }
 
-  dataClick = function (e) {
-    console.log(e)
-    title.innerHTML = '!)10@(29#*38$&47%^)'
-  }
+  // let dataClick = ()=>{
+  // }
 
-  loginClick = function (e) {
-    console.log(e)
-    e.target.innerHTML = '!'
+  let loginClick = ()=>{
+    document.getElementById('#landing'+'loginButton').innerHTML = '!'
+    document.getElementById(c.id+'loginButton').innerHTML = '!'
+    // ^^^ you can always do it this way, but for all.... vvv
+    // c.updateAll('innerHTML', 'loginButton')
+    dataClick()
   }
 
   c.addEvent('click', 'infoButton', infoClick)
-  c.addEvent('click', 'dataButton', dataClick)
-  c.addEvent('click', 'loginButton', loginClick, 'landing-html')
+  c.addEvent('click', 'dataButton', ()=>{
+    title.innerHTML = 'COMP!)10@(29#*38$&47%^)'
+  })
+  c.addEvent('click', 'loginButton', loginClick)
 
-  c.newElm('navbar-tag', '#navbar-id')
+  c.newElm('navbar-tag', '#navbar')
 })()
 
-  // (function() {
-  //   const importDoc = document.currentScript.ownerDocument
-  //   const proto = Object.create(HTMLElement.prototype)
-  //   proto.createdCallback = function() {
-  //     const template = importDoc.querySelector('#navbar-tag')
-  //     const clone = document.importNode(template.content, true)
-  //     let root = this.createShadowRoot()
-  //     root.appendChild(clone)
-  //   }
-  //   document.registerElement('navbar-tag', {prototype: proto});
-  // })();
 </script>
 <!--  / / / / / / / / / / / / / / /   Notes    / / / / / / / / / / / / / / / -->

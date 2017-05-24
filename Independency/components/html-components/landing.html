@@ -1,4 +1,4 @@
-<template id="landing-id">
+<template id="landing">
 <style>
 .landing-container {
   margin-top: 50px;
@@ -26,7 +26,7 @@ button:hover {
   <div class="landing-container">
     <div id='dataShell'> Landing Page </Div>
     <div>
-      <button id="infoButton" style="border-color: rgba(100,0,0,0.3);"> Info </button>
+      <button id="infoButton" onclick='myfunc()' style="border-color: rgba(100,0,0,0.3);"> Info </button>
       <button id="dataButton" style="border-color: rgba(0,100,0,0.3);"> Data </button>
       <button id="loginButton" style="border-color: rgba(0,0,100,0.3);"> Login </button>
     </div>
@@ -42,26 +42,25 @@ button:hover {
 
 (()=>{ let c = new componentJS
 
-  infoClick = function() {
-    const data = JSON.parse(this.getAttribute('serve'))
-    inputString.value = data.string
-    inputNumber.value = data.number
+  let infoClick = ()=>{
+    const { string, number } = c.getData('navbar-tag')
+    inputString.value = string
+    inputNumber.value = number
   }
 
-  dataClick = function () {
-    dataShell.innerHTML = '!)10@(29#*38$&47%^)'
+  let dataClick = ()=>{
+    dataShell.innerHTML = 'LAND!)10@(29#*38$&47%^)'
   }
 
-  loginClick = function () {
-    loginButton.innerHTML = '!'
+  let loginClick = function () {
+    document.getElementById(c.id+'loginButton').innerHTML = '!'
   }
 
   c.addEvent('click', 'infoButton', infoClick)
   c.addEvent('click', 'dataButton', dataClick)
   c.addEvent('click', 'loginButton', loginClick)
 
-
-  c.newElm('landing-tag', '#landing-id')
+  c.newElm('landing-tag', '#landing')
 })()
 
 </script>

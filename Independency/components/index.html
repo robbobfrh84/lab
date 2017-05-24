@@ -1,4 +1,4 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>Multi HTML</title>
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>ComponentsJS</title>
 
   <link rel="stylesheet" href="main.css">
   <script type="text/javascript" src="component.js"></script>
@@ -10,6 +10,8 @@
 <body>
 <navbar-tag serve="data"></navbar-tag>
 <landing-tag serve="data"></landing-tag>
+<!-- <landing-tag serve="data"></landing-tag> -->
+
 </body>
 
 </html>
@@ -38,23 +40,14 @@
 - Open browser and go to http://localhost:8080/ if this file is index.html
 - IF other the main .html file isn't index.html, just add the endpoint of the file
 - Like: http://localhost:8080/template.html
-- ALSO, you can >>> http-server -c-1 -p 8010 <<< will change port to 8010. Somtimes there's  confict for some reason.
-- ALOS, you may need to sudo kill -9 PID if port has conflict. (use >>> top    (to find out PID))
+- ALSO, you can >>> http-server -c-1 -p 8010    (will change port to 8010. Somtimes there's  confict for some reason)
+- ALSO, you may need to >>> sudo kill -9 PID    (If port has conflict (>>> top    (to find out PID))
+- HELPFUL LINK: *** https://www.html5rocks.com/en/tutorials/webcomponents/imports/
 -->
-
 
 <!-- / / / / / / / / / / / / / / /    Notes    / / / / / / / / / / / / / / / / /
 
 - Can we do all of the routing/updating on pages.js (Even handle html.js?)
-
-*** GOALS ... Notes***
-- make list of simple goals.
-  - include end point routing /data & /info
-  - will need to check on gh-pages to make sure router links work.
-
-.... I really think there's not much more than the basics we can do here ... this, htmlJS and both together really something to drive them. I think you'll be ready rather soon to do your first solid shell concept.
-
-*** LINKS ***
-https://www.html5rocks.com/en/tutorials/webcomponents/imports/
+- TEST in gh-pages looks like a CORS problem potentially(maybe gh-pages will just be a no go for it.).
 
 -->
