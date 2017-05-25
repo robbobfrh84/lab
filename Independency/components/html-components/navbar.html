@@ -48,18 +48,21 @@
   }
 
   // let dataClick = ()=>{
+  //   console.log('daaaataclick')
   // }
 
-  let loginClick = ()=>{
-    document.getElementById('#landing'+'loginButton').innerHTML = '!'
-    document.getElementById(c.id+'loginButton').innerHTML = '!'
-    // ^^^ you can always do it this way, but for all.... vvv
-    // c.updateAll('innerHTML', 'loginButton')
-    dataClick()
+  let loginClick = function () {
+    this.getElementsByTagName('*').loginButton.innerHTML = '!'
+
+  //  document.getElementById(c.id+'loginButton').innerHTML = '!'
+    // document.getElementById('#landing'+'loginButton').innerHTML = '!'
+    // document.getElementById(c.id+'loginButton').innerHTML = '!'
+    // // ^^^ you can always do it this way, but for all.... vvv
+    // // c.updateAll('innerHTML', 'loginButton')
   }
 
   c.addEvent('click', 'infoButton', infoClick)
-  c.addEvent('click', 'dataButton', ()=>{
+  c.addEvent('click', 'dataButton', dataClick = ()=>{
     title.innerHTML = 'COMP!)10@(29#*38$&47%^)'
   })
   c.addEvent('click', 'loginButton', loginClick)

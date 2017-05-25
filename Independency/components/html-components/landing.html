@@ -26,7 +26,7 @@ button:hover {
   <div class="landing-container">
     <div id='dataShell'> Landing Page </Div>
     <div>
-      <button id="infoButton" onclick='myfunc()' style="border-color: rgba(100,0,0,0.3);"> Info </button>
+      <button id="infoButton" style="border-color: rgba(100,0,0,0.3);"> Info </button>
       <button id="dataButton" style="border-color: rgba(0,100,0,0.3);"> Data </button>
       <button id="loginButton" style="border-color: rgba(0,0,100,0.3);"> Login </button>
     </div>
@@ -40,7 +40,7 @@ button:hover {
 <!-- () () () () () () () () () ()  JavaScript () () () () () () () () () () -->
 <script>
 
-(()=>{ let c = new componentJS
+(( c = new componentJS )=>{
 
   let infoClick = ()=>{
     const { string, number } = c.getData('navbar-tag')
@@ -53,7 +53,25 @@ button:hover {
   }
 
   let loginClick = function () {
-    document.getElementById(c.id+'loginButton').innerHTML = '!'
+    this.getElementsByTagName('*').loginButton.innerHTML = '!'
+    // console.log('landing login click', x)
+    // console.dir(x)
+    // // console.log('---', x.getElementById('loginButton'))
+    // // let z = x.getElementById('loginButton')
+    // // console.log('-e-', z)
+    // // z.innerHTML = '!'
+    //
+    // x.innerHTML = '!!'
+    // console.log(x.getElementById('loginButton'))
+    //
+    //
+    // // document.getElementById(c.id+'loginButton').innerHTML = '!'
+    // loginButton.innerHTML = '!'
+    //console.log(x.getElementsByTagName('*'))
+
+
+    //c.localID.inputButton.innerHTML = '!'
+
   }
 
   c.addEvent('click', 'infoButton', infoClick)
