@@ -1,4 +1,4 @@
-<template id="navbar">
+<!-- <template id="navbar"> -->
 <style>
 .navbar {
   width: 100%;
@@ -20,8 +20,8 @@
 }
 </style>
 <!-- < < < < < < < < < < < < < < < <  html > > > > > > > > > > > > > > > > > -->
-<content>
-<table if='list' style='width: 100%;'>
+<!-- <content> -->
+<table id='navBar-table' if='list' style='width: 100%;'>
   <tr>
     <th id='title' class="title gray1"> ComponentsJS </th>
     <th>
@@ -34,41 +34,32 @@
   </tr>
 </table>
 <hr style="margin-top: 0px;">
-</content>
-</template>
+<!-- </content>
+</template> -->
 <!-- () () () () () () () () () ()  JavaScript () () () () () () () () () () -->
 <script>
 
-(( c = new componentJS )=>{
-
-  let infoClick = ()=>{
-    const { string, number } = c.getData('navbar-tag')
-    inputString.value = string
-    inputNumber.value = number
-  }
-
-  // let dataClick = ()=>{
-  //   console.log('daaaataclick')
-  // }
-
-  let loginClick = function () {
-    this.getElementsByTagName('*').loginButton.innerHTML = '!'
-
-  //  document.getElementById(c.id+'loginButton').innerHTML = '!'
-    // document.getElementById('#landing'+'loginButton').innerHTML = '!'
-    // document.getElementById(c.id+'loginButton').innerHTML = '!'
-    // // ^^^ you can always do it this way, but for all.... vvv
-    // // c.updateAll('innerHTML', 'loginButton')
-  }
-
-  c.addEvent('click', 'infoButton', infoClick)
-  c.addEvent('click', 'dataButton', dataClick = ()=>{
-    title.innerHTML = 'COMP!)10@(29#*38$&47%^)'
-  })
-  c.addEvent('click', 'loginButton', loginClick)
-
-  c.newElm('navbar-tag', '#navbar')
-})()
+// (( c = new componentJS )=>{
+//
+//   c.addEvent('click', 'infoButton', ()=>{
+//     const { navBarString, navBarNumber } = c.getData('navbar-tag')
+//     inputString.value = navBarString
+//     inputNumber.value = navBarNumber
+//   })
+//
+//   c.addEvent('click', 'dataButton', dataClick = ()=>{
+//     title.innerHTML = 'COMP!)10@(29#*38$&47%^)'
+//   })
+//
+//   c.addEvent('click', 'loginButton', loginClick = function () {
+//     this.getElementsByTagName('*').loginButton.innerHTML = '!'
+//     // hard-code get landing data by idea first....
+//     let landerLogin = document.getElementsByTagName('landing-tag')[0]
+//     landerLogin.getElementsByTagName('*').loginButton.innerHTML = '!'
+//   })
+//
+//   c.newElm('navbar-tag', '#navbar')
+// })()
 
 </script>
 <!--  / / / / / / / / / / / / / / /   Notes    / / / / / / / / / / / / / / / -->

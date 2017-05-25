@@ -42,41 +42,19 @@ button:hover {
 
 (( c = new componentJS )=>{
 
-  let infoClick = ()=>{
+  c.addEvent('click', 'infoButton', ()=>{
     const { string, number } = c.getData('navbar-tag')
     inputString.value = string
     inputNumber.value = number
-  }
+  })
 
-  let dataClick = ()=>{
+  c.addEvent('click', 'dataButton', ()=>{
     dataShell.innerHTML = 'LAND!)10@(29#*38$&47%^)'
-  }
+  })
 
-  let loginClick = function () {
+  c.addEvent('click', 'loginButton', loginClick = function () {
     this.getElementsByTagName('*').loginButton.innerHTML = '!'
-    // console.log('landing login click', x)
-    // console.dir(x)
-    // // console.log('---', x.getElementById('loginButton'))
-    // // let z = x.getElementById('loginButton')
-    // // console.log('-e-', z)
-    // // z.innerHTML = '!'
-    //
-    // x.innerHTML = '!!'
-    // console.log(x.getElementById('loginButton'))
-    //
-    //
-    // // document.getElementById(c.id+'loginButton').innerHTML = '!'
-    // loginButton.innerHTML = '!'
-    //console.log(x.getElementsByTagName('*'))
-
-
-    //c.localID.inputButton.innerHTML = '!'
-
-  }
-
-  c.addEvent('click', 'infoButton', infoClick)
-  c.addEvent('click', 'dataButton', dataClick)
-  c.addEvent('click', 'loginButton', loginClick)
+  })
 
   c.newElm('landing-tag', '#landing')
 })()

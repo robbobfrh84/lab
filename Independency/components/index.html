@@ -1,39 +1,50 @@
 <!DOCTYPE html><html><head><meta charset="utf-8"><title>ComponentsJS</title>
-
   <link rel="stylesheet" href="main.css">
   <script type="text/javascript" src="component.js"></script>
   <link rel="import" href="html-components/navbar.html">
-  <link rel="import" href="html-components/landing.html">
-
+  <!-- <link rel="import" href="html-components/landing.html"> -->
 </head>
-
 <body>
-<navbar-tag serve="data"></navbar-tag>
-<landing-tag serve="data"></landing-tag>
+
+<!-- <navbar-tag serve="data"></navbar-tag> -->
+<!-- <navbar-tag serve="data"></navbar-tag> -->
 <!-- <landing-tag serve="data"></landing-tag> -->
 
 </body>
-
-</html>
-
 <script>
 
-(()=>{
+// (()=>{
+//
+//   var data = {
+//     string: "Sup, Ya'll",
+//     number: 49,
+//     navBarString: "Clicked Navbar 'Info' ",
+//     navBarNumber: 1000000
+//   }
+//
+//   var [ x, page ] = [ { 'data': data }, document.querySelector('landing-tag') ]
+//   page.setAttribute('serve', JSON.stringify(x[page.getAttribute('serve')]))
+//
+//   var [ x, page ] = [ { 'data': data }, document.querySelector('navbar-tag') ]
+//   page.setAttribute('serve', JSON.stringify(x[page.getAttribute('serve')]))
+//
+// })()
 
-  var data = {
-    string: "Sup, Ya'll",
-    number: 49
-  }
+var link = document.querySelector('link[rel="import"]');
+var content = link.import;
+var el = content.querySelector('#navBar-table');
 
-  var [ x, page ] = [ { 'data': data }, document.querySelector('landing-tag') ]
-  page.setAttribute('serve', JSON.stringify(x[page.getAttribute('serve')]))
+document.body.appendChild(el.cloneNode(true));
+document.body.appendChild(el.cloneNode(true));
 
-  var [ x, page ] = [ { 'data': data }, document.querySelector('navbar-tag') ]
-  page.setAttribute('serve', JSON.stringify(x[page.getAttribute('serve')]))
 
-})()
+console.log(link)
+// var templates = document.getElementsByTagName('content')
+// console.log(templates)
 
 </script>
+</html>
+
 <!--  * * * * * *   TERMINAL STEPS TO PREVIEW IN BROWSER   * * * * * * * * * * *
 - >>> cd    (to directory this file is located in)
 - >>> http-server -c-1    (got to Local 8080 to work.
