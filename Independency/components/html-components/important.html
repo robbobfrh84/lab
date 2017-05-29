@@ -3,7 +3,7 @@
   proto.createdCallback = function() {
     this.innerHTML = 'Hello, <b>' + (this.getAttribute('name') || '?') + '</br>'
   }
-  document.registerElement('important-tag', {prototype: proto})
+  // document.registerElement('important-tag', {prototype: proto})
 </script>
 
 <template id="t">
@@ -13,19 +13,27 @@
     }
   </style>
   <span>I'm a shadow-element using Shadow DOM!</span>
-  <content></content>
+  <content>
+    <span> Important number: </span>
+    <input id="inputNumber" placeholder="Not Set...">
+    <span> Important String: </span>
+    <input id="inputString" placeholder="Not Set...">
+  </content>
 </template>
 
 <script>
   (function() {
     var importDoc = document.currentScript.ownerDocument
-    var proto2 = Object.create(HTMLElement.prototype)
-    proto2.createdCallback = function() {
+    // var proto2 = Object.create(HTMLElement.prototype)
+    proto.createdCallback = function() {
+      // this.innerHTML += 'Hello, <b>' + (this.getAttribute('name') || '?') + '</br>'
+      // this.innerHTML += 'Hello, <b>' + (this.getAttribute('name') || '?') + '</br>'
+
       var template = importDoc.querySelector('#t')
       var clone = document.importNode(template.content, true)
       var root = this.createShadowRoot()
       root.appendChild(clone)
     }
-    document.registerElement('shadow-element', {prototype: proto2})
+    document.registerElement('important-tag', {prototype: proto})
   })()
 </script>
