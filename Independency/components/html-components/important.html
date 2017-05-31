@@ -26,8 +26,8 @@
     var importDoc = document.currentScript.ownerDocument
     // var proto2 = Object.create(HTMLElement.prototype)
     proto.createdCallback = function() {
-      // this.innerHTML += 'Hello, <b>' + (this.getAttribute('name') || '?') + '</br>'
-      // this.innerHTML += 'Hello, <b>' + (this.getAttribute('name') || '?') + '</br>'
+      this.innerHTML += 'Hello, <b>' + (this.getAttribute('name') || '?') + '</br>'
+      this.innerHTML += 'Hello, <b>' + (this.getAttribute('name') || '?') + '</br>'
 
       var template = importDoc.querySelector('#t')
       var clone = document.importNode(template.content, true)
