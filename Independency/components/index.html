@@ -1,42 +1,46 @@
 <!DOCTYPE html><html><head><meta charset="utf-8"><title>ComponentsJS</title>
   <link rel="stylesheet" href="main.css">
   <script type="text/javascript" src="component.js"></script>
-  <!-- <link rel="import" href="html-components/navbar.html">
-  <link rel="import" href="html-components/landing.html"> -->
+  <link rel="import" href="html-components/navbar.html">
+  <link rel="import" href="html-components/landing.html">
   <link rel="import" href="html-components/important.html">
 
 </head>
 <body>
 
+<important-tag serve="data"></important-tag>
+<important-tag serve="data"></important-tag>
+<important-tag serve="data"></important-tag>
+
 <!-- <navbar-tag serve="data"></navbar-tag> -->
-<!-- <navbar-tag serve="data"></navbar-tag>
-<landing-tag serve="data"></landing-tag> -->
-
-<important-tag name="Eric"></important-tag>
-<important-tag name="Dan"></important-tag>
-<important-tag name="Larry"></important-tag>
-
-
+<navbar-tag serve="data"></navbar-tag>
+<landing-tag serve="data"></landing-tag>
 
 </body>
 <script>
 
-// (()=>{
-//
-//   var data = {
-//     string: "Sup, Ya'll",
-//     number: 49,
-//     navBarString: "Clicked Navbar 'Info' ",
-//     navBarNumber: 1000000
-//   }
-//
-//   var [ x, page ] = [ { 'data': data }, document.querySelector('landing-tag') ]
-//   page.setAttribute('serve', JSON.stringify(x[page.getAttribute('serve')]))
-//
-//   var [ x, page ] = [ { 'data': data }, document.querySelector('navbar-tag') ]
-//   page.setAttribute('serve', JSON.stringify(x[page.getAttribute('serve')]))
-//
-// })()
+(()=>{
+
+  var data = {
+    string: 'Sup, Ya'+"'"+'ll',
+    number: 49,
+    navBarString: 'Clicked Navbar "Info" ',
+    navBarNumber: 1000000,
+    name1: 'Eric',
+    name2: 'Dan',
+    name3: 'Larry',
+  }
+
+  var [ x, page ] = [ { 'data': data }, document.querySelector('important-tag') ]
+  page.setAttribute('serve', JSON.stringify(x[page.getAttribute('serve')]))
+
+  var [ x, page ] = [ { 'data': data }, document.querySelector('landing-tag') ]
+  page.setAttribute('serve', JSON.stringify(x[page.getAttribute('serve')]))
+
+  var [ x, page ] = [ { 'data': data }, document.querySelector('navbar-tag') ]
+  page.setAttribute('serve', JSON.stringify(x[page.getAttribute('serve')]))
+
+})()
 
 </script>
 </html>

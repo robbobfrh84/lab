@@ -1,5 +1,9 @@
 class componentJS {
 
+  constructor () {
+    this.events = []
+  }
+
   newElm (component, id) {
     const importDoc = document.currentScript.ownerDocument
     let proto = Object.create(HTMLElement.prototype)
@@ -9,10 +13,10 @@ class componentJS {
       const clone = document.importNode(template.content, true)
       const root = this.createShadowRoot()
       root.appendChild(clone)
-      for (const event of events) {
-        let newEvent = template.content.getElementById(event.id)
-        newEvent.addEventListener(event.type,
-          event.method.bind(this, this), false)
+      for (const e of events) {
+        let newEvent = template.content.getElementById(e.id)
+        newEvent.addEventListener(e.type,
+          e.method.bind(this, this), false)
       }
       this.appendChild(template.content)
     }
@@ -20,7 +24,7 @@ class componentJS {
   }
 
   addEvent (type, id, method) {
-    if (!this.events) this.events = []
+    // if (!this.events) this.events = [] // in constr
     this.events.push( {'type': type, 'method': method, 'id': id} )
   }
 
