@@ -21,7 +21,13 @@
   proto.createdCallback = function() {
     var root = this.createShadowRoot()
     testy.innerHTML = this.getAttribute('serve')
+    console.log(this.getAttribute('serve'))
+
     // add button
+    var button = template.content.getElementById('button')
+    console.log(button)
+
+    
     var clone = document.importNode(template.content, true)
     root.appendChild(clone)
   }
