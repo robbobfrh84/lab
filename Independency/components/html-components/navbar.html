@@ -1,21 +1,21 @@
 <template id="navbar">
 <style>
-.navbar {
+::content .navbar {
   width: 100%;
 }
-.title {
+::content .title {
   cursor: pointer;
   font-size: 30px;
   float: left;
 }
-.nav {
+::content .nav {
   float: right;
   color: rgba(0,0,0,0.25);
 }
-.nav-button {
+::content .nav-button {
   cursor: pointer;
 }
-.nav-button:hover, .title:hover {
+::content .nav-button:hover, .title:hover {
   color: rgba(50,0,0,0.25);
 }
 </style>
@@ -43,8 +43,8 @@
 
   c.addEvent('click', 'infoButton', ()=>{
     const { navBarString, navBarNumber } = c.getData('navbar-tag')
-    inputString.value = navBarString
-    inputNumber.value = navBarNumber
+    inputStr.value = navBarString
+    inputNum.value = navBarNumber
   })
 
   c.addEvent('click', 'dataButton', dataClick = ()=>{

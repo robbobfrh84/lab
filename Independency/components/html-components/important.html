@@ -1,14 +1,14 @@
 <template id="t">
-  <!-- <content> -->
+  <content>
     <span id="testy"> --- Static </span>
     <br>
     <span> Important String: </span>
     <input id="inputString" placeholder="Not Set..."/>
     <span> Important number: </span>
     <input id="inputNumber" placeholder="Not Set..."/>
-    <button id='button'> + </button>
+    <button id='buttonX'> + </button>
     <br>
-  <!-- </content> -->
+  </content>
 </template>
 
 <script>
@@ -16,19 +16,24 @@
   var importDoc = document.currentScript.ownerDocument
   var template = importDoc.querySelector('#t')
   var testy = template.content.getElementById('testy')
-  var testy = template.content.getElementById('testy')
+
+
 
   proto.createdCallback = function() {
     var root = this.createShadowRoot()
     testy.innerHTML = this.getAttribute('serve')
     console.log(this.getAttribute('serve'))
 
-    // add button
-    var button = template.content.getElementById('button')
-    console.log(button)
-
-    
     var clone = document.importNode(template.content, true)
+
+    var button = clone.getElementById('buttonX')
+
+    button.addEventListener('click', function() {
+      console.log('click', testy.innerHTML)
+    })
+    console.dir(button)
+
+    // this.appendChild(template.content)
     root.appendChild(clone)
   }
 

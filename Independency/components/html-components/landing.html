@@ -1,25 +1,26 @@
 <template id="landing">
 <style>
-.landing-container {
-  margin-top: 50px;
-  text-align: center;
-  font-size: 50px;
-  color: rgba(0,0,0,0.6);
-}
-button {
-  width: 150px;
-  height: 100px;
-  font-family: sans;
-  background-color: rgba(50,0,0,0.05);
-  font-size: 30px;
-  border-style: solid;
-  cursor: pointer;
-  margin: 20px;
-  margin-top: 50px;
-}
-button:hover {
-  background-color: rgba(50,0,0,0.1);
-}
+  ::content .landing-container {
+    margin-top: 50px;
+    text-align: center;
+    font-size: 50px;
+    color: rgba(0,0,0,0.6);
+  }
+  ::content button {
+    width: 150px;
+    height: 100px;
+    font-family: sans;
+    background-color: rgba(50,0,0,0.05);
+    font-size: 30px;
+    border-style: solid;
+    cursor: pointer;
+    margin: 20px;
+    margin-top: 50px;
+  }
+  ::content button:hover {
+    background-color: rgba(50,0,0,0.1);
+  }
+
 </style>
 <!-- < < < < < < < < < < < < < < < <  html > > > > > > > > > > > > > > > > > -->
 <content>
@@ -31,9 +32,9 @@ button:hover {
       <button id="loginButton" style="border-color: rgba(0,0,100,0.3);"> Login </button>
     </div>
     <span> Important number: </span>
-    <input id="inputNumber" placeholder="Not Set...">
+    <input id="inputNum" placeholder="Not Set...">
     <span> Important String: </span>
-    <input id="inputString" placeholder="Not Set...">
+    <input id="inputStr" placeholder="Not Set...">
   </div>
 </content>
 </template>
@@ -44,8 +45,8 @@ button:hover {
 
   c.addEvent('click', 'infoButton', ()=>{
     const { string, number } = c.getData('navbar-tag')
-    inputString.value = string
-    inputNumber.value = number
+    inputStr.value = string
+    inputNum.value = number
   })
 
   c.addEvent('click', 'dataButton', ()=>{
