@@ -1,6 +1,6 @@
 <template id="t">
   <content>
-    <span id="testy"> --- Static </span>
+    <span id="title"> --- Static </span>
     <br>
     <span> Important String: </span>
     <input id="inputString" placeholder="Not Set..."/>
@@ -15,21 +15,21 @@
   var proto = Object.create(HTMLElement.prototype)
   var importDoc = document.currentScript.ownerDocument
   var template = importDoc.querySelector('#t')
-  var testy = template.content.getElementById('testy')
+  var title = template.content.getElementById('title')
 
 
 
   proto.createdCallback = function() {
     var root = this.createShadowRoot()
-    testy.innerHTML = this.getAttribute('serve')
+    title.innerHTML = this.getAttribute('serve')
     console.log(this.getAttribute('serve'))
 
     var clone = document.importNode(template.content, true)
 
     var button = clone.getElementById('buttonX')
-
+    var x = title.innerHTML
     button.addEventListener('click', function() {
-      console.log('click', testy.innerHTML)
+      console.log('click', x)
     })
     console.dir(button)
 
