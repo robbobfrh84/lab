@@ -52,3 +52,12 @@ array.forEach(function(value, i) { console.log(value, i) }) // value is object/a
 const startTime = window.performance.now()
 console.log((window.performance.now() - startTime) + ' milliseconds')
 OR window.date.now()
+
+/*********************/
+/****     ES6+    ****/
+/*********************/
+
+/******** Arrow Funcs *******/
+( p1, p2 )=>{ expression }
+p1 => { expresison }
+()=> expression // auto return expression ! only: if not parameter

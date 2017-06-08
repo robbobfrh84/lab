@@ -1,13 +1,16 @@
-class componentJS {
+class Component {
 
-  constructor () {
+  constructor (component, id) {
     this.events = []
+    this.component = component
+    this.id = id
   }
 
-  newElm (component, id) {
+  newElm () {
     const importDoc = document.currentScript.ownerDocument
     let proto = Object.create(HTMLElement.prototype)
     const events = this.events
+    const id = this.id
     proto.createdCallback = function() {
       const template = importDoc.querySelector(id)
       const clone = document.importNode(template.content, true)
@@ -20,7 +23,7 @@ class componentJS {
       }
       this.appendChild(template.content)
     }
-    document.registerElement(component, {prototype: proto})
+    document.registerElement(this.component, {prototype: proto})
   }
 
   addEvent (type, id, method) {

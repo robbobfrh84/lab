@@ -1,20 +1,20 @@
 <!DOCTYPE html><html><head><meta charset="utf-8"><title>ComponentsJS</title>
   <link rel="stylesheet" href="main.css">
   <script type="text/javascript" src="component.js"></script>
-  <link rel="import" href="html-components/navbar.html">
-  <link rel="import" href="html-components/landing.html">
-  <link rel="import" href="html-components/important.html">
-
+  <link rel="import" href="components/navbar.html">
+  <link rel="import" href="components/landing.html">
+  <link rel="import" href="components/important.html">
 </head>
 <body>
-
-<important-tag serve="data"></important-tag>
-<important-tag serve="data2"></important-tag>
-<important-tag serve="data3"></important-tag>
 
 <!-- <navbar-tag serve="data"></navbar-tag> -->
 <navbar-tag serve="data"></navbar-tag>
 <landing-tag serve="data"></landing-tag>
+
+<span> - important.html as <em>important-tag</em> </span><br>
+<important-tag serve="data"></important-tag>
+<important-tag serve="data"></important-tag>
+<important-tag serve="data3"></important-tag>
 
 </body>
 <script>
@@ -29,6 +29,12 @@
     name1: 'Eric',
     name2: 'Dan',
     name3: 'Larry',
+    num1: 1,
+    num2: 2,
+    num3: 3,
+    nest: {
+      n1: 101
+    }
   }
 
   var [ x, page ] = [ { 'data': data }, document.querySelector('important-tag') ]
@@ -39,6 +45,25 @@
 
   var [ x, page ] = [ { 'data': data }, document.querySelector('navbar-tag') ]
   page.setAttribute('serve', JSON.stringify(x[page.getAttribute('serve')]))
+
+  // dynamically serve each conponents
+  // dynamically serve components with multiples (important-tag)
+  // dynamically
+
+  var m = document.querySelectorAll('important-tag')
+  console.log('m: ', m)
+
+  let getDir = (Obj, dir)=>{ // Grab 'var' elm string. html var name = JS var
+    for (const p of dir.split(/[.\[\]]/).filter(Boolean)) Obj = Obj[p]
+    return Obj
+  } // IF WORKS PUT IN MyFuncsJS
+  // console.log(getDir(data, 'name1'))
+  // console.log(getDir(data, 'nest'))
+  // console.log(getDir(data, 'nest.n1'))
+
+  var imports = document.querySelectorAll('link[rel="import"]')
+  console.log('imports: ', imports)
+  console.log('extention', imports[0].href.split('/')[imports[0].href.split('/').length-1])
 
 })()
 
@@ -58,7 +83,15 @@
 
 <!-- / / / / / / / / / / / / / / /    Notes    / / / / / / / / / / / / / / / / /
 
-- Can we do all of the routing/updating on pages.js (Even handle html.js?)
+* TO DOs *
+- how do we handle differnet page swaps.
+- Do sub Imports work?
+- Updating global Vars & where do what file is the host ? - Can we do all of the routing/updating on components.js (Even handle html.js?)
+- Should we generate a custon local-id or change to id= to class=?
+- Clean -> vars  lets  const
+- Fix local Style to not need ::content on every elm.
+- page build optimization look over.
 - TEST in gh-pages looks like a CORS problem potentially(maybe gh-pages will just be a no go for it.).
+- https://robbobfrh84.github.io/lab/Independency/components/index.html
 
 -->
