@@ -50,8 +50,7 @@
   // dynamically serve components with multiples (important-tag)
   // dynamically
 
-  var m = document.querySelectorAll('important-tag')
-  console.log('m: ', m)
+
 
   let getDir = (Obj, dir)=>{ // Grab 'var' elm string. html var name = JS var
     for (const p of dir.split(/[.\[\]]/).filter(Boolean)) Obj = Obj[p]
@@ -63,7 +62,16 @@
 
   var imports = document.querySelectorAll('link[rel="import"]')
   console.log('imports: ', imports)
-  console.log('extention', imports[0].href.split('/')[imports[0].href.split('/').length-1])
+  for (const imp of imports) {
+    let tagName = imp.href.split('/')[imports[0].href.split('/').length-1]
+    tagName = tagName.split('.')[0] + '-tag'
+    let component = document.querySelectorAll(tagName)
+    console.log('component: ', component)
+    let data = { 'data': null }
+    let serve = JSON.stringify(data[component.getAttribute('serve')])
+    console.log('serve: ', serve)
+
+  }
 
 })()
 
