@@ -12,9 +12,9 @@
 <landing-tag serve="data"></landing-tag>
 
 <span> - important.html as <em>important-tag</em> </span><br>
+<important-tag serve="data.name1"></important-tag>
 <important-tag serve="data"></important-tag>
 <important-tag serve="data"></important-tag>
-<important-tag serve="data3"></important-tag>
 
 </body>
 <script>
@@ -37,40 +37,38 @@
     }
   }
 
-  var [ x, page ] = [ { 'data': data }, document.querySelector('important-tag') ]
-  page.setAttribute('serve', JSON.stringify(x[page.getAttribute('serve')]))
-
-  var [ x, page ] = [ { 'data': data }, document.querySelector('landing-tag') ]
-  page.setAttribute('serve', JSON.stringify(x[page.getAttribute('serve')]))
-
-  var [ x, page ] = [ { 'data': data }, document.querySelector('navbar-tag') ]
-  page.setAttribute('serve', JSON.stringify(x[page.getAttribute('serve')]))
+  // var [ x, page ] = [ { 'data': data }, document.querySelector('important-tag') ]
+  // page.setAttribute('serve', JSON.stringify(x[page.getAttribute('serve')]))
+  //
+  // var [ x, page ] = [ { 'data': data }, document.querySelector('landing-tag') ]
+  // page.setAttribute('serve', JSON.stringify(x[page.getAttribute('serve')]))
+  //
+  // var [ x, page ] = [ { 'data': data }, document.querySelector('navbar-tag') ]
+  // page.setAttribute('serve', JSON.stringify(x[page.getAttribute('serve')]))
 
   // dynamically serve each conponents
   // dynamically serve components with multiples (important-tag)
   // dynamically
 
-
-
   let getDir = (Obj, dir)=>{ // Grab 'var' elm string. html var name = JS var
     for (const p of dir.split(/[.\[\]]/).filter(Boolean)) Obj = Obj[p]
     return Obj
-  } // IF WORKS PUT IN MyFuncsJS
-  // console.log(getDir(data, 'name1'))
-  // console.log(getDir(data, 'nest'))
-  // console.log(getDir(data, 'nest.n1'))
+  }
+  // console.log(getDir(data, 'name1')); console.log(getDir(data, 'nest')); console.log(getDir(data, 'nest.n1'))
 
   var imports = document.querySelectorAll('link[rel="import"]')
-  console.log('imports: ', imports)
   for (const imp of imports) {
     let tagName = imp.href.split('/')[imports[0].href.split('/').length-1]
     tagName = tagName.split('.')[0] + '-tag'
-    let component = document.querySelectorAll(tagName)
-    console.log('component: ', component)
-    let data = { 'data': null }
-    let serve = JSON.stringify(data[component.getAttribute('serve')])
-    console.log('serve: ', serve)
-
+    const components = document.querySelectorAll(tagName)
+    for (const cmp of components) {
+      let serve = cmp.getAttribute('serve')
+      cmp.setAttribute('serve', JSON.stringify(getDir({ 'data': data }, serve)))
+      console.log('cmp: ', cmp)
+      // console.log('x: ', x)
+      // console.log('serve: ', serve)
+      // console.log('func:', getDir(data, serve))
+    }
   }
 
 })()
