@@ -1,4 +1,4 @@
-class canvasJS {
+class canvas {
 
   new (id, width, height) {
     this.ctx = document.getElementById(id).getContext('2d')

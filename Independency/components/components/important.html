@@ -1,25 +1,46 @@
 <template id="t">
-  <content>
-    <span id="title"> --- Static </span>  -
-    <span> string: </span>
-    <input id="inputStr" placeholder="Not Set..."/>
-    <span> number: </span>
-    <input id="inputNum" placeholder="Not Set..."/>
-    <button id='buttonX'> + </button>
-    <br>
-  </content>
+<!-- { { { { { { { { { { { { { { { {  CSS  } } } } } } } } } } } } } } } } } -->
+<!-- OOOOKKKKKEEYYYY
+- working to making navbar.html work with duplicates...
+- REALIZED ...
+- - 1.) Forget events until you get it working
+- - 2.) looked to be somowhat working but realized style never even worked in important-tag
+- - - - So, we can put style WITHIN content, BUT ...
+- - - - Dosn't solve for working at the global level.
+- - - -
+-->
+<!-- < < < < < < < < < < < < < < < <  html > > > > > > > > > > > > > > > > > -->
+<content>
+  <!-- <link rel="stylesheet" href="main.css"> -->
+  <style>
+    #title {
+      background-color: red;
+    }
+  </style>
+  <span id="title"> --- Static </span>  -
+  <span> string: </span>
+  <input id="inputStr" class="whatever" placeholder="Not Set..."/>
+  <span> number: </span>
+  <input id="inputNum" placeholder="Not Set..."/>
+  <button id='buttonX'> + </button>
+  <br>
+</content>
 </template>
 
 <script>
+
   var proto = Object.create(HTMLElement.prototype)
   var importDoc = document.currentScript.ownerDocument
   var template = importDoc.querySelector('#t')
-  var title = template.content.getElementById('title')
 
-  proto.createdCallback = function() {
-    var root = this.createShadowRoot()
-    title.innerHTML = this.getAttribute('serve')
-    var clone = document.importNode(template.content, true)
+  proto.attributeChangedCallback = function() {
+    const root = this.createShadowRoot()
+    const datax = JSON.parse(this.getAttribute('serve'))
+    template.content.getElementById('title').innerHTML = datax.title
+    template.content.getElementById('inputStr').value = datax.name
+    template.content.getElementById('inputNum').value = datax.num
+
+    const clone = document.importNode(template.content, true)
 
     var button = clone.getElementById('buttonX')
     var x = this.getAttribute('serve')
@@ -30,6 +51,7 @@
     })
     root.appendChild(clone)
   }
+
 
   document.registerElement('important-tag', {prototype: proto} )
 

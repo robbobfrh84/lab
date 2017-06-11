@@ -4,7 +4,7 @@
 <div> InnerHtml Script  <button onclick='ch.clear()' class='bg'> clear </button> </div>
 <canvas id="myCanvasHtml" class='bg'>
   <script>
-    const ch = new canvasJS
+    const ch = new canvas
     ch.new('myCanvasHtml', 400,200)
     ch.line(290,10,140,155) // default black and 1 px thick
     ch.line(85,5,10,170,'red',4)
@@ -40,7 +40,7 @@
 <script>
 
   // Lines
-  var c = new canvasJS
+  var c = new canvas
   c.new('myCanvas', 400,200)
   console.log(c)
   c.line(40,10,140,55) // default black and 1 px thick
@@ -48,7 +48,7 @@
   c.line(15,25,50,100,'blue',6)
 
   // Circles, called arc in Canvas
-  var c2 = new canvasJS
+  var c2 = new canvas
   c2.new('myCanvas2', 400,200)
   c2.cir(10, 20, 10)
   c2.cir(40, 75, 25, 'firebrick', 10, 'green')
@@ -59,20 +59,20 @@
   c2.cir(180, 150, 25, 'orange', 10, 'blue')
 
   //rectangles
-  var c3 = new canvasJS
+  var c3 = new canvas
   c3.new('myCanvas3', 400,200)
   c3.rec(10,10,100,50)
   c3.rec(150,10,100,50, 'red')
   c3.rec(290,10,100,50, 'red', 10, 'green')
 
   //text
-  var c4 = new canvasJS
+  var c4 = new canvas
   c4.new('myCanvas4', 400,200)
   c4.text('Yoo!', 40, 20)
   c4.text('Yoo!', 90, 50, 50, 'arial')
 
   //straight path
-  var c5 = new canvasJS
+  var c5 = new canvas
   c5.new('myCanvas5', 400,200)
   c5.path(15, 50, [
     ['l', 30, 75],
@@ -88,7 +88,7 @@
   ], 4, 'cornflowerblue')
 
   //quadratic curve
-  var c6 = new canvasJS
+  var c6 = new canvas
   c6.new('myCanvas6', 400,200)
   c6.path(75,25, [
     ['q', 25, 25, 25, 62.5],
@@ -100,7 +100,7 @@
   ])
 
   //bezier curve
-  var c7 = new canvasJS
+  var c7 = new canvas
   c7.new('myCanvas7', 400,200)
   c7.path(75,40, [
     ['b', 75, 37, 70, 25, 50, 25],
@@ -112,14 +112,11 @@
   ])
 
   // scale
-  var c8 = new canvasJS
+  var c8 = new canvas
   c8.new('myCanvas8', 400,200)
   c8.line(6,30,180,80, 'red', 3)
   c8.scale(2,2)
   c8.line(6,30,180,80, 'red', 3)
-
-
-
 
   // clear
   // c.clear()
