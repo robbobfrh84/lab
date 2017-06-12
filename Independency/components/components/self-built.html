@@ -53,5 +53,23 @@
   }
 
 
-  document.registerElement('important-tag', {prototype: proto} )
+  document.registerElement('self-built-tag', {prototype: proto} )
+
+  // (function() {
+  //   console.log(importDoc.querySelector('#t'))
+  //   // var proto2 = Object.create(HTMLElement.prototype)
+  //   proto.createdCallback = function() {
+  //     // this.innerHTML += '</br> Hello, <b>' + (this.getAttribute('name') || '?') + '</br>'
+  //     // var template = importDoc.querySelector('#t')
+  //     // var clone = document.importNode(template.content, true)
+  //     // var root = this.createShadowRoot()
+  //     // root.appendChild(clone)
+  //     //
+  //     // let testy = template.content.getElementById('testy')
+  //     // testy.innerHTML = this.getAttribute('name')
+  //     // console.log(this.getAttribute('name'), testy)
+  //
+  //   }
+  //   document.registerElement('important-tag', {prototype: proto})
+  // })()
 </script>

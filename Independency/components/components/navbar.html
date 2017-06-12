@@ -1,10 +1,11 @@
 <template id="navbar">
+<link rel="stylesheet" href="main.css">
 <!-- { { { { { { { { { { { { { { { {  CSS  } } } } } } } } } } } } } } } } } -->
 <style>
 .navbar {
   width: 100%;
 }
-.title {
+#title {
   cursor: pointer;
   font-size: 30px;
   float: left;
@@ -16,15 +17,13 @@
 .nav-button {
   cursor: pointer;
 }
-.nav-button:hover, .title:hover {
+.nav-button:hover, #title:hover {
   color: rgba(50,0,0,0.25);
 }
 </style>
 <!-- < < < < < < < < < < < < < < < <  html > > > > > > > > > > > > > > > > > -->
 <content>
-  <link rel="stylesheet" href="main.css">
-
-<table if='list' style='width: 100%;'>
+<table style='width: 100%;'>
   <tr>
     <th id='title' class="title gray1"> --- Static Website Name </th>
     <th>
@@ -44,27 +43,34 @@
 
 (( c = new Component('navbar-tag', '#navbar') )=>{
 
-  c.addEvent('click', 'infoButton', ()=>{
-    const { navBarString, navBarNumber } = c.getData('navbar-tag')
-    inputStr.value = navBarString
-    inputNum.value = navBarNumber
+  c.addEvent('click', 'infoButton', infoClick = function (root, more) {
+    root.getElementById('title').innerHTML = 'HTML Components Demo' + (more ? more : '')
   })
 
-  c.addEvent('click', 'dataButton', dataClick = (x)=>{
-    // this.title.innerHTML = 'COMP!)10@(29#*38$&47%^)'
-    // let title = template.content.getElementById('title')
-    // c.content.getElementById('title').innerHTML = 'OOOHHHH YEAH!'
+  c.addEvent('click', 'dataButton', dataClick = (root)=>{
+    // console.log(c.data(root))
+    console.log('trying to include root in as c.root', c.root)
+    //console.log('---', title, name, num)
+    // inputStr.value = navBarString
+    // inputNum.value = navBarNumber
+    // const { title, name, num } = JSON.parse(root.host.attributes.serve.nodeValue)
+    // const { title, name, num } = JSON.parse(root.host.attributes.serve.nodeValue)
 
-    x.getElementById('title').innerHTML = 'update please'
-    console.log('data-click', x.getElementById('title'))
-    // console.log('content: ', c)
+    const { title, name, num } = c.data(root)
+    console.log('---', title, name, num)
+
+    // console.dir(JSON.parse(root.host.attributes.serve.nodeValue))
+
   })
 
-  c.addEvent('click', 'loginButton', loginClick = function () {
-    this.getElementsByTagName('*').loginButton.innerHTML = '!'
-    // hard-code get landing data by idea first....
-    let landerLogin = document.getElementsByTagName('landing-tag')[0]
-    landerLogin.getElementsByTagName('*').loginButton.innerHTML = '!'
+  c.addEvent('click', 'loginButton', (root)=>{
+    infoClick(root, '(Login to Come)')
+    // this.getElementsByTagName('*').loginButton.innerHTML = '!'
+    let target = document.getElementsByTagName('*')
+    console.log(target, target['landing-tag'])
+    // // hard-code get landing data by idea first....
+    // let landerLogin = document.getElementsByTagName('landing-tag')[0]
+    // landerLogin.getElementsByTagName('*').loginButton.innerHTML = '!'
   })
 
   c.newElm()
