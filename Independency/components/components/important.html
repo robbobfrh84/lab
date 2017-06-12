@@ -1,28 +1,25 @@
 <template id="t">
 <!-- { { { { { { { { { { { { { { { {  CSS  } } } } } } } } } } } } } } } } } -->
-<!-- OOOOKKKKKEEYYYY
-- working to making navbar.html work with duplicates...
-- REALIZED ...
-- - 1.) Forget events until you get it working
-- - 2.) looked to be somowhat working but realized style never even worked in important-tag
-- - - - So, we can put style WITHIN content, BUT ...
-- - - - Dosn't solve for working at the global level.
-- - - -
--->
+<style>
+  #title {
+    background-color: cornflowerblue;
+  }
+  /*.whatever {
+    background-color: green;
+  }*/
+</style>
 <!-- < < < < < < < < < < < < < < < <  html > > > > > > > > > > > > > > > > > -->
 <content>
-  <!-- <link rel="stylesheet" href="main.css"> -->
-  <style>
-    #title {
-      background-color: red;
-    }
-  </style>
+  <link rel="stylesheet" href="main.css">
+
   <span id="title"> --- Static </span>  -
   <span> string: </span>
-  <input id="inputStr" class="whatever" placeholder="Not Set..."/>
+  <input id="inputStr" placeholder="Not Set..."/>
   <span> number: </span>
   <input id="inputNum" placeholder="Not Set..."/>
-  <button id='buttonX'> + </button>
+  <button id="buttonX" class="whatever"> + </button>
+  <button id="buttonXX" class="whatever"> + </button>
+
   <br>
 </content>
 </template>
@@ -44,11 +41,17 @@
 
     var button = clone.getElementById('buttonX')
     var x = this.getAttribute('serve')
-    var data = ()=> this.getAttribute('serve')
+    var data = ()=>this.getAttribute('serve')
 
     button.addEventListener('click', function() {
       console.log('Data:', data())
     })
+
+    var button2 = clone.getElementById('buttonXX')
+    button2.addEventListener('click', function() {
+      console.log('Data2:', data())
+    })
+
     root.appendChild(clone)
   }
 

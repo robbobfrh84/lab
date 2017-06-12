@@ -4,24 +4,31 @@ class Component {
     this.events = []
     this.component = component
     this.id = id
+    this.content = {}
   }
 
   newElm (events = this.events, id = this.id) {
     let proto = Object.create(HTMLElement.prototype)
     const importDoc = document.currentScript.ownerDocument
     const template = importDoc.querySelector(id)
-    proto.createdCallback = function() {
+    // this.content = template.content
+    proto.attributeChangedCallback = function() {
       const root = this.createShadowRoot()
-      let copy = document.importNode(template.content, true)
-      // let clone = copy.cloneNode(true)
-      // console.log(this, root, copy)
+      let clone = document.importNode(template.content, true)
 
-      root.appendChild(copy)
+      this.content = clone
+      console.log('-', clone.getElementById('title'))
 
+      for (const e of events) {
+        let newEvent = clone.getElementById(e.id)
+        newEvent.addEventListener(e.type,
+          e.method.bind(this, root), false)
+          // e.method.bind(this), false)
+          // e.method.bind(this, this), false)
+      }
+      root.appendChild(clone)
       // this.appendChild(clone)
       // this.appendChild(template.content)
-
-
 
       // root.appendChild(clone)
       // for (const e of events) {
