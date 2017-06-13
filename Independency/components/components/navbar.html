@@ -25,10 +25,10 @@
 <content>
 <table style='width: 100%;'>
   <tr>
-    <th id='title' class="title gray1"> --- Static Website Name </th>
+    <th id='title' class="title gray1"> --- Static Website </th>
     <th>
       <div class="nav">
-        <span id='infoButton' class="nav-button gray1"> Info </span> &nbsp; :: &nbsp;
+        <span id='infoButton' class="nav-button gray1"> Page 2 </span> &nbsp; :: &nbsp;
         <span id='dataButton' class="nav-button gray1"> Data </span> &nbsp; :: &nbsp;
         <span id='loginButton' class="nav-button gray1"> Login </span>
       </div>
@@ -41,30 +41,27 @@
 <!-- () () () () () () () () () ()  JavaScript () () () () () () () () () () -->
 <script>
 
-(( c = new Component('navbar-tag', '#navbar') )=>{
+((c = new Component('navbar-tag', '#navbar'))=>{
+
+  c.onLoaded = (root)=>{
+    c.root = root
+    const { title, name, num } = c.data(root)
+    console.log('---', title, name, num, c.xdata)
+    root.getElementById('title').innerHTML = 'HTML Components Demo ('+num+')'
+  }
 
   c.addEvent('click', 'infoButton', infoClick = function (root, more) {
-    root.getElementById('title').innerHTML = 'HTML Components Demo' + (more ? more : '')
+    root.getElementById('title').innerHTML = 'HTML Components Demo'
+     + (more ? more : ' (Page2 to Come)')
   })
 
   c.addEvent('click', 'dataButton', dataClick = (root)=>{
-    // console.log(c.data(root))
-    console.log('trying to include root in as c.root', c.root)
-    //console.log('---', title, name, num)
-    // inputStr.value = navBarString
-    // inputNum.value = navBarNumber
-    // const { title, name, num } = JSON.parse(root.host.attributes.serve.nodeValue)
-    // const { title, name, num } = JSON.parse(root.host.attributes.serve.nodeValue)
-
     const { title, name, num } = c.data(root)
-    console.log('---', title, name, num)
-
-    // console.dir(JSON.parse(root.host.attributes.serve.nodeValue))
-
+    console.log('---', title, name, num, c.xdata)
   })
 
   c.addEvent('click', 'loginButton', (root)=>{
-    infoClick(root, '(Login to Come)')
+    infoClick(root, ' (Login to Come)')
     // this.getElementsByTagName('*').loginButton.innerHTML = '!'
     let target = document.getElementsByTagName('*')
     console.log(target, target['landing-tag'])
