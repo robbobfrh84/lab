@@ -36,37 +36,46 @@
   </tr>
 </table>
 <hr style="margin-top: 0px;">
+<div id="endText">
+</div>
 </content>
 </template>
 <!-- () () () () () () () () () ()  JavaScript () () () () () () () () () () -->
 <script>
 
+let component = document.currentScript.ownerDocument.querySelector('#navbar').content
+component.getElementById('endText').innerHTML =
+  '<em style="float: left; font-size: 12px; "> * Static script edited </em>';
+
 ((c = new Component('navbar-tag', '#navbar'))=>{
 
-  c.onLoaded = (root)=>{
-    c.root = root
-    const { title, name, num } = c.data(root)
-    console.log('---', title, name, num, c.xdata)
-    root.getElementById('title').innerHTML = 'HTML Components Demo ('+num+')'
+  c.onLoaded = (r, data)=>{
+    r.getElementById('title').innerHTML = 'HTML Components Demo ('+data.num+')'
   }
 
-  c.addEvent('click', 'infoButton', infoClick = function (root, more) {
-    root.getElementById('title').innerHTML = 'HTML Components Demo'
-     + (more ? more : ' (Page2 to Come)')
+  c.addEvent('click', 'infoButton', infoClick = (r, data, more)=>{
+    r.getElementById('title').innerHTML = 'HTML Components Demo'
+     + (more ? more : ' (Page 2 to Come)' + data.num)
   })
 
-  c.addEvent('click', 'dataButton', dataClick = (root)=>{
-    const { title, name, num } = c.data(root)
-    console.log('---', title, name, num, c.xdata)
+  c.addEvent('click', 'dataButton', (r, data)=>{
+    console.log('Data Click', data)
   })
 
-  c.addEvent('click', 'loginButton', (root)=>{
-    infoClick(root, ' (Login to Come)')
-    // this.getElementsByTagName('*').loginButton.innerHTML = '!'
-    let target = document.getElementsByTagName('*')
-    console.log(target, target['landing-tag'])
+  c.addEvent('click', 'loginButton', (r, data)=>{
+    infoClick(r, data, ' (Login to Come)' + data.num)
+    // document.getElementsByTagName('*').loginButton.innerHTML = '!'
+    let target = document.getElementsByTagName('landing-tag')[0]
+    // let serve = JSON.parse(target.attributes.serve.nodeValue)
+    // serve.landingPageTitle = 'changed!'
+    // target.setAttribute('serve', JSON.stringify(serve))
+    // console.log(serve, target)
+    target.shadowRoot.getElementById('title').innerHTML = 'CHANGED! by other Component!'
+    // console.dir(target.shadowRoot.getElementById('title'))
+
     // // hard-code get landing data by idea first....
     // let landerLogin = document.getElementsByTagName('landing-tag')[0]
+    // console.log(landerLogin)
     // landerLogin.getElementsByTagName('*').loginButton.innerHTML = '!'
   })
 

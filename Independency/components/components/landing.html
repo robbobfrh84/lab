@@ -7,7 +7,7 @@
     text-align: center;
     color: rgba(0,0,0,0.6);
   }
-  #dataShell {
+  #title {
     font-size: 50px;
   }
   button {
@@ -24,16 +24,15 @@
   button:hover {
     background-color: rgba(50,0,0,0.1);
   }
-
 </style>
 <!-- < < < < < < < < < < < < < < < <  html > > > > > > > > > > > > > > > > > -->
 <content>
   <div class="landing-container">
-    <div id='dataShell'> --- Static Title </Div>
+    <div id='title'> --- Static Title </Div>
     <div>
       <button id="infoButton" style="border-color: rgba(100,0,0,0.3);"> Page 2 </button>
       <button id="dataButton" style="border-color: rgba(0,100,0,0.3);"> Data </button>
-      <button id="loginButton" style="border-color: rgba(0,0,100,0.3);"> Login </button>
+      <button id="loginButton" style="border-color: rgba(0,0,100,0.3);">Login</button>
     </div>
     <span> Important number: </span>
     <input id="inputNum" placeholder="Not Set...">
@@ -47,18 +46,24 @@
 
 (( c = new Component('landing-tag', '#landing') )=>{
 
-  c.addEvent('click', 'infoButton', ()=>{
-    const { string, number } = c.getData('navbar-tag')
-    inputStr.value = string
-    inputNum.value = number
+  c.onLoaded = (r, data)=>{
+    console.log(data)
+    r.getElementById('title').innerHTML = data.landingPageTitle
+  }
+
+  c.addEvent('click', 'infoButton', (r, data)=>{
+    r.getElementById('inputStr').value = data.string
+    r.getElementById('inputNum').value = data.number
   })
 
-  c.addEvent('click', 'dataButton', ()=>{
-    dataShell.innerHTML = 'LAND!)10@(29#*38$&47%^)'
+  c.addEvent('click', 'dataButton', (r)=>{
+    r.getElementById('dataShell').innerHTML = 'LAND!)10@(29#*38$&47%^)'
   })
 
-  c.addEvent('click', 'loginButton', loginClick = function () {
-    this.getElementsByTagName('*').loginButton.innerHTML = '!'
+  c.addEvent('click', 'loginButton', (r)=>{
+    const t = r.getElementById('loginButton').innerHTML
+    r.getElementById('loginButton').innerHTML = (t === 'Login' ? 'Login!' : 'Login')
+    // this.getElementsByTagName('*').loginButton.innerHTML = '!'
   })
 
   c.newElm()

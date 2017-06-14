@@ -12,26 +12,41 @@ class Component {
     const importDoc = document.currentScript.ownerDocument
     const template = importDoc.querySelector(id)
     proto.attributeChangedCallback = function () {
+      // let root;
+      // let newRoot = true
+      // if (!this.shadowRoot) {
+      //   root = this.createShadowRoot()
+      // } else {
+      //   root = this.shadowRoot
+      //   newRoot = false
+      // }
+      // if (this.shadowRoot) {
+      //   this.shadowRoot = null
+      // }
       const root = this.createShadowRoot()
+      // console.dir(root)
+
       let clone = document.importNode(template.content, true)
+      const data = JSON.parse(this.getAttribute('serve'))
       for (const e of events) {
         let newEvent = clone.getElementById(e.id)
         newEvent.addEventListener(e.type, ()=>{
-          e.method(root)
+          e.method(root, data)
         })
       }
-
       if (onLoaded) {
-        document.addEventListener("DOMContentLoaded", ()=>{ onLoaded(root) })
+        document.addEventListener("DOMContentLoaded", ()=>{ onLoaded(root, data) })
       }
-
+      // this.appendChild(template.content)
       root.appendChild(clone)
-      // vvv !!!
-      if(!document.root) document.root = []
-      document.root.push(root)
-      // ^^^ !!!
+      // // vvv !!!
+      // if(!document.root) document.root = []
+      // document.root.push(root)
+      // // ^^^ !!!
+
     }
     document.registerElement(this.component, {prototype: proto})
+
   }
 
   addEvent (type, id, method) {
@@ -42,7 +57,7 @@ class Component {
   //
   // }
 
-  data (root) {
+  getData (root) {
     return JSON.parse(root.host.attributes.serve.nodeValue)
   }
 

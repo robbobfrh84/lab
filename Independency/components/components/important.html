@@ -3,30 +3,36 @@
 <style>
   .card {
     display: inline-block;
-    background-color: orange;
+    background-color: rgba(0,0,0,0.25);
     width: 25%;
     margin: 5px;
+    border-radius: 2px;
+    border-color: rgba(0,0,0,0.5);
   }
   #title {
     width: 100%;
+    border-radius: 2px;
     background-color: cornflowerblue;
   }
-  input {
-    /*float: right;*/
-  }
-  .input-type {
-    /*float: left;*/
+  .float-left {
+    float: left;
+    padding-left: 5px;
   }
 </style>
 <!-- < < < < < < < < < < < < < < < <  html > > > > > > > > > > > > > > > > > -->
 <content>
   <link rel="stylesheet" href="main.css">
   <div class="card">
-    <div id="title"> --- Static </div>
-    <div class='input-type'> string: </div>
-    <input id="inputStr" placeholder="Not Set..."/>
-    <div class='input-type'> number: </div>
-    <input id="inputNum" placeholder="Not Set..."/>
+    <table style="width:100%">
+      <tr><div id="title"> --- Static </div>
+        <th class='float-left'> string: </th>
+        <th><input id="inputStr" placeholder="Not Set..."/></th>
+      </tr>
+      <tr>
+        <th class='float-left'> number: </th>
+        <th><input id="inputNum" placeholder="Not Set..."/></th>
+      </tr>
+    </table>
     <button id="buttonX" class="whatever"> + </button>
     <button id="buttonXX" class="whatever"> + </button>
   </div>
