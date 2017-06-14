@@ -64,19 +64,9 @@ component.getElementById('endText').innerHTML =
 
   c.addEvent('click', 'loginButton', (r, data)=>{
     infoClick(r, data, ' (Login to Come)' + data.num)
-    // document.getElementsByTagName('*').loginButton.innerHTML = '!'
     let target = document.getElementsByTagName('landing-tag')[0]
-    // let serve = JSON.parse(target.attributes.serve.nodeValue)
-    // serve.landingPageTitle = 'changed!'
-    // target.setAttribute('serve', JSON.stringify(serve))
-    // console.log(serve, target)
     target.shadowRoot.getElementById('title').innerHTML = 'CHANGED! by other Component!'
-    // console.dir(target.shadowRoot.getElementById('title'))
-
-    // // hard-code get landing data by idea first....
-    // let landerLogin = document.getElementsByTagName('landing-tag')[0]
-    // console.log(landerLogin)
-    // landerLogin.getElementsByTagName('*').loginButton.innerHTML = '!'
+    console.dir(target.shadowRoot)
   })
 
   c.newElm()

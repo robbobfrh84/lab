@@ -9,7 +9,7 @@
 <body>
 
 <navbar-tag serve="data.important1"></navbar-tag>
-<!-- <navbar-tag serve="data.important2"></navbar-tag> -->
+<navbar-tag serve="data.important2"></navbar-tag>
 <landing-tag serve="data"></landing-tag>
 
 <important-tag serve="data.important1"></important-tag>
@@ -18,6 +18,15 @@
 
 </body>
 <script>
+
+/* WHERE I LEFT OFF . . .
+- So I got it working (Component + ID direct)
+- BUT the 'attributeChangedCallback' fired when i changed the serve=""
+- Seems same when i made the index.html function global.
+- IDEA: create a conditional within callback fucntion that ...
+- ... COMPLETELY seperates re-hit and not...
+- ... figure out how to just change the attribute ...
+*/
 
 (()=>{
 

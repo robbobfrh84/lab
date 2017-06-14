@@ -47,7 +47,6 @@
 (( c = new Component('landing-tag', '#landing') )=>{
 
   c.onLoaded = (r, data)=>{
-    console.log(data)
     r.getElementById('title').innerHTML = data.landingPageTitle
   }
 
@@ -63,7 +62,6 @@
   c.addEvent('click', 'loginButton', (r)=>{
     const t = r.getElementById('loginButton').innerHTML
     r.getElementById('loginButton').innerHTML = (t === 'Login' ? 'Login!' : 'Login')
-    // this.getElementsByTagName('*').loginButton.innerHTML = '!'
   })
 
   c.newElm()
