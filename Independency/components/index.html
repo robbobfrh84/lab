@@ -4,29 +4,24 @@
   <!-- COMPONENTS -->
   <link rel="import" href="components/navbar.html">
   <link rel="import" href="components/landing.html">
-  <link rel="import" href="components/important.html">
+  <link rel="import" href="components/id-card.html">
 </head>
 <body>
 
-<navbar-tag serve="data.important1"></navbar-tag>
-<navbar-tag serve="data.important2"></navbar-tag>
+<navbar-tag serve="data.arr[0]"></navbar-tag>
+<navbar-tag serve="data.arr[1]"></navbar-tag>
 <landing-tag serve="data"></landing-tag>
-
-<!-- <important-tag serve="data.important1"></important-tag>
-<important-tag serve="data.important2"></important-tag>
-<important-tag serve="data.important3"></important-tag> -->
+<br>
+<id-card-tag serve="data.important1"></id-card-tag>
+<id-card-tag serve="data.important2"></id-card-tag>
+<id-card-tag serve="data.important3"></id-card-tag>
 
 </body>
 <script>
 
 /* WHERE I LEFT OFF . . .
-NAVBAR
-- data click also puts data on important number/string
-Landing
-- make title for all 3 buttz
-- data click changes ids
+
 USER
-- change and style as idcard (NOT important)
 - navbar and landing  Data click changes data around
 - make a hover effec that changes the website-name to match card in order 1,2,3
 PAGE2
@@ -39,15 +34,13 @@ IDCARD (Imput)
 */
 
 var mainData = {
+  arr: [ 1, 2 ],
   landingPageTitle: 'Landing Page',
-  userName: null,
-  userInt: null,
-  number: 49,
   navBarString: 'Clicked <Data> on navbar" ',
   navBarNumber: 1000000,
-  important1 : { title: 'Important Data 1', name: 'Eric', num: '1' },
-  important2 : { title: 'Important Data 2', name: 'LaVar', num: '2' },
-  important3 : { title: 'Important Data 3', name: 'Jennifer', num: '3' }
+  important1 : { title: 'ID Card 1', name: 'Chainsaw', last: "O'plow", age: '49', height: "6"+"'"+'8'+'"' },
+  important2 : { title: 'ID Card 2', name: 'Cork', last: 'McFry', age: '32', height: "6"+"'"+'1'+'"' },
+  important3 : { title: 'ID Card 3', name: 'Swank', last: 'Dank', age: '24', height: "5"+"'"+'4'+'"' },
 }
 
 var update = (data, initial)=>{
@@ -99,9 +92,8 @@ update(mainData, true)
 
 <!-- / / / / / / / / / / / / / / /    Notes    / / / / / / / / / / / / / / / / /
 * Next 3 *
-- Fiture-out 1.) cross-component data 2.) cross-component events
 - style IMPORTANT
-- Merge important to be dynamic
+- mainData isn't called mainData in serve='data.whatever'
 
 *** TO DOs ***
 - figure out what things need to be solved to just add this as components alone before we create a merged template

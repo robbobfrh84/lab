@@ -37,10 +37,10 @@
       <button id="dataButton" style="border-color: rgba(0,100,0,0.3);"> Data </button>
       <button id="loginButton" style="border-color: rgba(0,0,100,0.3);">Login</button>
     </div>
-    <span> Important number: </span>
-    <input id="inputNum" placeholder="Not Set...">
-    <span> Important String: </span>
-    <input id="inputStr" placeholder="Not Set...">
+    <span> User: </span>
+    <input id="user" placeholder="Not Set...">
+    <span> Id# </span>
+    <input id="idNum" placeholder="Not Set...">
   </div>
 </content>
 </template>
@@ -49,22 +49,26 @@
 
 (( c = new Component('landing-tag', '#landing') )=>{
 
-  c.onLoad = ()=>{ // TEST WHEN REMOVE onLOAD
+  c.onLoad = ()=>{
    c.root.getElementById('title').innerHTML = c.data.landingPageTitle
+   if (c.data.user) {
+     c.root.getElementById('user').value = c.data.user
+     c.root.getElementById('idNum').value = c.data.id
+   }
   }
 
   c.addEvent('click', 'page2Button', ()=>{
-    c.root.getElementById('inputStr').value = c.data.string
-    c.root.getElementById('inputNum').value = c.data.number
-  })
+    mainData.landingPageTitle = 'Page 2 to Come'
+  }, true)
 
   c.addEvent('click', 'dataButton', ()=>{
-    c.root.getElementById('title').innerHTML = 'Data Page to Come'
-  })
+    mainData.landingPageTitle = 'Data Page to Come'
+  }, true)
 
   c.addEvent('click', 'loginButton', ()=>{
     mainData.landingPageTitle = 'Login Page'
-
+    mainData.user = 'lippy66'
+    mainData.id = '3ofjaksdf'
   }, true)
 
   c.newElm()
