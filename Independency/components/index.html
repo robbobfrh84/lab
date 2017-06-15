@@ -20,20 +20,30 @@
 <script>
 
 /* WHERE I LEFT OFF . . .
-- So I got it working (Component + ID direct)
-- BUT the 'attributeChangedCallback' fired when i changed the serve=""
-- Seems same when i made the index.html function global.
-- IDEA: create a conditional within callback fucntion that ...
-- ... COMPLETELY seperates re-hit and not...
-- ... figure out how to just change the attribute ...
-- IDEA: looks like you can put an event listener on the entire component (good for page swaps!)
+NAVBAR
+- data click also puts data on important number/string
+Landing
+- make title for all 3 buttz
+- data click changes ids
+USER
+- change and style as idcard (NOT important)
+- navbar and landing  Data click changes data around
+- make a hover effec that changes the website-name to match card in order 1,2,3
+PAGE2
+-
+IDCARD
+-
+IDCARD (Imput)
+-
+--- THEN remove double navbar.
 */
+
 var mainData = {
-  string: 'Sup, Ya'+"'"+'ll',
-  websiteName: 'Components',
   landingPageTitle: 'Landing Page',
+  userName: null,
+  userInt: null,
   number: 49,
-  navBarString: 'Clicked Navbar "Info" ',
+  navBarString: 'Clicked <Data> on navbar" ',
   navBarNumber: 1000000,
   important1 : { title: 'Important Data 1', name: 'Eric', num: '1' },
   important2 : { title: 'Important Data 2', name: 'LaVar', num: '2' },
@@ -41,6 +51,8 @@ var mainData = {
 }
 
 var update = (data, initial)=>{
+
+  if (!data) data = mainData
 
   let imports = document.querySelectorAll('link[rel="import"]')
   for (const imp of imports) {
@@ -51,10 +63,12 @@ var update = (data, initial)=>{
       let serve = component.getAttribute('serve')
       if (!initial) {
         serve = component.getAttribute('servedir')
+        console.log(serve)
       } else {
-        let serveDir = document.createAttribute('servedir')
-        serveDir.value = serve
-        component.setAttributeNode(serveDir)
+        let servedir = document.createAttribute('servedir')
+        servedir.value = serve
+        component.setAttributeNode(servedir)
+        console.log(servedir)
       }
       component.setAttribute('serve', JSON.stringify(getDir({ 'data': data }, serve)))
     }

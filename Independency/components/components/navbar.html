@@ -25,7 +25,7 @@
 <content>
 <table style='width: 100%;'>
   <tr>
-    <th id='title' class="title gray1"> --- Static Website </th>
+    <th id='title' class="title gray1"> HTML components Demo </th>
     <th>
       <div class="nav">
         <span id='page2Button' class="nav-button gray1"> Page 2 </span> &nbsp; :: &nbsp;
@@ -45,31 +45,25 @@
 
 let component = document.currentScript.ownerDocument.querySelector('#navbar').content
 component.getElementById('endText').innerHTML =
-  '<em style="float: left; font-size: 12px; "> * Static script edited </em>';
+  '<em style="float: left; font-size: 14px; "> * Static script edited </em>';
 
 ((c = new Component('navbar-tag', '#navbar'))=>{
 
-  c.onLoaded = ()=>{
-    c.root.getElementById('title').innerHTML = 'HTML Components Demo ('+c.data.num+')'
-  }
-
   c.addEvent('click', 'page2Button', infoClick = (more)=>{
-    c.root.getElementById('title').innerHTML = 'HTML Components Demo'
-     + (more ? more : ' (Page 2 to Come)' + c.data.num)
-  })
+    if (!more) more = 'Page 2'
+    c.root.getElementById('title').innerHTML = 'HTML ('+more+' to Come)' + c.data.num
+    mainData.landingPageTitle = more +" <span>(nav"+c.data.num+")</span>"
+  }, true)
 
   c.addEvent('click', 'dataButton', ()=>{
-    console.log('Data Click', c.data)
-  })
+    mainData.landingPageTitle = "NEW Landing Page"
+    infoClick('Data Page')
+  }, true)
 
   c.addEvent('click', 'loginButton', ()=>{
     mainData.landingPageTitle = "NEW Landing Page"
-    update(mainData)
-    infoClick(' (Login to Come)' + c.data.num)
-    // let target = document.getElementsByTagName('landing-tag')[0]
-    // target.shadowRoot.getElementById('title').innerHTML = 'CHANGED! by other Component!'
-    // console.dir(target.shadowRoot)
-  })
+    infoClick('Login Page')
+  }, true)
 
   c.newElm()
 })()

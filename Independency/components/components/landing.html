@@ -24,13 +24,16 @@
   button:hover {
     background-color: rgba(50,0,0,0.1);
   }
+  span {
+    font-size: 20px;
+  }
 </style>
 <!-- < < < < < < < < < < < < < < < <  html > > > > > > > > > > > > > > > > > -->
 <content>
   <div class="landing-container">
     <div id='title'> --- Static Title </Div>
     <div>
-      <button id="infoButton" style="border-color: rgba(100,0,0,0.3);"> Page 2 </button>
+      <button id="page2Button" style="border-color: rgba(100,0,0,0.3);"> Page 2 </button>
       <button id="dataButton" style="border-color: rgba(0,100,0,0.3);"> Data </button>
       <button id="loginButton" style="border-color: rgba(0,0,100,0.3);">Login</button>
     </div>
@@ -46,23 +49,23 @@
 
 (( c = new Component('landing-tag', '#landing') )=>{
 
-  c.onLoaded = ()=>{
+  c.onLoad = ()=>{ // TEST WHEN REMOVE onLOAD
    c.root.getElementById('title').innerHTML = c.data.landingPageTitle
   }
 
-  c.addEvent('click', 'infoButton', ()=>{
+  c.addEvent('click', 'page2Button', ()=>{
     c.root.getElementById('inputStr').value = c.data.string
     c.root.getElementById('inputNum').value = c.data.number
   })
 
   c.addEvent('click', 'dataButton', ()=>{
-    c.root.getElementById('title').innerHTML = 'LAND!)10@(29#*38$&47%^)'
+    c.root.getElementById('title').innerHTML = 'Data Page to Come'
   })
 
   c.addEvent('click', 'loginButton', ()=>{
-    const t = c.root.getElementById('loginButton').innerHTML
-    c.root.getElementById('loginButton').innerHTML = (t === 'Login' ? 'Login!' : 'Login')
-  })
+    mainData.landingPageTitle = 'Login Page'
+
+  }, true)
 
   c.newElm()
 })()
