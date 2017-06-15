@@ -1,39 +1,46 @@
 class Component {
 
-  constructor (component, id) {
+  constructor (tag, id) {
     this.events = []
-    this.component = component
+    this.tag = tag
     this.id = id
+    this.set = (root, data)=> { [ this.root, this.data ] = [ root, data] }
   }
 
-  newElm (events = this.events, id = this.id, onLoaded = this.onLoaded) {
+  newElm (events = this.events, id = this.id, onLoaded = this.onLoaded, set = this.set) {
+    console.log('---', this)
     let proto = Object.create(HTMLElement.prototype)
     const importDoc = document.currentScript.ownerDocument
     const template = importDoc.querySelector(id)
     proto.attributeChangedCallback = function () {
-      const root = this.createShadowRoot()
-      let clone = document.importNode(template.content, true)
-      const data = JSON.parse(this.getAttribute('serve'))
-      for (const e of events) {
-        let newEvent = clone.getElementById(e.id)
-        newEvent.addEventListener(e.type, ()=>{
-          e.method(root, data)
-        })
+      if (!this.shadowRoot) {
+        const root = this.createShadowRoot()
+        let clone = document.importNode(template.content, true)
+        for (const e of events) {
+          let newEvent = clone.getElementById(e.id)
+          newEvent.addEventListener(e.type, ()=>{
+            // e.method(root, JSON.parse(this.getAttribute('serve')))
+            //this.data = JSON.parse(this.getAttribute('serve'))
+            set(root, JSON.parse(this.getAttribute('serve')))
+            e.method()
+          })
+        }
+        // document.addEventListener("DOMContentLoaded", ()=>{
+        //   const data = JSON.parse(this.getAttribute('serve'))
+        //   onLoaded([ root, data ])
+        // })
+        root.appendChild(clone)
+      } else {
+        set(this.shadowRoot, JSON.parse(this.getAttribute('serve')))
+        onLoaded()
       }
-      if (onLoaded) {
-        document.addEventListener("DOMContentLoaded", ()=>{ onLoaded(root, data) })
-      }
-      root.appendChild(clone)
     }
-    document.registerElement(this.component, {prototype: proto})
+    document.registerElement(this.tag, {prototype: proto})
+    return [ this.root, this.data ]
   }
 
   addEvent (type, id, method) {
     this.events.push( {'type': type, 'method': method, 'id': id} )
-  }
-
-  getData (root) {
-    return JSON.parse(root.host.attributes.serve.nodeValue)
   }
 
 }

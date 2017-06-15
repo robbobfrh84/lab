@@ -28,7 +28,7 @@
     <th id='title' class="title gray1"> --- Static Website </th>
     <th>
       <div class="nav">
-        <span id='infoButton' class="nav-button gray1"> Page 2 </span> &nbsp; :: &nbsp;
+        <span id='page2Button' class="nav-button gray1"> Page 2 </span> &nbsp; :: &nbsp;
         <span id='dataButton' class="nav-button gray1"> Data </span> &nbsp; :: &nbsp;
         <span id='loginButton' class="nav-button gray1"> Login </span>
       </div>
@@ -49,24 +49,26 @@ component.getElementById('endText').innerHTML =
 
 ((c = new Component('navbar-tag', '#navbar'))=>{
 
-  c.onLoaded = (r, data)=>{
-    r.getElementById('title').innerHTML = 'HTML Components Demo ('+data.num+')'
+  c.onLoaded = ()=>{
+    c.root.getElementById('title').innerHTML = 'HTML Components Demo ('+c.data.num+')'
   }
 
-  c.addEvent('click', 'infoButton', infoClick = (r, data, more)=>{
-    r.getElementById('title').innerHTML = 'HTML Components Demo'
-     + (more ? more : ' (Page 2 to Come)' + data.num)
+  c.addEvent('click', 'page2Button', infoClick = (more)=>{
+    c.root.getElementById('title').innerHTML = 'HTML Components Demo'
+     + (more ? more : ' (Page 2 to Come)' + c.data.num)
   })
 
-  c.addEvent('click', 'dataButton', (r, data)=>{
-    console.log('Data Click', data)
+  c.addEvent('click', 'dataButton', ()=>{
+    console.log('Data Click', c.data)
   })
 
-  c.addEvent('click', 'loginButton', (r, data)=>{
-    infoClick(r, data, ' (Login to Come)' + data.num)
-    let target = document.getElementsByTagName('landing-tag')[0]
-    target.shadowRoot.getElementById('title').innerHTML = 'CHANGED! by other Component!'
-    console.dir(target.shadowRoot)
+  c.addEvent('click', 'loginButton', ()=>{
+    mainData.landingPageTitle = "NEW Landing Page"
+    update(mainData)
+    infoClick(' (Login to Come)' + c.data.num)
+    // let target = document.getElementsByTagName('landing-tag')[0]
+    // target.shadowRoot.getElementById('title').innerHTML = 'CHANGED! by other Component!'
+    // console.dir(target.shadowRoot)
   })
 
   c.newElm()

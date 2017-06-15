@@ -46,22 +46,22 @@
 
 (( c = new Component('landing-tag', '#landing') )=>{
 
-  c.onLoaded = (r, data)=>{
-    r.getElementById('title').innerHTML = data.landingPageTitle
+  c.onLoaded = ()=>{
+   c.root.getElementById('title').innerHTML = c.data.landingPageTitle
   }
 
-  c.addEvent('click', 'infoButton', (r, data)=>{
-    r.getElementById('inputStr').value = data.string
-    r.getElementById('inputNum').value = data.number
+  c.addEvent('click', 'infoButton', ()=>{
+    c.root.getElementById('inputStr').value = c.data.string
+    c.root.getElementById('inputNum').value = c.data.number
   })
 
-  c.addEvent('click', 'dataButton', (r)=>{
-    r.getElementById('dataShell').innerHTML = 'LAND!)10@(29#*38$&47%^)'
+  c.addEvent('click', 'dataButton', ()=>{
+    c.root.getElementById('title').innerHTML = 'LAND!)10@(29#*38$&47%^)'
   })
 
-  c.addEvent('click', 'loginButton', (r)=>{
-    const t = r.getElementById('loginButton').innerHTML
-    r.getElementById('loginButton').innerHTML = (t === 'Login' ? 'Login!' : 'Login')
+  c.addEvent('click', 'loginButton', ()=>{
+    const t = c.root.getElementById('loginButton').innerHTML
+    c.root.getElementById('loginButton').innerHTML = (t === 'Login' ? 'Login!' : 'Login')
   })
 
   c.newElm()

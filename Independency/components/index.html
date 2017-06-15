@@ -12,9 +12,9 @@
 <navbar-tag serve="data.important2"></navbar-tag>
 <landing-tag serve="data"></landing-tag>
 
-<important-tag serve="data.important1"></important-tag>
+<!-- <important-tag serve="data.important1"></important-tag>
 <important-tag serve="data.important2"></important-tag>
-<important-tag serve="data.important3"></important-tag>
+<important-tag serve="data.important3"></important-tag> -->
 
 </body>
 <script>
@@ -26,26 +26,21 @@
 - IDEA: create a conditional within callback fucntion that ...
 - ... COMPLETELY seperates re-hit and not...
 - ... figure out how to just change the attribute ...
+- IDEA: looks like you can put an event listener on the entire component (good for page swaps!)
 */
+var mainData = {
+  string: 'Sup, Ya'+"'"+'ll',
+  websiteName: 'Components',
+  landingPageTitle: 'Landing Page',
+  number: 49,
+  navBarString: 'Clicked Navbar "Info" ',
+  navBarNumber: 1000000,
+  important1 : { title: 'Important Data 1', name: 'Eric', num: '1' },
+  important2 : { title: 'Important Data 2', name: 'LaVar', num: '2' },
+  important3 : { title: 'Important Data 3', name: 'Jennifer', num: '3' }
+}
 
-(()=>{
-
-  var data = {
-    string: 'Sup, Ya'+"'"+'ll',
-    websiteName: 'Components',
-    landingPageTitle: 'Landing Page',
-    number: 49,
-    navBarString: 'Clicked Navbar "Info" ',
-    navBarNumber: 1000000,
-    important1 : { title: 'Important Data 1', name: 'Eric', num: '34' },
-    important2 : { title: 'Important Data 2', name: 'LaVar', num: '22' },
-    important3 : { title: 'Important Data 3', name: 'Jennifer', num: '8' }
-  }
-
-  let getDir = (Obj, dir)=>{
-    for (const p of dir.split(/[.\[\]]/).filter(Boolean)) Obj = Obj[p]
-    return Obj
-  }
+var update = (data, initial)=>{
 
   let imports = document.querySelectorAll('link[rel="import"]')
   for (const imp of imports) {
@@ -54,11 +49,24 @@
     const components = document.querySelectorAll(tagName)
     for (const component of components) {
       let serve = component.getAttribute('serve')
+      if (!initial) {
+        serve = component.getAttribute('servedir')
+      } else {
+        let serveDir = document.createAttribute('servedir')
+        serveDir.value = serve
+        component.setAttributeNode(serveDir)
+      }
       component.setAttribute('serve', JSON.stringify(getDir({ 'data': data }, serve)))
     }
   }
+}
 
-})()
+var getDir = (Obj, dir)=>{
+  for (const p of dir.split(/[.\[\]]/).filter(Boolean)) Obj = Obj[p]
+  return Obj
+}
+
+update(mainData, true)
 
 </script>
 </html>
