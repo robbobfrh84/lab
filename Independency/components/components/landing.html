@@ -42,6 +42,8 @@
     <span> Id# </span>
     <input id="idNum" placeholder="Not Set...">
   </div>
+  <id-card-tag serve="data.important2"></id-card-tag>
+  <id-card-tag serve="data.important4"></id-card-tag>
 </content>
 </template>
 <!-- () () () () () () () () () ()  JavaScript () () () () () () () () () () -->
@@ -58,17 +60,17 @@
   }
 
   c.addEvent('click', 'page2Button', ()=>{
-    mainData.landingPageTitle = 'Page 2 to Come'
+    data.landingPageTitle = 'Page 2 to Come'
   }, true)
 
   c.addEvent('click', 'dataButton', ()=>{
-    mainData.landingPageTitle = 'Data Page to Come'
+    data.landingPageTitle = 'Data Page to Come'
   }, true)
 
   c.addEvent('click', 'loginButton', ()=>{
-    mainData.landingPageTitle = 'Login Page'
-    mainData.user = 'lippy66'
-    mainData.id = '3ofjaksdf'
+    data.landingPageTitle = 'Login Page'
+    data.user = 'lippy66'
+    data.id = '3ofjaksdf'
   }, true)
 
   c.newElm()

@@ -7,73 +7,45 @@
   <link rel="import" href="components/id-card.html">
 </head>
 <body>
-
-<navbar-tag serve="data.arr[0]"></navbar-tag>
-<navbar-tag serve="data.arr[1]"></navbar-tag>
-<landing-tag serve="data"></landing-tag>
-<br>
-<id-card-tag serve="data.important1"></id-card-tag>
-<id-card-tag serve="data.important2"></id-card-tag>
-<id-card-tag serve="data.important3"></id-card-tag>
-
+  <navbar-tag serve="data.arr[0]"></navbar-tag>
+  <navbar-tag serve="data.arr[1]"></navbar-tag>
+  <landing-tag serve="data"></landing-tag> <br>
+  <id-card-tag serve="data.important1"></id-card-tag> <br>
 </body>
 <script>
 
-/* WHERE I LEFT OFF . . .
-
-USER
-- navbar and landing  Data click changes data around
-- make a hover effec that changes the website-name to match card in order 1,2,3
-PAGE2
--
-IDCARD
--
-IDCARD (Imput)
--
---- THEN remove double navbar.
-*/
-
-var mainData = {
-  arr: [ 1, 2 ],
-  landingPageTitle: 'Landing Page',
-  navBarString: 'Clicked <Data> on navbar" ',
-  navBarNumber: 1000000,
-  important1 : { title: 'ID Card 1', name: 'Chainsaw', last: "O'plow", age: '49', height: "6"+"'"+'8'+'"' },
-  important2 : { title: 'ID Card 2', name: 'Cork', last: 'McFry', age: '32', height: "6"+"'"+'1'+'"' },
-  important3 : { title: 'ID Card 3', name: 'Swank', last: 'Dank', age: '24', height: "5"+"'"+'4'+'"' },
-}
-
-var update = (data, initial)=>{
-
-  if (!data) data = mainData
-
+// var data = {
+//   newC: 'something',
+//   arr: [ 1, 2 ],
+//   landingPageTitle: 'Landing Page',
+//   navBarString: 'Clicked <Data> on navbar" ',
+//   navBarNumber: 1000000,
+//   important1 : { title: 'ID Card 1', name: 'Chainsaw', last: "O'plow", age: '49', height: "6"+"'"+'8'+'"' },
+//   important2 : { title: 'ID Card 2', name: 'Cork', last: 'McFry', age: '32', height: "6"+"'"+'1'+'"' },
+//   important3 : { title: 'ID Card 3', name: 'Swank', last: 'Dank', age: '24', height: "5"+"'"+'4'+'"' },
+//   important4 : { title: 'ID Card 4', name: 'Emily', last: 'Farty', age: '34', height: "5"+"'"+'4'+'"' }
+// }
+//
+var updateh = (d, initial)=>{
+  if (!d) d = data
   let imports = document.querySelectorAll('link[rel="import"]')
   for (const imp of imports) {
     let tagName = imp.href.split('/')[imports[0].href.split('/').length-1]
     tagName = tagName.split('.')[0] + '-tag'
     const components = document.querySelectorAll(tagName)
     for (const component of components) {
-      let serve = component.getAttribute('serve')
-      if (!initial) {
-        serve = component.getAttribute('servedir')
-        console.log(serve)
-      } else {
-        let servedir = document.createAttribute('servedir')
-        servedir.value = serve
-        component.setAttributeNode(servedir)
-        console.log(servedir)
-      }
-      component.setAttribute('serve', JSON.stringify(getDir({ 'data': data }, serve)))
+      const serve = component.getAttribute('servedir')
+      component.setAttribute('serve', JSON.stringify(getDirh({ 'data': data }, serve)))
     }
   }
 }
 
-var getDir = (Obj, dir)=>{
+var getDirh = (Obj, dir)=>{
   for (const p of dir.split(/[.\[\]]/).filter(Boolean)) Obj = Obj[p]
   return Obj
 }
 
-update(mainData, true)
+//updateh(data, true)
 
 </script>
 </html>
@@ -91,9 +63,7 @@ update(mainData, true)
 -->
 
 <!-- / / / / / / / / / / / / / / /    Notes    / / / / / / / / / / / / / / / / /
-* Next 3 *
-- style IMPORTANT
-- mainData isn't called mainData in serve='data.whatever'
+
 
 *** TO DOs ***
 - figure out what things need to be solved to just add this as components alone before we create a merged template
@@ -106,5 +76,15 @@ update(mainData, true)
 - page build optimization look over.
 - TEST in gh-pages looks like a CORS problem potentially(maybe gh-pages will just be a no go for it.).
 - https://robbobfrh84.github.io/lab/Independency/components/index.html
+
+* Next 3 *
+
+PAGE2
+-
+IDCARD
+-
+IDCARD (Imput)
+-
+. . . THEN remove double navbar.
 
 -->

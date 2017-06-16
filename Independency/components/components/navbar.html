@@ -52,18 +52,18 @@ component.getElementById('endText').innerHTML =
   c.addEvent('click', 'page2Button', infoClick = (more)=>{
     if (!more) more = 'Page 2'
     c.root.getElementById('title').innerHTML = 'HTML ('+more+' to Come)' + c.data
-    mainData.landingPageTitle = more +" <span>(nav"+c.data+")</span>"
+    data.landingPageTitle = more +" <span>(nav"+c.data+")</span>"
   }, true)
 
   c.addEvent('click', 'dataButton', ()=>{
-    mainData.landingPageTitle = "NEW Landing Page"
+    data.landingPageTitle = "NEW Landing Page"
     infoClick('Data Page')
   }, true)
 
   c.addEvent('click', 'loginButton', ()=>{
-    mainData.landingPageTitle = "NEW Landing Page"
-    mainData.user = 'LodgeSkins'
-    mainData.id = 'fdg856csd3'
+    data.landingPageTitle = "NEW Landing Page"
+    data.user = 'LodgeSkins'
+    data.id = 'fdg856csd3'
     infoClick('Login Page')
   }, true)
 
