@@ -66,10 +66,10 @@ var componentsStoredGlobally = [];
       && 'content' in document.createElement('template')) {
     console.log('all good')
   } else {
-    // polyfill the platform!
+    console.log('not good')
+
     var e = document.createElement('script');
-    e.src = '/bower_components/webcomponentsjs/webcomponents-lite.min.js';
+    e.src = 'bower_components/webcomponentsjs/webcomponents-lite.min.js';
     document.body.appendChild(e);
-console.log('not good')
   }
 })();
