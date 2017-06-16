@@ -50,7 +50,7 @@
 <!-- () () () () () () () () () ()  JavaScript () () () () () () () () () () -->
 <script>
 
-(( c = new Component('landing-tag', '#landing') )=>{
+(( c = new Component([ 'landing-tag', '#landing' ]) )=>{
 
   c.onLoad = ()=>{
    c.root.getElementById('title').innerHTML = c.data.landingPageTitle

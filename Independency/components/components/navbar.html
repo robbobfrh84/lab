@@ -47,7 +47,7 @@ let component = document.currentScript.ownerDocument.querySelector('#navbar').co
 component.getElementById('endText').innerHTML =
   '<em style="float: left; font-size: 14px; "> * Static script edited </em>';
 
-((c = new Component('navbar-tag', '#navbar'))=>{
+((c = new Component([ 'navbar-tag', '#navbar' ]))=>{
 
   c.addEvent('click', 'page2Button', infoClick = (more)=>{
     if (!more) more = 'Page 2'

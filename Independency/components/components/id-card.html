@@ -47,7 +47,7 @@
 
 <script>
 
-(( c = new Component('id-card-tag', '#id-card') )=>{
+(( c = new Component([ 'id-card-tag', '#id-card' ]) )=>{
 
   c.onLoad = ()=>{
     c.root.getElementById('title').innerHTML = c.data.title
