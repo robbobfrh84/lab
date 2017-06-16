@@ -14,6 +14,26 @@
   </page>
   <landing-tag serve="data"></landing-tag> <br>
 </body>
+<script type="text/javascript">
+(function() {
+  if ('registerElement' in document
+      && 'import' in document.createElement('link')
+      && 'content' in document.createElement('template')) {
+        var e = document.createElement('script');
+
+      e.src = 'bower_components/webcomponentsjs/webcomponents-lite.min.js';
+      document.body.appendChild(e);
+
+    console.log('all good', e)
+  } else {
+    console.log('not good')
+
+    var e = document.createElement('script');
+    e.src = '/bower_components/webcomponentsjs/webcomponents-lite.min.js';
+    document.body.appendChild(e);
+  }
+})();
+</script>
 </html>
 
 <!-- / / / / / / / / / / / / / / /    Notes    / / / / / / / / / / / / / / / / /

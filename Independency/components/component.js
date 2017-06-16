@@ -59,17 +59,3 @@ class Component {
 }
 
 var componentsStoredGlobally = [];
-
-(function() {
-  if ('registerElement' in document
-      && 'import' in document.createElement('link')
-      && 'content' in document.createElement('template')) {
-    console.log('all good')
-  } else {
-    console.log('not good')
-
-    var e = document.createElement('script');
-    e.src = 'bower_components/webcomponentsjs/webcomponents-lite.min.js';
-    document.body.appendChild(e);
-  }
-})();
