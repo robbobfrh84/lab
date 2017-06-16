@@ -2,6 +2,8 @@
   <link rel="stylesheet" href="main.css">
   <script type="text/javascript" src="data.js"></script>
   <script type="text/javascript" src="component.js"></script>
+  <script type="text/javascript" src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+
   <!-- COMPONENTS -->
   <link rel="import" href="components/navbar.html">
   <link rel="import" href="components/landing.html">
@@ -21,15 +23,15 @@
       && 'content' in document.createElement('template')) {
         var e = document.createElement('script');
 
-      e.src = 'bower_components/webcomponentsjs/webcomponents-lite.min.js';
+      e.src = 'bower_components/webcomponentsjs/webcomponents-lite.js';
       document.body.appendChild(e);
 
-    console.log('all good', e)
+    console.log('all good!!!', e)
   } else {
-    console.log('not good---')
+    console.log('not good!!!')
 
     var e = document.createElement('script');
-    e.src = 'bower_components/webcomponentsjs/webcomponents-lite.min.js';
+    e.src = 'bower_components/webcomponentsjs/webcomponents-lite.js';
     document.body.appendChild(e);
   }
 })();
