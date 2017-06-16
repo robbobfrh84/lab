@@ -10,48 +10,40 @@
   <navbar-tag serve="data.arr[0]"></navbar-tag>
   <navbar-tag serve="data.arr[1]"></navbar-tag>
   <landing-tag serve="data"></landing-tag> <br>
-  <id-card-tag serve="data.important1"></id-card-tag> <br>
 </body>
-<script>
-
-// var data = {
-//   newC: 'something',
-//   arr: [ 1, 2 ],
-//   landingPageTitle: 'Landing Page',
-//   navBarString: 'Clicked <Data> on navbar" ',
-//   navBarNumber: 1000000,
-//   important1 : { title: 'ID Card 1', name: 'Chainsaw', last: "O'plow", age: '49', height: "6"+"'"+'8'+'"' },
-//   important2 : { title: 'ID Card 2', name: 'Cork', last: 'McFry', age: '32', height: "6"+"'"+'1'+'"' },
-//   important3 : { title: 'ID Card 3', name: 'Swank', last: 'Dank', age: '24', height: "5"+"'"+'4'+'"' },
-//   important4 : { title: 'ID Card 4', name: 'Emily', last: 'Farty', age: '34', height: "5"+"'"+'4'+'"' }
-// }
-//
-var updateh = (d, initial)=>{
-  if (!d) d = data
-  let imports = document.querySelectorAll('link[rel="import"]')
-  for (const imp of imports) {
-    let tagName = imp.href.split('/')[imports[0].href.split('/').length-1]
-    tagName = tagName.split('.')[0] + '-tag'
-    const components = document.querySelectorAll(tagName)
-    for (const component of components) {
-      const serve = component.getAttribute('servedir')
-      component.setAttribute('serve', JSON.stringify(getDirh({ 'data': data }, serve)))
-    }
-  }
-}
-
-var getDirh = (Obj, dir)=>{
-  for (const p of dir.split(/[.\[\]]/).filter(Boolean)) Obj = Obj[p]
-  return Obj
-}
-
-//updateh(data, true)
-
-</script>
 </html>
 
+<!-- / / / / / / / / / / / / / / /    Notes    / / / / / / / / / / / / / / / / /
+
+*** Next ***
+- where do the id-cars go? inlanding?
+PAGE2
+- update website name (easy)
+- removed landing page edit (easy)
+-
+IDCARD
+-
+IDCARD (Imput)
+-
+Login Page
+- complete new page (background and all)
+- included lifeless LOGIN username / Password / create account button
+- add previous page global var.
+- included X to go back to PREVIOUS PAGE, not landing.
+
+*** TO DOs ***
+- add handle multiple serve='data.x data.another'
+- how do we handle differnet page swaps.
+- Updating global Vars & where do what file is the host ? - Can we do all of the routing/updating on components.js (Even handle html.js?)
+- Should we generate a custon local-id or change to id= to class=?
+- Clean -> vars  lets  const
+- Get it working on ipad/phone
+- https://robbobfrh84.github.io/lab/Independency/components/index.html
+
+-->
+
 <!--  * * * * * *   TERMINAL STEPS TO PREVIEW IN BROWSER   * * * * * * * * * * *
-- >>> cd    (to directory this file is located in)
+- >>> cd (to directory this file is located in)
 - >>> http-server -c-1    (got to Local 8080 to work.
 - Open browser and go to http://localhost:8080/ if this file is index.html
 - IF other the main .html file isn't index.html, just add the endpoint of the file
@@ -60,31 +52,4 @@ var getDirh = (Obj, dir)=>{
 - ALSO, you may need to >>> sudo kill -9 PID    (If port has conflict (>>> top    (to find out PID))
 - HELPFUL LINK: *** https://www.html5rocks.com/en/tutorials/webcomponents/imports/
 - HELPFUL LINK2: https://www.html5rocks.com/en/tutorials/webcomponents/customelements/
--->
-
-<!-- / / / / / / / / / / / / / / /    Notes    / / / / / / / / / / / / / / / / /
-
-
-*** TO DOs ***
-- figure out what things need to be solved to just add this as components alone before we create a merged template
-- how do we handle differnet page swaps.
-- Do sub Imports work?
-- Updating global Vars & where do what file is the host ? - Can we do all of the routing/updating on components.js (Even handle html.js?)
-- Should we generate a custon local-id or change to id= to class=?
-- Clean -> vars  lets  const
-- Fix local Style to not need ::content on every elm.
-- page build optimization look over.
-- TEST in gh-pages looks like a CORS problem potentially(maybe gh-pages will just be a no go for it.).
-- https://robbobfrh84.github.io/lab/Independency/components/index.html
-
-* Next 3 *
-
-PAGE2
--
-IDCARD
--
-IDCARD (Imput)
--
-. . . THEN remove double navbar.
-
 -->
