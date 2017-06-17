@@ -1,40 +1,52 @@
 <!DOCTYPE html><html><head><meta charset="utf-8"><title> Components </title>
-  <link rel="stylesheet" href="main.css">
-  <script type="text/javascript" src="data.js"></script>
+  <!-- <script type="text/javascript" src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <script type="text/javascript" src="bower_components/document-register-element/build/document-register-element.js"></script> -->
   <script type="text/javascript" src="component.js"></script>
 
+  <script src="my-element.js"></script>
+
+  <link rel="stylesheet" href="main.css">
+  <script type="text/javascript" src="data.js"></script>
+
   <!-- COMPONENTS -->
+  <link rel="import" href="components/self-built.html">
   <link rel="import" href="components/navbar.html">
   <link rel="import" href="components/landing.html">
   <link rel="import" href="components/id-card.html">
 </head>
 <body>
+  <!-- <my-element>
+    some content
+  </my-element> -->
+  <self-built-tag serve="data.arr[0]"></self-built-tag>
   <navbar-tag serve="data.arr[0]"></navbar-tag>
   <page status='active'>
     <navbar-tag serve="data.arr[1]"></navbar-tag>
   </page>
   <landing-tag serve="data"></landing-tag> <br>
 </body>
-<script type="text/javascript">
-(function() {
+
+<!-- <script type="text/javascript">
+var polyFillIncluded = false
+
+;(()=>{
   if ('registerElement' in document
       && 'import' in document.createElement('link')
       && 'content' in document.createElement('template')) {
-        var e = document.createElement('script');
 
-      e.src = 'bower_components/webcomponentsjs/webcomponents-lite.js';
-      document.body.appendChild(e);
-
-    console.log('all good!!!', e)
+    console.log('all good!!!')
   } else {
+    polyFillIncluded = true
     console.log('not good!!!')
-
     var e = document.createElement('script');
     e.src = 'bower_components/webcomponentsjs/webcomponents-lite.js';
     document.body.appendChild(e);
+    var e2 = document.createElement('script');
+    e2.src = 'bower_components/document-register-element/build/document-register-element.js';
+    document.body.appendChild(e2);
   }
-})();
-</script>
+})()
+</script> -->
 </html>
 
 <!-- / / / / / / / / / / / / / / /    Notes    / / / / / / / / / / / / / / / / /
@@ -43,13 +55,9 @@
 - make page2.js
 - put cards in page two
 - create active attribute and set to landing.
-
-
 - endpoints
 - multi server="data.a data.b[0]"
 - ... really sort of a big picture moment from here...
-
-
 PAGE2
 - update website name (easy)
 - removed landing page edit (easy)
@@ -67,8 +75,6 @@ Login Page
 *** TO DOs ***
 - add handle multiple serve='data.x data.another'
 - how do we handle differnet page swaps.
-- Updating global Vars & where do what file is the host ? - Can we do all of the routing/updating on components.js (Even handle html.js?)
-- Should we generate a custon local-id or change to id= to class=?
 - Clean -> vars  lets  const
 - Get it working on ipad/phone
 - https://robbobfrh84.github.io/lab/Independency/components/index.html
@@ -85,4 +91,5 @@ Login Page
 - ALSO, you may need to >>> sudo kill -9 PID    (If port has conflict (>>> top    (to find out PID))
 - HELPFUL LINK: *** https://www.html5rocks.com/en/tutorials/webcomponents/imports/
 - HELPFUL LINK2: https://www.html5rocks.com/en/tutorials/webcomponents/customelements/
+- HELPFUL LINK2:https://www.webcomponents.org/polyfills
 -->

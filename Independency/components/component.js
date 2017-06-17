@@ -10,7 +10,7 @@ class Component {
     const importDoc = document.currentScript.ownerDocument
     const template = importDoc.querySelector(that.id)
     proto.createdCallback = function () {
-      const root = this.createShadowRoot()
+      const root = this.attachShadow({ mode: 'open' })
       let clone = document.importNode(template.content, true)
       that.serveDir(this)
       for (const e of that.events) {
@@ -21,14 +21,24 @@ class Component {
           if (e.update) that.update()
         })
       }
+      console.log('clone',clone)
       root.appendChild(clone)
     }
+
     proto.attributeChangedCallback = function () {
-      [ that.root, that.data ] = [ this.shadowRoot, JSON.parse(this.getAttribute('serve')) ]
+      [ that.root, that.data ]=[this.shadowRoot, JSON.parse(this.getAttribute('serve'))]
       if (typeof that.onLoad !== 'undefined') that.onLoad()
     }
+    // document.registerElement(that.tag, {prototype: proto})
 
-    document.registerElement(this.tag, {prototype: proto})
+    if (!polyFillIncluded) {
+      document.registerElement(that.tag, {prototype: proto})
+    } else {
+      window.addEventListener('WebComponentsReady', function(e) {
+        document.registerElement(that.tag, {prototype: proto})
+      })
+    }
+
     return [ this.root, this.data ]
   }
 
@@ -58,4 +68,26 @@ class Component {
   }
 }
 
-var componentsStoredGlobally = [];
+var componentsStoredGlobally = []
+var polyFillIncluded = false
+
+;(()=>{
+  if ('registerElement' in document
+      && 'import' in document.createElement('link')
+      && 'content' in document.createElement('template')) {
+
+    console.log('all good!!!')
+  } else {
+    polyFillIncluded = true
+    console.log('not good!!!')
+    var e = document.createElement('script');
+    e.src = 'bower_components/webcomponentsjs/webcomponents-lite.js';
+    // document.body.appendChild(e);
+    document.getElementsByTagName('head')[0].appendChild(e);
+    var e2 = document.createElement('script');
+    e2.src = 'bower_components/document-register-element/build/document-register-element.js';
+    // document.body.appendChild(e2);
+    document.getElementsByTagName('head')[0].appendChild(e2);
+
+  }
+})()
