@@ -1,0 +1,22 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>bracket-canvas</title>
+<link rel="stylesheet" href="style.css"/></head>
+  <body>
+      <input id="inputText" value='32' type="text" style="width: 70px;"/>
+      <button onclick="newBracket(13)">Generate</button>
+      <button onclick="newBracket('less')"> < </button>
+      <button onclick="newBracket('more')"> > </button>
+      <div id='bracket-shell'>
+        <canvas id='bracket-canvas' width="1024" height="640"></canvas>
+      </div>
+      Demo Brackets:
+      <button onclick="newBracket(13, arnold)">Arnold</button>
+    </div>
+  </body>
+</html>
+<script type="text/javascript" src='canvas.js'></script>
+<script type="text/javascript" src='static-brackets.js'></script>
+<script type="text/javascript" src='main.js'></script>
+
+<!-- *** NOTES ***
+//
+-->

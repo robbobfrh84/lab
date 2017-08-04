@@ -1,0 +1,75 @@
+<!DOCTYPE html><html lang="en"><meta charset="UTF-8">
+<style> body { margin: 5%; } </style>
+<body>
+  <div> Check Console for more info... </div>
+  <script>
+    var uri = ' https://api.myjson.com/bins/kavnr'; //AFTER CREATING a new URI, past uir here...
+    var myJsonUrl = 'https://api.myjson.com/bins';
+    var testObj = JSON.stringify({
+      username : "Robbobfrh84",
+      email : "bobmain49@gmail.com",
+      age : 32,
+      fighers : {
+        Dan : {
+          age : 24,
+          spd : 7.1
+        },
+        Steve : {
+          age : 30,
+          spd : 8.2
+        }
+      }
+    });
+    var json;
+
+    //This function will take an object, convert it into a string, and create a NEW Json from MyJson.com
+    postMyJson = function(obj){
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", myJsonUrl, true);
+      xhr.setRequestHeader("Content-type", "application/json");
+      xhr.onreadystatechange = function () {
+          if (xhr.readyState == 4) {
+              var returnData = JSON.parse(xhr.responseText);
+              console.log('New JSON url: ', returnData.uri, 'New Created JSON Object: ', obj);
+          }
+      }
+      xhr.send(obj);
+    }
+
+    getMyJson = function(uri){
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function() {
+          if (xhr.readyState == XMLHttpRequest.DONE) {
+              json = JSON.stringify(xhr.responseText);
+              console.log(xhr.responseText);
+              console.log('MyJson URI: ', uri, 'API: ', json);
+              apiCallback(JSON.parse(xhr.responseText), uri);
+          }
+      }
+      xhr.open('GET', uri, true);
+      xhr.send(null);
+    }
+
+    putMyJson = function(data, uri){
+      var xhr = new XMLHttpRequest();
+      xhr.open('PUT', uri);
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.onload = function() {
+          if (xhr.status === 200) {
+              var json = JSON.stringify(xhr.responseText);
+              console.log('NEW API: ', data);
+          }
+      };
+      xhr.send(JSON.stringify(data));
+    }
+
+    apiCallback = function(data, uri){
+      data.fighers.Dan.age = 88;
+      console.log(data);
+      putMyJson(data, uri)
+    }
+    postMyJson(testObj);
+    //getMyJson(uri);
+  </script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+body {
+  text-align: center;
+  background-color: #ddd;
+}
+#bracket-shell {
+  margin: auto;
+  margin-top: 5px;
+  position: relative;
+  background: #ddd;
+  width: 1024px;
+}
+#bracket-canvas {
+  background-color: #eee;
+}
+.contender {
+  position: absolute;
+  background-color: rgba(0,0,0,0.1);
+}
