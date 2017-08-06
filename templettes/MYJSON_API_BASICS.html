@@ -5,21 +5,21 @@
   <script>
     var uri = ' https://api.myjson.com/bins/kavnr'; //AFTER CREATING a new URI, past uir here...
     var myJsonUrl = 'https://api.myjson.com/bins';
-    var testObj = JSON.stringify({
-      username : "Robbobfrh84",
-      email : "bobmain49@gmail.com",
-      age : 32,
-      fighers : {
-        Dan : {
-          age : 24,
-          spd : 7.1
-        },
-        Steve : {
-          age : 30,
-          spd : 8.2
-        }
-      }
-    });
+    // var testObj = JSON.stringify({
+    //   username : "Robbobfrh84",
+    //   email : "bobmain49@gmail.com",
+    //   age : 32,
+    //   fighers : {
+    //     Dan : {
+    //       age : 24,
+    //       spd : 7.1
+    //     },
+    //     Steve : {
+    //       age : 30,
+    //       spd : 8.2
+    //     }
+    //   }
+    // });
     var json;
 
     //This function will take an object, convert it into a string, and create a NEW Json from MyJson.com
@@ -64,12 +64,12 @@
     }
 
     apiCallback = function(data, uri){
-      data.fighers.Dan.age = 88;
+      data.fighers.Dan.age = 87;
       console.log(data);
       putMyJson(data, uri)
     }
-    postMyJson(testObj);
-    //getMyJson(uri);
+    // postMyJson(testObj);
+    getMyJson(uri);
   </script>
 </body>
 </html>
