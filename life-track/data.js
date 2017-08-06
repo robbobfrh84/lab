@@ -2,7 +2,7 @@ var _DATA = {}
 
 var _FALLBACK_DATA = {"home":{"testy":"WE GOT OUR JSON!","array":["How","are","you?"]},"page2":{"athing":"something","testy":"'Sup Earthlings???","feet":["5","3","4","12"]},"add":["test note","Another Note"]}
 
-var _PERSONAL_URI = 'https://api.myjson.com/bins/cekih'; //AFTER CREATING a new URI, past uir here...
+var _PERSONAL_URI = 'https://api.myjson.com/bins/190b55'; //AFTER CREATING a new URI, past uir here...
 var myJsonUrl = 'https://api.myjson.com/bins';
 var json;
 

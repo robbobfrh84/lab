@@ -80,7 +80,7 @@
 (( c = new Component('data-tag') )=>{
 
   c._ON_SET = (attr)=>{
-    if (_DATA.add.length === 0) delete(c.data.add)
+    if (_DATA.add && _DATA.add.length === 0) delete(c.data.add)
   }
 
   c.add = ()=>{
