@@ -1,0 +1,133 @@
+<template id="data">
+<!-- { { { { { { { { { { { { { { { {  CSS  } } } } } } } } } } } } } } } } } -->
+<style>
+#main {
+  text-align: center;
+}
+#box {
+  background-color: rgba(0,0,0,0.1);
+  border-radius: 2px;
+  max-width: 90%;
+  height: 30px;
+  font-size: 20px;
+  margin: auto;
+  padding-top: 7px;
+  text-align: left;
+}
+#note {
+  background-color: rgba(200,0,0,0.3);
+  border-radius: 2px;
+  padding: 7px;
+}
+.note {
+  font-family: times;
+  width: 70%;
+  background-color: rgba(0,0,0,0);
+  font-size: 18px;
+  color: white;
+  border: none;
+}
+@media screen and (max-width: 650px) {
+  .note {
+    width: 50%;
+  }
+}
+.edit {
+  float: right;
+  margin-right: 10px;
+  font-size: 24px;
+  margin-top: -3px;
+}
+.pen {
+  cursor: pointer;
+}
+.remove {
+  float: right;
+  cursor: pointer;
+  padding-right: 5px;
+  padding-left: 4px;
+  margin-right: 7px;
+  padding-top: 1px;
+  color: white;
+  background-color: firebrick;
+  border-radius: 100%;
+}
+
+</style>
+<!-- < < < < < < < < < < < < < < < <  html > > > > > > > > > > > > > > > > > -->
+<content> <br><br>
+  <div id='main'>
+    <input id='run'>
+    <button id='submit' > submit </button> <br> <br>
+    <span if="!add"> * <em>You have no Data</em> * </span>
+    <div id='notes' if='add' for="{x},i add">
+      <div id='box'>
+        <span id='note'> Note:</span>
+        <input class='note' key='i' val='input' value="{x}" disabled>
+        <button class='remove' key='i' val='remove'> &#10005; </button>
+        <span class="edit">
+          | <span class='pen' key='i' val='edit'> &#10000; </span> |
+        </span>
+      </div>
+      <br>
+    </div>
+  </div>
+</content>
+</template>
+<!-- () () () () () () () () () ()  JavaScript () () () () () () () () () () -->
+<script>
+
+(( c = new Component('data-tag') )=>{
+
+  c._ON_SET = (attr)=>{
+    if (_DATA.add.length === 0) delete(c.data.add)
+  }
+
+  c.add = ()=>{
+    if (!_DATA.add) _DATA.add = []
+    _DATA.add.unshift(c.I('run').value)
+    c.I('run').value = ''
+    c.I('run').focus()
+    putMyJson(_DATA, _PERSONAL_URI)
+  }
+
+  c._ADD_EVENT('click', 'submit', ()=>{
+    c.add()
+  }, true)
+
+  c._ADD_EVENT('keypress', 'run', ()=>{
+    if (event.keyCode == 13) c.add()
+  }, true)
+
+  c._ADD_EVENT('click', 'notes', ([ key, val ] = c.KV(event))=>{
+    if (val === "remove") {
+      _DATA.add.splice(key, 1)
+      putMyJson(_DATA, _PERSONAL_URI)
+    }
+    if (val === "edit") {
+      c.save(true)
+    }
+  }, true)
+
+  c._ADD_EVENT('keypress', 'notes', c.save = (saved, [ key, val ] = c.KV(event))=>{
+    if (event.keyCode == 13 || saved) {
+      let p = saved ? 2 : 1
+      let input = event.path[p].getElementsByClassName('note')[0]
+      if (!input.disabled) {
+        event.path[0].innerHTML = ' &#10000; '
+        input.disabled = true
+        _DATA.add[key] = input.value
+        putMyJson(_DATA, _PERSONAL_URI)
+      } else {
+        event.path[0].innerHTML = 'save'
+        input.disabled = false
+        input.focus()
+      }
+    }
+  }, true)
+
+  c._NEW_ELM()
+})()
+
+</script>
+<!--  / / / / / / / / / / / / / / /   Notes    / / / / / / / / / / / / / / / -->
