@@ -32,7 +32,7 @@ hr {
 <content>
   <div class="main">
     <span id='home' class='nav' onclick="_PAGE_SET('home')">
-      Life Track
+      Life Track -
     </span>
     <span class='nav-buttons'> ::
       <span id='data' class='nav' onclick="_PAGE_SET('data')"> [ Data ] </span> ::
@@ -69,7 +69,9 @@ hr {
     }
   }
 
-  if (c.directory !== 'undefined') setInterval(function(){ c.animate() }, 50);
+  setInterval(function(){
+    if (c.directory !== 'undefined') c.animate()
+  }, 50);
 
   c._NEW_ELM()
 })()
