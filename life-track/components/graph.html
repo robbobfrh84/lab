@@ -28,7 +28,7 @@ content {
 (( c = new Component('graph-tag') )=>{
 
   c._ON_SET = (attr)=>{
-    if (c.data.gpx.trk) {
+    if (c.data.gpx) {
       let a = c.data.gpx.trk.trkseg.trkpt
       var c5 = new canvas
       c5.new(c.I('myCanvas5'), 1000,300)

@@ -29,7 +29,8 @@
 (( c = new Component('map-tag') )=>{
   c._ON_SET = (attr)=>{
 
-    if (!c.map && c.data.gpx.trk) {
+    if (!c.map && c.data.gpx) {
+
       let path = []
       for (const p of c.data.gpx.trk.trkseg.trkpt) {
         path.push([parseFloat(p['-lon']), parseFloat(p['-lat'])])

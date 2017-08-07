@@ -47,13 +47,18 @@ putMyJson = function(data, uri){
 
 apiCallback = function(data, uri){
 
+  // _DATA = _SET_DATA(data)
   _DATA = _SET_DATA(data)
-  for (const component of _COMPONENTS_STORED_GLOBALLY) {
-    if (component.hasAttribute('serve')) {
-      const serve = component.getAttribute('serve')
-      component.setAttribute('served', JSON.stringify(_DATA))
+
+  setTimeout((data)=>{
+    for (const component of _COMPONENTS_STORED_GLOBALLY) {
+      if (component.hasAttribute('serve')) {
+        const serve = component.getAttribute('serve')
+        component.setAttribute('served', JSON.stringify(_DATA))
+      }
     }
-  }
+  }, 10)
+
 }
 // postMyJson(JSON.stringify(_FALLBACK_DATA));
 getMyJson(_PERSONAL_URI);
