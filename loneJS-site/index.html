@@ -1,19 +1,21 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title> Life Track </title><script type="text/javascript" src="loneJS-lib/component.js"></script><script type="text/javascript" src="loneJS-lib/html.js"></script><script type="text/javascript" src="loneJS-lib/pages.js"></script><script type="text/javascript" src="loneJS-lib/polyfills.js"></script><script type="text/javascript" src="data.js"></script>
+<!DOCTYPE html><html><head><meta charset="utf-8"><title> LoneJS </title><script type="text/javascript" src="loneJS-lib/component.js"></script><script type="text/javascript" src="loneJS-lib/html.js"></script><script type="text/javascript" src="loneJS-lib/pages.js"></script><script type="text/javascript" src="loneJS-lib/polyfills.js"></script><script type="text/javascript" src="data.js"></script>
   <link rel="stylesheet" href="main.css">
 
   <!-- COMPONENTS -->
-  <link rel="import" href="components/example-component.html">
+  <link rel="import" href="components/navbar.html">
 
 </head>
 
 <body>
-  <MAINp pageName="home" activePage='true'>
-    <example-component-tag serve="_DATA.home"></example-component-tag>
+  <navbar-tag serve="_DATA.home"></navbar-tag>
+
+  <!-- <MAINp pageName="home" activePage='true'>
+    Landing Page
   </MAINp>
 
   <MAINp pageName="page2">
-    <example-component-tag serve="_DATA.page2"></example-component-tag>
-  </MAINp>
+    ... Another Page
+  </MAINp> -->
 
 </body>
 
