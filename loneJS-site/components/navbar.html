@@ -2,11 +2,7 @@
 <!-- { { { { { { { { { { { { { { { {  CSS  } } } } } } } } } } } } } } } } } -->
 <style>
 #main {
-  margin: 5px;
-}
-.font {
-  font-size: 18px;
-
+  margin: 5px 0px 7px 7px;
   font-weight: 900;
   background-color: #565656;
   color: transparent;
@@ -15,31 +11,9 @@
      -moz-background-clip: text;
           background-clip: text;
 }
-#home {
-  margin-left: 10px;
-  font-size: 30px;
-}
-.bit-hamburger {
+#title {
   cursor: pointer;
-  float: right;
-  width: 22px;
-  height: 18px;
-  padding: 3px 11px 10px 6px;
-  transition: width .15s, height .15s, padding .15s, transform .15s;
-}
-.bit-hamburger:hover {
-  width: 26px;
-  height: 26px;
-  padding: 1px 9px 6px 4px;
-  transition: width .2s, height .2s, padding .2s, transform .2s;
-}
-.menu-icon-strip {
-  background: rgba(0,0,0,0.2);
-  box-shadow: inset 0 0 2px rgba(0,0,0,0.4);
-  width: 100%;
-  height: 23%;
-  border-radius: 10px;
-  margin: 2px;
+  font-size: 30px;
 }
 .nav-divide {
   box-shadow: inset 1px 5px 9px -6px rgba(0,0,0,1);
@@ -48,42 +22,27 @@
   height: 6px;
   width: 100%;
 }
-.nav-buttons {
+.right-box {
   float: right;
-  padding-top: 5px;
+  margin-top: 10px;
+  margin-right: 10px;
 }
-.nav {
-  float: right;
-  padding-top: 10px;
-  padding-right: 10px;
-}
-.dash {
-  float: right;
-  padding-top: 1px;
-}
-.pages {
+.but {
   cursor: pointer;
+  font-size: 20px;
 }
-.pages:hover {
+.but:hover, #title:hover {
   color: rgba(255,255,255, 0.5);
 }
 </style>
 <!-- < < < < < < < < < < < < < < < <  html > > > > > > > > > > > > > > > > > -->
 <content>
      <div id='main'>
-       <span id='home' class='font'onclick="_PAGE_SET('home')"> LoneJS </span>
-       <span class='nav-buttons font'>
-         <div class='bit-hamburger'>
-           <div class='menu-icon-strip'></div>
-           <div class='menu-icon-strip'></div>
-           <div class='menu-icon-strip'></div>
-         </div>
-         <div class='dash'> | </div>
-         <div class='nav'>
-           <span class='pages'> Components </span> :
-           <span class='pages'> Plugins </span> :
-           <span class='pages'> Docs </span>
-         </div>
+       <span id='title' onclick="_PAGE_SET('home')"> LoneJS </span>
+       <span class='right-box'>
+         <span class='but'> Components </span> :
+         <span class='but'> Plugins </span> :
+         <span class='but'> Docs </span>
        </span>
      </div>
      <span class="nav-divide"></span>

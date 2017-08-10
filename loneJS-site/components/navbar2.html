@@ -1,0 +1,124 @@
+<template id="navbar2">
+<!-- { { { { { { { { { { { { { { { {  CSS  } } } } } } } } } } } } } } } } } -->
+<style>
+#main {
+  margin: 5px 0px 7px 7px;
+  font-weight: 900;
+  background-color: #565656;
+  color: transparent;
+  text-shadow: 0px 1px 2px rgba(255,255,255,0.5);
+  -webkit-background-clip: text;
+     -moz-background-clip: text;
+          background-clip: text;
+}
+#title {
+  cursor: pointer;
+  font-size: 30px;
+}
+.nav-divide {
+  box-shadow: inset 1px 5px 9px -6px rgba(0,0,0,1);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  display: block;
+  height: 6px;
+  width: 100%;
+}
+#meatballs {
+  float: right;
+  cursor: pointer;
+  height: 33px;
+  margin-top: 10px;
+  margin-right: 8px;
+  border-radius: 8px;
+}
+.meatball {
+  display: inline-block;
+  background: rgba(0,0,0,0.2);
+  box-shadow: inset 0 0 2px rgba(0,0,0,0.4);
+  min-width: 12px;
+  min-height: 12px;
+  border-radius: 100%;
+  margin: 1px;
+  margin-right: 1px;
+}
+#title:hover {
+  color: rgba(255,255,255, 0.5);
+}
+/*.meatballs:hover {
+  margin-right: 15px;
+}*/
+</style>
+<!-- < < < < < < < < < < < < < < < <  html > > > > > > > > > > > > > > > > > -->
+<content>
+  <div id='main'>
+   <span id='title' onclick="_PAGE_SET('home')"> LoneJS </span>
+   <span id='meatballs'>
+     <div id='mA' class='meatball'></div>
+     <div id='mB' class='meatball'></div>
+     <div id='mC' class='meatball'></div>
+   </span>
+  </div>
+  <span class="nav-divide"></span>
+</content>
+</template>
+<!-- () () () () () () () () () ()  JavaScript () () () () () () () () () () -->
+<script>
+
+(( c = new Component('navbar2-tag') )=>{
+
+  c.spd = 1
+  c.gap = 1
+
+  c._ON_SET = (attr)=>{
+    // setInterval(()=>{ c.animate() }, 30)
+  }
+
+  c._ADD_EVENT('mouseover', 'meatballs', ()=>{
+    // c.I('mA').setAttribute('style', 'margin-right: 2px
+    c.intO = setInterval(()=>{ c.animate(1.1, 'open') }, 30)
+  }, true)
+
+  c._ADD_EVENT('mouseout', 'meatballs', ()=>{
+    c.spd = 1
+    c.gap = 80
+    clearInterval(c.intO)
+    setInterval(()=>{ c.animate(1.1, 'close') }, 30)
+    console.log('back')
+  }, true)
+
+  c.animate= (x, dir)=>{
+    c.spd *= x
+    if (c.spd < 2) c.spd = 2
+    if (c.spd > 10) c.spd = 10
+    c.gap = dir === 'open' ? c.gap += c.spd : c.gap -= c.spd
+    console.log(dir, c.gap)
+    if (dir === 'open') {
+      if (c.gap < 80) {
+        c.I('mA').setAttribute('style', 'margin-right: '+c.gap+'px;')
+        c.I('mB').setAttribute('style', 'margin-right: '+c.gap+'px;')
+        c.I('mC').setAttribute('style', 'margin-right: '+c.gap+'px;')
+      } else {
+        c.I('mA').setAttribute('style', 'margin-right: 80px;')
+        c.I('mB').setAttribute('style', 'margin-right: 80px;')
+        c.I('mC').setAttribute('style', 'margin-right: 80px;')
+      }
+    }
+    if (dir === 'close') {
+      if (c.gap < 80) {
+        c.I('mA').setAttribute('style', 'margin-right: '+c.gap+'px;')
+        c.I('mB').setAttribute('style', 'margin-right: '+c.gap+'px;')
+        c.I('mC').setAttribute('style', 'margin-right: '+c.gap+'px;')
+      } else {
+        c.I('mA').setAttribute('style', 'margin-right: 1px;')
+        c.I('mB').setAttribute('style', 'margin-right: 1px;')
+        c.I('mC').setAttribute('style', 'margin-right: 1px;')
+      }
+    }
+
+
+  }
+
+  c._NEW_ELM()
+})()
+
+</script>
+<!--  / / / / / / / / / / / / / / /   Notes    / / / / / / / / / / / / / / / -->
