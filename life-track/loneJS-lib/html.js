@@ -156,9 +156,11 @@ class HtmlJS {
   }
 
   getDir (Obj, jVar) { // Grab 'var' elm string. html var name = JS var
-
-  if (jVar.split(/[\.\[\]]/))
-    for (const p of jVar.split(/[.\[\]]/).filter(Boolean)) Obj = Obj[p]
+    if (jVar.split(/[\.\[\]\"]/)) {
+      for (const p of jVar.split(/[.\[\]\"]/).filter(Boolean)) {
+        Obj = Obj[p]
+      }
+    }
     return Obj
   }
 
@@ -212,6 +214,9 @@ class HtmlJS {
     const allIfs = child.querySelectorAll('[if]')
     for (const ifs of allIfs) {
       const dBack = {}; dBack[val] = ldata[i]
+      console.log('created new: ', dBack, ifs.getAttribute('if'))
+      //
+      //
       this.ifJS(dBack, ifs, ifs.getAttribute('if'))
     }
     for (const att of this.jsAtts) {
