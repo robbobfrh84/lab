@@ -48,7 +48,7 @@ td {
   <div id='main'>
     <span style='color: rgba(255,255,255,0.6)'> StarChart: </span>
     <strong style='font-size: 20px;'> data.test[0].date.month- , data.test[0].date.year </strong>
-    <table>
+    <!-- <table>
      <tr for='{d} test'>
        <th indices='0' class="icons"> &#10025; </th>
        <th> {d}.date.day </th>
@@ -104,7 +104,33 @@ td {
          </td>
        </tr>
      </tbody>
-    </table>
+    </table> -->
+    <div for='z testx'>
+      <span>
+        <br>
+        ----
+        <br>
+      </span>
+      <span>
+        <span if='z.a[0] z.a[1]'> Should show if True True </span>
+        <span if='z.a[0]'>
+          z.a[0] z.a[1]
+        </span>
+        <!-- <span if='z.a[1]'>
+          <br>
+          z.a[0] z.a[1]
+        </span> -->
+      </span>
+      <!-- <span if='z.a[0]'>
+        Why doesn't this work...
+
+      </span>
+      <span>
+        <span note='works' if='z.a[0]'>
+          ....but this does
+        </span>
+      </span> -->
+    </div>
   </div>
 </content>
 </template>
@@ -114,6 +140,12 @@ td {
 (( c = new Component('star-tag') )=>{
   c._ON_SET = (attr)=>{
     c.data.test = c.test
+    c.data.testx = [
+      // { a: [ true, true ] },
+      { a: [ true, false ] },
+      { a: [ false, true ] },
+      // { a: [ false, false ] }
+    ]
   }
 
   const days = ['Mon', 'Tue', 'Wed', 'Thr', 'Fri', 'Sat', 'Sun']

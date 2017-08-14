@@ -156,8 +156,9 @@ class HtmlJS {
   }
 
   getDir (Obj, jVar) { // Grab 'var' elm string. html var name = JS var
+    // change MAY be relevant to data.js (which was copy/pasted 4 use)
     if (jVar.split(/[\.\[\]\"]/)) {
-      for (const p of jVar.split(/[.\[\]\"]/).filter(Boolean)) {
+      for (const p of jVar.split(/[\.\[\]\"]/).filter(Boolean)) {
         Obj = Obj[p]
       }
     }
@@ -175,6 +176,7 @@ class HtmlJS {
       if ( em[0] && ((em[0] === key || em[0].slice(1) === key ) && em.length > 1)) {
         if (r) arr[w] = arr[w].slice(0, arr[w].length-1)
         if (l) arr[w] = arr[w].slice(1)
+        console.log(this.getDir(jVal, '['+em.slice(1).join('][')+']'))
         arr[w] = this.getDir(jVal, '['+em.slice(1).join('][')+']')
         if ( l || r ) pass = true
       } // vvv this is where we used the left and right hyphens to shift if needed.
@@ -201,7 +203,7 @@ class HtmlJS {
     return (indices.includes(i) || indices.includes(':'+(l.length-i-1))) // return true if indices attribute contains index or reveerse index :N order
   }
 
-  newTag (parent, tag, innerHTML, i, ldata, val, key, ind) {
+  newTag (parent, tag, innerHTML, i, ldata, val, key, ind, nest = {}) {
     let child = tag.cloneNode(true)
     const attr = document.createAttribute('is-clone')
     attr.value = true
@@ -211,14 +213,18 @@ class HtmlJS {
       const dir = this.getDir(_DATA, parent.getAttribute('for').split(' ')[1])
       child.setAttribute('served', JSON.stringify(dir[i]))
     }
-    const allIfs = child.querySelectorAll('[if]')
-    for (const ifs of allIfs) {
-      const dBack = {}; dBack[val] = ldata[i]
-      console.log('created new: ', dBack, ifs.getAttribute('if'))
-      //
-      //
-      this.ifJS(dBack, ifs, ifs.getAttribute('if'))
+    nest[val] = ldata[i]
+
+    if (child.hasAttribute('if')) {
+      this.ifJS(nest, child, child.getAttribute('if'))// HERE is NO multi-if
+      console.log('child: ',child)
     }
+    let allIfs = child.querySelectorAll('[if]')
+    for (const ifs of allIfs) {
+      this.ifJS(nest, ifs, ifs.getAttribute('if'))// HERE is NO multi-if
+      console.log('ifs: ',ifs)
+    }
+
     for (const att of this.jsAtts) {
       if (child.hasAttribute(att)) {
         let arr = child.getAttribute(att).split(/[\n\ ]/)

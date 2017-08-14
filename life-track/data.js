@@ -23,13 +23,10 @@ postMyJson = function(obj){
 getMyJson = function(uri){
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function() {
-      if (xhr.readyState == XMLHttpRequest.DONE) {
-          json = JSON.stringify(xhr.responseText);
-          apiCallback(JSON.parse(xhr.responseText), uri);
-      }
-      // else {
-      //   console.log('request failed:', xhr.responseText)
-      // }
+    if (xhr.readyState == XMLHttpRequest.DONE) {
+      json = JSON.stringify(xhr.responseText);
+      apiCallback(JSON.parse(xhr.responseText), uri);
+    }
   }
   xhr.open('GET', uri, true);
   xhr.send(null);
@@ -40,31 +37,43 @@ putMyJson = function(data, uri){
   xhr.open('PUT', uri);
   xhr.setRequestHeader('Content-Type', 'application/json');
   xhr.onload = function() {
-      if (xhr.status === 200) {
-          var json = JSON.stringify(xhr.responseText);
-          console.log('NEW API: ', data);
-      }
-  };
-  xhr.send(JSON.stringify(data));
+    if (xhr.status === 200) {
+      var json = JSON.stringify(xhr.responseText)
+      console.log('NEW API: ', data)
+    }
+  }
+  xhr.send(JSON.stringify(data))
 }
 
 apiCallback = function(data, uri){
-
-  // _DATA = _SET_DATA(data)
   _DATA = data
-
-  // setTimeout((data)=>{
-    for (const component of _COMPONENTS_STORED_GLOBALLY) {
-      if (component.hasAttribute('serve')) {
-        const serve = component.getAttribute('serve')
-        component.setAttribute('served', JSON.stringify(_DATA))
-      }
+  for (const component of _COMPONENTS_STORED_GLOBALLY) {
+    if (component.hasAttribute('serve')) {
+      const serve = component.getAttribute('serve')
+      // console.log(getDir(_DATA, serve))
+      component.setAttribute('served', JSON.stringify(getDir(_DATA, serve)))
     }
-  // }, 10)
-
+  }
 }
+
+getDir = (Obj, jVar, shell = {})=>{
+  if (jVar.split(/[\.\[\]\"]/)) {
+    shell[jVar.split(/[\.\[\]\"]/)[0]] = Obj
+    console.log('shell: ',shell)
+    for (const p of jVar.split(/[\.\[\]\"]/).filter(Boolean)) {
+      shell = Obj[p]
+    }
+  }
+  return Obj = shell ? shell : Obj
+}
+
 // postMyJson(JSON.stringify(_FALLBACK_DATA));
-getMyJson(_PERSONAL_URI);
+getMyJson(_PERSONAL_URI)
+
+/* ----  SAVE good testuse for slow internet ----*/
+// setTimeout(()=>{ getMyJson(_PERSONAL_URI) }, 5000)
+
+
 
 
 // _GET_RUN_1_DATA = ()=>{
