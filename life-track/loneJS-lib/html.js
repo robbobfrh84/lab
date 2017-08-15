@@ -58,29 +58,72 @@ class HtmlJS {
     }
   }
 
-  ifJS (Obj, elm, ifVar, topLevel) {
-    if (!elm.hasAttribute('if-passed')) {
-      let hide = ((h)=>{
-        for (const val of ifVar.split(' ')) {
-          if (val[0] === '!') { h = this.hasDir(Obj, val.split('!')[1])
-          } else { h = !this.hasDir(Obj, val) }
-          if (h) return h
-        }
-        return false
-      })()
-      if (!hide || (hide && ifVar.split('!')[1] && ifVar.split(' ').length === 1)) {
-        const attr = document.createAttribute('if-passed')
-        attr.value = 'true'
-        elm.setAttributeNode(attr)
+  ifJS (Obj, elm, ifVar, final) { // STILL Need ClearIf()?????
+
+    let replace = []
+    let hide = false
+    for (let val of ifVar.split(' ')) {
+
+      let nVal = val.replace('c.data', '')
+      if (nVal !== 'false') {
+        if (nVal[0] === '!') {
+          hide = this.hasDir(Obj, nVal.split('!')[1])
+          console.log('hide, nVal: ',hide, nVal)
+        } else { hide = !this.hasDir(Obj, nVal) }
       }
-      hide ? elm.style.display = 'none' : elm.style.display = ''
+
+      if (final && hide || nVal === 'true') {
+        elm.style.display = 'none'
+        break
+      }
+
+      if (!final) {
+        console.log(hide, nVal)
+        if (!hide) { nVal[0] === '!' ? replace.push('true') : replace.push('false') }
+        if (hide) { nVal[0] !== '!' ? replace.push(val) : replace.push('true') }
+
+      }
+
     }
+    if (!final) {
+      elm.setAttribute('if', replace.join(' '))
+      console.log('NOT final elm:', elm)
+
+    }
+    if (final) {
+      console.log('final elm:', elm)
+    }
+
+    // console.log('---end---', replace)
+    // if (!elm.hasAttribute('if-passed')) {
+    //   let hide = ((h)=>{
+    //     for (let val of ifVar.split(' ')) {
+    //       //
+    //       //
+    //       val = val.replace('c.data', '')
+    //       if (val[0] === '!') { h = this.hasDir(Obj, val.split('!')[1])
+    //       } else { h = !this.hasDir(Obj, val) }
+    //       if (h) return h
+    //       //
+    //       //
+    //     }
+    //     // this is where you get a true or false based on list of ifs within
+    //     // var expantion....
+    //     return false
+    //   })()
+    //   if (!hide || (hide && ifVar.split('!')[1] && ifVar.split(' ').length === 1)) {
+    //     const attr = document.createAttribute('if-passed')
+    //     attr.value = 'true'
+    //     elm.setAttributeNode(attr)
+    //   }
+    //   hide ? elm.style.display = 'none' : elm.style.display = ''
+    // }
   }
 
   varJS (Obj, elm, tags, arrVar) {
-    if (arrVar[0].split(' ')[1] === '_data') Obj = { '_data': Obj}
     for (const vLen of arrVar) {
       let [ val, data ] = vLen.split(' ').filter(Boolean)
+      data = data.replace('c.data', '')
       data = this.getDir(Obj, data)
       if (data) this.varJSNest(Obj, elm, tags, data, val)
     }
@@ -123,15 +166,39 @@ class HtmlJS {
     tags = elm.childNodes.length
     for (const i in data) { // Loop through all indices/keys within the Object
       for (let j = 0; j < tags; j++) { // loop through all tags within element.
-        const tag = elm.childNodes[j]
-        if (tag.contentEditable) {
-          const arr = tag.innerHTML.split(/[\n\ ]/)
-          const textArr = this.valueTypes(i, data, arr, val, key, ind) // there's extra DOM stuff we dont' need, This will only duplicate tags we created.
-          if (this.showAtIndices(tag, i, data)) { // returns bool, if in the HTML indices attribute declares we shouldn't show this..
-            this.newTag(elm, tag, textArr.join(' '), i, data, val, key, ind)
-            tag.style.display = 'none'
+        //
+        //
+        //
+        let parent = elm.childNodes[j]
+        if (parent.contentEditable) {
+          // ^^^ ISSUE: if you don't catch this, or catch it some other way, we can allow the top-level innerHTML...?
+          let childNodes = parent.getElementsByTagName("*")
+          for (const tag of childNodes) {
+            for (const node of tag.childNodes) {
+              if (!node.contentEditable) {
+                const text = node.nodeValue.split(/[\n\ ]/)
+                const newText = this.valueTypes(i, data, text, val, key, ind)
+                node.nodeValue = newText.join(' ')
+              }
+            }
+          }
+          if (this.showAtIndices(parent, i, data)) { // returns bool, if in the HTML indices attribute declares we shouldn't show this..
+            this.newTag(elm, parent, parent.innerHTML, i, data, val, key, ind)
+            parent.style.display = 'none'
           }
         }
+        //
+        //
+        //
+        // const tag = elm.childNodes[j]
+        // if (tag.contentEditable) {
+        //   const arr = tag.innerHTML.split(/[\n\ ]/)
+        //   const textArr = this.valueTypes(i, data, arr, val, key, ind) // there's extra DOM stuff we dont' need, This will only duplicate tags we created.
+        //   if (this.showAtIndices(tag, i, data)) { // returns bool, if in the HTML indices attribute declares we shouldn't show this..
+        //     this.newTag(elm, tag, textArr.join(' '), i, data, val, key, ind)
+        //     tag.style.display = 'none'
+        //   }
+        // }
       }
     }
   }
@@ -152,7 +219,6 @@ class HtmlJS {
       }
     }
     return Obj !== 'false' ? true : false
-    // return Obj.length > 0 && Obj !== 'false' ? true : false
   }
 
   getDir (Obj, jVar) { // Grab 'var' elm string. html var name = JS var
@@ -176,8 +242,7 @@ class HtmlJS {
       if ( em[0] && ((em[0] === key || em[0].slice(1) === key ) && em.length > 1)) {
         if (r) arr[w] = arr[w].slice(0, arr[w].length-1)
         if (l) arr[w] = arr[w].slice(1)
-        console.log(this.getDir(jVal, '['+em.slice(1).join('][')+']'))
-        arr[w] = this.getDir(jVal, '['+em.slice(1).join('][')+']')
+        arr[w] = this.getDir(jVal, '['+em.slice(1).join('][')+']') || arr[w]
         if ( l || r ) pass = true
       } // vvv this is where we used the left and right hyphens to shift if needed.
       if (arr[w] === l+key+r || pass) {
@@ -214,22 +279,17 @@ class HtmlJS {
       child.setAttribute('served', JSON.stringify(dir[i]))
     }
     nest[val] = ldata[i]
-
     if (child.hasAttribute('if')) {
-      this.ifJS(nest, child, child.getAttribute('if'))// HERE is NO multi-if
-      console.log('child: ',child)
+      this.ifJS(nest, child, child.getAttribute('if'), false)
     }
     let allIfs = child.querySelectorAll('[if]')
     for (const ifs of allIfs) {
-      this.ifJS(nest, ifs, ifs.getAttribute('if'))// HERE is NO multi-if
-      console.log('ifs: ',ifs)
+      this.ifJS(nest, ifs, ifs.getAttribute('if'), false)
     }
-
     for (const att of this.jsAtts) {
       if (child.hasAttribute(att)) {
         let arr = child.getAttribute(att).split(/[\n\ ]/)
-        const textArr = this.valueTypes(i, ldata, arr, val, key, ind) // there's extra DOM stuff we dont' need, This will only duplicate tags we created.
-        child.setAttribute(att, textArr.join(' '))
+        const textArr = this.valueTypes(i, ldata, arr, val, key, ind)
       }
     }
     parent.appendChild(child)

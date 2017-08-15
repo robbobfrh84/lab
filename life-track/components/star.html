@@ -44,10 +44,10 @@ td {
 }
 </style>
 <!-- < < < < < < < < < < < < < < < <  html > > > > > > > > > > > > > > > > > -->
-<content var='data _data'>
+<content var='{data} c.data'>
   <div id='main'>
     <span style='color: rgba(255,255,255,0.6)'> StarChart: </span>
-    <strong style='font-size: 20px;'> data.test[0].date.month- , data.test[0].date.year </strong>
+    <strong style='font-size: 20px;'> {data}.test[0].date.month- , {data}.test[0].date.year </strong>
     <!-- <table>
      <tr for='{d} test'>
        <th indices='0' class="icons"> &#10025; </th>
@@ -112,24 +112,30 @@ td {
         <br>
       </span>
       <span>
-        <span if='z.a[0] z.a[1]'> Should show if True True </span>
-        <span if='z.a[0]'>
-          z.a[0] z.a[1]
-        </span>
-        <!-- <span if='z.a[1]'>
-          <br>
+        <!-- <div id='adiv'>
+          A DIV! z.a[0] TOP
+          <p id='ppp' var='{x} c.data.home.testy'> PPP! {x}
+            <span id='spannn'> SPAN! z.a[2] </span>
+          </p>
+          A DIV! BOT
+        </div> -->
+        <br>
+        <span if='z.a[0] z.a[1] z.a[2]'> !!! z.a[0] z.a[1] z.a[2] </span>
+        <br>
+        <span if='z.a[0] z.a[2]'> Show 1st and 2nd</span>
+        <br>
+        <span if='!c.data.test[0].date.month'> Don't show { z.a[0] z.a[1] z.a[2] } </span>
+        <br><span if='c.data.test[0].date.month'> { SHOW } </span>
+        <br>
+        <!-- <span if='z.a[0] z.a[1] !z.a[2]'> WILD BEAR! </span> -->
+        <br>
+        <!-- <span if='z.a[0]'>
           z.a[0] z.a[1]
         </span> -->
       </span>
-      <!-- <span if='z.a[0]'>
-        Why doesn't this work...
-
+      <!-- <span if='z.a[0]'> "Why doesn't this work..."" *fixed </span>
+      <span> <span note='works' if='z.a[0]'> "....but this does" *fixed </span> -->
       </span>
-      <span>
-        <span note='works' if='z.a[0]'>
-          ....but this does
-        </span>
-      </span> -->
     </div>
   </div>
 </content>
@@ -141,12 +147,12 @@ td {
   c._ON_SET = (attr)=>{
     c.data.test = c.test
     c.data.testx = [
-      // { a: [ true, true ] },
-      { a: [ true, false ] },
-      { a: [ false, true ] },
-      // { a: [ false, false ] }
+      { a: [ '1st', '2nd', '3rd' ] },
+      { a: [ '2-1st', '2-2nd', '2-3rd' ] },
     ]
+    console.log(c.data.test[0].date.month)
   }
+
 
   const days = ['Mon', 'Tue', 'Wed', 'Thr', 'Fri', 'Sat', 'Sun']
 
