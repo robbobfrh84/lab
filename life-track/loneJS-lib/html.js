@@ -59,7 +59,7 @@ class HtmlJS {
   }
 
   ifJS (Obj, elm, ifVar, final) { // STILL Need ClearIf()?????
-
+    console.log('Obj, elm, ifVar, final: ',Obj, elm, ifVar, final)
     let replace = []
     let hide = false
     for (let val of ifVar.split(' ')) {
@@ -68,7 +68,7 @@ class HtmlJS {
       if (nVal !== 'false') {
         if (nVal[0] === '!') {
           hide = this.hasDir(Obj, nVal.split('!')[1])
-          console.log('hide, nVal: ',hide, nVal)
+          // console.log('hide, nVal: ',hide, nVal)
         } else { hide = !this.hasDir(Obj, nVal) }
       }
 
@@ -78,7 +78,7 @@ class HtmlJS {
       }
 
       if (!final) {
-        console.log(hide, nVal)
+        // console.log(hide, nVal)
         if (!hide) { nVal[0] === '!' ? replace.push('true') : replace.push('false') }
         if (hide) { nVal[0] !== '!' ? replace.push(val) : replace.push('true') }
 
@@ -87,11 +87,7 @@ class HtmlJS {
     }
     if (!final) {
       elm.setAttribute('if', replace.join(' '))
-      console.log('NOT final elm:', elm)
-
-    }
-    if (final) {
-      console.log('final elm:', elm)
+      // console.log('NOT final elm:', elm)
     }
 
     // console.log('---end---', replace)
@@ -151,8 +147,18 @@ class HtmlJS {
     }
   }
 
+  textNodesUnder (node) {
+    var all = [];
+    for (node=node.firstChild;node;node=node.nextSibling){
+      if (node.nodeType==3) all.push(node);
+      else all = all.concat(this.textNodesUnder(node));
+    }
+    return all;
+  }
+
   forJS (Obj, elm, tags, [ node, data ], [ val, key, ind ] = node.split(',')) {
-    data = this.getDir(Obj, data)
+    data = this.getDir(Obj, data.replace('c.data', ''))
+    // data = this.getDir(Obj, data)
     for (const att of this.jsAtts) {
       let atts = elm.querySelectorAll('['+att+']')
       for (let at of atts) {
@@ -160,46 +166,81 @@ class HtmlJS {
         at.setAttribute(att, " "+aVal+" ")
       }
     }
+    // ! ! ! !
+    // Do we still need to clone node????
+    // ! ! ! !
     for (let child of elm.querySelectorAll(':scope > [is-clone]')) {
       elm.removeChild(child) // REMOVES all cloned elements from any previously loaded Doms.
     }
     tags = elm.childNodes.length
+
+    let txtNodes = this.textNodesUnder(elm)
+    let txtArr = this.textNodesUnder(elm.cloneNode(true))
+
     for (const i in data) { // Loop through all indices/keys within the Object
+      //
+      //
+      // console.log(txtArr)
+      for (const t in txtArr) {
+        const txt = txtArr[t].nodeValue.split(/[\n\ ]/)
+        // console.log('\n---\nnode.nodeValue: ',node.nodeValue)
+        const newText = this.valueTypes(i, data, txt, val, key, ind)
+        txtNodes[t].nodeValue = newText.join(' ')
+      }
       for (let j = 0; j < tags; j++) { // loop through all tags within element.
-        //
-        //
-        //
-        let parent = elm.childNodes[j]
-        if (parent.contentEditable) {
-          // ^^^ ISSUE: if you don't catch this, or catch it some other way, we can allow the top-level innerHTML...?
-          let childNodes = parent.getElementsByTagName("*")
-          for (const tag of childNodes) {
-            for (const node of tag.childNodes) {
-              if (!node.contentEditable) {
-                const text = node.nodeValue.split(/[\n\ ]/)
-                const newText = this.valueTypes(i, data, text, val, key, ind)
-                node.nodeValue = newText.join(' ')
-              }
-            }
-          }
-          if (this.showAtIndices(parent, i, data)) { // returns bool, if in the HTML indices attribute declares we shouldn't show this..
-            this.newTag(elm, parent, parent.innerHTML, i, data, val, key, ind)
-            parent.style.display = 'none'
+        const tag = elm.childNodes[j]
+        if (tag.contentEditable) {
+          const textArr = tag.innerHTML.split(/[\n\ ]/)
+          if (this.showAtIndices(tag, i, data)) { // returns bool, if in the HTML indices attribute declares we shouldn't show this..
+            this.newTag(elm, tag, textArr.join(' '), i, data, val, key, ind)
+            tag.style.display = 'none'
           }
         }
-        //
-        //
-        //
-        // const tag = elm.childNodes[j]
-        // if (tag.contentEditable) {
-        //   const arr = tag.innerHTML.split(/[\n\ ]/)
-        //   const textArr = this.valueTypes(i, data, arr, val, key, ind) // there's extra DOM stuff we dont' need, This will only duplicate tags we created.
-        //   if (this.showAtIndices(tag, i, data)) { // returns bool, if in the HTML indices attribute declares we shouldn't show this..
-        //     this.newTag(elm, tag, textArr.join(' '), i, data, val, key, ind)
-        //     tag.style.display = 'none'
-        //   }
-        // }
+        else {
+          // console.log('tag: ',tag, i)
+          let child = tag.cloneNode(true)
+          elm.appendChild(child)
+          tag.nodeValue = ''
+        }
       }
+
+      // for (let j = 0; j < tags; j++) { // loop through all tags within element.
+      //   //
+      //   //
+      //   //
+      //   let parent = elm.childNodes[j]
+      //   console.log('elm ~ ("*")', elm.getElementsByTagName("*"))
+      //   // console.log('parent.childNodes: ',parent.childNodes)
+      //   if (parent.contentEditable) {
+      //     // ^^^ ISSUE: if you don't catch this, or catch it some other way, we can allow the top-level innerHTML...?
+      //     let childNodes = parent.getElementsByTagName("*")
+      //     for (const tag of childNodes) {
+      //       for (const node of tag.childNodes) {
+      //         if (!node.contentEditable) {
+      //           const text = node.nodeValue.split(/[\n\ ]/)
+      //           const newText = this.valueTypes(i, data, text, val, key, ind)
+      //           node.nodeValue = newText.join(' ')
+      //         }
+      //       }
+      //     }
+      //     if (this.showAtIndices(parent, i, data)) { // returns bool, if in the HTML indices attribute declares we shouldn't show this..
+      //       this.newTag(elm, parent, parent.innerHTML, i, data, val, key, ind)
+      //       parent.style.display = 'none'
+      //     }
+      //   }
+      //   //
+      //   //
+      //   //
+      //   // const tag = elm.childNodes[j]
+      //   // if (tag.contentEditable) {
+      //   //   const arr = tag.innerHTML.split(/[\n\ ]/)
+      //   //   const textArr = this.valueTypes(i, data, arr, val, key, ind) // there's extra DOM stuff we dont' need, This will only duplicate tags we created.
+      //   //   if (this.showAtIndices(tag, i, data)) { // returns bool, if in the HTML indices attribute declares we shouldn't show this..
+      //   //     this.newTag(elm, tag, textArr.join(' '), i, data, val, key, ind)
+      //   //     tag.style.display = 'none'
+      //   //   }
+      //   // }
+      // }
     }
   }
 

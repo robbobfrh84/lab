@@ -45,17 +45,27 @@ td {
 </style>
 <!-- < < < < < < < < < < < < < < < <  html > > > > > > > > > > > > > > > > > -->
 <content var='{data} c.data'>
-  <div id='main'>
+  <br>
+  <div for='XX c.data.testx'>
+    Nest 0 - XX.a[0]
+    <div>
+      Nest 1 - XX.a[1]
+      <div> Nest 2 - XX.a[2] </div>
+    </div>
+    <hr>
+  </div>
+  <!-- <div id='main'>
     <span style='color: rgba(255,255,255,0.6)'> StarChart: </span>
     <strong style='font-size: 20px;'> {data}.test[0].date.month- , {data}.test[0].date.year </strong>
-    <!-- <table>
-     <tr for='{d} test'>
+
+    <table>
+     <tr for='{dd} c.data.test'>
        <th indices='0' class="icons"> &#10025; </th>
-       <th> {d}.date.day </th>
+       <th> {dd}.date.day </th>
      </tr>
      <tbody>
-       <tr for='{x} test' >
-         <span class='icon-box' >
+       <tr for='{x} c.data.test'>
+         <span class='icon-box'>
            <td indices='0' class="icons"> &#128685; </td>
          </span>
          <td class='box'>
@@ -70,7 +80,7 @@ td {
            <span if='{d}.drink[0]' class='star-plus'> &#10025; </span>
            <none if='{d}.drink[1]' style='color: rgba(0,0,0,0.4);'> {d}.drink[1] </none>
            <none if='!{d}.drink[1]'><none if='!{d}.drink[0]' class='undefined'> ? </none></none>
-           <none if='{d}.drink[0] {d}.drink[1] '>!!!!</none>
+           <none if='{d}.drink[0] {d}.drink[1]'>!!!!</none>
 
          </td>
        </tr>
@@ -99,43 +109,46 @@ td {
        <tr for='{x} test'>
          <td indices='0' class="icons" style='color: rgba(0,0,0,0.6);'> &#9745; </td>
          <td class='box'>
-           <none if='{x}.scrum'> {x}.scrum </none>
+           <none if='{x}.scrum'> &#10025; </none>
            <none if='!{x}.scrum' class='undefined'> ? </none>
          </td>
        </tr>
      </tbody>
     </table> -->
+
     <div for='z testx'>
-      <span>
+      <!-- <span>
         <br>
-        ----
+        *****
         <br>
       </span>
       <span>
-        <!-- <div id='adiv'>
+        <div id='adiv'
           A DIV! z.a[0] TOP
           <p id='ppp' var='{x} c.data.home.testy'> PPP! {x}
             <span id='spannn'> SPAN! z.a[2] </span>
           </p>
           A DIV! BOT
-        </div> -->
-        <br>
-        <span if='z.a[0] z.a[1] z.a[2]'> !!! z.a[0] z.a[1] z.a[2] </span>
+        </div>
+        <br> -->
+        ???!???
+        <span if='!z.c'> SHOULD SHOW! </span> <br>
+        <!-- <span if='z.a[0] z.a[1] z.a[2]'> !!! z.a[0] z.a[1] z.a[2] </span>
         <br>
         <span if='z.a[0] z.a[2]'> Show 1st and 2nd</span>
         <br>
         <span if='!c.data.test[0].date.month'> Don't show { z.a[0] z.a[1] z.a[2] } </span>
         <br><span if='c.data.test[0].date.month'> { SHOW } </span>
         <br>
-        <!-- <span if='z.a[0] z.a[1] !z.a[2]'> WILD BEAR! </span> -->
+        <span if='z.a[0] z.a[1] !z.a[2]'> WILD BEAR! </span>
         <br>
-        <!-- <span if='z.a[0]'>
+      <span if='z.a[0]'>
           z.a[0] z.a[1]
-        </span> -->
+        </span>
       </span>
-      <!-- <span if='z.a[0]'> "Why doesn't this work..."" *fixed </span>
-      <span> <span note='works' if='z.a[0]'> "....but this does" *fixed </span> -->
-      </span>
+      <span if='z.a[0]'> "Why doesn't this work..."" > z.a[0] </span>
+      <span> <span note='works' if='z.a[0]'> "....but this does" > z.a[0] </span>
+      </span> -->
     </div>
   </div>
 </content>
@@ -145,20 +158,19 @@ td {
 
 (( c = new Component('star-tag') )=>{
   c._ON_SET = (attr)=>{
-    c.data.test = c.test
+    c.data.test = c.t
     c.data.testx = [
       { a: [ '1st', '2nd', '3rd' ] },
       { a: [ '2-1st', '2-2nd', '2-3rd' ] },
+      // { a: [ '3-1st', '3-2nd', '3-3rd' ] },
     ]
-    console.log(c.data.test[0].date.month)
   }
-
 
   const days = ['Mon', 'Tue', 'Wed', 'Thr', 'Fri', 'Sat', 'Sun']
 
-  c.test = []
+  c.t = []
   for (var i = 0; i < 31; i++) {
-    c.test.push({
+    c.t.push({
       date: { year: 2017, month: 'May', day: i+1, weekDay: days[(i%7)] },
       smoke: [],
       drink: [],
@@ -169,14 +181,14 @@ td {
     })
   }
 
-  c.test[1].drink = [ true ]
-  c.test[2].drink = [ false, 3 ]
-  c.test[3].drink = [ true, 4 ]
-  c.test[5].smoke = [ true, null]
-  c.test[1].cardio = 3
-  c.test[2].lift = '2x'
-  c.test[2].walk = 4
-  c.test[5].scrum = '<span style="color: rgba(218,165,32,1);">&#10025;</span>'
+  c.t[1].drink = [ true ]
+  c.t[2].drink = [ false, 3 ]
+  c.t[3].drink = [ true, 4 ]
+  c.t[5].smoke = [ true, null]
+  c.t[1].cardio = 3
+  c.t[2].lift = '2x'
+  c.t[2].walk = 4
+  c.t[5].scrum = true
 
   c._NEW_ELM()
 })()
