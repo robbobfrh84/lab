@@ -59,7 +59,6 @@ class HtmlJS {
   }
 
   ifJS (Obj, elm, ifVar, final) { // STILL Need ClearIf()?????
-    console.log('Obj, elm, ifVar, final: ',Obj, elm, ifVar, final)
     let replace = []
     let hide = false
     for (let val of ifVar.split(' ')) {
@@ -72,14 +71,14 @@ class HtmlJS {
         } else { hide = !this.hasDir(Obj, nVal) }
       }
 
-      if (final && hide || nVal === 'true') {
+      if (final && hide) {
         elm.style.display = 'none'
         break
       }
 
       if (!final) {
         // console.log(hide, nVal)
-        if (!hide) { nVal[0] === '!' ? replace.push('true') : replace.push('false') }
+        if (!hide) { nVal[0] === '!' ? replace.push(val) : replace.push('false') }
         if (hide) { nVal[0] !== '!' ? replace.push(val) : replace.push('true') }
 
       }
