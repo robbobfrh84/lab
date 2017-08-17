@@ -20,12 +20,23 @@ table {
   position: relative;
   cursor: pointer;
   border: 1px;
+  margin-right: 10px;
   min-width: 30px;
   max-height: 30px;
   font-size: 22px;
   background-color: rgba(255,255,255,0.1);
   transition: background-color 0.2s;
 }
+/*@media screen and (max-width: 1050px) {
+  .box {
+    min-width: 25px;
+    max-height: 25px;
+    font-size: 18px;
+  }
+  .icons {
+    font-size: 22px;
+  }
+}*/
 .box:hover {
   background-color: rgba(255,255,255,0.3);
   transition: background-color 0.5s;
@@ -34,9 +45,12 @@ td {
   text-align: center;
 }
 .star-plus {
-  position: absolute; left: 2px; top: -2px;
+  position: absolute; left: 1.5px; top: -2px;
   font-size: 35px;
   color: rgba(218,165,32,1);
+}
+.gray {
+  color: rgba(0,0,0,0.5);
 }
 .data-value {
   position: relative;
@@ -46,15 +60,15 @@ td {
 <!-- < < < < < < < < < < < < < < < <  html > > > > > > > > > > > > > > > > > -->
 <content var='{data} c.data'>
 
-  <!-- <br>
+  <br>
   <div for='XX c.data.testx'>
-    Nest 0 - XX
+    Nest 0 - XX  XX.a[2]
     <div>
       Nest 1 - XX.a[1]
       <div> Nest 2 - XX.a[2] </div>
     </div>
     <hr>
-  </div> -->
+  </div>
 
   <div id='main'>
     <span style='color: rgba(255,255,255,0.6)'> StarChart: </span>
@@ -71,51 +85,55 @@ td {
          </span>
          <td class='box'>
            <span if='!{x}.smoke' class='star-plus'> &#10025; </span>
-           <none if='{x}.smoke[1]' class='data-value' style='color: rgba(0,0,0,0.5);'> {x}.smoke[1] </none>
+           <span if='{x}.smoke[0] !{x}.smoke[1]' class='gray'> &#10005; </span>
+           <none if='{x}.smoke[1]' class='data-value gray'> {x}.smoke[1] </none>
            <none if='!{x}.smoke[0]' class='undefined'> ? </none>
          </td>
        </tr>
-       <tr for='{d} test'>
+       <tr for='{d} c.data.test'>
          <td indices='0' class="icons"> &#127865; </td>
          <td class='box'>
            <span if='!{d}.drink' class='star-plus'> &#10025; </span>
-           <none if='{d}.drink[1]' class='data-value' style='color: rgba(0,0,0,0.5);'> {d}.drink[1] </none>
+           <span if='{d}.drink[0] !{d}.drink[1]' class='gray'> &#10005; </span>
+           <none if='{d}.drink[1]' class='data-value gray'> {d}.drink[1] </none>
            <none if='!{d}.drink[0]'><none if='!{d}.drink[0]' class='undefined'> ? </none></none>
          </td>
        </tr>
-       <tr for='{x} test'>
+       <tr for='{x} c.data.test'>
          <td indices='0' class="icons"> &#127939; </td>
          <td class='box'>
-           <span if='{x}.cardio' class='star-plus'> &#10025; </span>
-           <none if='{x}.cardio' class='data-value'> {x}.cardio </none>
-           <none if='!{x}.cardio' class='undefined'> ? </none>
+           <span if='{x}.cardio[0]' class='star-plus'> &#10025; </span>
+           <none if='{x}.cardio[1]' class='data-value'> {x}.cardio[1] </none>
+           <none if='!{x}.cardio[0]' class='undefined'> ? </none>
          </td>
        </tr>
-       <tr for='{x} test'>
+       <tr for='{x} c.data.test'>
          <td indices='0' class="icons"> &#127947; </td>
          <td class='box'>
-           <none if='{x}.lift'> {x}.lift </none>
-           <none if='!{x}.lift' class='undefined'> ? </none>
+           <span if='{x}.lift[0]' class='star-plus'> &#10025; </span>
+           <none if='{x}.lift[1]' class='data-value'> {x}.lift[1] </none>
+           <none if='!{x}.lift[0]' class='undefined'> ? </none>
          </td>
        </tr>
-       <tr for='{x} test'>
+       <tr for='{x} c.data.test'>
          <td indices='0' class="icons" style='color: rgba(0,0,0,0.6);'> &#128694; </td>
          <td class='box'>
-           <none if='{x}.walk'> {x}.walk </none>
-           <none if='!{x}.walk' class='undefined'> ? </none>
+           <span if='{x}.walk[0]' class='star-plus'> &#10025; </span>
+           <none if='{x}.walk[1]' class='data-value'> {x}.walk[1] </none>
+           <none if='!{x}.walk[0]' class='undefined'> ? </none>
          </td>
        </tr>
-       <tr for='{x} test'>
+       <tr for='{x} c.data.test'>
          <td indices='0' class="icons" style='color: rgba(0,0,0,0.6);'> &#9745; </td>
          <td class='box'>
-           <none if='{x}.scrum'> &#10025; </none>
+           <span if='{x}.scrum' class='star-plus'> {x}.scrum </span>
            <none if='!{x}.scrum' class='undefined'> ? </none>
          </td>
        </tr>
      </tbody>
     </table>
 
-    <!-- <div for='z testx'>
+    <div for='z testx'>
       <span>
         <span if='z.a[0] z.a[2] c.data'> Show: z.a[0] z </span>
         <br>
@@ -135,7 +153,7 @@ td {
       <span if='z.a[0]'> Should be converted> z.a[0] </span> <br>
       <span> <span note='works' if='z.a[0]'> Should be converted> z.a[0] </span>
       </span>
-    </div> -->
+    </div>
 
   </div>
 </content>
@@ -147,9 +165,8 @@ td {
   c._ON_SET = (attr)=>{
     c.data.test = c.t
     c.data.testx = [
-      { a: [ '1st', '2nd', '3rd' ] },
-      { a: [ '2-1st', '2-2nd', '2-3rd' ] },
-      // { a: [ '3-1st', '3-2nd', '3-3rd' ] },
+      { a: [ '1st', '2nd', '&#x2742;' ] },
+      { a: [ '2-1st', '2-2nd', '&#x2702;' ] },
     ]
   }
 
@@ -159,25 +176,32 @@ td {
   for (var i = 0; i < 31; i++) {
     c.t.push({
       date: { year: 2017, month: 'May', day: i+1, weekDay: days[(i%7)] },
-      smoke: [ null ],
+      smoke: [],
       drink: [],
-      cardio: null,
-      lift: null,
-      walk: null,
+      cardio: [],
+      lift: [],
+      walk: [],
       scrum: null,
     })
   }
-
+  c
+  .t[0].drink = false
   c.t[1].drink = false
   c.t[2].drink = [ true, 2 ]
   c.t[3].drink = [ true, 5 ]
-  c.t[3].drink = [ true, ' x ' ]
-  c.t[2].smoke = [ true, 2 ]
+  c.t[4].drink = [ true ]
+  c.t[3].smoke = [ true, 2 ]
+  c.t[4].smoke = [ true ]
   c.t[5].smoke = false
-  c.t[1].cardio = 3
-  c.t[2].lift = '2x'
-  c.t[2].walk = 4
-  c.t[5].scrum = true
+  c.t[3].cardio = [ true ]
+  c.t[5].cardio = [ true, 6 ]
+  c.t[2].lift = [ true ]
+  c.t[12].lift = [ true, '2x' ]
+  c.t[2].walk = [ true, 4 ]
+  c.t[8].walk = [ true ]
+  c.t[5].scrum = '&#10004;'
+  c.t[7].scrum = '&#10004;'
+
 
   c._NEW_ELM()
 })()

@@ -155,16 +155,18 @@ class HtmlJS {
     return all;
   }
 
-  forJS (Obj, elm, tags, [ node, data ], [ val, key, ind ] = node.split(',')) {
-    data = this.getDir(Obj, data.replace('c.data', ''))
+  forJS (Obj, elm, tags, [ node, dir ], [ val, key, ind ] = node.split(',')) {
+    const data = this.getDir(Obj, dir.replace('c.data', ''))
     // data = this.getDir(Obj, data)
-    for (const att of this.jsAtts) {
-      let atts = elm.querySelectorAll('['+att+']')
-      for (let at of atts) {
-        let aVal = at.getAttribute(att)
-        at.setAttribute(att, " "+aVal+" ")
-      }
-    }
+    // for (const att of this.jsAtts) {
+    //   let atts = elm.querySelectorAll('['+att+']')
+    //   for (let at of atts) {
+    //     let aVal = at.getAttribute(att)
+    //     if (att === 'value') console.log(aVal, atts)
+    //
+    //     at.setAttribute(att, " "+aVal+" ")
+    //   }
+    // }
     // ! ! ! !
     // Do we still need to clone node????
     // ! ! ! !
@@ -174,21 +176,37 @@ class HtmlJS {
     tags = elm.childNodes.length
 
     let txtNodes = this.textNodesUnder(elm)
-    let txtArr = this.textNodesUnder(elm.cloneNode(true))
+    let elmClone = this.textNodesUnder(elm.cloneNode(true))
 
     for (const i in data) { // Loop through all indices/keys within the Object
-      //
-      //
-      // console.log(txtArr)
-      for (const t in txtArr) {
-        const txt = txtArr[t].nodeValue.split(/[\n\ ]/)
-        // console.log('\n---\nnode.nodeValue: ',node.nodeValue)
+      for (const t in elmClone) {
+        const txt = elmClone[t].nodeValue.split(/[\n\ ]/)
         const newText = this.valueTypes(i, data, txt, val, key, ind)
         txtNodes[t].nodeValue = newText.join(' ')
       }
+
       for (let j = 0; j < tags; j++) { // loop through all tags within element.
         const tag = elm.childNodes[j]
+        const tagClone = tag.cloneNode(true)
         if (tag.contentEditable) {
+          for (const att of this.jsAtts) {
+            let atts = tag.querySelectorAll('['+att+']')
+            let attsClone = tagClone.querySelectorAll('['+att+']')
+            for (const tt of atts) console.log('tt', tt)
+            for (let t in atts) {
+              // if (att === 'value') {
+              // console.log(atts[i], i)
+                let arr = atts[i].getAttribute(att).split(/[\n\ ]/)
+                const textArr = this.valueTypes(i, data, arr, val, key, ind).join(' ')
+                console.log('att: ', att, arr, textArr)
+
+                // if (old !== textArr){
+                //   console.log('att: ', i, att, old, textArr)
+                //   at.setAttribute(att, textArr)
+                // }
+              // }
+            }
+          }
           const textArr = tag.innerHTML.split(/[\n\ ]/)
           if (this.showAtIndices(tag, i, data)) { // returns bool, if in the HTML indices attribute declares we shouldn't show this..
             this.newTag(elm, tag, textArr.join(' '), i, data, val, key, ind)
@@ -196,12 +214,12 @@ class HtmlJS {
           }
         }
         else {
-          // console.log('tag: ',tag, i)
           let child = tag.cloneNode(true)
           elm.appendChild(child)
           tag.nodeValue = ''
         }
       }
+
 
       // for (let j = 0; j < tags; j++) { // loop through all tags within element.
       //   //
@@ -241,6 +259,7 @@ class HtmlJS {
       //   // }
       // }
     }
+    elm.innerHTML = elm.innerHTML.replace(/&amp;/g, "&")
   }
 
   valueTypes (i, data, startArr, val, key, ind, arr) {
@@ -313,7 +332,6 @@ class HtmlJS {
     const attr = document.createAttribute('is-clone')
     attr.value = true
     child.setAttributeNode(attr)
-    child.innerHTML = innerHTML
     if (child.hasAttribute('serve')){
       const dir = this.getDir(_DATA, parent.getAttribute('for').split(' ')[1])
       child.setAttribute('served', JSON.stringify(dir[i]))
@@ -326,13 +344,15 @@ class HtmlJS {
     for (const ifs of allIfs) {
       this.ifJS(nest, ifs, ifs.getAttribute('if'), false)
     }
-    for (const att of this.jsAtts) {
-      if (child.hasAttribute(att)) {
-        let arr = child.getAttribute(att).split(/[\n\ ]/)
-        const textArr = this.valueTypes(i, ldata, arr, val, key, ind)
-      }
-    }
+    // for (const att of this.jsAtts) {
+    //   if (child.hasAttribute(att)) {
+    //     if (att === 'value') console.log(child, att)
+    //     let arr = child.getAttribute(att).split(/[\n\ ]/)
+    //     const textArr = this.valueTypes(i, ldata, arr, val, key, ind)
+    //   }
+    // }
     parent.appendChild(child)
+
     child.style.display = ''
   }
 }
