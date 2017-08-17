@@ -176,37 +176,39 @@ class HtmlJS {
     tags = elm.childNodes.length
 
     let txtNodes = this.textNodesUnder(elm)
-    let elmClone = this.textNodesUnder(elm.cloneNode(true))
+    let txtClone = this.textNodesUnder(elm.cloneNode(true))
+
+    let clone = elm.cloneNode(true)
 
     for (const i in data) { // Loop through all indices/keys within the Object
-      for (const t in elmClone) {
-        const txt = elmClone[t].nodeValue.split(/[\n\ ]/)
+      for (const t in txtClone) {
+        const txt = txtClone[t].nodeValue.split(/[\n\ ]/)
         const newText = this.valueTypes(i, data, txt, val, key, ind)
         txtNodes[t].nodeValue = newText.join(' ')
+      }
+      // for (const att of this.jsAtts) {
+      //   console.log(clone.querySelectorAll('['+att+']')) // ONLY VALUE!!!
+      //   for (let att of )
+      // }
+      for (const att of this.jsAtts) {
+        let atts = elm.querySelectorAll('['+att+']')
+        let attsClone = clone.querySelectorAll('['+att+']')
+        if (atts.length > 0) {
+          for (let t in attsClone) {
+            if (typeof atts[t] === 'object' ) {
+              let arr = attsClone[t].getAttribute(att).split(/[\n\ ]/)
+              const textArr = this.valueTypes(i, data, arr, val, key, ind).join(' ')
+              // console.log('att: ', att, arr, textArr)
+              atts[t].setAttribute(att, textArr)
+            }
+          }
+        }
       }
 
       for (let j = 0; j < tags; j++) { // loop through all tags within element.
         const tag = elm.childNodes[j]
-        const tagClone = tag.cloneNode(true)
         if (tag.contentEditable) {
-          for (const att of this.jsAtts) {
-            let atts = tag.querySelectorAll('['+att+']')
-            let attsClone = tagClone.querySelectorAll('['+att+']')
-            for (const tt of atts) console.log('tt', tt)
-            for (let t in atts) {
-              // if (att === 'value') {
-              // console.log(atts[i], i)
-                let arr = atts[i].getAttribute(att).split(/[\n\ ]/)
-                const textArr = this.valueTypes(i, data, arr, val, key, ind).join(' ')
-                console.log('att: ', att, arr, textArr)
 
-                // if (old !== textArr){
-                //   console.log('att: ', i, att, old, textArr)
-                //   at.setAttribute(att, textArr)
-                // }
-              // }
-            }
-          }
           const textArr = tag.innerHTML.split(/[\n\ ]/)
           if (this.showAtIndices(tag, i, data)) { // returns bool, if in the HTML indices attribute declares we shouldn't show this..
             this.newTag(elm, tag, textArr.join(' '), i, data, val, key, ind)
@@ -219,45 +221,6 @@ class HtmlJS {
           tag.nodeValue = ''
         }
       }
-
-
-      // for (let j = 0; j < tags; j++) { // loop through all tags within element.
-      //   //
-      //   //
-      //   //
-      //   let parent = elm.childNodes[j]
-      //   console.log('elm ~ ("*")', elm.getElementsByTagName("*"))
-      //   // console.log('parent.childNodes: ',parent.childNodes)
-      //   if (parent.contentEditable) {
-      //     // ^^^ ISSUE: if you don't catch this, or catch it some other way, we can allow the top-level innerHTML...?
-      //     let childNodes = parent.getElementsByTagName("*")
-      //     for (const tag of childNodes) {
-      //       for (const node of tag.childNodes) {
-      //         if (!node.contentEditable) {
-      //           const text = node.nodeValue.split(/[\n\ ]/)
-      //           const newText = this.valueTypes(i, data, text, val, key, ind)
-      //           node.nodeValue = newText.join(' ')
-      //         }
-      //       }
-      //     }
-      //     if (this.showAtIndices(parent, i, data)) { // returns bool, if in the HTML indices attribute declares we shouldn't show this..
-      //       this.newTag(elm, parent, parent.innerHTML, i, data, val, key, ind)
-      //       parent.style.display = 'none'
-      //     }
-      //   }
-      //   //
-      //   //
-      //   //
-      //   // const tag = elm.childNodes[j]
-      //   // if (tag.contentEditable) {
-      //   //   const arr = tag.innerHTML.split(/[\n\ ]/)
-      //   //   const textArr = this.valueTypes(i, data, arr, val, key, ind) // there's extra DOM stuff we dont' need, This will only duplicate tags we created.
-      //   //   if (this.showAtIndices(tag, i, data)) { // returns bool, if in the HTML indices attribute declares we shouldn't show this..
-      //   //     this.newTag(elm, tag, textArr.join(' '), i, data, val, key, ind)
-      //   //     tag.style.display = 'none'
-      //   //   }
-      //   // }
-      // }
     }
     elm.innerHTML = elm.innerHTML.replace(/&amp;/g, "&")
   }

@@ -80,11 +80,16 @@
 (( c = new Component('data-tag') )=>{
 
   c._ON_SET = (attr)=>{
-    if (_DATA.add && _DATA.add.length === 0) delete(c.data.add)
+    console.log('_data.add: ', c.data.add, _DATA.add, )
+    if (_DATA.add && _DATA.add.length === 0) {
+      delete(_DATA.add)
+      delete(c.data.add)
+    }
   }
 
   c.add = ()=>{
     if (!_DATA.add) _DATA.add = []
+    // if (!c.data.add) c.data.add = []
     _DATA.add.unshift(c.I('run').value)
     c.I('run').value = ''
     c.I('run').focus()
@@ -100,9 +105,8 @@
   }, true)
 
   c._ADD_EVENT('click', 'notes', ([ key, val ] = c.KV(event))=>{
-    // console.log(key, val)
+    console.log(key, val)
     if (val === "remove") {
-      // console.log(key)
       _DATA.add.splice(key, 1)
       putMyJson(_DATA, _PERSONAL_URI)
     }
