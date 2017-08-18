@@ -1,8 +1,45 @@
 <template id="csstest">
 <!-- { { { { { { { { { { { { { { { {  CSS  } } } } } } } } } } } } } } } } } -->
 <style>
+#main {
+  margin: 3px 0px 5px 9px;
+  font-weight: 900;
+  background-color: #565656;
+  color: transparent;
+  text-shadow: 0px 1px 2px rgba(255,255,255,0.5);
+  -webkit-background-clip: text;
+     -moz-background-clip: text;
+          background-clip: text;
+}
+#title {
+  cursor: pointer;
+  font-size: 30px;
+}
+#title:hover {
+  color: rgba(255,255,255, 0.5);
+}
+.nav-divide {
+  box-shadow: inset 1px 5px 9px -6px rgba(0,0,0,1);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  display: block;
+  margin-top: 3px;
+  height: 6px;
+  width: 100%;
+}
+/*.nav-divide:hover {*/
+.fade {
+  box-shadow: inset 1px 5px 9px -6px rgba(0,0,0,0);
+  transition: box-shadow 1s;
+}
+.box {
+  width: 50%;
+  padding-top: 3px;
+  height: 42px;
+  float: right;
+}
 .dot {
-  background-color: firebrick;
+  background: rgba(0,0,0,0.2);
+  box-shadow: inset 0 0 2px rgba(0,0,0,0.4);
   border-radius: 100%;
   width: 12px;
   height: 12px;
@@ -10,31 +47,53 @@
   margin-top: 10px;
   margin-right: 6px;
   position: relative;
-  animation-duration: 2s;
+  right: 0px;
+  transition: right 0.5s;
 }
-content:hover .left {
-  animation-name: left;
+/*.left { transition: right 0.5s .5s; }
+.middle { transition: right 0.5s .5s; }
+.right { transition: right 0.5s .5s; }*/
+
+.box:hover .right { right: 45px; }
+.box:hover .middle { right: 112px; }
+.box:hover .left { right: 224px; }
+.box:hover .dot { transition: right 0.5s; }
+
+.nav-link {
+  cursor: pointer;
+  position: absolute;
+  margin-top: 6px;
+  font-size: 16px;
+  float: right;
+  color: rgba(0,0,0,0);
+  /*transition: color .1s .5s;*/
+  transition: color .1s ;
+
 }
-.middle {
-  animation-name: middle;
-}
-@-webkit-keyframes left {
-  0%   {right:0px; top:0px;}
-  50%  {right:200px; top:0px;}
-  /*100%   {right:0px; top:0px;}*/
-}
-@-webkit-keyframes middle {
-  0%   {right:0px; top:0px;}
-  50%  {right:100px; top:0px;}
-  /*100%   {right:0px; top:0px;}*/
-}
+.docs { right: 10px; }
+.plugins { right: 75px; }
+.components { right: 162px; }
+
+.box:hover .nav-link{ color: rgba(0,0,0,0.4); transition: color 1s .2s; }
+
+.docs:hover { opacity: 0.5; transition: opacity .25s;}
+.plugins:hover { opacity: 0.5; transition: opacity .25s;}
+.components:hover { opacity: 0.5; transition: opacity .25s;}
+
 </style>
 <!-- < < < < < < < < < < < < < < < <  html > > > > > > > > > > > > > > > > > -->
 <content>
-  <div>
-    <div class='dot right'></div>
-    <div class='dot middle'></div>
-    <div class='dot left'></div>
+  <div id='main'>
+    <span id='title' onclick="_PAGE_SET('home')"> LoneJS </span>
+      <div class='box'>
+        <div class='nav-link docs'> Docs </div>
+        <div class='dot right'></div>
+        <div class='nav-link plugins'> Plugins </div>
+        <div class='dot middle'></div>
+        <div class='nav-link components'> Components </div>
+        <div class='dot left'></div>
+      </div>
+    <span id='navLine' class="nav-divide"></span>
   </div>
 </content>
 </template>
@@ -42,6 +101,9 @@ content:hover .left {
 <script>
 
 (( c = new Component('csstest-tag') )=>{
+  c._ON_SET = (attr)=>{
+    // console.log(c.I('navLine').classList.value = 'fade')
+  }
   c._NEW_ELM()
 })()
 
