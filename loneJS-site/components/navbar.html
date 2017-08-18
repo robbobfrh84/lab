@@ -1,18 +1,9 @@
 <template id="navbar">
 <!-- { { { { { { { { { { { { { { { {  CSS  } } } } } } } } } } } } } } } } } -->
-<style media="screen">
-
-.top-nav {
-  padding-top: 0px;
-  margin-top: 0px;
-  width: 100%;
-}
-.top-nav-left {
-  text-align: left;
-}
-.main-title {
-  padding-left: 10px;
-  font-size: 30px;
+<style>
+#main {
+  margin: 3px 0px 5px 9px;
+  font-weight: 900;
   background-color: #565656;
   color: transparent;
   text-shadow: 0px 1px 2px rgba(255,255,255,0.5);
@@ -20,72 +11,119 @@
      -moz-background-clip: text;
           background-clip: text;
 }
-.bit-hamburger {
-  width: 22px;
-  height: 18px;
-  padding: 8px 15px 10px 15px;
-  transition: width .15s, height .15s, padding .15s, transform .15s;
-
+#home {
+  cursor: pointer;
+  font-size: 30px;
 }
-.bit-hamburger:hover {
-  width: 26px;
-  height: 22px;
-  padding: 6px 13px 8px 13px;
-  transition: width .2s, height .2s, padding .2s, transform .2s;
-
-}
-.menu-icon-strip {
-  background: rgba(0,0,0,0.2);
-  box-shadow: inset 0 0 2px rgba(0,0,0,0.4);
-  width: 100%;
-  height: 23%;
-  border-radius: 10px;
-  margin: 2px;
+#home:hover {
+  color: rgba(255, 255, 255, 0.5);
 }
 .nav-divide {
   box-shadow: inset 1px 5px 9px -6px rgba(0,0,0,1);
   -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
   display: block;
+  margin-top: 3px;
   height: 6px;
   width: 100%;
 }
-.nav-divide2 {
-  box-shadow: inset 0px 0px 4px rgba(0,0,0,0.5);
-  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-  display: block;
-  height: 6px;
-  width: 100%;
+/*.nav-divide:hover {*/
+.fade {
+  box-shadow: inset 1px 5px 9px -6px rgba(0,0,0,0);
+  transition: box-shadow 1s;
 }
+.box {
+  width: 50%;
+  padding-top: 3px;
+  height: 42px;
+  float: right;
+}
+.dot {
+  background: rgba(0,0,0,0.2);
+  box-shadow: inset 0 0 2px rgba(0,0,0,0.4);
+  border-radius: 100%;
+  width: 12px;
+  height: 12px;
+  float: right;
+  margin-top: 10px;
+  margin-right: 6px;
+  position: relative;
+  right: 0px;
+  transition: right 0.5s;
+}
+/*.left { transition: right 0.5s .5s; }
+.middle { transition: right 0.5s .5s; }
+.right { transition: right 0.5s .5s; }*/
+
+.box:hover .right { right: 45px; }
+.box:hover .middle { right: 112px; }
+.box:hover .left { right: 224px; }
+.box:hover .dot { transition: right 0.5s; }
+
+.nav-link {
+  cursor: pointer;
+  position: absolute;
+  margin-top: 6px;
+  font-size: 16px;
+  float: right;
+  color: rgba(0,0,0,0);
+  text-shadow: none;
+  transition: color .1s ;
+
+}
+.docs { right: 10px; }
+.plugins { right: 75px; }
+.components { right: 162px; }
+
+.box:hover .nav-link{ color: rgba(0,0,0,0.4); transition: color 1s .2s; }
+
+.docs:hover { opacity: 0.5; transition: opacity .25s;}
+.plugins:hover { opacity: 0.5; transition: opacity .25s;}
+.components:hover { opacity: 0.5; transition: opacity .25s;}
+
 </style>
 <!-- < < < < < < < < < < < < < < < <  html > > > > > > > > > > > > > > > > > -->
 <content>
-   <div>
-     <table class='top-nav' >
-       <tr>
-         <th class='top-nav-left'>
-           <p class='main-title'> BG & Nav </p>
-         </th>
-         <th style='float: right;'>
-           <div class='bit-hamburger'>
-             <div class='menu-icon-strip'></div>
-             <div class='menu-icon-strip'></div>
-             <div class='menu-icon-strip'></div>
-           </div>
-         </th>
-       </tr>
-     </table>
-     <span class="nav-divide"></span>
-   </div>
-
-
+  <div id='main'>
+    <span id='home' onclick="_PAGE_SET('home')"> LoneJS </span>
+      <div class='box'>
+        <div class='nav-link docs' onclick="_PAGE_SET('docs')"> Docs </div>
+        <div id='docs' class='dot right'></div>
+        <div class='nav-link plugins' onclick="_PAGE_SET('plugins')"> Plugins </div>
+        <div id='plugins' class='dot middle'></div>
+        <div class='nav-link components' onclick="_PAGE_SET('components')"> Components </div>
+        <div id='components' class='dot left'></div>
+      </div>
+    <span id='navLine' class="nav-divide"></span>
+  </div>
 </content>
 </template>
 <!-- () () () () () () () () () ()  JavaScript () () () () () () () () () () -->
-<script>
+<script> /* - Starts New Component -> */ (( c = new Component('navbar-tag') )=>{
 
-(( c = new Component('navbar-tag') )=>{
-  c._NEW_ELM()
-})()
+c._ON_SET = (attr)=>{
+    c.up = true
+    c.I('docs').style.opacity = 1
+    c.I('plugins').style.opacity = 1
+    c.I('components').style.opacity = 1
+  }
+  c.animate = ()=>{
+    const dir = c.directory[0] === '/' ? c.directory.slice(1) : c.directory
+    const op = parseFloat(c.I(dir).style.opacity)
+    if (c.up) {
+      c.I(dir).style.opacity = op + 0.04
+      if (op >= 1) c.up = false
+    }
+    if (!c.up) {
+      c.I(dir).style.opacity = op - 0.04
+      if (op <= 0.3) c.up = true
+    }
+  }
 
-</script>
+setInterval(function(){
+  if (c.directory !== 'undefined') c.animate()
+}, 50);
+
+c._NEW_ELM()})() /* ----------- Creates New Component -----------> */  </script>
+
+
 <!--  / / / / / / / / / / / / / / /   Notes    / / / / / / / / / / / / / / / -->

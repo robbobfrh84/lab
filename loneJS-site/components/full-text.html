@@ -1,0 +1,60 @@
+<template id="full-text">
+<!-- { { { { { { { { { { { { { { { {  CSS  } } } } } } } } } } } } } } } } } -->
+<style>
+
+h2 {
+  margin: 3px 0px 5px 9px;
+  font-weight: 900;
+  background-color: #565656;
+  color: transparent;
+  text-align: center;
+  text-shadow: 0px 1px 1px rgba(255,255,255,0.6);
+  -webkit-background-clip: text;
+     -moz-background-clip: text;
+          background-clip: text;
+}
+
+.heading {
+  background-color: rgba(0,0,0,0.1);
+  border-radius: 1px;
+  color: rgba(100,100,100,1);
+  font-size: 20px;
+  width: 90%;
+  padding: 10px;
+  margin: auto;
+}
+
+.text1 {
+  color: rgba(100,100,100,1);
+  font-size: 15px;
+  width: 90%;
+  padding: 10px;
+  margin: auto;
+}
+
+</style>
+<!-- < < < < < < < < < < < < < < < <  html > > > > > > > > > > > > > > > > > -->
+<content var="{x} c.data">
+   <div>
+     <br>
+     <h2> {x}.title </h2>
+     <br>
+   </div>
+   <div if='c.data.effect'>
+     ***
+   </div>
+   <div if='c.data.bar' class='heading'>
+     {x}.bar
+   </div>
+   <div if='c.data.text1' class='text1'>
+     {x}.text1
+   </div>
+</content>
+</template>
+<!-- () () () () () () () () () ()  JavaScript () () () () () () () () () () -->
+<script> /* - Starts New Component -> */ (( c = new Component('full-text-tag') )=>{
+
+
+
+c._NEW_ELM()})() /* ----------- Creates New Component -----------> */  </script>
+<!--  / / / / / / / / / / / / / / /   Notes    / / / / / / / / / / / / / / / -->

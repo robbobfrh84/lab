@@ -1,3 +1,20 @@
+// (()=>{
+//   let files = [
+//     "loneJS-lib/html.js",
+//     "loneJS-lib/pages.js",
+//     "loneJS-lib/polyfills.js",
+//     "data.js"
+//   ]
+//   for (const file of files) {
+//     let fileRef = document.createElement('script')
+//     fileRef.setAttribute("type","text/javascript")
+//     fileRef.setAttribute("src", file)
+//     if (typeof fileRef!="undefined") {
+//       document.getElementsByTagName("head")[0].appendChild(fileRef)
+//     }
+//   }
+// })()
+
 var _COMPONENTS_STORED_GLOBALLY = []
 
 class Component {

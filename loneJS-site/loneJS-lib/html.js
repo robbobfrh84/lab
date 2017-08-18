@@ -58,32 +58,73 @@ class HtmlJS {
     }
   }
 
-  ifJS (Obj, elm, ifVar, topLevel) {
-    if (!elm.hasAttribute('if-passed')) {
-      let hide = ((h)=>{
-        for (const val of ifVar.split(' ')) {
-          if (val[0] === '!') { h = this.hasDir(Obj, val.split('!')[1])
-          } else { h = !this.hasDir(Obj, val) }
-          if (h) return h
-        }
-        return false
-      })()
-      if (!hide || (hide && ifVar.split('!')[1] && ifVar.split(' ').length === 1)) {
-        const attr = document.createAttribute('if-passed')
-        attr.value = 'true'
-        elm.setAttributeNode(attr)
+  ifJS (Obj, elm, ifVar, final) { // STILL Need ClearIf()?????
+    let replace = []
+    let hide = false
+    for (let val of ifVar.split(' ')) {
+
+      let nVal = val.replace('c.data', '')
+      if (nVal !== 'false') {
+        if (nVal[0] === '!') {
+          hide = this.hasDir(Obj, nVal.split('!')[1])
+          // console.log('hide, nVal: ',hide, nVal)
+        } else { hide = !this.hasDir(Obj, nVal) }
       }
-      hide ? elm.style.display = 'none' : elm.style.display = ''
+
+      if (final && hide) {
+        elm.style.display = 'none'
+        hide = true
+        break
+      }
+
+      if (!final) {
+        // console.log(hide, nVal)
+        if (!hide) { nVal[0] === '!' ? replace.push(val) : replace.push('false') }
+        if (hide) { nVal[0] !== '!' ? replace.push(val) : replace.push('true') }
+
+      }
     }
+    if (!final) {
+      elm.setAttribute('if', replace.join(' '))
+      // console.log('NOT final elm:', elm)
+    }
+    if (final && !hide) elm.style.display = ''
+
+
+    // console.log('---end---', replace)
+    // if (!elm.hasAttribute('if-passed')) {
+    //   let hide = ((h)=>{
+    //     for (let val of ifVar.split(' ')) {
+    //       //
+    //       //
+    //       val = val.replace('c.data', '')
+    //       if (val[0] === '!') { h = this.hasDir(Obj, val.split('!')[1])
+    //       } else { h = !this.hasDir(Obj, val) }
+    //       if (h) return h
+    //       //
+    //       //
+    //     }
+    //     // this is where you get a true or false based on list of ifs within
+    //     // var expantion....
+    //     return false
+    //   })()
+    //   if (!hide || (hide && ifVar.split('!')[1] && ifVar.split(' ').length === 1)) {
+    //     const attr = document.createAttribute('if-passed')
+    //     attr.value = 'true'
+    //     elm.setAttributeNode(attr)
+    //   }
+    //   hide ? elm.style.display = 'none' : elm.style.display = ''
+    // }
   }
 
   varJS (Obj, elm, tags, arrVar) {
-    if (arrVar[0].split(' ')[1] === '_data') Obj = { '_data': Obj}
     for (const vLen of arrVar) {
       let [ val, data ] = vLen.split(' ').filter(Boolean)
+      data = data.replace('c.data', '')
       data = this.getDir(Obj, data)
       if (data) this.varJSNest(Obj, elm, tags, data, val)
     }
+    elm.innerHTML = elm.innerHTML.replace(/&amp;/g, "&")
   }
 
   varJSNest (Obj, elm, tags, data, val) {
@@ -108,32 +149,83 @@ class HtmlJS {
     }
   }
 
-  forJS (Obj, elm, tags, [ node, data ], [ val, key, ind ] = node.split(',')) {
-    data = this.getDir(Obj, data)
-    for (const att of this.jsAtts) {
-      let atts = elm.querySelectorAll('['+att+']')
-      for (let at of atts) {
-        let aVal = at.getAttribute(att)
-        at.setAttribute(att, " "+aVal+" ")
-      }
+  textNodesUnder (node) {
+    var all = [];
+    for (node=node.firstChild;node;node=node.nextSibling){
+      if (node.nodeType==3) all.push(node);
+      else all = all.concat(this.textNodesUnder(node));
     }
+    return all;
+  }
+
+  forJS (Obj, elm, tags, [ node, dir ], [ val, key, ind ] = node.split(',')) {
+    const data = this.getDir(Obj, dir.replace('c.data', ''))
+    // data = this.getDir(Obj, data)
+    // for (const att of this.jsAtts) {
+    //   let atts = elm.querySelectorAll('['+att+']')
+    //   for (let at of atts) {
+    //     let aVal = at.getAttribute(att)
+    //     if (att === 'value') console.log(aVal, atts)
+    //
+    //     at.setAttribute(att, " "+aVal+" ")
+    //   }
+    // }
+    // ! ! ! !
+    // Do we still need to clone node????
+    // ! ! ! !
     for (let child of elm.querySelectorAll(':scope > [is-clone]')) {
       elm.removeChild(child) // REMOVES all cloned elements from any previously loaded Doms.
     }
     tags = elm.childNodes.length
+
+    let txtNodes = this.textNodesUnder(elm)
+    let txtClone = this.textNodesUnder(elm.cloneNode(true))
+
+    let clone = elm.cloneNode(true)
+
     for (const i in data) { // Loop through all indices/keys within the Object
+      for (const t in txtClone) {
+        const txt = txtClone[t].nodeValue.split(/[\n\ ]/)
+        const newText = this.valueTypes(i, data, txt, val, key, ind)
+        txtNodes[t].nodeValue = newText.join(' ')
+      }
+      // for (const att of this.jsAtts) {
+      //   console.log(clone.querySelectorAll('['+att+']')) // ONLY VALUE!!!
+      //   for (let att of )
+      // }
+      for (const att of this.jsAtts) {
+        let atts = elm.querySelectorAll('['+att+']')
+        let attsClone = clone.querySelectorAll('['+att+']')
+        if (atts.length > 0) {
+          for (let t in attsClone) {
+            if (typeof atts[t] === 'object' ) {
+              let arr = attsClone[t].getAttribute(att).split(/[\n\ ]/)
+              const textArr = this.valueTypes(i, data, arr, val, key, ind).join(' ')
+              // console.log('att: ', att, arr, textArr)
+              atts[t].setAttribute(att, textArr)
+            }
+          }
+        }
+      }
+
       for (let j = 0; j < tags; j++) { // loop through all tags within element.
         const tag = elm.childNodes[j]
         if (tag.contentEditable) {
-          const arr = tag.innerHTML.split(/[\n\ ]/)
-          const textArr = this.valueTypes(i, data, arr, val, key, ind) // there's extra DOM stuff we dont' need, This will only duplicate tags we created.
+
+          const textArr = tag.innerHTML.split(/[\n\ ]/)
           if (this.showAtIndices(tag, i, data)) { // returns bool, if in the HTML indices attribute declares we shouldn't show this..
             this.newTag(elm, tag, textArr.join(' '), i, data, val, key, ind)
             tag.style.display = 'none'
           }
         }
+        else {
+          let child = tag.cloneNode(true)
+          elm.appendChild(child)
+          tag.nodeValue = ''
+        }
       }
     }
+    elm.innerHTML = elm.innerHTML.replace(/&amp;/g, "&")
   }
 
   valueTypes (i, data, startArr, val, key, ind, arr) {
@@ -152,13 +244,15 @@ class HtmlJS {
       }
     }
     return Obj !== 'false' ? true : false
-    // return Obj.length > 0 && Obj !== 'false' ? true : false
   }
 
   getDir (Obj, jVar) { // Grab 'var' elm string. html var name = JS var
-
-  if (jVar.split(/[\.\[\]]/))
-    for (const p of jVar.split(/[.\[\]]/).filter(Boolean)) Obj = Obj[p]
+    // change MAY be relevant to data.js (which was copy/pasted 4 use)
+    if (jVar.split(/[\.\[\]\"]/)) {
+      for (const p of jVar.split(/[\.\[\]\"]/).filter(Boolean)) {
+        Obj = Obj[p]
+      }
+    }
     return Obj
   }
 
@@ -173,7 +267,7 @@ class HtmlJS {
       if ( em[0] && ((em[0] === key || em[0].slice(1) === key ) && em.length > 1)) {
         if (r) arr[w] = arr[w].slice(0, arr[w].length-1)
         if (l) arr[w] = arr[w].slice(1)
-        arr[w] = this.getDir(jVal, '['+em.slice(1).join('][')+']')
+        arr[w] = this.getDir(jVal, '['+em.slice(1).join('][')+']') || arr[w]
         if ( l || r ) pass = true
       } // vvv this is where we used the left and right hyphens to shift if needed.
       if (arr[w] === l+key+r || pass) {
@@ -199,29 +293,32 @@ class HtmlJS {
     return (indices.includes(i) || indices.includes(':'+(l.length-i-1))) // return true if indices attribute contains index or reveerse index :N order
   }
 
-  newTag (parent, tag, innerHTML, i, ldata, val, key, ind) {
+  newTag (parent, tag, innerHTML, i, ldata, val, key, ind, nest = {}) {
     let child = tag.cloneNode(true)
     const attr = document.createAttribute('is-clone')
     attr.value = true
     child.setAttributeNode(attr)
-    child.innerHTML = innerHTML
     if (child.hasAttribute('serve')){
       const dir = this.getDir(_DATA, parent.getAttribute('for').split(' ')[1])
       child.setAttribute('served', JSON.stringify(dir[i]))
     }
-    const allIfs = child.querySelectorAll('[if]')
+    nest[val] = ldata[i]
+    if (child.hasAttribute('if')) {
+      this.ifJS(nest, child, child.getAttribute('if'), false)
+    }
+    let allIfs = child.querySelectorAll('[if]')
     for (const ifs of allIfs) {
-      const dBack = {}; dBack[val] = ldata[i]
-      this.ifJS(dBack, ifs, ifs.getAttribute('if'))
+      this.ifJS(nest, ifs, ifs.getAttribute('if'), false)
     }
-    for (const att of this.jsAtts) {
-      if (child.hasAttribute(att)) {
-        let arr = child.getAttribute(att).split(/[\n\ ]/)
-        const textArr = this.valueTypes(i, ldata, arr, val, key, ind) // there's extra DOM stuff we dont' need, This will only duplicate tags we created.
-        child.setAttribute(att, textArr.join(' '))
-      }
-    }
+    // for (const att of this.jsAtts) {
+    //   if (child.hasAttribute(att)) {
+    //     if (att === 'value') console.log(child, att)
+    //     let arr = child.getAttribute(att).split(/[\n\ ]/)
+    //     const textArr = this.valueTypes(i, ldata, arr, val, key, ind)
+    //   }
+    // }
     parent.appendChild(child)
+
     child.style.display = ''
   }
 }

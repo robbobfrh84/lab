@@ -2,27 +2,47 @@
   <link rel="stylesheet" href="main.css">
 
   <!-- COMPONENTS -->
-  <link rel="import" href="components/navbar2.html">
-  <link rel="import" href="components/csstest.html">
+  <link rel="import" href="components/navbar.html">
+  <link rel="import" href="components/full-text.html">
+  <link rel="import" href="components/footer.html">
 
 </head>
 
 <body>
-  <!-- <navbar2-tag serve="_DATA.home"></navbar2-tag> -->
-  <csstest-tag></csstest-tag>
+  <div id="background-image"></div>
 
-  <!-- <MAINp pageName="home" activePage='true'>
-    Landing Page
+  <MAINp pageName="home" activePage='true'>
+    <navbar-tag serve="_DATA.home"></navbar-tag>
+    <BODYp pageName="landing" activePage='true'>
+      <full-text-tag serve='_DATA.home'></full-text-tag>
+    </BODYp>
+    <BODYp pageName="components">
+      <full-text-tag serve='_DATA.component'></full-text-tag>
+    </BODYp>
+    <BODYp pageName="plugins">
+      <full-text-tag serve='_DATA.plugins'></full-text-tag>
+    </BODYp>
+    <BODYp pageName="docs">
+      <full-text-tag serve='_DATA.docs'></full-text-tag>
+    </BODYp>
+    <BODYp pageName="contact">
+      <full-text-tag serve='_DATA.contact'></full-text-tag>
+    </BODYp>
   </MAINp>
 
-  <MAINp pageName="page2">
-    ... Another Page
-  </MAINp> -->
+  <footer-tag></footer-tag>
 
 </body>
 
 </html>
 
 <!--  / / / / / / / / / / / / / / /   Notes    / / / / / / / / / / / / / / /
+TO DO
+- add readme to docs
+
+- add basic "coming soon!"
+  - make it feel like it's actually being developed.
+
+- save to lonejs.tech
 
 -->

@@ -1,5 +1,30 @@
-html, body {
+html {
   font-family: Tahoma;
-  background-image: url("gfx/tx2.png");
+  min-height:100%;
+  position:relative;
+  animation: fadein 1.5s;
+}
+body{
+  height:100%;
   margin: 0px;
+}
+
+#background-image {
+  position: absolute;
+  z-index: -1000;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  overflow:hidden;
+  background-image: url("gfx/tx2.png");
+  animation: fadein2 4s;
+}
+@keyframes fadein {
+  0% { opacity:0; }
+  100& { opacity:1; }
+}
+@keyframes fadein2 {
+  20% { opacity:0; }
+  100& { opacity:1; }
 }
