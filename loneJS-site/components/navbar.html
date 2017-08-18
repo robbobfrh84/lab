@@ -1,9 +1,18 @@
 <template id="navbar">
 <!-- { { { { { { { { { { { { { { { {  CSS  } } } } } } } } } } } } } } } } } -->
-<style>
-#main {
-  margin: 5px 0px 7px 7px;
-  font-weight: 900;
+<style media="screen">
+
+.top-nav {
+  padding-top: 0px;
+  margin-top: 0px;
+  width: 100%;
+}
+.top-nav-left {
+  text-align: left;
+}
+.main-title {
+  padding-left: 10px;
+  font-size: 30px;
   background-color: #565656;
   color: transparent;
   text-shadow: 0px 1px 2px rgba(255,255,255,0.5);
@@ -11,9 +20,27 @@
      -moz-background-clip: text;
           background-clip: text;
 }
-#title {
-  cursor: pointer;
-  font-size: 30px;
+.bit-hamburger {
+  width: 22px;
+  height: 18px;
+  padding: 8px 15px 10px 15px;
+  transition: width .15s, height .15s, padding .15s, transform .15s;
+
+}
+.bit-hamburger:hover {
+  width: 26px;
+  height: 22px;
+  padding: 6px 13px 8px 13px;
+  transition: width .2s, height .2s, padding .2s, transform .2s;
+
+}
+.menu-icon-strip {
+  background: rgba(0,0,0,0.2);
+  box-shadow: inset 0 0 2px rgba(0,0,0,0.4);
+  width: 100%;
+  height: 23%;
+  border-radius: 10px;
+  margin: 2px;
 }
 .nav-divide {
   box-shadow: inset 1px 5px 9px -6px rgba(0,0,0,1);
@@ -22,30 +49,35 @@
   height: 6px;
   width: 100%;
 }
-.right-box {
-  float: right;
-  margin-top: 10px;
-  margin-right: 10px;
-}
-.but {
-  cursor: pointer;
-  font-size: 20px;
-}
-.but:hover, #title:hover {
-  color: rgba(255,255,255, 0.5);
+.nav-divide2 {
+  box-shadow: inset 0px 0px 4px rgba(0,0,0,0.5);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  display: block;
+  height: 6px;
+  width: 100%;
 }
 </style>
 <!-- < < < < < < < < < < < < < < < <  html > > > > > > > > > > > > > > > > > -->
 <content>
-     <div id='main'>
-       <span id='title' onclick="_PAGE_SET('home')"> LoneJS </span>
-       <span class='right-box'>
-         <span class='but'> Components </span> :
-         <span class='but'> Plugins </span> :
-         <span class='but'> Docs </span>
-       </span>
-     </div>
+   <div>
+     <table class='top-nav' >
+       <tr>
+         <th class='top-nav-left'>
+           <p class='main-title'> BG & Nav </p>
+         </th>
+         <th style='float: right;'>
+           <div class='bit-hamburger'>
+             <div class='menu-icon-strip'></div>
+             <div class='menu-icon-strip'></div>
+             <div class='menu-icon-strip'></div>
+           </div>
+         </th>
+       </tr>
+     </table>
      <span class="nav-divide"></span>
+   </div>
+
+
 </content>
 </template>
 <!-- () () () () () () () () () ()  JavaScript () () () () () () () () () () -->

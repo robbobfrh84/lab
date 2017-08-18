@@ -50,7 +50,6 @@ apiCallback = function(data, uri){
   for (const component of _COMPONENTS_STORED_GLOBALLY) {
     if (component.hasAttribute('serve')) {
       const serve = component.getAttribute('serve')
-      // console.log(getDir(_DATA, serve))
       component.setAttribute('served', JSON.stringify(getDir(_DATA, serve)))
     }
   }

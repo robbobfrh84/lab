@@ -73,6 +73,7 @@ class HtmlJS {
 
       if (final && hide) {
         elm.style.display = 'none'
+        hide = true
         break
       }
 
@@ -82,12 +83,13 @@ class HtmlJS {
         if (hide) { nVal[0] !== '!' ? replace.push(val) : replace.push('true') }
 
       }
-
     }
     if (!final) {
       elm.setAttribute('if', replace.join(' '))
       // console.log('NOT final elm:', elm)
     }
+    if (final && !hide) elm.style.display = ''
+
 
     // console.log('---end---', replace)
     // if (!elm.hasAttribute('if-passed')) {
@@ -122,6 +124,7 @@ class HtmlJS {
       data = this.getDir(Obj, data)
       if (data) this.varJSNest(Obj, elm, tags, data, val)
     }
+    elm.innerHTML = elm.innerHTML.replace(/&amp;/g, "&")
   }
 
   varJSNest (Obj, elm, tags, data, val) {

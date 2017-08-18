@@ -12,6 +12,9 @@
   <link rel="import" href="components/data.html">
   <link rel="import" href="components/graph.html">
   <link rel="import" href="components/map.html">
+  <link rel="import" href="components/loading.html">
+  <link rel="import" href="components/cssSolarSystem.html">
+
 
 </head>
 <body>
@@ -19,11 +22,14 @@
 <navbar-tag></navbar-tag>
 
 <MAINp pageName="home" activePage='true'>
-  <div style="text-align: center;"> <br> <h1> Welcome to Life Track ! </h1> <br></div>
+  <div style="text-align: center;"> <br> <h1> Welcome to Life Track ! </h1> <br>
+  </div>
+  <cssSolarSystem-tag></cssSolarSystem-tag>
+  <loading-tag serve='_DATA.home'></loading-tag>
 </MAINp>
 
 <MAINp pageName="data">
-  <data-tag serve='_DATA'></data-tag>
+  <data-tag serve='_DATA.add'></data-tag>
 </MAINp>
 
 <MAINp pageName="star">

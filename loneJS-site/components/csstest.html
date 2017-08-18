@@ -1,0 +1,49 @@
+<template id="csstest">
+<!-- { { { { { { { { { { { { { { { {  CSS  } } } } } } } } } } } } } } } } } -->
+<style>
+.dot {
+  background-color: firebrick;
+  border-radius: 100%;
+  width: 12px;
+  height: 12px;
+  float: right;
+  margin-top: 10px;
+  margin-right: 6px;
+  position: relative;
+  animation-duration: 2s;
+}
+content:hover .left {
+  animation-name: left;
+}
+.middle {
+  animation-name: middle;
+}
+@-webkit-keyframes left {
+  0%   {right:0px; top:0px;}
+  50%  {right:200px; top:0px;}
+  /*100%   {right:0px; top:0px;}*/
+}
+@-webkit-keyframes middle {
+  0%   {right:0px; top:0px;}
+  50%  {right:100px; top:0px;}
+  /*100%   {right:0px; top:0px;}*/
+}
+</style>
+<!-- < < < < < < < < < < < < < < < <  html > > > > > > > > > > > > > > > > > -->
+<content>
+  <div>
+    <div class='dot right'></div>
+    <div class='dot middle'></div>
+    <div class='dot left'></div>
+  </div>
+</content>
+</template>
+<!-- () () () () () () () () () ()  JavaScript () () () () () () () () () () -->
+<script>
+
+(( c = new Component('csstest-tag') )=>{
+  c._NEW_ELM()
+})()
+
+</script>
+<!--  / / / / / / / / / / / / / / /   Notes    / / / / / / / / / / / / / / / -->

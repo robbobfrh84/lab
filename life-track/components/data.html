@@ -59,8 +59,8 @@
   <div id='main'>
     <input id='run'>
     <button id='submit' > submit </button> <br> <br>
-    <span if="!c.data.add"> * <em>You have no Data</em> * </span>
-    <div id='notes' if='c.data.add' for="{x},i c.data.add">
+    <span if="!c.data.length"> * <em>You have no Data</em> * </span>
+    <div id='notes' if='c.data.length' for="{x},i c.data">
       <div id='box'>
         <span id='note'> Note:</span>
         <input class='note' key='i' val='input' value="{x}" disabled>
@@ -79,17 +79,8 @@
 
 (( c = new Component('data-tag') )=>{
 
-  c._ON_SET = (attr)=>{
-    console.log('_data.add: ', c.data.add, _DATA.add, )
-    if (_DATA.add && _DATA.add.length === 0) {
-      delete(_DATA.add)
-      delete(c.data.add)
-    }
-  }
-
   c.add = ()=>{
     if (!_DATA.add) _DATA.add = []
-    // if (!c.data.add) c.data.add = []
     _DATA.add.unshift(c.I('run').value)
     c.I('run').value = ''
     c.I('run').focus()
@@ -101,18 +92,15 @@
   }, true)
 
   c._ADD_EVENT('keypress', 'run', ()=>{
-    if (event.keyCode == 13) c.add()
-  }, true)
+    if (event.keyCode == 13) c.I('submit').click()
+  })
 
   c._ADD_EVENT('click', 'notes', ([ key, val ] = c.KV(event))=>{
-    console.log(key, val)
     if (val === "remove") {
       _DATA.add.splice(key, 1)
       putMyJson(_DATA, _PERSONAL_URI)
     }
-    if (val === "edit") {
-      c.save(true)
-    }
+    if (val === "edit") c.save(true)
   }, true)
 
   c._ADD_EVENT('keypress', 'notes', c.save = (saved, [ key, val ] = c.KV(event))=>{
@@ -133,6 +121,7 @@
   }, true)
 
   c._NEW_ELM()
+
 })()
 
 </script>
