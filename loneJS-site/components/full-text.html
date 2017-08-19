@@ -15,8 +15,9 @@ h2 {
 }
 
 .heading {
-  background-color: rgba(0,0,0,0.1);
-  border-radius: 1px;
+  background-color: rgba(100,100,100,0.15);
+  border-radius: 2px;
+  box-shadow: -0.5px -0.5px 2px 0.5px rgba(0,0,0,0.3);
   color: rgba(100,100,100,1);
   font-size: 20px;
   width: 90%;
@@ -43,12 +44,22 @@ h2 {
    <div if='c.data.effect'>
      ***
    </div>
-   <div if='c.data.bar' class='heading'>
-     {x}.bar
+   <div if='c.data.bar'>
+     <div if='c.data.bar' class='heading'>
+       {x}.bar
+     </div>
+     <div if='c.data.text1' class='text1'>
+       {x}.text1
+     </div>
+     <br>
+     <div if='c.data.bar2' class='heading'>
+       {x}.bar2
+     </div>
+     <div if='c.data.text2' class='text1'>
+       {x}.text2
+     </div>
    </div>
-   <div if='c.data.text1' class='text1'>
-     {x}.text1
-   </div>
+
 </content>
 </template>
 <!-- () () () () () () () () () ()  JavaScript () () () () () () () () () () -->
