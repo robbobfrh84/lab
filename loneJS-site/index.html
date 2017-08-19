@@ -5,6 +5,9 @@
   <link rel="import" href="components/navbar.html">
   <link rel="import" href="components/full-text.html">
   <link rel="import" href="components/footer.html">
+  <link rel="import" href="components/docs.html">
+  <link rel="import" href="components/animation1.html">
+
 
 </head>
 
@@ -14,8 +17,8 @@
   <MAINp pageName="home" activePage='true'>
     <navbar-tag serve="_DATA.home"></navbar-tag>
     <BODYp pageName="landing" activePage='true'>
-      <animation1-tag></animation1-tag>
       <full-text-tag serve='_DATA.home'></full-text-tag>
+      <animation1-tag></animation1-tag>
     </BODYp>
     <BODYp pageName="components">
       <full-text-tag serve='_DATA.component'></full-text-tag>
@@ -25,6 +28,7 @@
     </BODYp>
     <BODYp pageName="docs">
       <full-text-tag serve='_DATA.docs'></full-text-tag>
+      <docs-tag></docs-tag>
     </BODYp>
     <BODYp pageName="contact">
       <full-text-tag serve='_DATA.contact'></full-text-tag>
