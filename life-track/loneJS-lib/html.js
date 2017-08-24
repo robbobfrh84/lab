@@ -62,59 +62,26 @@ class HtmlJS {
     let replace = []
     let hide = false
     for (let val of ifVar.split(' ')) {
-
       let nVal = val.replace('c.data', '')
       if (nVal !== 'false') {
         if (nVal[0] === '!') {
           hide = this.hasDir(Obj, nVal.split('!')[1])
-          // console.log('hide, nVal: ',hide, nVal)
         } else { hide = !this.hasDir(Obj, nVal) }
       }
-
       if (final && hide) {
         elm.style.display = 'none'
         hide = true
         break
       }
-
       if (!final) {
-        // console.log(hide, nVal)
         if (!hide) { nVal[0] === '!' ? replace.push(val) : replace.push('false') }
         if (hide) { nVal[0] !== '!' ? replace.push(val) : replace.push('true') }
-
       }
     }
     if (!final) {
       elm.setAttribute('if', replace.join(' '))
-      // console.log('NOT final elm:', elm)
     }
     if (final && !hide) elm.style.display = ''
-
-
-    // console.log('---end---', replace)
-    // if (!elm.hasAttribute('if-passed')) {
-    //   let hide = ((h)=>{
-    //     for (let val of ifVar.split(' ')) {
-    //       //
-    //       //
-    //       val = val.replace('c.data', '')
-    //       if (val[0] === '!') { h = this.hasDir(Obj, val.split('!')[1])
-    //       } else { h = !this.hasDir(Obj, val) }
-    //       if (h) return h
-    //       //
-    //       //
-    //     }
-    //     // this is where you get a true or false based on list of ifs within
-    //     // var expantion....
-    //     return false
-    //   })()
-    //   if (!hide || (hide && ifVar.split('!')[1] && ifVar.split(' ').length === 1)) {
-    //     const attr = document.createAttribute('if-passed')
-    //     attr.value = 'true'
-    //     elm.setAttributeNode(attr)
-    //   }
-    //   hide ? elm.style.display = 'none' : elm.style.display = ''
-    // }
   }
 
   varJS (Obj, elm, tags, arrVar) {
@@ -125,6 +92,17 @@ class HtmlJS {
       if (data) this.varJSNest(Obj, elm, tags, data, val)
     }
     elm.innerHTML = elm.innerHTML.replace(/&amp;/g, "&")
+  }
+
+  getDir (Obj, jVar) { // Grab 'var' elm string. html var name = JS var
+    // change MAY be relevant to data.js (which was copy/pasted 4 use)
+    if (jVar.split(/[\.\[\]\"]/)) {
+      for (const p of jVar.split(/[\.\[\]\"]/).filter(Boolean)) {
+        // Obj = Obj[p]
+        if (Obj[p]) Obj = Obj[p]
+      }
+    }
+    return Obj
   }
 
   varJSNest (Obj, elm, tags, data, val) {
@@ -160,39 +138,19 @@ class HtmlJS {
 
   forJS (Obj, elm, tags, [ node, dir ], [ val, key, ind ] = node.split(',')) {
     const data = this.getDir(Obj, dir.replace('c.data', ''))
-    // data = this.getDir(Obj, data)
-    // for (const att of this.jsAtts) {
-    //   let atts = elm.querySelectorAll('['+att+']')
-    //   for (let at of atts) {
-    //     let aVal = at.getAttribute(att)
-    //     if (att === 'value') console.log(aVal, atts)
-    //
-    //     at.setAttribute(att, " "+aVal+" ")
-    //   }
-    // }
-    // ! ! ! !
-    // Do we still need to clone node????
-    // ! ! ! !
     for (let child of elm.querySelectorAll(':scope > [is-clone]')) {
       elm.removeChild(child) // REMOVES all cloned elements from any previously loaded Doms.
     }
     tags = elm.childNodes.length
-
     let txtNodes = this.textNodesUnder(elm)
     let txtClone = this.textNodesUnder(elm.cloneNode(true))
-
     let clone = elm.cloneNode(true)
-
     for (const i in data) { // Loop through all indices/keys within the Object
       for (const t in txtClone) {
         const txt = txtClone[t].nodeValue.split(/[\n\ ]/)
         const newText = this.valueTypes(i, data, txt, val, key, ind)
         txtNodes[t].nodeValue = newText.join(' ')
       }
-      // for (const att of this.jsAtts) {
-      //   console.log(clone.querySelectorAll('['+att+']')) // ONLY VALUE!!!
-      //   for (let att of )
-      // }
       for (const att of this.jsAtts) {
         let atts = elm.querySelectorAll('['+att+']')
         let attsClone = clone.querySelectorAll('['+att+']')
@@ -201,17 +159,14 @@ class HtmlJS {
             if (typeof atts[t] === 'object' ) {
               let arr = attsClone[t].getAttribute(att).split(/[\n\ ]/)
               const textArr = this.valueTypes(i, data, arr, val, key, ind).join(' ')
-              // console.log('att: ', att, arr, textArr)
               atts[t].setAttribute(att, textArr)
             }
           }
         }
       }
-
       for (let j = 0; j < tags; j++) { // loop through all tags within element.
         const tag = elm.childNodes[j]
         if (tag.contentEditable) {
-
           const textArr = tag.innerHTML.split(/[\n\ ]/)
           if (this.showAtIndices(tag, i, data)) { // returns bool, if in the HTML indices attribute declares we shouldn't show this..
             this.newTag(elm, tag, textArr.join(' '), i, data, val, key, ind)
@@ -244,16 +199,6 @@ class HtmlJS {
       }
     }
     return Obj !== 'false' ? true : false
-  }
-
-  getDir (Obj, jVar) { // Grab 'var' elm string. html var name = JS var
-    // change MAY be relevant to data.js (which was copy/pasted 4 use)
-    if (jVar.split(/[\.\[\]\"]/)) {
-      for (const p of jVar.split(/[\.\[\]\"]/).filter(Boolean)) {
-        Obj = Obj[p]
-      }
-    }
-    return Obj
   }
 
   place (arr, key, jVal) {
@@ -310,15 +255,7 @@ class HtmlJS {
     for (const ifs of allIfs) {
       this.ifJS(nest, ifs, ifs.getAttribute('if'), false)
     }
-    // for (const att of this.jsAtts) {
-    //   if (child.hasAttribute(att)) {
-    //     if (att === 'value') console.log(child, att)
-    //     let arr = child.getAttribute(att).split(/[\n\ ]/)
-    //     const textArr = this.valueTypes(i, ldata, arr, val, key, ind)
-    //   }
-    // }
     parent.appendChild(child)
-
     child.style.display = ''
   }
 }

@@ -108,14 +108,16 @@ c._ON_SET = (attr)=>{
   }
   c.animate = ()=>{
     const dir = c.directory[0] === '/' ? c.directory.slice(1) : c.directory
-    const op = parseFloat(c.I(dir).style.opacity)
-    if (c.up) {
-      c.I(dir).style.opacity = op + 0.04
-      if (op >= 1) c.up = false
-    }
-    if (!c.up) {
-      c.I(dir).style.opacity = op - 0.04
-      if (op <= 0.3) c.up = true
+    if (c.I(dir)) {
+      const op = parseFloat(c.I(dir).style.opacity)
+      if (c.up) {
+        c.I(dir).style.opacity = op + 0.04
+        if (op >= 1) c.up = false
+      }
+      if (!c.up) {
+        c.I(dir).style.opacity = op - 0.04
+        if (op <= 0.3) c.up = true
+      }
     }
   }
 

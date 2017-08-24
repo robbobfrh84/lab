@@ -1,20 +1,3 @@
-// (()=>{
-//   let files = [
-//     "loneJS-lib/html.js",
-//     "loneJS-lib/pages.js",
-//     "loneJS-lib/polyfills.js",
-//     "data.js"
-//   ]
-//   for (const file of files) {
-//     let fileRef = document.createElement('script')
-//     fileRef.setAttribute("type","text/javascript")
-//     fileRef.setAttribute("src", file)
-//     if (typeof fileRef!="undefined") {
-//       document.getElementsByTagName("head")[0].appendChild(fileRef)
-//     }
-//   }
-// })()
-
 var _COMPONENTS_STORED_GLOBALLY = []
 
 class Component {
@@ -58,8 +41,8 @@ class Component {
         that.data = JSON.parse(this.getAttribute('served'))
         that._ON_SET(attrName)
       }
-
     }
+
     if (!_POLYFILL_INCLUDED) {
       document.registerElement(that.tag, {prototype: proto})
     } else {
@@ -102,11 +85,18 @@ class Component {
       served.value = JSON.stringify(this.getDir(_DATA, that.getAttribute('serve')))
       that.setAttributeNode(served)
     }
+    else if (!that.hasAttribute('serve') && this.data) {
+      let serve = document.createAttribute('serve')
+      serve.value = JSON.stringify(this.data)
+      that.setAttributeNode(serve)
+      let served = document.createAttribute('served')
+      served.value = JSON.stringify(this.data)
+      that.setAttributeNode(served)
+    }
     let pageStatus = document.createAttribute('directory')
     pageStatus.value = window.location.hash.split('#')[1]
     that.setAttributeNode(pageStatus)
     _COMPONENTS_STORED_GLOBALLY.push(that)
-
   }
 
   I (id) { return this.root.getElementById(id) }

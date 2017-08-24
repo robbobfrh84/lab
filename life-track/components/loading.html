@@ -183,7 +183,7 @@ body{
 </style>
 <!-- < < < < < < < < < < < < < < < <  html > > > > > > > > > > > > > > > > > -->
 <content>
-  <div if='!c.data.loaded'>
+  <div if='c.data.loading'>
     <div class="circle"></div>
     <div class="circle-small"></div>
     <div class="circle-big"></div>
@@ -201,14 +201,16 @@ body{
 
 (( c = new Component('loading-tag') )=>{
   c._ON_SET = (attr)=>{
-    console.log(c.data.loaded)
+    // console.log(c.data.loading)
+    // !!!! it doenst' work cuz your loading state is perminemtly storred
+    // .... meaning, when you update any;thing else it'll be stared always as NOT LOADING!!!
   }
-
+  //
   setTimeout(()=>{
-    _DATA.home.loaded = true
+    _DATA.home.loading = false
     c.update()
-  }, 1000)
-
+  }, 2000)
+  //
   c._NEW_ELM()
 })()
 
