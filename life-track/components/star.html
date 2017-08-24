@@ -73,9 +73,7 @@ td {
      </tr>
      <tbody id='chart'>
        <tr for='{x},{i} c.data.test'>
-         <span class='icon-box'>
-           <td indices='0' class="icons"> &#128685; </td>
-         </span>
+         <td indices='0' class="icons"> &#128685; </td>
          <td class='box' key='{i}' val='smoke'>
            <span if='!{x}.smoke' class='star-plus ig'> &#10025; </span>
            <span if='{x}.smoke[0] !{x}.smoke[1]' class='gray'> &#10005; </span>
@@ -83,24 +81,24 @@ td {
            <none if='!{x}.smoke[0]' class='undefined ig'> ? </none>
          </td>
        </tr>
-       <tr for='{d} c.data.test'>
+       <tr for='{x},{i} c.data.test'>
          <td indices='0' class="icons"> &#127865; </td>
-         <td class='box'>
-           <span if='!{d}.drink' class='star-plus'> &#10025; </span>
-           <span if='{d}.drink[0] !{d}.drink[1]' class='gray'> &#10005; </span>
-           <none if='{d}.drink[1]' class='data-value gray'> {d}.drink[1] </none>
-           <none if='!{d}.drink[0]'><none if='!{d}.drink[0]' class='undefined'> ? </none></none>
+         <td class='box' key='{i}' val='drink'>
+           <span if='!{x}.drink' class='star-plus ig'> &#10025; </span>
+           <span if='{x}.drink[0] !{x}.drink[1]' class='gray'> &#10005; </span>
+           <none if='{x}.drink[1]' class='data-value gray'> {d}.drink[1] </none>
+           <none if='!{x}.drink[0]' class='undefined ig'> ? </none>
          </td>
        </tr>
-       <tr for='{x} c.data.test'>
+       <tr for='{x},{i} c.data.test'>
          <td indices='0' class="icons"> &#127939; </td>
-         <td class='box'>
-           <span if='{x}.cardio[0]' class='star-plus'> &#10025; </span>
+         <td class='box' key='{i}' val='cardio'>
+           <span if='{x}.cardio[0]' class='star-plus ig'> &#10025; </span>
            <none if='{x}.cardio[1]' class='data-value'> {x}.cardio[1] </none>
-           <none if='!{x}.cardio[0]' class='undefined'> ? </none>
+           <none if='!{x}.cardio[0]' class='undefined ig'> ? </none>
          </td>
        </tr>
-       <tr for='{x} c.data.test'>
+       <tr for='{x},{i} c.data.test'>
          <td indices='0' class="icons"> &#127947; </td>
          <td class='box'>
            <span if='{x}.lift[0]' class='star-plus'> &#10025; </span>
@@ -108,7 +106,7 @@ td {
            <none if='!{x}.lift[0]' class='undefined'> ? </none>
          </td>
        </tr>
-       <tr for='{x} c.data.test'>
+       <tr for='{x},{i} c.data.test'>
          <td indices='0' class="icons" style='color: rgba(0,0,0,0.6);'> &#128694; </td>
          <td class='box'>
            <span if='{x}.walk[0]' class='star-plus'> &#10025; </span>
@@ -116,7 +114,7 @@ td {
            <none if='!{x}.walk[0]' class='undefined'> ? </none>
          </td>
        </tr>
-       <tr for='{x} c.data.test'>
+       <tr for='{x},{i} c.data.test'>
          <td indices='0' class="icons" style='color: rgba(0,0,0,0.6);'> &#9745; </td>
          <td class='box'>
            <span if='{x}.scrum' class='star-plus'> {x}.scrum </span>
@@ -139,10 +137,6 @@ td {
     _DATA.home.test[parseInt(key)][val] = state === false ? [] : false
     putMyJson(_DATA, _PERSONAL_URI)
   }, true)
-
-  c._ON_SET = (attr)=>{
-    // c.data.test = c.chart
-  }
 
   // c.me = 'hello'
   // c.chart = []
@@ -176,6 +170,22 @@ td {
   //   })
   // }
   // c.data.test = chart
+
+  // c.t[1].drink = false
+  // c.t[2].drink = [ true, 2 ]
+  // c.t[3].drink = [ true, 5 ]
+  // c.t[4].drink = [ true ]
+  // c.t[3].smoke = [ true, 2 ]
+  // c.t[4].smoke = [ true ]
+  // c.t[5].smoke = false
+  // c.t[3].cardio = [ true ]
+  // c.t[5].cardio = [ true, 6 ]
+  // c.t[2].lift = [ true ]
+  // c.t[12].lift = [ true, '2x' ]
+  // c.t[2].walk = [ true, 4 ]
+  // c.t[8].walk = [ true ]
+  // c.t[5].scrum = '&#10004;'
+  // c.t[7].scrum = '&#10004;'
 
   c._NEW_ELM()
 })()
