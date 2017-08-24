@@ -77,7 +77,7 @@ td {
            <td indices='0' class="icons"> &#128685; </td>
          </span>
          <td class='box' key='{i}' val='smoke'>
-           <span if='!{x}.smoke' class='star-plus'> &#10025; </span>
+           <span if='!{x}.smoke' class='star-plus ig'> &#10025; </span>
            <span if='{x}.smoke[0] !{x}.smoke[1]' class='gray'> &#10005; </span>
            <none if='{x}.smoke[1]' class='data-value gray'> {x}.smoke[1] </none>
            <none if='!{x}.smoke[0]' class='undefined ig'> ? </none>
@@ -134,68 +134,48 @@ td {
 (( c = new Component('star-tag') )=>{
 
   c._ADD_EVENT('click', 'main', ([ key, val ] = c.KV(event))=>{
-    console.log('click', key, val, c.chart)
-    c.chart[parseInt(key)][val] = false
-    // c.data.test = c.chart
-    // console.log(c.data.test[parseInt(key)])
-    _DATA.home.test = c.chart
+    console.log('click', key, val)
+    const state = _DATA.home.test[parseInt(key)][val]
+    _DATA.home.test[parseInt(key)][val] = state === false ? [] : false
+    putMyJson(_DATA, _PERSONAL_URI)
   }, true)
 
-  c._ON_SET = (attr, x, i)=>{
-    // c.data.test = c.data.test ? c.data.test : c.buildTestData()
-    c.data.test = c.chart
-    // console.log('on_set', c.data.test[i].smoke)
-  }
-  c.me = 'hello'
-  c.chart = []
-  const days = ['Mon', 'Tue', 'Wed', 'Thr', 'Fri', 'Sat', 'Sun']
-  for (var i = 0; i < 31; i++) {
-    c.chart.push({
-      date: { year: 2017, month: 'May', day: i+1, weekDay: days[(i%7)] },
-      smoke: [],
-      drink: [],
-      cardio: [],
-      lift: [],
-      walk: [],
-      scrum: null,
-    })
+  c._ON_SET = (attr)=>{
+    // c.data.test = c.chart
   }
 
-
-  // c.buildTestData = ()=>{
-  //   let chart = []
-  //   const days = ['Mon', 'Tue', 'Wed', 'Thr', 'Fri', 'Sat', 'Sun']
-  //   for (var i = 0; i < 31; i++) {
-  //     chart.push({
-  //       date: { year: 2017, month: 'May', day: i+1, weekDay: days[(i%7)] },
-  //       smoke: [],
-  //       drink: [],
-  //       cardio: [],
-  //       lift: [],
-  //       walk: [],
-  //       scrum: null,
-  //     })
-  //   }
-  //   // chart[0].drink = false
-  //   // chart[1].drink = false
-  //   // chart[2].drink = [ true, 2 ]
-  //   // chart[3].drink = [ true, 5 ]
-  //   // chart[4].drink = [ true ]
-  //   // chart[3].smoke = [ true, 2 ]
-  //   // chart[4].smoke = [ true ]
-  //   // chart[5].smoke = false
-  //   // chart[3].cardio = [ true ]
-  //   // chart[5].cardio = [ true, 6 ]
-  //   // chart[2].lift = [ true ]
-  //   // chart[12].lift = [ true, '2x' ]
-  //   // chart[2].walk = [ true, 4 ]
-  //   // chart[8].walk = [ true ]
-  //   // chart[5].scrum = '&#10004;'
-  //   // chart[7].scrum = '&#10004;'
-  //   return chart
+  // c.me = 'hello'
+  // c.chart = []
+  // const days = ['Mon', 'Tue', 'Wed', 'Thr', 'Fri', 'Sat', 'Sun']
+  // for (var i = 0; i < 31; i++) {
+  //   c.chart.push({
+  //     date: { year: 2017, month: 'May', day: i+1, weekDay: days[(i%7)] },
+  //     smoke: [],
+  //     drink: [],
+  //     cardio: [],
+  //     lift: [],
+  //     walk: [],
+  //     scrum: null,
+  //   })
   // }
 
-
+  // SAVE FOR DOCUMENTATION *** ( for no serve c.data cases.)
+  //
+  // c._ADD_EVENT('click', 'main', ([ key, val ] = c.KV(event))=>{
+  //   c.data.test[parseInt(key)][val] = false
+  // }, true)
+  //
+  // c.data = {}
+  // c.data.test = {}
+  // let chart = []
+  // const days = ['Mon', 'Tue', 'Wed', 'Thr', 'Fri', 'Sat', 'Sun']
+  // for (var i = 0; i < 31; i++) {
+  //   chart.push({
+  //     date: { year: 2017, month: 'May', day: i+1, weekDay: days[(i%7)] },
+  //     smoke: [], drink: [], cardio: [], lift: [], walk: [],scrum: null,
+  //   })
+  // }
+  // c.data.test = chart
 
   c._NEW_ELM()
 })()

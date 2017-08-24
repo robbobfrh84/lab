@@ -57,6 +57,7 @@ class Component {
   }
 
   getDir (obj, dir, mDir = dir.split(' '), oObj = { '_DATA': obj }, mObj = []) {
+    if (dir === 'c.data') return this.data
     if (mDir.length > 1) {
       for (const i in mDir) {
         for (const p of mDir[i].split(/[.\[\]]/).filter(Boolean)) oObj = oObj[p]
@@ -87,7 +88,7 @@ class Component {
     }
     else if (!that.hasAttribute('serve') && this.data) {
       let serve = document.createAttribute('serve')
-      serve.value = JSON.stringify(this.data)
+      serve.value = 'c.data'
       that.setAttributeNode(serve)
       let served = document.createAttribute('served')
       served.value = JSON.stringify(this.data)
