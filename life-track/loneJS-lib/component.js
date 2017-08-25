@@ -104,4 +104,13 @@ class Component {
 
   KV (e) { return [ e.path[0].getAttribute('key'), e.path[0].getAttribute('val') ] }
 
+  E (e) { return e.path[0] }
+
+  KVE (e) { return [
+    e.path[0].getAttribute('key'),
+    e.path[0].getAttribute('val'),
+    e.path[0]
+  ] }
+
+
 }

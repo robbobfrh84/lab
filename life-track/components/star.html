@@ -3,6 +3,7 @@
 <style>
 #main {
   text-align: center;
+  display: none;
 }
 table {
   margin: auto;
@@ -12,9 +13,6 @@ table {
   padding-bottom: 0px;
   padding-right: 6px;
   color: rgba(218,165,32,1)
-}
-.undefined {
-  color: rgba(255,255,255,0.1)
 }
 .box {
   position: relative;
@@ -26,16 +24,6 @@ table {
   font-size: 22px;
   background-color: rgba(255,255,255,0.1);
   transition: background-color 0.2s;
-}
-@media screen and (max-width: 1050px) {
-  .box {
-    min-width: 25px;
-    max-height: 25px;
-    font-size: 18px;
-  }
-  .icons {
-    font-size: 22px;
-  }
 }
 .box:hover {
   background-color: rgba(255,255,255,0.3);
@@ -53,11 +41,37 @@ td {
   color: rgba(0,0,0,0.5);
 }
 .data-value {
+  color: rgba(255,255,255,0.7);
   position: relative;
   font-size: 25px;
 }
 .ig {
   pointer-events: none;
+}
+.input {
+  width: 23px;
+  font-size: 22px;
+  background: none;
+  border: none;
+  text-align: center;
+}
+.undefined {
+  color: rgba(255,255,255,0.3);
+}
+@media screen and (max-width: 1050px) {
+  .box {
+    min-width: 25px;
+    max-height: 25px;
+  }
+  .icons {
+    font-size: 22px;
+  }
+  .star-plus {
+    font-size: 29px;
+  }
+  .input {
+    font-size: 18px;
+  }
 }
 </style>
 <!-- < < < < < < < < < < < < < < < <  html > > > > > > > > > > > > > > > > > -->
@@ -76,53 +90,51 @@ td {
          <td indices='0' class="icons"> &#128685; </td>
          <td class='box' key='{i}' val='smoke'>
            <span if='!{x}.smoke' class='star-plus ig'> &#10025; </span>
-           <span if='{x}.smoke[0] !{x}.smoke[1]' class='gray'> &#10005; </span>
-           <none if='{x}.smoke[1]' class='data-value gray'> {x}.smoke[1] </none>
-           <none if='!{x}.smoke[0]' class='undefined ig'> ? </none>
+           <input if='{x}.smoke' key='{i}' val='smoke' placeholder="?" value='{x}.smoke' class='gray input ig'>
          </td>
        </tr>
        <tr for='{x},{i} c.data.test'>
          <td indices='0' class="icons"> &#127865; </td>
          <td class='box' key='{i}' val='drink'>
            <span if='!{x}.drink' class='star-plus ig'> &#10025; </span>
-           <span if='{x}.drink[0] !{x}.drink[1]' class='gray'> &#10005; </span>
-           <none if='{x}.drink[1]' class='data-value gray'> {d}.drink[1] </none>
-           <none if='!{x}.drink[0]' class='undefined ig'> ? </none>
+           <input if='{x}.drink' key='{i}' val='drink' placeholder="?" value='{x}.drink' class='gray input ig'>
          </td>
        </tr>
        <tr for='{x},{i} c.data.test'>
          <td indices='0' class="icons"> &#127939; </td>
          <td class='box' key='{i}' val='cardio'>
-           <span if='{x}.cardio[0]' class='star-plus ig'> &#10025; </span>
-           <none if='{x}.cardio[1]' class='data-value'> {x}.cardio[1] </none>
-           <none if='!{x}.cardio[0]' class='undefined ig'> ? </none>
+           <span if='!{x}.cardio' class='star-plus ig'> &#10025; </span>
+           <span if='{x}.cardio[1]' class='star-plus ig'> &#10025; </span>
+           <input if='{x}.cardio[0]' key='{i}' val='cardio' placeholder="?" value='{x}.cardio[0]' class='data-value input ig'>
          </td>
        </tr>
        <tr for='{x},{i} c.data.test'>
          <td indices='0' class="icons"> &#127947; </td>
-         <td class='box'>
-           <span if='{x}.lift[0]' class='star-plus'> &#10025; </span>
-           <none if='{x}.lift[1]' class='data-value'> {x}.lift[1] </none>
-           <none if='!{x}.lift[0]' class='undefined'> ? </none>
+         <td class='box' key='{i}' val='lift'>
+           <span if='!{x}.lift' class='star-plus ig'> &#10025; </span>
+           <span if='{x}.lift[1]' class='star-plus ig'> &#10025; </span>
+           <input if='{x}.lift[0]' key='{i}' val='lift' placeholder="?" value='{x}.lift[0]' class='data-value input ig'>
          </td>
        </tr>
        <tr for='{x},{i} c.data.test'>
          <td indices='0' class="icons" style='color: rgba(0,0,0,0.6);'> &#128694; </td>
-         <td class='box'>
-           <span if='{x}.walk[0]' class='star-plus'> &#10025; </span>
-           <none if='{x}.walk[1]' class='data-value'> {x}.walk[1] </none>
-           <none if='!{x}.walk[0]' class='undefined'> ? </none>
+         <td class='box' key='{i}' val='walk'>
+           <span if='!{x}.walk' class='star-plus ig'> &#10025; </span>
+           <span if='{x}.walk[1]' class='star-plus ig'> &#10025; </span>
+           <input if='{x}.walk[0]' key='{i}' val='walk' placeholder="?" value='{x}.walk[0]' class='data-value input ig'>
          </td>
        </tr>
        <tr for='{x},{i} c.data.test'>
          <td indices='0' class="icons" style='color: rgba(0,0,0,0.6);'> &#9745; </td>
-         <td class='box'>
-           <span if='{x}.scrum' class='star-plus'> {x}.scrum </span>
-           <none if='!{x}.scrum' class='undefined'> ? </none>
+         <td class='box' key='{i}' val='scrum'>
+           <span if='!{x}.scrum' class='star-plus ig'> &#10025; </span>
+           <span if='{x}.scrum[1]' class='star-plus ig'> &#10025; </span>
+           <input if='{x}.scrum[0]' key='{i}' val='scrum' placeholder="?" value='{x}.scrum[0]' class='data-value input ig'>
          </td>
        </tr>
      </tbody>
-    </table>
+   </table><br>
+    <span style='color: rgba(255,255,255,0.5);'>[ Shift + Click ] <em> *enters values</em></span>
   </div>
 </content>
 </template>
@@ -131,45 +143,79 @@ td {
 
 (( c = new Component('star-tag') )=>{
 
-  c._ADD_EVENT('click', 'main', ([ key, val ] = c.KV(event))=>{
-    console.log('click', key, val)
-    const state = _DATA.home.test[parseInt(key)][val]
-    _DATA.home.test[parseInt(key)][val] = state === false ? [] : false
-    putMyJson(_DATA, _PERSONAL_URI)
+  c._ON_SET = (attr)=>{
+    // this prevents the flickering effect before ifJS is loaded...
+    c.I('main').setAttribute('style', 'display: block;')
+  }
+
+  c._ADD_EVENT('mousedown', 'main', ([ key, val, elm ] = c.KVE(event))=>{
+    if (event.shiftKey) {
+      let input = elm.getElementsByTagName('input')[0]
+      let span = elm.getElementsByTagName('span')[0]
+      span.className += ' undefined'
+      input.className += ' undefined'
+      if (!span.getAttribute('style', 'display')) {
+        [ input.placeholder, input.value ] = [ '', '']
+      } else {
+        [ input.placeholder, input.value ] = [ input.value || '?', '' ]
+      }
+      input.setAttribute('style', 'display: ;')
+      setTimeout(()=>{ input.focus() },1)
+    } else {
+      const state = _DATA.home.test[parseInt(key)][val]
+      _DATA.home.test[parseInt(key)][val] = state === false ? ' ' : false
+      putMyJson(_DATA, _PERSONAL_URI)
+    }
   }, true)
 
-  // c.me = 'hello'
-  // c.chart = []
-  // const days = ['Mon', 'Tue', 'Wed', 'Thr', 'Fri', 'Sat', 'Sun']
-  // for (var i = 0; i < 31; i++) {
-  //   c.chart.push({
-  //     date: { year: 2017, month: 'May', day: i+1, weekDay: days[(i%7)] },
-  //     smoke: [],
-  //     drink: [],
-  //     cardio: [],
-  //     lift: [],
-  //     walk: [],
-  //     scrum: null,
-  //   })
-  // }
+  c._ADD_EVENT('keypress', 'main', ([ key, val, elm ] = c.KVE(event))=>{
+    if (event.keyCode == 13) {
+      if (elm.value !== '') {
+        _DATA.home.test[parseInt(key)][val] = elm.value
+        // putMyJson(_DATA, _PERSONAL_URI)
+      }
+      if (['cardio','lift','walk','scrum'].includes(val)) {
+        console.log('includes', val)
+        _DATA.home.test[parseInt(key)][val] = [ elm.value, true ]
+      }
+      putMyJson(_DATA, _PERSONAL_URI)
+      elm.blur()
+    }
+  }, true)
 
-  // SAVE FOR DOCUMENTATION *** ( for no serve c.data cases.)
-  //
-  // c._ADD_EVENT('click', 'main', ([ key, val ] = c.KV(event))=>{
-  //   c.data.test[parseInt(key)][val] = false
-  // }, true)
-  //
-  // c.data = {}
-  // c.data.test = {}
-  // let chart = []
-  // const days = ['Mon', 'Tue', 'Wed', 'Thr', 'Fri', 'Sat', 'Sun']
+  //const days = ['Mon', 'Tue', 'Wed', 'Thr', 'Fri', 'Sat', 'Sun']
+
+  // c.t = []
   // for (var i = 0; i < 31; i++) {
-  //   chart.push({
+  //   c.t.push({
   //     date: { year: 2017, month: 'May', day: i+1, weekDay: days[(i%7)] },
-  //     smoke: [], drink: [], cardio: [], lift: [], walk: [],scrum: null,
+  //     smoke: ' ',
+  //     drink: ' ',
+  //     cardio: ' ',
+  //     lift: ' ',
+  //     walk: ' ',
+  //     scrum: ' ',
   //   })
   // }
-  // c.data.test = chart
+  // _DATA.home.test = c.t
+  // putMyJson(_DATA, _PERSONAL_URI)
+
+
+  // if (!c.data.test[parseInt(key)][val]) {
+  //   let span = elm.getElementsByTagName('span')[0]
+  //   span.className += ' undefined'
+  //   let input2 = elm.getElementsByTagName('input')[0] // REDUDENT! set at top???
+  //   input2.setAttribute('style', 'display: "";')
+  // } else if (c.data.test[parseInt(key)][val][0]) {
+  //   let input3 = elm.getElementsByTagName('input')[1] // REDUDENT! set at top???
+  //   input3.setAttribute('style', 'display: "";')
+  //   setTimeout(()=>{ input3.focus() },1)
+  //   console.log(input3.value.length)
+  //   input3.setSelectionRange(input3.value.length+1,input3.value.length+1)
+  // }
+  // let input = elm.getElementsByTagName('input')[0]
+  // input.value = ''
+  // setTimeout(()=>{ input.focus() },1)
 
   // c.t[1].drink = false
   // c.t[2].drink = [ true, 2 ]

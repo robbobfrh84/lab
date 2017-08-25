@@ -43,7 +43,7 @@ new RegExp(aBunchOfcharsArr.join('|')).test(toSearchThroughArr) // >Bool if ALL 
 ES6 (()=>{ console.log('will auto fire') })() // self-invoking function
 
 /******** events *******/
-Event Listener Types = [ click, keyup, keydown, keypress ]
+Event Listener Types = [ click, mousedown, mouseup, keyup, keydown, keypress ]
 inputId.addEventListener('keypress', function (e) { if (e.keyCode == 13) { ?? }}) // ??=add stuff to do when "enter" is pressed while filling out input tag.
 
 /******** loops *******/
