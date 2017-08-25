@@ -50,15 +50,17 @@ td {
 }
 .input {
   width: 23px;
-  font-size: 22px;
+  font-size: 20px;
   background: none;
   border: none;
   text-align: center;
+  margin-left: -1px;
+  margin-top: 1px;
 }
 .undefined {
   color: rgba(255,255,255,0.3);
 }
-@media screen and (max-width: 1050px) {
+@media screen and (max-width: 1100px) {
   .box {
     min-width: 25px;
     max-height: 25px;
@@ -199,39 +201,6 @@ td {
   // }
   // _DATA.home.test = c.t
   // putMyJson(_DATA, _PERSONAL_URI)
-
-
-  // if (!c.data.test[parseInt(key)][val]) {
-  //   let span = elm.getElementsByTagName('span')[0]
-  //   span.className += ' undefined'
-  //   let input2 = elm.getElementsByTagName('input')[0] // REDUDENT! set at top???
-  //   input2.setAttribute('style', 'display: "";')
-  // } else if (c.data.test[parseInt(key)][val][0]) {
-  //   let input3 = elm.getElementsByTagName('input')[1] // REDUDENT! set at top???
-  //   input3.setAttribute('style', 'display: "";')
-  //   setTimeout(()=>{ input3.focus() },1)
-  //   console.log(input3.value.length)
-  //   input3.setSelectionRange(input3.value.length+1,input3.value.length+1)
-  // }
-  // let input = elm.getElementsByTagName('input')[0]
-  // input.value = ''
-  // setTimeout(()=>{ input.focus() },1)
-
-  // c.t[1].drink = false
-  // c.t[2].drink = [ true, 2 ]
-  // c.t[3].drink = [ true, 5 ]
-  // c.t[4].drink = [ true ]
-  // c.t[3].smoke = [ true, 2 ]
-  // c.t[4].smoke = [ true ]
-  // c.t[5].smoke = false
-  // c.t[3].cardio = [ true ]
-  // c.t[5].cardio = [ true, 6 ]
-  // c.t[2].lift = [ true ]
-  // c.t[12].lift = [ true, '2x' ]
-  // c.t[2].walk = [ true, 4 ]
-  // c.t[8].walk = [ true ]
-  // c.t[5].scrum = '&#10004;'
-  // c.t[7].scrum = '&#10004;'
 
   c._NEW_ELM()
 })()
