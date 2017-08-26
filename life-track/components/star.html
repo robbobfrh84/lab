@@ -49,7 +49,8 @@ td {
   pointer-events: none;
 }
 .input {
-  width: 23px;
+  position: absolute; left: -0.5px; top: 4px;
+  width: 32px;
   font-size: 20px;
   background: none;
   border: none;
@@ -57,8 +58,31 @@ td {
   margin-left: -1px;
   margin-top: 1px;
 }
+.wide {
+  width: 50px;
+  font-size: 16px;
+}
 .undefined {
   color: rgba(255,255,255,0.3);
+}
+.q {
+  font-family: Arial;
+  font-size: 18px;
+  color: rgba(0,0,0,0.13);
+}
+.undefined-wide {
+  margin-top: 5px;
+  background-image: url("../gfx/wild_oliva.png");
+  z-index: 10000;
+}
+.weight {
+  max-width: 28px;
+  max-height: 32px;
+  font-size: 16px;
+  word-break: break-all;
+  overflow: hidden;
+  padding: auto;
+  margin: auto;
 }
 @media screen and (max-width: 1100px) {
   .box {
@@ -72,7 +96,9 @@ td {
     font-size: 29px;
   }
   .input {
-    font-size: 18px;
+    position: absolute; left: -1px; top: 3px;
+    width: 28px;
+    font-size: 17px;
   }
 }
 </style>
@@ -134,8 +160,20 @@ td {
            <input if='{x}.scrum[0]' key='{i}' val='scrum' placeholder="?" value='{x}.scrum[0]' class='data-value input ig'>
          </td>
        </tr>
+       <tr for='{x},{i} c.data.test'>
+         <td indices='0' class="icons" style='color: rgba(0,0,0,0.6);'> &#x2696; </td>
+         <td class='box' key='{i}' val='weight'>
+
+           <span if='!{x}.weight[0]' class='q ig'> ? </span>
+           <div if='{x}.weight[0]' class='weight ig'>
+             {x}.weight[0]
+           </div>
+           <input if='{x}.weight[0]' key='{i}' val='weight' placeholder='' value='' class='data-value wide input ig'>
+         </td>
+       </tr>
      </tbody>
-   </table><br>
+   </table>
+   <span id='hover-day'></span><br><br>
     <span style='color: rgba(255,255,255,0.5);'>[ Shift + Click ] <em> *enters values</em></span>
   </div>
 </content>
@@ -145,48 +183,76 @@ td {
 
 (( c = new Component('star-tag') )=>{
 
-  c._ON_SET = (attr)=>{
-    // this prevents the flickering effect before ifJS is loaded...
+  c._ON_SET = (attr)=>{ // this prevents the flickering effect before ifJS is loaded...
     c.I('main').setAttribute('style', 'display: block;')
   }
 
   c._ADD_EVENT('mousedown', 'main', ([ key, val, elm ] = c.KVE(event))=>{
     if (event.shiftKey) {
-      let input = elm.getElementsByTagName('input')[0]
-      let span = elm.getElementsByTagName('span')[0]
-      span.className += ' undefined'
-      input.className += ' undefined'
-      if (!span.getAttribute('style', 'display')) {
-        [ input.placeholder, input.value ] = [ '', '']
+      let input = elm.getElementsByTagName('input')[0] || ''
+      let span = elm.getElementsByTagName('span')[0] || ''
+      if (val === 'weight') {
+        span = elm.getElementsByTagName('div')[0]
+        span.setAttribute('style', 'display: none;')
+        input.value = _DATA.home.test[parseInt(key)][val][0]
+        input.className += ' undefined-wide'
       } else {
-        [ input.placeholder, input.value ] = [ input.value || '?', '' ]
+        input.className += ' undefined'
       }
-      input.setAttribute('style', 'display: ;')
+      span.className += ' undefined'
+      if (span && !span.getAttribute('style', 'display')) [ input.placeholder, input.value ] = [ '', '']
+      if (isNaN(input.value)) [ input.placeholder, input.value ] = [ '', '']
+      input.setSelectionRange(input.value.length+1, input.value.length+1)
+      input.style.display = ''
       setTimeout(()=>{ input.focus() },1)
-    } else {
-      const state = _DATA.home.test[parseInt(key)][val]
+    }
+    else if (val !== 'weight'){
+      let state = _DATA.home.test[parseInt(key)][val]
+      if (typeof state === 'object' || state > 0) state = false
       _DATA.home.test[parseInt(key)][val] = state === false ? ' ' : false
       putMyJson(_DATA, _PERSONAL_URI)
     }
   }, true)
 
   c._ADD_EVENT('keypress', 'main', ([ key, val, elm ] = c.KVE(event))=>{
+    let unknown = true
     if (event.keyCode == 13) {
       if (elm.value !== '') {
         _DATA.home.test[parseInt(key)][val] = elm.value
-        // putMyJson(_DATA, _PERSONAL_URI)
       }
-      if (['cardio','lift','walk','scrum'].includes(val)) {
-        console.log('includes', val)
-        _DATA.home.test[parseInt(key)][val] = [ elm.value, true ]
+      if (['cardio','lift','walk','scrum','weight'].includes(val)) {
+        if (parseInt(elm.value) === 0) unknown = false
+        _DATA.home.test[parseInt(key)][val] = [ elm.value, unknown ]
+        elm.classList.remove('undefined-wide')
+      }
+      if (val === 'weight') {
+        elm.value = ''
+        let span = elm.parentElement.getElementsByTagName('div')[0]
+        span.setAttribute('style', 'display: "";')
+        span.classList.remove('undefined')
       }
       putMyJson(_DATA, _PERSONAL_URI)
       elm.blur()
     }
   }, true)
 
-  //const days = ['Mon', 'Tue', 'Wed', 'Thr', 'Fri', 'Sat', 'Sun']
+  c._ADD_EVENT('mouseover', 'main', ([ key, val ] = c.KVE(event), value)=>{
+    let day = key ? parseInt(key)+1 : key
+    const capVal = val ? val.charAt(0).toUpperCase() + val.slice(1) : val
+    if (val) {
+      if (day === 1) day += 'st'
+      else if (day === 2) day += 'nd'
+      else if (day === 3) day += 'rd'
+      else if (day > 3) day += 'th'
+      value = typeof c.data.test[parseInt(key)][val] === 'object' ?
+        c.data.test[parseInt(key)][val][0] : c.data.test[parseInt(key)][val]
+      if (!value) value = '&#10025;'
+    }
+    c.I('hover-day').innerHTML = (!val) ? '' :
+      c.data.test[0].date.month+' '+day+' '+capVal+': '+(value === ' ' ? '?' : value)
+  })
 
+  // const days = ['Mon', 'Tue', 'Wed', 'Thr', 'Fri', 'Sat', 'Sun']
   // c.t = []
   // for (var i = 0; i < 31; i++) {
   //   c.t.push({
@@ -197,6 +263,8 @@ td {
   //     lift: ' ',
   //     walk: ' ',
   //     scrum: ' ',
+  //     weight: '',
+  //     water: ' ',
   //   })
   // }
   // _DATA.home.test = c.t
@@ -206,4 +274,11 @@ td {
 })()
 
 </script>
-<!--  / / / / / / / / / / / / / / /   Notes    / / / / / / / / / / / / / / / -->
+<!--  / / / / / / / / / / / / / / /   Notes    / / / / / / / / / / / / / / /
+- click+download Json to archive json folder?
+- Add days locks + unlock all!
+- Add Weight
+- figure out what to do with long floats triple digits?
+  - round? (and have float display box of currently clicked on ... )
+- Add Water Bottles Drank?
+-->
