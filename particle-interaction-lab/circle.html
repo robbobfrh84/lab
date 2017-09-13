@@ -1,0 +1,282 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title> Particle Interaction </title>
+<style media="screen">
+body {
+  background: gray;
+  text-align: center;
+}
+div, button {
+  margin-bottom: 5px;
+}
+#c {
+	background: #FFF8E7;
+	margin: 0 auto;
+	display: block;
+}
+</style>
+</head>
+<body>
+  <div>
+    <span> Gravity X: </span> <input id='x'>
+    <span style='padding-left: 41px;'> Gravity Y: </span> <input id='y'>
+  </div>
+  <div>
+    <span style='padding-left: 5px;'> Damping: </span> <input id='d'>
+    <span style='padding-left: 11px;'> Wall Damping: </span> <input id='wd'>
+  </div>
+  <div>
+    <span style='padding-left: 24px;'> Speed: </span> <input id='sp'>
+    <span style='padding-left: 17px;'> Wall Pressure: </span> <input id='wp'>
+
+  </div>
+  <button onclick="updateNav()" style='margin: auto;'> Update </button>
+  <canvas id="c"></canvas>
+</body>
+<script type="text/javascript">
+
+var numBalls = 50,
+    ballSize = 5,
+    damping = 0.6,
+    wallDamping = 0.999,
+    wallPressure = 0,
+    xGravity = 0.7,
+    // xGravity = 0,
+    yGravity = 0,
+    mouseSize = 150,
+    spd = 1,
+    cw = 600,
+    ch = 600,
+    cRad = 280
+
+var canvas, ctx, TWO_PI = Math.PI * 2, balls = [], mouse = {down:false,x:0,y:0}
+
+getXLoc = ()=>{ return Math.random() * (canvas.width - cRad+70) + (cRad/2)-35 }
+getYLoc = ()=>{ return Math.random() * (canvas.height - cRad+70) + (cRad/2)-35 }
+// getBallRadius = ()=>{ return 10 + Math.random() * 20 }
+getBallRadius = ()=>{ return ballSize + Math.random() * ballSize*2 }
+
+
+
+window.requestAnimFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||
+  function(callback) { window.setTimeout(callback, 1000 / 60) }
+
+class Ball {
+
+  constructor (x, y, r) {
+    [this.x, this.y, this.px, this.py, this.fx, this.fy, this.radius] = [x,y,x,y,0,0,r]
+  }
+
+  applyForce (delta) {
+    delta *= delta
+    this.fy += xGravity
+    this.fx += yGravity
+    this.x += this.fx * delta
+    this.y += this.fy * delta
+    this.fx = this.fy = 0
+  }
+
+  verlet () {
+    const nx = (this.x * 2) - this.px; const ny = (this.y * 2) - this.py;
+    [ this.px, this.py, this.x, this.y ] = [ this.x, this.y, nx, ny ]
+  }
+
+  draw (ctx) {
+    ctx.beginPath()
+    ctx.arc(this.x, this.y, this.radius, 0, TWO_PI)
+    ctx.fill()
+  }
+}
+
+resolveCollisions = (ip, i = balls.length)=>{
+  while (i--) {
+    let ball_1 = balls[i]
+    if (mouse.down) {
+      const diff_x = ball_1.x - mouse.x
+      const diff_y = ball_1.y - mouse.y
+      const dist = Math.sqrt(diff_x * diff_x + diff_y * diff_y)
+      const real_dist = dist - (ball_1.radius + mouseSize)
+      if (real_dist < 0) {
+        const depth_x = diff_x * (real_dist / dist)
+        const depth_y = diff_y * (real_dist / dist);
+        ball_1.x -= depth_x * 0.005
+        ball_1.y -= depth_y * 0.005
+      }
+    }
+    let n = balls.length
+    while (n--) {
+      if (n == i) continue
+      const ball_2 = balls[n]
+      const diff_x = ball_1.x - ball_2.x
+      const diff_y = ball_1.y - ball_2.y
+      const length = diff_x * diff_x + diff_y * diff_y
+      const dist = Math.sqrt(length)
+      const real_dist = dist - (ball_1.radius + ball_2.radius)
+      if (real_dist < 0) {
+        let vel_x1 = ball_1.x - ball_1.px
+        let vel_y1 = ball_1.y - ball_1.py
+        let vel_x2 = ball_2.x - ball_2.px
+        let vel_y2 = ball_2.y - ball_2.py
+        let depth_x = diff_x * (real_dist / dist)
+        let depth_y = diff_y * (real_dist / dist)
+        ball_1.x -= depth_x * 0.5
+        ball_1.y -= depth_y * 0.5
+        ball_2.x += depth_x * 0.5
+        ball_2.y += depth_y * 0.5
+        if (ip) {
+          const pr1 = damping * (diff_x*vel_x1+diff_y*vel_y1) / length,
+              pr2 = damping * (diff_x*vel_x2+diff_y*vel_y2) / length
+          vel_x1 += pr2 * diff_x - pr1 * diff_x
+          vel_x2 += pr1 * diff_x - pr2 * diff_x
+          vel_y1 += pr2 * diff_y - pr1 * diff_y
+          vel_y2 += pr1 * diff_y - pr2 * diff_y
+          ball_1.px = ball_1.x - vel_x1
+          ball_1.py = ball_1.y - vel_y1
+          ball_2.px = ball_2.x - vel_x2
+          ball_2.py = ball_2.y - vel_y2
+        }
+      }
+    }
+  }
+}
+
+checkWalls = (i = balls.length)=>{
+  while (i--) {
+    var ball = balls[i];
+    const ax = Math.abs(cw/2 - ball.x)
+    const ay = Math.abs(ch/2 - ball.y)
+    const edge = (Math.sqrt((ax*ax)+(ay*ay))) + ball.radius
+    if (edge > cRad) {
+      const vel_x = (ball.px - ball.x)*wallDamping
+      const vel_y = (ball.py - ball.y)*wallDamping
+      ball.px = ball.x > (cw/2) ? (ball.x + (vel_x)) : (ball.x + (vel_x))
+      ball.py = ball.y > (ch/2) ? (ball.y + (vel_y)) : (ball.y + (vel_y))
+      const ang1 = Math.atan(ax/ay) * 180/Math.PI
+      const wallx = Math.sin(ang1 * Math.PI/180) * (cRad - ball.radius + wallPressure)
+      const wally = Math.cos(ang1 * Math.PI/180) * (cRad - ball.radius + wallPressure)
+      ball.x = ball.x > (cw/2) ? (wallx + (cw/2)) : ((cw/2)-wallx)
+      ball.y = ball.y > (ch/2) ? (wally + (ch/2)) : ((ch/2)-wally)
+    }
+  }
+}
+
+var cnt = 0
+update = ()=>{
+  var iter = 6
+  var delta = spd / iter
+  while (iter--) {
+    let i = balls.length
+    checkWalls()
+    while (i--) {
+      balls[i].applyForce(delta)
+      balls[i].verlet()
+    }
+    resolveCollisions()
+    i = balls.length
+    while (i--) balls[i].verlet()
+    resolveCollisions(1)
+  }
+  ctx.clearRect(0, 0, canvas.width, canvas.height)
+  ctx.beginPath() // Build Circular Container
+  ctx.arc(cw/2,ch/2,cRad,0,Math.PI*2)
+  ctx.fillStyle = 'rgba(100,50,50,0.2)'
+  ctx.lineWidth = 1
+  ctx.fill()
+  ctx.stroke()
+  ctx.fillStyle = 'rgba(27,155,244,0.3)' // set particle color
+  var i = balls.length
+  while (i--) balls[i].draw(ctx)
+  if (mouse.down) {
+    ctx.fillStyle   = 'rgba(0,0,0,0.1)'
+    ctx.strokeStyle = 'rgba(0,0,0,0.2)'
+    ctx.beginPath()
+    ctx.arc(mouse.x, mouse.y, mouseSize, 0, TWO_PI)
+    ctx.fill()
+    ctx.stroke()
+  }
+  requestAnimFrame(update)
+}
+
+addBall = (x, y, r)=>{
+  var x = x || getXLoc(),
+    y = y || getYLoc(),
+    r = r || getBallRadius(),
+    s = true,
+    i = balls.length
+  while (i--) {
+    var ball = balls[i]
+    var diff_x = ball.x - x
+    var diff_y = ball.y - y
+    var dist = Math.sqrt(diff_x * diff_x + diff_y * diff_y)
+    if (dist < ball.radius + r) {
+        s = false
+        break
+    }
+  }
+  if (s) balls.push(new Ball(x, y, r))
+}
+
+updateNav = ()=>{
+  xGravity = parseFloat(x.value)
+  yGravity = parseFloat(y.value)
+  damping = parseFloat(d.value)
+  wallDamping = parseFloat(wd.value)
+  wallPressure = parseFloat(wp.value)
+  spd = parseFloat(sp.value)
+}
+
+/*******************************************************************************
+              WINDOW.ONLOAD & CANVAS BUILD & MOUSE EVENTS
+*******************************************************************************/
+
+
+window.onload = function() {
+    canvas = document.getElementById('c')
+    ctx = canvas.getContext('2d')
+    canvas.width = cw
+    canvas.height = ch
+    while (numBalls--) addBall()
+    console.log('balls.length: ',balls.length)
+    canvas.onmousedown = function(e) {
+      if (e.which == 1) {
+        addBall(mouse.x, mouse.y)
+      } else if (e.which == 3) { // right-click
+        mouse.down = true;
+        document.body.style.cursor = 'none';
+      }
+      e.preventDefault()
+    }
+
+    canvas.onmouseup = function(e) {
+      if (e.which == 3) {
+        mouse.down = false
+        document.body.style.cursor = 'default'
+      }
+      e.preventDefault()
+    }
+
+    canvas.onmousemove = function(e) {
+      var rect = this.getBoundingClientRect()
+      mouse.x = e.clientX - rect.left
+      mouse.y = e.clientY - rect.top
+    }
+
+    canvas.onmouseout = function(e) {
+      mouse.down = false
+      document.body.style.cursor = 'default'
+    }
+
+    canvas.oncontextmenu = function(e) {
+      e.preventDefault()
+      return false
+    }
+    x.value = xGravity
+    y.value = yGravity
+    d.value = damping
+    wd.value = wallDamping
+    wp.value = wallPressure
+    sp.value = spd
+    update()
+}
+
+</script>
+</script>
+</html>
