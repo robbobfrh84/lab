@@ -10,26 +10,38 @@ div, button {
 #c {
 	background: #FFF8E7;
 	margin: 0 auto;
-	display: block;
+}
+#nav {
+  float: right;
+  width: 160px;
+}
+input {
+  width: 50px;
+  margin-right: 1px;
+  margin-bottom: 2px;
+}
+span {
+  width: 100px;
+  float: left;
+  text-align: left;
 }
 </style>
 </head>
 <body>
-  <div>
-    <span> Gravity X: </span> <input id='x'>
-    <span style='padding-left: 41px;'> Gravity Y: </span> <input id='y'>
-  </div>
-  <div>
-    <span style='padding-left: 5px;'> Damping: </span> <input id='d'>
-    <span style='padding-left: 11px;'> Wall Damping: </span> <input id='wd'>
-  </div>
-  <div>
-    <span style='padding-left: 24px;'> Speed: </span> <input id='sp'>
-    <span style='padding-left: 17px;'> Wall Pressure: </span> <input id='wp'>
-
-  </div>
-  <button onclick="updateNav()" style='margin: auto;'> Update </button>
   <canvas id="c"></canvas>
+  <div id="nav">
+    <span> Gravity X: </span> <input id='x'>
+    <span> Gravity Y: </span> <input id='y'>
+    <span> Damping: </span> <input id='d'>
+    <span> Wall Damping: </span> <input id='wd'>
+    <span> Speed: </span> <input id='sp'>
+    <span> Wall Pressure: </span> <input id='wp'>
+    <button onclick="updateNav()" style='margin: auto;'> Update </button>
+    <hr>
+    <span> Ball Count: </span> <input id='bc'>
+    <span> Ball Size: </span> <input id='bs'>
+    <button onclick="reset()" style='margin: auto;'> Reset </button>
+  </div>
 </body>
 <script type="text/javascript">
 
@@ -39,22 +51,19 @@ var numBalls = 50,
     wallDamping = 0.999,
     wallPressure = 0,
     xGravity = 0.7,
-    // xGravity = 0,
     yGravity = 0,
     mouseSize = 150,
     spd = 1,
     cw = 600,
     ch = 600,
     cRad = 280
+    kill = false
 
 var canvas, ctx, TWO_PI = Math.PI * 2, balls = [], mouse = {down:false,x:0,y:0}
 
 getXLoc = ()=>{ return Math.random() * (canvas.width - cRad+70) + (cRad/2)-35 }
 getYLoc = ()=>{ return Math.random() * (canvas.height - cRad+70) + (cRad/2)-35 }
-// getBallRadius = ()=>{ return 10 + Math.random() * 20 }
 getBallRadius = ()=>{ return ballSize + Math.random() * ballSize*2 }
-
-
 
 window.requestAnimFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||
   function(callback) { window.setTimeout(callback, 1000 / 60) }
@@ -158,7 +167,6 @@ checkWalls = (i = balls.length)=>{
   }
 }
 
-var cnt = 0
 update = ()=>{
   var iter = 6
   var delta = spd / iter
@@ -192,7 +200,11 @@ update = ()=>{
     ctx.fill()
     ctx.stroke()
   }
-  requestAnimFrame(update)
+  if (balls.length < numBalls) {
+    addBall()
+    bc.value = balls.length < numBalls ? balls.length+' of '+numBalls: balls.length
+  }
+  if (!kill) requestAnimFrame(update)
 }
 
 addBall = (x, y, r)=>{
@@ -223,58 +235,72 @@ updateNav = ()=>{
   spd = parseFloat(sp.value)
 }
 
+reset = ()=>{
+  balls = []
+  kill = true
+  numBalls = parseInt(bc.value)
+  ballSize = parseInt(bs.value)
+  ctx.clearRect(0, 0, canvas.width, canvas.height)
+  set()
+  kill = false
+}
+
 /*******************************************************************************
               WINDOW.ONLOAD & CANVAS BUILD & MOUSE EVENTS
 *******************************************************************************/
 
 
-window.onload = function() {
-    canvas = document.getElementById('c')
-    ctx = canvas.getContext('2d')
-    canvas.width = cw
-    canvas.height = ch
-    while (numBalls--) addBall()
-    console.log('balls.length: ',balls.length)
-    canvas.onmousedown = function(e) {
-      if (e.which == 1) {
-        addBall(mouse.x, mouse.y)
-      } else if (e.which == 3) { // right-click
-        mouse.down = true;
-        document.body.style.cursor = 'none';
-      }
-      e.preventDefault()
-    }
+window.onload = ()=>{ set() }
 
-    canvas.onmouseup = function(e) {
-      if (e.which == 3) {
-        mouse.down = false
-        document.body.style.cursor = 'default'
-      }
-      e.preventDefault()
+set = ()=>{
+  canvas = document.getElementById('c')
+  ctx = canvas.getContext('2d')
+  canvas.width = cw
+  canvas.height = ch
+  let numBallsDecriment = numBalls
+  while (numBallsDecriment--) addBall()
+  canvas.onmousedown = function(e) {
+    if (e.which == 1) {
+      addBall(mouse.x, mouse.y)
+    } else if (e.which == 3) { // right-click
+      mouse.down = true;
+      document.body.style.cursor = 'none';
     }
+    e.preventDefault()
+  }
 
-    canvas.onmousemove = function(e) {
-      var rect = this.getBoundingClientRect()
-      mouse.x = e.clientX - rect.left
-      mouse.y = e.clientY - rect.top
-    }
-
-    canvas.onmouseout = function(e) {
+  canvas.onmouseup = function(e) {
+    if (e.which == 3) {
       mouse.down = false
       document.body.style.cursor = 'default'
     }
+    e.preventDefault()
+  }
 
-    canvas.oncontextmenu = function(e) {
-      e.preventDefault()
-      return false
-    }
-    x.value = xGravity
-    y.value = yGravity
-    d.value = damping
-    wd.value = wallDamping
-    wp.value = wallPressure
-    sp.value = spd
-    update()
+  canvas.onmousemove = function(e) {
+    var rect = this.getBoundingClientRect()
+    mouse.x = e.clientX - rect.left
+    mouse.y = e.clientY - rect.top
+  }
+
+  canvas.onmouseout = function(e) {
+    mouse.down = false
+    document.body.style.cursor = 'default'
+  }
+
+  canvas.oncontextmenu = function(e) {
+    e.preventDefault()
+    return false
+  }
+  x.value = xGravity
+  y.value = yGravity
+  d.value = damping
+  wd.value = wallDamping
+  wp.value = wallPressure
+  sp.value = spd
+  bc.value = balls.length < numBalls ? balls.length+' of '+numBalls: balls.length
+  bs.value = ballSize
+  update()
 }
 
 </script>
