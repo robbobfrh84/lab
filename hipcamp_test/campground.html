@@ -1,0 +1,120 @@
+<!doctype html>
+<head>
+  <meta charset="utf-8">
+  <title>Camp Features</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+  </script>
+</head>
+<body>
+  <div class="nav-bar">
+    HipCamp
+  </div>
+  <div class='site-name'>
+    Big Lake Side Camp
+  </div>
+  <div class="host-info">
+    <div class='icon-box'>
+      :-)
+    </div>
+    <div class='host-name'>
+      <strong class='bold'> Hosted By </strong> <br> Bob
+    </div>
+    <div class='summery'> <br> &nbsp; &nbsp; &nbsp; &nbsp;
+      Nestled in the beautiful Fall River Valley, this beautiful land overlooks farms and hillsides. There is ample hiking, biking, fishing and hunting. Don’t miss the beautiful moonlight canoe ride on Lake Ahjumawi or drinks at the Buckhorn saloon!
+    </div>
+  </div>
+  <div class='features-box'>
+    <ul class='ul-box'>
+      <li onclick='showSubF()' name="Toilet" class='feature'>
+        <span class="check"> &#10003; </span>
+        Toilets
+        <div class="plus-minus-toggle plus"> </div>
+      </li>
+      <li onclick='showSubF()' name="Pets allowed" class='feature'>
+        <span class="check"> &#10003; </span>
+        Pets Allowed
+        <div class="plus-minus-toggle plus"></div>
+      </li>
+      <li onclick='showSubF()' name="Shower" class='feature'>
+        <span class="check"> &#10003; </span>
+        Shower
+        <div class="plus-minus-toggle plus"> </div>
+      </li>
+      <li onclick='showSubF()' name="Trash" class='feature'>
+        <span class="check"> &#10003; </span>
+        Trash
+        <div class="plus-minus-toggle plus"> </div>
+      </li>
+    </ul>
+  </div>
+</body>
+
+  <script src="camp_features.js"></script>
+  <script>
+
+  showSubF = ()=>{
+    const title = event.path[0].getAttribute('name')
+    const feature = FEATURES.filter((x)=>{ return title === x.title })[0]
+    const parent = event.path[0].nextElementSibling
+    let status = '<span class="check"> &#10003; </span>'
+
+    displaySubFeatures = (feature, parent)=>{
+      const ul_node = document.createElement('ul')
+      event.path[1].insertBefore(ul_node, parent)
+      for (subfeature of feature.subfeatures) {
+        const node = document.createElement('li')
+        const textnode = document.createTextNode(subfeature.title)
+        if (!subfeature.presence) {
+          console.log(node)
+          node.className += ' no-presence'
+          status = '<span class="x2"> &#10005; </span>'
+          node.innerHTML += '<span class="x2"> &#10005; </span>'+node.innerHTML
+        }
+        if (subfeature.subfeatures.length) {
+          node.className += ' pointer'
+          node.innerHTML = status+'<div class="plus-minus-toggle plus show"> </div>'
+          const passObj = subfeature
+          node.className += ' ul-feature'
+          node.addEventListener('click', ()=>{
+            if (!subfeature.open) displaySubFeatures(passObj, node.nextElementSibling)
+            else ul_node.removeChild(node.nextElementSibling);
+            if (!subfeature.open) node.children[1].className = 'plus-minus-toggle show'
+            else node.children[1].className = 'plus-minus-toggle plus show'
+            subfeature.open = !subfeature.open
+          })
+        }
+        if (subfeature.presence) {
+          node.innerHTML = '<span class="check"> &#10003; </span>'+node.innerHTML
+        }
+        node.appendChild(textnode)
+        ul_node.appendChild(node)
+      }
+    }
+    if (feature.subfeatures.length) {
+      if (!feature.open) event.path[0].children[1].className = 'plus-minus-toggle show'
+      else event.path[0].children[1].className = 'plus-minus-toggle plus show'
+    }
+    if (!feature.open) displaySubFeatures(feature, parent)
+    else while (parent.hasChildNodes()) { parent.removeChild(parent.lastChild) }
+    feature.open = !feature.open
+    if (subfeature.open) subfeature.open = !subfeature.open
+  }
+
+  window.onload = ()=>{
+    // After dom is loaded (or api recieved) Change class for features that do not exist.
+    for (featureTag of document.getElementsByClassName('feature')) {
+      const feature = FEATURES.filter((x)=>{ return featureTag.getAttribute('name') === x.title })[0]
+      if (!feature.presence) {
+        featureTag.className += ' no-presence'
+        featureTag.children[0].innerHTML = '<span class="x"> &#10005; </span> '+featureTag.children[1].innerHTML
+      }
+      if (feature.subfeatures.length) {
+        featureTag.children[1].className += ' show'
+        featureTag.className += ' pointer'
+      }
+    }
+  }
+
+  </script>
+</html>
