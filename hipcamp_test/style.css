@@ -2,6 +2,7 @@ body {
   font-family: Avenir;
   text-align: center;
   font-weight: 300;
+  margin: 0;
 }
 li {
   background: white;
@@ -15,15 +16,23 @@ ul {
   padding-left: 30px;
 }
 .nav-bar {
-  background-color: #AAA;
-  height: 60px;
+  position: absolute;
+  top: 69px;
+  background-color: #DDD;
+  height: 1.5px;
   width: 100%;
-  margin-bottom: 5px;
+}
+.left-nav {
+  float: left;
+}
+.right-nav {
+  float: right;
 }
 .site-name {
   font-size: 20px;
   margin: auto;
   margin-bottom: 5px;
+  margin-top: 65px;
   text-align: left;
   width: 91%;
 }
@@ -36,17 +45,25 @@ ul {
 .host-info {
   padding: 5px;
 }
+.features-box {
+  margin-top: -20px;
+}
 .ul-box {
   padding: 5px;
 }
 .icon-box {
   display: inline-block;
   float: left;
-  background-color: cornflowerblue;
+  background-color: rgba(0,0,255,0.15);
   border-radius: 100%;
   width: 60px;
   height: 60px;
   margin-right: 10px;
+}
+.bob {
+  border-radius: 100%;
+  width: 60px;
+  height: 60px;
 }
 .host-name {
   text-align: left;
@@ -68,7 +85,6 @@ ul {
   margin: 5px;
 }
 .no-presence {
-  /*text-decoration: line-through;*/
   color: #CCC
 }
 .pointer {
@@ -119,7 +135,7 @@ ul {
 }
 .check {
   color: green;
-  opacity: 0.6;
+  opacity: 0.5;
 }
 .x2 {
   opacity: 0.3;
