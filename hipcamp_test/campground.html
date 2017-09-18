@@ -28,8 +28,8 @@
     </div>
   </div>
   <div class='features-box'>
-    <ul class='ul-box'>
-      <li onclick='showSubF()' name="Toilet" class='feature'>
+    <ul id='show-features' class='ul-box'>
+      <!-- <li onclick='showSubF()' name="Toilet" class='feature'>
         <span class="check"> &#10003; </span>
         Toilets
         <div class="plus-minus-toggle plus"> </div>
@@ -48,17 +48,18 @@
         <span class="check"> &#10003; </span>
         Trash
         <div class="plus-minus-toggle plus"> </div>
-      </li>
+      </li> -->
     </ul>
   </div>
 </body>
 <script src="camp_features.js"></script>
 <script>
 
-  showSubF = ()=>{
-    const title = event.path[0].getAttribute('name')
+  showSubF = (title)=>{
+    // const title = event.path[0].getAttribute('name')
     const feature = FEATURES.filter((x)=>{ return title === x.title })[0]
     const parent = event.path[0].nextElementSibling
+    // const parent = event.path[0]
     let status = '<span class="check"> &#10003; </span>'
     displaySubFeatures = (feature, parent)=>{
       const ul_node = document.createElement('ul')
@@ -102,18 +103,47 @@
   }
 
   window.onload = ()=>{
-    // After dom is loaded (or api recieved) Change class for features that do not exist.
-    for (featureTag of document.getElementsByClassName('feature')) {
-      const feature = FEATURES.filter((x)=>{ return featureTag.getAttribute('name') === x.title })[0]
+    let showFeatures = document.getElementById('show-features')
+
+    for (feature of FEATURES) {
+      var li = document.createElement('li') // creat new <li> tag for feature
+      // if the feature is not-presence show "x"-icon and give no-presence class
       if (!feature.presence) {
-        featureTag.className += ' no-presence'
-        featureTag.children[0].innerHTML = '<span class="x"> &#10005; </span> '+featureTag.children[1].innerHTML
+        li.className += 'feature no-presence'
+        li.innerHTML = '<span class="x"> &#10005; </span> '+feature.title
+      } else {
+        li.className += 'feature'
+        li.innerHTML = '<span class="check"> &#10003; </span> '+feature.title
       }
+      // feature has subfeature, give pointer class to idicate clickable
       if (feature.subfeatures.length) {
-        featureTag.children[1].className += ' show'
-        featureTag.className += ' pointer'
+        //     featureTag.children[1].className += ' show'
+        li.className += ' pointer'
+        li.innerHTML += '<div class="plus-minus-toggle plus show"> </div>'
+        const title = feature.title
+        li.addEventListener('click', ()=>{ showSubF(title) })
       }
+      showFeatures.appendChild(li) // add feature <li> to parent <ul>
+
+      // showFeatures.innerHTML += '<li onclick="showSubF()" name="Toilet" class="feature">'
+      //   +'<span class="check"> &#10003; </span>'
+      //   +feature.title+'<div class="plus-minus-toggle plus"> </div></li>'
     }
+    // After dom is loaded (or api recieved) Change class for features that do not exist.
+    // for (featureTag of document.getElementsByClassName('feature')) {
+    //   console.log(featureTag)
+    //   const feature = FEATURES.filter((x)=>{ return featureTag.getAttribute('name') === x.title })[0]
+    //   if (!feature.presence) {
+    //     featureTag.className += ' no-presence'
+    //     featureTag.children[0].innerHTML = '<span class="x"> &#10005; </span> '+featureTag.children[1].innerHTML
+    //   }
+    //   if (feature.subfeatures.length) {
+    //     featureTag.children[1].className += ' show'
+    //     featureTag.className += ' pointer'
+    //   }
+    // }
+    // hide initial state of features while api returns...
+    showFeatures.style.display = 'block'
   }
 
 </script>

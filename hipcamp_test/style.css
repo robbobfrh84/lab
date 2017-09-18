@@ -50,6 +50,7 @@ ul {
 }
 .ul-box {
   padding: 5px;
+  display: none;
 }
 .icon-box {
   display: inline-block;

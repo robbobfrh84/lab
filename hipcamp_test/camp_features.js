@@ -46,5 +46,15 @@ var FEATURES = [
         ]
       }
     ]
+  },
+  {
+    'title': 'Trails',
+    'presence': false,
+    'subfeatures': []
+  },
+  {
+    'title': 'Campfires',
+    'presence': true,
+    'subfeatures': []
   }
 ];
