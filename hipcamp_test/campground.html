@@ -10,13 +10,14 @@
   <div>
     <img class='left-nav' src="left.png">
     <img class='right-nav' src="right.png">
-    <div class="nav-bar"></div>
+    <div class="nav-bar"> </div>
   </div>
   <br>
   <div class='site-name'>
     Big Lake Camp
   </div>
   <div class="host-info">
+    <span class='right-arrow'> &#10095; </span>
     <div class='icon-box'>
       <img class='bob' src="bob.png">
     </div>
@@ -28,122 +29,74 @@
     </div>
   </div>
   <div class='features-box'>
-    <ul id='show-features' class='ul-box'>
-      <!-- <li onclick='showSubF()' name="Toilet" class='feature'>
-        <span class="check"> &#10003; </span>
-        Toilets
-        <div class="plus-minus-toggle plus"> </div>
-      </li>
-      <li onclick='showSubF()' name="Pets allowed" class='feature'>
-        <span class="check"> &#10003; </span>
-        Pets Allowed
-        <div class="plus-minus-toggle plus"></div>
-      </li>
-      <li onclick='showSubF()' name="Shower" class='feature'>
-        <span class="check"> &#10003; </span>
-        Shower
-        <div class="plus-minus-toggle plus"> </div>
-      </li>
-      <li onclick='showSubF()' name="Trash" class='feature'>
-        <span class="check"> &#10003; </span>
-        Trash
-        <div class="plus-minus-toggle plus"> </div>
-      </li> -->
-    </ul>
+    <li class='feature-title pointer' onclick='openFeatures()'>
+      Features
+      <div id='featureIcon' class='plus-minus-toggle plus show lg'></div>
+    </li>
+    <ul id='show-features' class='ul-box fadeOut'></ul>
   </div>
 </body>
 <script src="camp_features.js"></script>
 <script>
 
-  showSubF = (title)=>{
-    // const title = event.path[0].getAttribute('name')
-    const feature = FEATURES.filter((x)=>{ return title === x.title })[0]
-    const parent = event.path[0].nextElementSibling
-    // const parent = event.path[0]
-    let status = '<span class="check"> &#10003; </span>'
-    displaySubFeatures = (feature, parent)=>{
-      const ul_node = document.createElement('ul')
-      event.path[1].insertBefore(ul_node, parent)
-      for (subfeature of feature.subfeatures) {
-        const node = document.createElement('li')
-        const textnode = document.createTextNode(subfeature.title)
-        if (!subfeature.presence) {
-          node.className += ' no-presence'
-          status = '<span class="x2"> &#10005; </span>'
-          node.innerHTML += '<span class="x2"> &#10005; </span>'+node.innerHTML
+  showFeatures = (parentId, features, subfeature)=>{
+    let parent = document.getElementById(parentId)
+    // check if feature/subFeature has been created by checking it's display attribute.
+    if (parent.style.display === ''){
+      for (feature of features) {
+        let li = document.createElement('li') // creat new <li> tag for feature
+        // if the feature is not-presence show "x"-icon and give no-presence class
+        if (!feature.presence) {
+          li.className += !subfeature ? 'feature no-presence' : ' no-presence'
+          li.innerHTML = '<span class="x"> &#10005; </span> '+feature.title
+        } else {
+          li.className += !subfeature ? ' feature' : ''
+          li.innerHTML = '<span class="check"> &#10003; </span> '+feature.title
         }
-        if (subfeature.subfeatures.length) {
-          node.className += ' pointer'
-          node.innerHTML = status+'<div class="plus-minus-toggle plus show"> </div>'
-          const passObj = subfeature
-          node.className += ' ul-feature'
-          node.addEventListener('click', ()=>{
-            if (!subfeature.open) displaySubFeatures(passObj, node.nextElementSibling)
-            else ul_node.removeChild(node.nextElementSibling);
-            if (!subfeature.open) node.children[1].className = 'plus-minus-toggle show'
-            else node.children[1].className = 'plus-minus-toggle plus show'
-            subfeature.open = !subfeature.open
+        // feature has subfeature, give pointer class to idicate clickable
+        if (feature.subfeatures.length) {
+          li.className += !subfeature ? ' pointer' : ' pointer ul-feature'
+          let div = document.createElement('div')
+          div.className = "plus-minus-toggle plus show"
+          div.className += subfeature ? ' subPMIcon' : ''
+          li.appendChild(div)
+          const subfeatures = feature.subfeatures
+          const title = feature.title
+          // li.addEventListener('click', ()=>{ showSubF(title, FEATURES) })
+          var ul = document.createElement('ul') // creat new <ul> tag for subfeature
+          ul.id = title
+          // if (!feature.built) feature.open = false
+          li.addEventListener('click', ()=>{
+            showFeatures(title, subfeatures, true)
+            // check the plus/minus icon's state and toggle by swapping class
+            if (div.className.split(' ')[1] === 'plus') {
+              div.className = "plus-minus-toggle show"
+              div.className += subfeature ? ' subPMIcon' : ''
+            } else {
+              div.className = "plus-minus-toggle plus show"
+              div.className += subfeature ? ' subPMIcon' : ''
+            }
           })
         }
-        if (subfeature.presence) {
-          node.innerHTML = '<span class="check"> &#10003; </span>'+node.innerHTML
-        }
-        node.appendChild(textnode)
-        ul_node.appendChild(node)
+        // Add new list item to DOM
+        parent.appendChild(li) // add feature <li> to parent <ul>
+        if (feature.subfeatures.length) parent.appendChild(ul) // add subfeature <ul> to parent <ul>
       }
-    }
-    if (feature.subfeatures.length) {
-      if (!feature.open) event.path[0].children[1].className = 'plus-minus-toggle show'
-      else event.path[0].children[1].className = 'plus-minus-toggle plus show'
-    }
-    if (!feature.open) displaySubFeatures(feature, parent)
-    else while (parent.hasChildNodes()) { parent.removeChild(parent.lastChild) }
-    feature.open = !feature.open
-    if (subfeature.open) subfeature.open = !subfeature.open
+      // reveal features to use.
+      parent.className += ' fadeIn'
+      parent.style.display = 'block'
+    // if the feature/subFeature has already been created, toggle it's display.
+    } else { parent.style.display = parent.style.display === 'none' ? 'block' : 'none' }
   }
 
-  window.onload = ()=>{
-    let showFeatures = document.getElementById('show-features')
-
-    for (feature of FEATURES) {
-      var li = document.createElement('li') // creat new <li> tag for feature
-      // if the feature is not-presence show "x"-icon and give no-presence class
-      if (!feature.presence) {
-        li.className += 'feature no-presence'
-        li.innerHTML = '<span class="x"> &#10005; </span> '+feature.title
-      } else {
-        li.className += 'feature'
-        li.innerHTML = '<span class="check"> &#10003; </span> '+feature.title
-      }
-      // feature has subfeature, give pointer class to idicate clickable
-      if (feature.subfeatures.length) {
-        //     featureTag.children[1].className += ' show'
-        li.className += ' pointer'
-        li.innerHTML += '<div class="plus-minus-toggle plus show"> </div>'
-        const title = feature.title
-        li.addEventListener('click', ()=>{ showSubF(title) })
-      }
-      showFeatures.appendChild(li) // add feature <li> to parent <ul>
-
-      // showFeatures.innerHTML += '<li onclick="showSubF()" name="Toilet" class="feature">'
-      //   +'<span class="check"> &#10003; </span>'
-      //   +feature.title+'<div class="plus-minus-toggle plus"> </div></li>'
+  openFeatures = ()=>{
+    showFeatures('show-features', FEATURES)
+    // check the plus/minus icon's state and toggle by swapping class
+    if (featureIcon.className.split(' ')[1] === 'plus') {
+      featureIcon.className = "plus-minus-toggle show lg"
+    } else {
+      featureIcon.className = "plus-minus-toggle plus show lg"
     }
-    // After dom is loaded (or api recieved) Change class for features that do not exist.
-    // for (featureTag of document.getElementsByClassName('feature')) {
-    //   console.log(featureTag)
-    //   const feature = FEATURES.filter((x)=>{ return featureTag.getAttribute('name') === x.title })[0]
-    //   if (!feature.presence) {
-    //     featureTag.className += ' no-presence'
-    //     featureTag.children[0].innerHTML = '<span class="x"> &#10005; </span> '+featureTag.children[1].innerHTML
-    //   }
-    //   if (feature.subfeatures.length) {
-    //     featureTag.children[1].className += ' show'
-    //     featureTag.className += ' pointer'
-    //   }
-    // }
-    // hide initial state of features while api returns...
-    showFeatures.style.display = 'block'
   }
 
 </script>

@@ -48,13 +48,36 @@ var FEATURES = [
     ]
   },
   {
-    'title': 'Trails',
+    'title': 'Campfires',
     'presence': false,
     'subfeatures': []
   },
   {
-    'title': 'Campfires',
+    'title': 'Trails',
     'presence': true,
-    'subfeatures': []
+    'subfeatures': [
+      {
+        'title': 'Guide',
+        'presence': true,
+        'subfeatures': [
+          {
+            'title': 'Map',
+            'presence': true,
+            'subfeatures': [
+              {
+                'title': 'Topographic',
+                'presence': false,
+                'subfeatures': []
+              },
+            ]
+          },
+          {
+            'title': 'Water Crossings',
+            'presence': false,
+            'subfeatures': []
+          },
+        ]
+      },
+    ]
   }
 ];
