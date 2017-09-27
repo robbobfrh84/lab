@@ -43,6 +43,44 @@ Basic steps to follow for creating a user pool for native users to your app.
 - As you add users, you'll see you can click their Usernames and Auto-confirm
   - could also make it so you ONLY can confirm on your end. admin style.
 
+* Note: MFA = Multi-factor Authentication
+
 ### dynamoDB-NativeAuth-browser.html
 Went Step by step through: http://docs.aws.amazon.com/cognito/latest/developerguide/tutorial-integrating-user-pools-javascript.html
-- And: https://github.com/aws/amazon-cognito-identity-js/
+And: https://github.com/aws/amazon-cognito-identity-js/
+*Note: DON'T have to http-server*
+
+Make sure and copy past *YOUR SPECIFIC* **App client id** and **Pool ID** When declaring dataPool object
+```javascript
+var poolData = {
+  UserPoolId : 'us-west-2_lIwEq7e6O', // Your user pool id here
+  ClientId : '5pnntp748hi65035ijm4nl7q4f' // Your client id here
+}
+```
+### Adding DynamoDB Tables
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------
+##### Notes
+
+##### Links

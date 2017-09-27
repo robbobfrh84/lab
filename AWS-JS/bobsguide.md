@@ -7,7 +7,6 @@
 - * DynamoDB: Native Auth, Read/Write access & user info store
 * Has own readme file.
 
-
 Introduction link that I used and referenced: http://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/welcome.html
 
 ### Getting Started for AWS SDK

@@ -8,7 +8,7 @@
     <div style="float: left">
       <h2>DynamoDB: Native Auth</h2>
       <h4> &bull; Read/Write access & user info store</h4>
-      <br> <br> <textarea id= "textarea" style="font-size: 14px; width:400px; height:500px; display: block;"></textarea>
+      <textarea id= "textarea" style="font-size: 14px; width:400px; height:500px; display: block;"></textarea>
     </div>
     <div id="loggedIn" style="float: right; display: none;">
       <span id='user'></span>
@@ -134,6 +134,28 @@ signIn = ()=>{
   passwordIn.value = ''
 }
 
+logOut = ()=>{ // signs out for current device
+  cognitoUser.signOut()
+  textarea.innerHTML = 'Succesfully log out.'
+  loggedIn.style.display = 'none'
+  noLogIn.style.display = ''
+  user.innerHTML = ''
+}
+
+logOutAll = ()=>{ // signs out of ALL devices!
+  cognitoUser.globalSignOut({
+    onSuccess: function (result) {
+      textarea.innerHTML = 'Succesfully log out.'
+      loggedIn.style.display = 'none'
+      noLogIn.style.display = ''
+      user.innerHTML = ''
+    },
+    onFailure: function(err) {
+      alert(err);
+    },
+  })
+}
+
 forgot = ()=>{
   userData.Username = forgotEmail.value
   cognitoUser = new AWSCognito.CognitoIdentityServiceProvider.CognitoUser(userData);
@@ -150,24 +172,6 @@ forgot = ()=>{
       const newPassword = prompt('Enter new password ' ,'');
       cognitoUser.confirmPassword(verificationCode, newPassword, this);
     }
-  })
-}
-
-logOut = ()=>{ // signs out for current device
-  cognitoUser.signOut();
-}
-
-logOutAll = ()=>{ // signs out of ALL devices!
-  cognitoUser.globalSignOut({
-    onSuccess: function (result) {
-      textarea.innerHTML = 'Succesfully log out.'
-      loggedIn.style.display = 'none'
-      noLogIn.style.display = ''
-      user.innerHTML = ''
-    },
-    onFailure: function(err) {
-      alert(err);
-    },
   })
 }
 
