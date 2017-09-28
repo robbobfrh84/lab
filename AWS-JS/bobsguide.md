@@ -33,9 +33,6 @@ Facebook login & upload files
 
 --------------------------------------------------------------------------------
 ### Notes
-google+
- - ClientID: 670200203445-mig6smspqllqc7seng944eja6qagd5r2.apps.googleusercontent.com
- - Client Secret: eC7EBvu7y-i9hnwT45nQGD36
 
 ### Other Helpful Links
 aws amazon forum question for Amazon Incognito: https://forums.aws.amazon.com/thread.jspa?threadID=170870

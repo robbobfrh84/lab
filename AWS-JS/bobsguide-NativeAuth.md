@@ -1,6 +1,8 @@
 # DynamoDB: Native Auth
 This tutorial takes use through the steps of adding a native signUp/In to your web app with AWS, as well as Read/Write DyanmoDB access & user info console.
 
+
+
 ### Add Cognito files to code base
 create a folder (I called it /references).
 & Copy and paste files content withe same name from github...
@@ -41,9 +43,19 @@ Basic steps to follow for creating a user pool for native users to your app.
     - NOTE: **Pool Id**, You'll need this in your JS code
   - go to "Users and groups", in the side nav, here's where we'll soon populate users! :-)
 - As you add users, you'll see you can click their Usernames and Auto-confirm
+  - Helps so you don't have to fetch conferm codes from emails
   - could also make it so you ONLY can confirm on your end. admin style.
 
-* Note: MFA = Multi-factor Authentication
+##### Custom attributes
+Create Custom attributes for user's in User pool by...
+- going to "Attributes" in side nav.
+- scroll to bottom and click -> "Add another attribute"
+  - NOTE: after creating the attribute it'll have it's name with a prefix of custom:, so it'll be like (custom:new)
+- ALSO, you must go to "App clients" in the side nav. Click -> "add another app client", the click -> "Set attribute read and write permissions"
+- Now, tobble you're custom attributes here.
+- in the html file, I called the function updateAttributes()
+
+*Note: MFA = Multi-factor Authentication*
 
 ### dynamoDB-NativeAuth-browser.html
 Went Step by step through: http://docs.aws.amazon.com/cognito/latest/developerguide/tutorial-integrating-user-pools-javascript.html
@@ -59,28 +71,49 @@ var poolData = {
 ```
 ### Adding DynamoDB Tables
 
+Integrating Idenity Pools
+- go to > Services (top nav) > Cognito and click -> [ Manage Federated Idenities ]
+- click -> [ Create new Identity pool ]
+- name it whatever *NewApp1*
+- Open > v "Authenticated providers"
+- Open Cognito Tab
+- Add **User Pool ID** and **App client id** they you obtained from your user pool previously.
+- Click -> [ Create Pool ]
+- Open > v "View Details"
+  - Under Authenticated "Role Summary", open > v "View Policy Document"
+  - In the cody: Scroll down to "Resources": [ " * " ]
+  - To get your arn for THIS identity pool, got to services > cognito > Manage Federated Identities
+    - NOW, click your newly made pool, and click -> "Edit identity pool" in the upper right, below the top nav.
+    - Find "Identity pool ID" and clikc -> (Show ARN) to the right. COPY COMPLETE **Identity Pool ARN**
+  - Replace " * " With **Identity Pool ARN**
+- Click -> "Allow"
+- NOW, you can view the authenticateIdentityPool() in the .html to see how we added the **Identity Pool ARN** and the **User Pool ID** and **region** to the function.
 
 
 
+v v v v v ---- WHERE I LEFT OFF ---- v v v v
+- Finally got unstuck by the sign out/ back in issue with identity Pools
+- SO NOW, i can move onto plugging tables in.
+  - first stab, create a table and try to add it into the Role you've made as a reference and add db actions.
+  - probably worth checking out how i did it with
+      - FB
+      - ... and UnAuth
+  - Or, consider just finding the natural flow of the aws docs. you're kind of at a clean slate point and might be goot to review they're next steps.
 
 
 
+##### AWS Parts
+- User Pool - - - - - name: SignUp
+- IdentityPool - - - -name: SignUpPool
+- IAM Role - - - - - -name: Cognito_SignUpPoolAuth_Role
 
-
-
-
-
-
-
-
-
-
-
-
+(not completely set up)
+- IAM Role - - - - - -name: Cognito_SignUpPoolUnauth_Role  
 
 
 
 --------------------------------------------------------------------------------
+
 ##### Notes
 
 ##### Links
