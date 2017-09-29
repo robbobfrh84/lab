@@ -3,7 +3,7 @@
 html {
   background-color: #bbb;
 }
-.picked {
+#picked {
   display: inline;
 }
 .icon {
@@ -60,11 +60,18 @@ html {
 </style>
 </head>
 <body id='body'>
-  <h3 onclick="click()">Your Pick: </h3>
-  <div id='picked'>
 
-  </div>
+<div>
+<span>Colin VS Bob</span>
+<div style="float: right;">
+  <span> Pick </span> :: <span> Standing </span> :: <span> Login </span>
+</div>
+</div>
 <hr>
+
+<span onclick="click()">Your Pick: </span>
+<div id='picked'> </div> <br>
+
 </body>
 </html>
 <script>
