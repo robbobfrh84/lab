@@ -1,7 +1,13 @@
 # DynamoDB: Native Auth
-This tutorial takes use through the steps of adding a native signUp/In to your web app with AWS, as well as Read/Write DyanmoDB access & user info console.
+This tutorial takes us through the steps of adding a native signUp/In to your web app with AWS, as well as Read/Write DyanmoDB access & user info console.
 
+##### AWS Parts that will be used and built in the tutorial.
+- User Pool - - - - - name: SignUp
+- IdentityPool - - - -name: SignUpPool
+- IAM Role - - - - - -name: Cognito_SignUpPoolAuth_Role
 
+(not completely set up)
+- IAM Role - - - - - -name: Cognito_SignUpPoolUnauth_Role  
 
 ### Add Cognito files to code base
 create a folder (I called it /references).
@@ -69,9 +75,8 @@ var poolData = {
   ClientId : '5pnntp748hi65035ijm4nl7q4f' // Your client id here
 }
 ```
-### Adding DynamoDB Tables
 
-Integrating Idenity Pools
+### Integrating Idenity Pools
 - go to > Services (top nav) > Cognito and click -> [ Manage Federated Idenities ]
 - click -> [ Create new Identity pool ]
 - name it whatever *NewApp1*
@@ -89,26 +94,83 @@ Integrating Idenity Pools
 - Click -> "Allow"
 - NOW, you can view the authenticateIdentityPool() in the .html to see how we added the **Identity Pool ARN** and the **User Pool ID** and **region** to the function.
 
+### Adding DynamoDB Tables
+- create table, name = 'whetever',
+  - Primary Partition key: if i don't know i call it 'data'
+  - Copy **Amazon Resource Name (ARN)**
 
+- User the Role you used for identiyPools, it was call "Cognito_SignUpPoolAuth_Role"
+- Open arrow to the left of the policty name in the table.
+- Click -> [{} JSON] and click -> [edit policy].
+- add `"dynamodb:*",` to "Action" array to look like such. other actions may or may not be already included.
+
+```JSON
+"Action": [
+    "dynamodb:*",
+    "mobileanalytics:PutEvents",
+    "cognito-sync:*",
+    "cognito-identity:*"
+],
+```
+
+- Also, add your table's **Amazon Resource Name (ARN)** to "resource"
+
+```JSON
+"Resource": [
+    "arn:aws:cognito-identity:us-west-2:13452463457:identitypool/us-west-2:1234e37-7a62-1234-asdf-adsf21341b45",
+    "**Amazon Resource Name (ARN)** Here"
+]
+```
+
+- In your JS code: make sure to place your roleArn in the AWS.config.... object.
+- Other than that check out the code and you really just need to...
+
+`var ddb = new AWS.DynamoDB({ apiVersion: '2012-10-08' }); console.log('ddb :', ddb)`
+
+At this point in the code, with the dyanmoDB functions, i kinda went rouge.
+- start_dynamoDB() is an example
+
+
+
+SECURITY ISSUES:
+- Make note of security issues on BOTH aws-where-to-next.md beyond AND bobsguide.md
+- This tutorial(all) is not set for security flow.
+- Manly TABLES issues
+- Reality 1:
+  - It requires a deeper dive into access control with mainly TABLES.
+  - Issue: a valid user could console.log functions and copy paste user name to get info.
+- Reality 2:
+  - How much of this CAN'T be done in the browser....?
+  - like, when do we need to leverage a backend.
+  - BUT, can we do function-like things with basic services....???????
+
+--------------------------------------------------------------------------------
 
 v v v v v ---- WHERE I LEFT OFF ---- v v v v
-- Finally got unstuck by the sign out/ back in issue with identity Pools
-- SO NOW, i can move onto plugging tables in.
-  - first stab, create a table and try to add it into the Role you've made as a reference and add db actions.
-  - probably worth checking out how i did it with
-      - FB
-      - ... and UnAuth
-  - Or, consider just finding the natural flow of the aws docs. you're kind of at a clean slate point and might be goot to review they're next steps.
+
+- figured out how to ...
+  - Check if user is added to hardcoded DB table .
+  - If not Add 'em 'n' show 'em'
+
+NEXT--->
+- 1) Continue with link below, examples for BATCH, like what is that?
+  - This FIRST, because it may inform you on 2), 3) .
+- 2) how do user's see other users?
+- 3) Continue to do basic CRUD operations, like edit, remove, and all the other fun stuff you did in the movies tutorial
+- !!!! You know what would really be helpful. Your main question now is more about structure & flow. i.e. you wanna know the things twitter/facebook do. So just look for that, weather it dynamoDB, or MongoDB, or whatever, you just wanna... well... It's user data Architecture you're talking about, then!
 
 
 
-##### AWS Parts
-- User Pool - - - - - name: SignUp
-- IdentityPool - - - -name: SignUpPool
-- IAM Role - - - - - -name: Cognito_SignUpPoolAuth_Role
 
-(not completely set up)
-- IAM Role - - - - - -name: Cognito_SignUpPoolUnauth_Role  
+
+
+
+
+
+
+
+
+
 
 
 
@@ -117,3 +179,5 @@ v v v v v ---- WHERE I LEFT OFF ---- v v v v
 ##### Notes
 
 ##### Links
+
+AWS SDK for JavaScript: Code Examples: http://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/dynamodb-example-table-read-write-batch.html

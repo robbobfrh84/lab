@@ -1,0 +1,200 @@
+<!DOCTYPE html><html><head><meta charset="utf-8">
+<style>
+html {
+  background-color: #bbb;
+}
+.picked {
+  display: inline;
+}
+.icon {
+  padding-left: 10px;
+  padding-top: 10px;
+}
+.icon-box {
+  position: relative;
+  /*right: 0px;*/
+  background-color: rgba(0,0,0,0.05);
+  box-shadow: 0 0 10px rgba(0,0,0,1);
+  border-radius: 100%;
+  width: 90px;
+  height: 90px;
+  margin: 5px;
+  display: inline-block;
+  transition: background-color 0.5s, box-shadow 0.5s;
+}
+.icon-box:hover {
+  background-color: rgba(0,0,0,0.4);
+  box-shadow: inset 0 0 7px rgba(0,0,0,0.7);
+  transition: background-color 0.5s, box-shadow 0.5s;
+}
+.small {
+  width: 40px;
+  height: 40px;
+}
+.icon-small {
+  padding-left: 5px;
+  padding-top: 5px;
+}
+.lost, .won {
+  background-color: rgba(0,0,0,0.0.5);
+  box-shadow: inset 0 0 0px rgba(0,0,0,0);
+}
+.won {
+  background-color: rgba(0,0,0,0);
+}
+.lost:hover, .won:hover { /*just the same as .lost, so it overrides the icon-box hover*/
+  background-color: rgba(0,0,0,0.1);
+  box-shadow: inset 0 0 0px rgba(0,0,0,0);
+}
+.won:hover {
+  background-color: rgba(0,0,0,0);
+  box-shadow: inset 0 0 0px rgba(0,0,0,0);
+}
+.lost-icon {
+  filter: grayscale(100%);
+  opacity: 0.3;
+}
+.won-icon {
+  opacity: 0.7;
+}
+</style>
+</head>
+<body id='body'>
+  <h3 onclick="click()">Your Pick: </h3>
+  <div id='picked'>
+
+  </div>
+<hr>
+</body>
+</html>
+<script>
+
+var width = 70
+var sWidth = 30
+
+pick = (e)=>{
+  picked.innerHTML = '<div class="icon-box picked">'
+    + '<img class="icon" src="'+e.path[0].src+'" width="'+width+'" height="'+width+'"></div>'
+}
+
+window.onload = ()=>{
+  let br = false
+  for (const c of fData.teams.conferences) {
+    for (const d of c.divisions) {
+      for (const t of d.teams) {
+        if (t.won) {
+          body.innerHTML += '<div class="icon-box small won">'
+          + '<img class="icon icon-small won-icon" src="logos/'+t.name+'.svg" width="'+sWidth+'" height="'+sWidth+'"></div>'
+        } else if (t.won === false) {
+          body.innerHTML += '<div class="icon-box small lost">'
+          + '<img class="icon icon-small lost-icon" src="logos/'+t.name+'.svg" width="'+sWidth+'" height="'+sWidth+'"></div>'
+        } else {
+          body.innerHTML += '<div class="icon-box small" onclick="pick(event)" >'
+          + '<img class="icon icon-small" src="logos/'+t.name+'.svg" width="'+sWidth+'" height="'+sWidth+'"></div>'
+        }
+      }
+      br = !br
+      if (!br) body.innerHTML += '<br>'
+      // if (br) body.innerHTML += ' &nbsp; '
+    }
+    // body.innerHTML += '<br>'
+  }
+  body.innerHTML += '<hr>'
+
+  // body.innerHTML += '<br><hr>'
+  // for (const c of fData.teams.conferences) {
+  //   for (const d of c.divisions) {
+  //     body.innerHTML += '<br>'
+  //     for (const t of d.teams) {
+  //       body.innerHTML += '<div class="icon-box">'
+  //       + '<img class="icon" src="logos/'+t.name+'.svg" width="'+width+'" height="'+width+'">'
+  //       + '</div>'
+  //     }
+  //   }
+  // }
+}
+
+var fData = {
+  teams: {
+    conferences: [
+      { name: 'AFC',
+        divisions: [
+          { name: 'North',
+            teams: [
+              { name: 'PIT' },
+              { name: 'BAL' },
+              { name: 'CLE' },
+              { name: 'CIN' },
+            ]
+          },
+          { name: 'South',
+            teams: [
+              { name: 'TEN' },
+              { name: 'JAX' },
+              { name: 'IND' },
+              { name: 'HOU' },
+            ]
+          },
+          { name: 'East',
+            teams: [
+              { name: 'BUF' },
+              { name: 'NE' },
+              { name: 'MIA' },
+              { name: 'NYJ' },
+            ]
+          },
+          { name: 'West',
+            teams: [
+              { name: 'KC' },
+              { name: 'DEN', won: false },
+              { name: 'OAK' },
+              { name: 'LAC' },
+            ]
+          },
+        ]
+      },
+      { name: 'NFC',
+        divisions: [
+          { name: 'North',
+            teams: [
+              { name: 'MIN' },
+              { name: 'DET' },
+              { name: 'GB' },
+              { name: 'CHI' },
+            ]
+          },
+          { name: 'South',
+            teams: [
+              { name: 'ATL', won: false },
+              { name: 'CAR' },
+              { name: 'TB' },
+              { name: 'NO', won: true },
+            ]
+          },
+          { name: 'East',
+            teams: [
+              { name: 'PHI' },
+              { name: 'DAL' },
+              { name: 'WAS' },
+              { name: 'NYG' },
+            ]
+          },
+          { name: 'West',
+            teams: [
+              { name: 'LAR' },
+              { name: 'SEA' },
+              { name: 'ARI' },
+              { name: 'SF' },
+            ]
+          },
+        ]
+      }
+    ]
+  }
+}
+
+</script>
+
+<!-- *** NOTES ***
+
+-->
