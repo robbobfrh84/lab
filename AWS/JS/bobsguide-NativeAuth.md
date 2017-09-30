@@ -159,7 +159,7 @@ NEXT--->
 - 3) Continue to do basic CRUD operations, like edit, remove, and all the other fun stuff you did in the movies tutorial
 - !!!! You know what would really be helpful. Your main question now is more about structure & flow. i.e. you wanna know the things twitter/facebook do. So just look for that, weather it dynamoDB, or MongoDB, or whatever, you just wanna... well... It's user data Architecture you're talking about, then!
 
-
+- CHECK links below to rebuild tab window we closed...
 
 
 
@@ -179,5 +179,15 @@ NEXT--->
 ##### Notes
 
 ##### Links
+
+*** closed tabs in window ***
+Google developers: https://console.developers.google.com/apis/credentials?project=test1-180721
+Medium Article about FB and Google+: https://medium.com/aws-activate-startup-blog/dynamic-websites-using-the-aws-sdk-for-javascript-in-the-browser-b3dd90c25b1e
+AWS resource that looks like a good review for cognito with unauthenticated and authenticated users: https://aws.amazon.com/blogs/developer/authentication-in-the-browser-with-amazon-cognito-and-public-identity-providers/
+DynamoDB > Reading and Writing Items in Batch in DynamoDB: http://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/dynamodb-example-table-read-write-batch.html
+
+
+
+
 
 AWS SDK for JavaScript: Code Examples: http://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/dynamodb-example-table-read-write-batch.html
