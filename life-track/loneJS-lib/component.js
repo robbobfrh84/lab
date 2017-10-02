@@ -24,7 +24,10 @@ class Component {
           if (cdata) that.data = JSON.parse(cdata)
           that.root = this.shadowRoot
           e.method()
-          if (e.update) that.update()
+          if (e.update) {
+            that.update(this)
+            that.htmlJS.update(that.data, that.root)
+          }
         })
       }
       that.root.appendChild(clone)

@@ -1,0 +1,38 @@
+<template id="star-graph">
+<!-- { { { { { { { { { { { { { { { {  CSS  } } } } } } } } } } } } } } } } } -->
+<style>
+
+</style>
+<!-- < < < < < < < < < < < < < < < <  html > > > > > > > > > > > > > > > > > -->
+<content>
+ <!-- Miles Ran this month: &nbsp;
+ <span id='ran' style="font-size: 25px;"> 23 </span> -->
+</content>
+</template>
+<!-- () () () () () () () () () Component  Script () () () () () () () () () -->
+<script> /* --------------------- */ (( c = new Component('star-graph-tag') )=>{
+
+c._ON_SET = (attr)=>{
+  if (!c.time) {
+    c.time = new Date()
+    c.month = c.time.getMonth()
+    c.year = c.time.getFullYear()
+  }
+  c.data.current = c.data[c.year][months[c.month]]
+  // console.log('---')
+  let miles = 0
+  for (const day of c.data.current) {
+    if (parseInt(day.cardio) > 0) {
+      console.log(day.cardio)
+      miles+= parseInt(day.cardio[0])
+    }
+  }
+  // console.log(miles)
+  // c.I('ran').innerHTML = miles
+}
+
+const months = ['January','February','March','April','May','June','July','August','September','October','November','December']
+const days = ['Sunday','Monday','Tueday','Wednesday','Thursday','Friday','Saturday']
+
+/* -------------------------------- */c._NEW_ELM()})() </script>
+<!--  / / / / / / / / / / / / / / /   Notes    / / / / / / / / / / / / / / / -->

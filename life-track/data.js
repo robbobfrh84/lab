@@ -32,7 +32,7 @@ getMyJson = function(uri){
   xhr.send(null);
 }
 
-putMyJson = function(data, uri){
+putMyJson = function(data, uri, callback){
   var xhr = new XMLHttpRequest();
   xhr.open('PUT', uri);
   xhr.setRequestHeader('Content-Type', 'application/json');
@@ -40,6 +40,7 @@ putMyJson = function(data, uri){
     if (xhr.status === 200) {
       var json = JSON.stringify(xhr.responseText)
       console.log('NEW API: ', data)
+      if (callback) callback()
     }
   }
   xhr.send(JSON.stringify(data))

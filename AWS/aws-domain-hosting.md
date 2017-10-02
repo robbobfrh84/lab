@@ -5,6 +5,8 @@
 
 ### aws.amazon.com
 - log into was and go to “Networking & Content” > click-> “Route 53”
+- click -> "Hosted zones" on the left nav
+- click -> [Create Hosted Zone]
 - Paste the Source URL: … whatever.com
   - make sure “Type:” is set to “Public Hosted Zone”
 - click -> [Create]
@@ -12,7 +14,7 @@
 - click-> the domain name you’ve just added … whatever.com
 - Toggle [x] (or just click) in the row that has the “Type” NS…
 - copy all the NS (name servers) inside the Value input box….
-  - `ns-1949.awsdns-51.co.uk.`
+  - `ns-1949.awsdns-51.co.uk.` ! Not the same NS code you need, get your own!
   -`ns-936.awsdns-53.net.`
   -`ns-1399.awsdns-46.org.`
   -`ns-199.awsdns-24.com.`
@@ -62,11 +64,28 @@
 - got your your url in the browser and really it worked for me right away!
 
 ### www. Re-routing.
-The above code only works for yourwebsite.com, not www.yourwebsite dot com. Here's how we'll add another bucket to fix this. 
+The above code only works for yourwebsite.com, not www.yourwebsite dot com. Here's how we'll add another bucket to fix this.
 
+In your Amazon S3 console...
+- ->[+ Create bucket]
+- Bucket Name = www.yourwebsite.com (Yes, must be just like that, but for you domain.)
+- Toggle through default settings and [Create Bucket]
+- ->[ your new bucket]
+- ->[ Redirect requests ] box.
+  - toggle "Use this bucket to host a website"
+- for Target bucket or domain put the RE-Direct url... example.com (NO WWW)
+- ->[Save]
 
-- NEED TO DO/ADD : add www.colin-vs-bob.dog to redirect.
-
-- CHECK OUT LOGGING BUCKETS!: http://docs.aws.amazon.com/AmazonS3/latest/dev/LoggingWebsiteTraffic.html
+Back in “Route 53”
+- click -> "Hosted zones" on the left nav
+- click -> [Create Hosted Zone]
+- Paste the Source URL:www.whatever.com
+  - make sure “Type:” is set to “Public Hosted Zone”
+- click -> [Create]
+- on the left side nav. click “Hosted Zones”
+- click-> the domain name you’ve just added … www.whatever.com
+- Toggle [x] (or just click) in the row that has the “Type” NS…
+- IMPORTANT - copy all the NS (name servers) from the NON-www zones
+  - past it in the value box.
 
 - LINK: http://docs.aws.amazon.com/AmazonS3/latest/dev/website-hosting-custom-domain-walkthrough.html

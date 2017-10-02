@@ -5,6 +5,15 @@
   text-align: center;
   display: none;
 }
+#dateNav {
+  text-align: center;
+}
+#date {
+  font-size: 30px;
+}
+#back, #forward {
+  font-size: 25px;
+}
 .shift-click {
   position: absolute;
   right: 25px;
@@ -137,43 +146,44 @@ td {
     width: 28px;
     font-size: 17px;
   }
+  .weight {
+    max-width: 25px;
+    max-height: 25px;
+    font-size: 12px;
+  }
 }
 </style>
 <!-- < < < < < < < < < < < < < < < <  html > > > > > > > > > > > > > > > > > -->
 <content>
-
-  <span id='dateNav' style="float: left;"> &nbsp; &nbsp; &nbsp; &nbsp;
+  <div id='dateNav'>
+    <!-- &nbsp; &nbsp; &nbsp; &nbsp; -->
     <span id='back' class='arrow'> &#9664; </span>
     <div id='date' class='date'></div>
     <span id='forward' class='arrow'> &#9654; </span>
-  </span>
-
-  <div id='main' var='{data} c.data'>
-
-    <span style='color: rgba(255,255,255,0.6)'> StarChart: </span>
-    <strong style='font-size: 20px;'> {data}.test[0].date.month- , {data}.test[0].date.year </strong>
-    <span class='shift-click'>[ Shift + Click ] <em> *enters values</em></span>
+  </div>
+  <!-- <div id='main' var='{data} c.data'> -->
+  <div id='main'>
     <table>
-     <tr for='{dd} c.data.test'>
+     <tr for='{dd} c.data.current'>
        <th indices='0' class="icons"> &#10025; </th>
        <th> {dd}.date.day </th>
      </tr>
      <tbody id='chart'>
-       <tr for='{x},{i} c.data.test'>
+       <tr for='{x},{i} c.data.current'>
          <td indices='0' class="icons"> &#128685; </td>
          <td class='box' key='{i}' val='smoke'>
            <span if='!{x}.smoke' class='star-plus ig'> &#10025; </span>
            <input if='{x}.smoke' key='{i}' val='smoke' placeholder="?" value='{x}.smoke' class='gray input ig'>
          </td>
        </tr>
-       <tr for='{x},{i} c.data.test'>
+       <tr for='{x},{i} c.data.current'>
          <td indices='0' class="icons"> &#127865; </td>
          <td class='box' key='{i}' val='drink'>
            <span if='!{x}.drink' class='star-plus ig'> &#10025; </span>
            <input if='{x}.drink' key='{i}' val='drink' placeholder="?" value='{x}.drink' class='gray input ig'>
          </td>
        </tr>
-       <tr for='{x},{i} c.data.test'>
+       <tr for='{x},{i} c.data.current'>
          <td indices='0' class="icons" id='cardio'> &#127939; </td>
          <td class='box' key='{i}' val='cardio'>
            <span if='!{x}.cardio' class='star-plus ig'> &#10025; </span>
@@ -181,7 +191,7 @@ td {
            <input if='{x}.cardio[0]' key='{i}' val='cardio' placeholder="?" value='{x}.cardio[0]' class='data-value input ig'>
          </td>
        </tr>
-       <tr for='{x},{i} c.data.test'>
+       <tr for='{x},{i} c.data.current'>
          <td indices='0' class="icons"> &#127947; </td>
          <td class='box' key='{i}' val='lift'>
            <span if='!{x}.lift' class='star-plus ig'> &#10025; </span>
@@ -189,7 +199,7 @@ td {
            <input if='{x}.lift[0]' key='{i}' val='lift' placeholder="?" value='{x}.lift[0]' class='data-value input ig'>
          </td>
        </tr>
-       <tr for='{x},{i} c.data.test'>
+       <tr for='{x},{i} c.data.current'>
          <td indices='0' class="icons" style='color: rgba(0,0,0,0.6);'> &#128694; </td>
          <td class='box' key='{i}' val='walk'>
            <span if='!{x}.walk' class='star-plus ig'> &#10025; </span>
@@ -197,7 +207,7 @@ td {
            <input if='{x}.walk[0]' key='{i}' val='walk' placeholder="?" value='{x}.walk[0]' class='data-value input ig'>
          </td>
        </tr>
-       <tr for='{x},{i} c.data.test'>
+       <tr for='{x},{i} c.data.current'>
          <td indices='0' class="icons" style='color: rgba(0,0,0,0.6);'> &#9745; </td>
          <td class='box' key='{i}' val='scrum'>
            <span if='!{x}.scrum' class='star-plus ig'> &#10025; </span>
@@ -205,7 +215,7 @@ td {
            <input if='{x}.scrum[0]' key='{i}' val='scrum' placeholder="?" value='{x}.scrum[0]' class='data-value input ig'>
          </td>
        </tr>
-       <tr for='{x},{i} c.data.test'>
+       <tr for='{x},{i} c.data.current'>
          <td indices='0' class="icons" style='color: rgba(0,0,0,0.6);' id='weight'> &#x2696; </td>
          <td class='box' key='{i}' val='weight'>
            <span if='!{x}.weight[0]' class='q ig'> ? </span>
@@ -218,9 +228,12 @@ td {
      </tbody>
    </table>
    <span id='hover-day'></span>
+   <span class='shift-click'>[ Shift + Click ] <em> *enters values</em></span>
    <br>
    <canvas id="myCanvas" class='bg'></canvas> <br><br><br>
   </div>
+  Miles Ran this month: &nbsp;
+  <span id='ranny' style="font-size: 25px;"></span>
 </content>
 </template>
 <!-- () () () () () () () () () ()  JavaScript () () () () () () () () () () -->
@@ -228,16 +241,85 @@ td {
 
 (( c = new Component('star-tag') )=>{
 
+  const months = ['January','February','March','April','May','June','July','August','September','October','November','December']
+  const days = ['Sunday','Monday','Tueday','Wednesday','Thursday','Friday','Saturday']
+
   c._ON_SET = (attr)=>{ // this prevents the flickering effect before ifJS is loaded...
     c.I('main').setAttribute('style', 'display: block;')
     if (c.star) c.graph(c.star)
-    c.d = new Date(99,5,24)
     if (!c.time) {
       c.time = new Date()
       c.month = c.time.getMonth()
       c.year = c.time.getFullYear()
     }
     c.I('date').innerHTML = months[c.month]+' '+c.year
+    c.hasDate()
+    // console.log('c.data.current: ',c.data.current)
+
+/*------------WHERE I LEFT OFF--------------
+- to fix a lot of issues below... CHANGE c.year & .month to global & || update the API! (only api will work, but with delay)
+- One, it actually looks to be working
+- There is an issue with update....
+- methods aren't reading updating c.data... or any data changed dynamically after original
+- also added a direct hit to htmlJS update in the data.js
+-
+
+------------------------*/
+  }
+
+  c.setCurrent = ()=>{ c.data.current = c.data[c.year][months[c.month]] }
+
+  c.hasDate = (updated = false)=>{
+    if (!_DATA.starChart) {
+      console.log('User does not have any Star Chart Data')
+      _DATA.starChart = {}
+      updated = true
+    }
+    if (!_DATA.starChart[c.year]) {
+      console.log('adding year')
+      _DATA.starChart[c.year] = {}
+      updated = true
+    }
+    if (!_DATA.starChart[c.year][months[c.month]]) {
+      console.log('adding month')
+      _DATA.starChart[c.year][months[c.month]] = []
+      for (var i = 0; i < 31; i++) {
+        let day = c.d = new Date(c.year,c.month,i+1)
+        day = days[day.getDay()]
+        _DATA.starChart[c.year][months[c.month]].push({
+          date: { day: i+1, weekDay: day },
+          smoke: ' ', drink: ' ', cardio: ' ', lift: ' ',
+          walk: ' ', scrum: ' ', weight: '', water: ' ',
+        })
+      }
+      updated = true
+    }
+    if (updated) {
+      putMyJson(_DATA, _PERSONAL_URI, ()=>{ // calback to change c.data
+        console.log('Callback')
+        // c.data = _DATA.starChart[c.year][months[c.month]]
+        // c.current = _DATA.starChart[c.year][months[c.month]]
+        c.update()
+      })
+    }
+    // else {
+    //   // c.data = _DATA.starChart[c.year][months[c.month]]
+    //   // c.current = _DATA.starChart[c.year][months[c.month]]
+    //   // c.current = c.data
+    //   // console.log('c.current: ', c.current)
+    //   // c.update()
+    // }
+    c.setCurrent()
+    let miles = 0
+    for (const day of c.data.current) {
+      console.log(day.cardio)
+      if (parseInt(day.cardio) > 0) {
+        console.log(day.cardio)
+        miles += parseFloat(day.cardio[0])
+      }
+    }
+    c.I('ranny').innerHTML = miles
+    c.update()
   }
 
   c._ADD_EVENT('click', 'dateNav', ([key, val, elm] = c.KVE(event))=>{
@@ -246,27 +328,9 @@ td {
       if (c.month === 11 && elm.id === 'forward') { c.year++; c.month = -1; }
       c.month += elm.id === 'back' ? -1 : 1
       c.I('date').innerHTML = months[c.month]+' '+c.year
+      c.hasDate()
     }
   }, true)
-
-  const months = ['January','February','March','April','May','June','July','August','September','October','November','December']
-  const days = ['Monday','Tueday','Wednesday','Thursday','Friday','Saturday','Sunday']
-  // c.t = []
-  // for (var i = 0; i < 31; i++) {
-  //   c.t.push({
-  //     date: { year: 2017, month: 'May', day: i+1, weekDay: days[(i%7)] },
-  //     smoke: ' ',
-  //     drink: ' ',
-  //     cardio: ' ',
-  //     lift: ' ',
-  //     walk: ' ',
-  //     scrum: ' ',
-  //     weight: '',
-  //     water: ' ',
-  //   })
-  // }
-  // _DATA.home.test = c.t
-  // putMyJson(_DATA, _PERSONAL_URI)
 
   c.graph = (star)=>{
     if (c.data) {
@@ -323,7 +387,7 @@ td {
       if (val === 'weight') {
         span = elm.getElementsByTagName('div')[0]
         span.setAttribute('style', 'display: none;')
-        input.value = _DATA.home.test[parseInt(key)][val][0]
+        input.value = _DATA.starChart[c.year][months[c.month]][parseInt(key)][val][0]
         input.className += ' undefined-wide'
       } else {
         input.className += ' undefined'
@@ -336,22 +400,24 @@ td {
       setTimeout(()=>{ input.focus() },1)
     }
     else if (val !== 'weight' && val){
-      let state = _DATA.home.test[parseInt(key)][val]
+      let state = _DATA.starChart[c.year][months[c.month]][parseInt(key)][val]
       if (typeof state === 'object' || state > 0) state = false
-      _DATA.home.test[parseInt(key)][val] = state === false ? ' ' : false
+      _DATA.starChart[c.year][months[c.month]][parseInt(key)][val] = state === false ? ' ' : false
       putMyJson(_DATA, _PERSONAL_URI)
     }
-  }, true)
+    c.update()
+  })
 
   c._ADD_EVENT('keypress', 'main', ([ key, val, elm ] = c.KVE(event))=>{
     let unknown = true
+    c.setCurrent()
     if (event.keyCode == 13) {
       if (elm.value !== '') {
-        _DATA.home.test[parseInt(key)][val] = elm.value
+        _DATA.starChart[c.year][months[c.month]][parseInt(key)][val] = elm.value
       }
       if (['cardio','lift','walk','scrum','weight'].includes(val)) {
         if (parseInt(elm.value) === 0) unknown = false
-        _DATA.home.test[parseInt(key)][val] = [ elm.value, unknown ]
+        _DATA.starChart[c.year][months[c.month]][parseInt(key)][val] = [ elm.value, unknown ]
         elm.classList.remove('undefined-wide')
       }
       if (val === 'weight') {
@@ -363,9 +429,11 @@ td {
       putMyJson(_DATA, _PERSONAL_URI)
       elm.blur()
     }
-  }, true)
+    c.update()
+  })
 
   c._ADD_EVENT('mouseover', 'main', ([ key, val ] = c.KVE(event), value)=>{
+    c.setCurrent()
     let day = key ? parseInt(key)+1 : key
     const capVal = val ? val.charAt(0).toUpperCase() + val.slice(1) : val
     if (val) {
@@ -373,12 +441,12 @@ td {
       else if (day === 2) day += 'nd'
       else if (day === 3) day += 'rd'
       else if (day > 3) day += 'th'
-      value = typeof c.data.test[parseInt(key)][val] === 'object' ?
-        c.data.test[parseInt(key)][val][0] : c.data.test[parseInt(key)][val]
+      value = typeof c.data.current[parseInt(key)][val] === 'object' ?
+        c.data.current[parseInt(key)][val][0] : c.data.current[parseInt(key)][val]
       if (!value) value = '&#10025;'
     }
     c.I('hover-day').innerHTML = (!val) ? '' :
-      c.data.test[0].date.month+' '+day+' '+capVal+': '+(value === ' ' ? '?' : value)
+      months[c.month]+' '+day+' '+capVal+': '+(value === ' ' ? '?' : value)
   })
 
   c._NEW_ELM()
@@ -386,7 +454,7 @@ td {
 
 </script>
 <!--  / / / / / / / / / / / / / / /   Notes    / / / / / / / / / / / / / / /
-- add class='' ('saturday'&'sunday') to dynamic array in htmlJS so you can dynamically assign classes 
+- add class='' ('saturday'&'sunday') to dynamic array in htmlJS so you can dynamically assign classes
 - click+download Json to archive json folder?
 - Add days locks + unlock all!
 - Add Weight
