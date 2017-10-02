@@ -234,6 +234,9 @@ td {
   </div>
   Miles Ran this month: &nbsp;
   <span id='ranny' style="font-size: 25px;"></span>
+  <br></br>
+  Average Weight: &nbsp;
+  <span id='w' style="font-size: 25px;"></span>
 </content>
 </template>
 <!-- () () () () () () () () () ()  JavaScript () () () () () () () () () () -->
@@ -312,13 +315,24 @@ td {
     c.setCurrent()
     let miles = 0
     for (const day of c.data.current) {
-      console.log(day.cardio)
       if (parseInt(day.cardio) > 0) {
-        console.log(day.cardio)
         miles += parseFloat(day.cardio[0])
       }
     }
     c.I('ranny').innerHTML = miles
+
+    let lb = 0
+    let lbCnt = 0
+
+    for (const day of c.data.current) {
+      if (parseInt(day.weight) > 0) {
+        lb += parseFloat(day.weight[0])
+        lbCnt++
+      }
+    }
+    console.log(lb)
+    c.I('w').innerHTML = lb/lbCnt
+
     c.update()
   }
 
@@ -330,6 +344,7 @@ td {
       c.I('date').innerHTML = months[c.month]+' '+c.year
       c.hasDate()
     }
+    c.updateLocal()
   }, true)
 
   c.graph = (star)=>{

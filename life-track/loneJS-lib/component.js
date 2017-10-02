@@ -26,7 +26,7 @@ class Component {
           e.method()
           if (e.update) {
             that.update(this)
-            that.htmlJS.update(that.data, that.root)
+            // that.htmlJS.update(that.data, that.root)
           }
         })
       }
@@ -81,6 +81,10 @@ class Component {
         component.setAttribute('served', JSON.stringify(this.getDir(_DATA, serve)))
       }
     }
+  }
+
+  updateLocal() {
+    this.htmlJS.update(this.data, this.root)
   }
 
   serveDir (that) {
