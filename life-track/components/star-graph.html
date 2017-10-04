@@ -5,30 +5,58 @@
 </style>
 <!-- < < < < < < < < < < < < < < < <  html > > > > > > > > > > > > > > > > > -->
 <content>
- <!-- Miles Ran this month: &nbsp;
- <span id='ran' style="font-size: 25px;"> 23 </span> -->
+  <body id="main">
+    Miles Ran this month: &nbsp;
+    <span id='miles' style="font-size: 25px;"></span>
+    <br></br>
+    Average Weight: &nbsp;
+    <span id='aveWeight' style="font-size: 25px;"></span> <hr>
+    Alc. Free days:
+    <span id='noDrink'></span> <br>
+    Smoke Free days:
+    <span id='noSmoke'></span> <br>
+    Cardio days:
+    <span id='cardio'></span> <br>
+    Lift days:
+    <span id='lift'></span> <br>
+    Chores days:
+    <span id='scrum'></span> <br>
+  </body>
 </content>
 </template>
 <!-- () () () () () () () () () Component  Script () () () () () () () () () -->
 <script> /* --------------------- */ (( c = new Component('star-graph-tag') )=>{
 
 c._ON_SET = (attr)=>{
-  if (!c.time) {
-    c.time = new Date()
-    c.month = c.time.getMonth()
-    c.year = c.time.getFullYear()
-  }
-  c.data.current = c.data[c.year][months[c.month]]
-  // console.log('---')
-  let miles = 0
-  for (const day of c.data.current) {
-    if (parseInt(day.cardio) > 0) {
-      console.log(day.cardio)
-      miles+= parseInt(day.cardio[0])
+
+  let noDrink = 0, noSmoke = 0, cardio = 0, miles = 0, lift = 0, scrum = 0, lb = 0, lbCnt = 0
+  const month = c.data[c.data.currentY][months[c.data.currentM]]
+
+  for (const day of month) {
+    if (day.drink === false) noDrink++
+    if (day.smoke === false) noSmoke++
+    if (day.cardio === false || parseInt(day.cardio) > 0) {
+      if (parseInt(day.cardio) > 0) miles += parseFloat(day.cardio[0])
+      cardio++
     }
+    if (parseInt(day.weight) > 0) {
+      lb += parseFloat(day.weight[0])
+      lbCnt++
+    }
+    if (day.lift[1] === true || day.lift === false) lift++
+    if (day.scrum[1] === true || day.scrum === false) scrum++
   }
-  // console.log(miles)
-  // c.I('ran').innerHTML = miles
+
+  c.I('miles').innerHTML = Math.round(miles*100) / 100
+  c.I('aveWeight').innerHTML = lbCnt > 0 ? Math.round((lb/lbCnt)*100) / 100 : 'no data'
+
+  c.I('noDrink').innerHTML = noDrink
+  c.I('noSmoke').innerHTML = noSmoke
+  c.I('cardio').innerHTML = cardio
+  c.I('lift').innerHTML = lift
+  c.I('scrum').innerHTML = scrum
+
+
 }
 
 const months = ['January','February','March','April','May','June','July','August','September','October','November','December']

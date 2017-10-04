@@ -232,11 +232,6 @@ td {
    <br>
    <canvas id="myCanvas" class='bg'></canvas> <br><br><br>
   </div>
-  Miles Ran this month: &nbsp;
-  <span id='ranny' style="font-size: 25px;"></span>
-  <br></br>
-  Average Weight: &nbsp;
-  <span id='w' style="font-size: 25px;"></span>
 </content>
 </template>
 <!-- () () () () () () () () () ()  JavaScript () () () () () () () () () () -->
@@ -254,6 +249,8 @@ td {
       c.time = new Date()
       c.month = c.time.getMonth()
       c.year = c.time.getFullYear()
+      _DATA.starChart.currentY = c.year
+      _DATA.starChart.currentM = c.month
     }
     c.I('date').innerHTML = months[c.month]+' '+c.year
     c.hasDate()
@@ -292,30 +289,7 @@ td {
         c.update() // NEED THIS! you'll think you don't, but it's only for NEW USERS with no current year. otherwise you'll have to refresh the page.
       })
     }
-    //
-    // vvv... MOVE TO star-graph.html ...vvv
     c.setCurrent()
-    let miles = 0
-    for (const day of c.data.current) {
-      if (parseInt(day.cardio) > 0) {
-        miles += parseFloat(day.cardio[0])
-      }
-    }
-    c.I('ranny').innerHTML = miles
-
-    let lb = 0
-    let lbCnt = 0
-
-    for (const day of c.data.current) {
-      if (parseInt(day.weight) > 0) {
-        lb += parseFloat(day.weight[0])
-        lbCnt++
-      }
-    }
-    c.I('w').innerHTML = lb/lbCnt
-    // ^^^... MOVE TO star-graph.html ...^^^
-    //
-
     c.update() // Remove??? test THOROUGHLY
   }
 
@@ -325,9 +299,11 @@ td {
       if (c.month === 11 && elm.id === 'forward') { c.year++; c.month = -1; }
       c.month += elm.id === 'back' ? -1 : 1
       c.I('date').innerHTML = months[c.month]+' '+c.year
+      _DATA.starChart.currentY = c.year
+      _DATA.starChart.currentM = c.month
       c.hasDate()
     }
-    c.updateLocal()
+    c.updateLocal() // here's where running this page off of c.data.currentM/Y will eliminate this
   }, true)
 
   c.graph = (star)=>{
