@@ -1,0 +1,69 @@
+<!DOCTYPE html><html><head><meta charset="utf-8">
+<style>
+body {
+  background-image: url("textured_paper.png");
+  margin: 0;
+}
+#main {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.1);
+  text-align: center;
+}
+#dot {
+  width: 100px;
+  height: 100px;
+  position:absolute;
+  top: 0px;
+  bottom: 0px;
+  margin:auto;
+  margin-left: -50px;
+  filter: grayscale(80%);
+  opacity: 0.75;
+}
+.dot:hover { change to diff class for effect
+
+}
+</style>
+</head>
+  <body>
+    <div id='main'>
+        <img id="dot" src="dot1.png">
+    </div>
+  </body>
+</html>
+<script>
+
+var cnt = 0
+var op = 0
+var cntInc = 1
+var opInc = 0.002
+var bottomPulse = 0
+
+var cntDir = 0
+var opDir = 1
+
+setInterval(function(){
+  main.style.boxShadow = 'inset 0 0 '+cnt+'px rgba(0,0,0,0.7)'
+  dot.style.opacity = op
+  if (cnt <= 2000) {
+    cnt+=(cntInc*opDir)
+  }
+  if (cnt > 100) {
+    if (op > 0.8 || op < bottomPulse) {
+      console.log(opDir)
+      opDir = opDir*-1
+      cntInc = 5
+      opInc = 0.01
+      bottomPulse = 0.3
+    }
+    op+=(opInc*opDir)
+  }
+}, 20);
+
+</script>
+
+<!-- *** NOTES ***
+
+-->

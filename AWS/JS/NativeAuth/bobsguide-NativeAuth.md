@@ -130,6 +130,23 @@ var poolData = {
 At this point in the code, with the dyanmoDB functions, i kinda went rouge.
 - start_dynamoDB() is an example
 
+### dynamoDB-NativeAuth-browser.html Notes
+
+There's a strange thing I noticed about how i add var names rather than declair var names, like
+- It DID NOT like ... x
+```javascript
+var x = 'Name'
+    data: {
+      x: { Keys: [ {'ID': {N: '2'}},
+    }
+```
+- It did like ... [x]
+```javascript
+var x = 'Name'
+    data: {
+      [x]: { Keys: [ {'ID': {N: '2'}},
+    }
+```
 
 
 SECURITY ISSUES:
@@ -145,6 +162,7 @@ SECURITY ISSUES:
   - BUT, can we do function-like things with basic services....???????
 
 --------------------------------------------------------------------------------
+##### Notes
 
 v v v v v ---- WHERE I LEFT OFF ---- v v v v
 
@@ -153,41 +171,47 @@ v v v v v ---- WHERE I LEFT OFF ---- v v v v
   - If not Add 'em 'n' show 'em'
 
 NEXT--->
-- 1) Continue with link below, examples for BATCH, like what is that?
-  - This FIRST, because it may inform you on 2), 3) .
-- 2) how do user's see other users?
-- 3) Continue to do basic CRUD operations, like edit, remove, and all the other fun stuff you did in the movies tutorial
+- ~~1) Continue with link below, examples for BATCH, like what is that?~~
+  - ~~Clean and claify code~~
+
+
+- 2) go through fine-grained access control.
+  - Here's where you can try to impliment the chart you drew.
+  - ***Clean and claify code***
+
+
+- 3) Continue to do basic CRUD operations, like edit, remove, and all the other fun stuff you did in the movies tutorial.
+
+
+- 4) impliment Google
+  - Might be best to have google+ be on its own then do a 3RD code base with all three.
+    - So you'll have UnAuth, NativeAuth, Google+, & Un/Native/G+/FB
+    - It's alot but walking through those well will be good review and the...
+
+
+- 5) Clean organize push code and your base exploratoion with AWS... WILL...BE...DONE
+  - Clean and clear dead tables, IAM Roles & policies, ID Pools, User Pools, S3 Buckets,
+  - Make Directory Notes in bobsguide for all aws resources, include Route 54 stuff too.
+
+
 - !!!! You know what would really be helpful. Your main question now is more about structure & flow. i.e. you wanna know the things twitter/facebook do. So just look for that, weather it dynamoDB, or MongoDB, or whatever, you just wanna... well... It's user data Architecture you're talking about, then!
 
 - CHECK links below to rebuild tab window we closed...
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 --------------------------------------------------------------------------------
-
-##### Notes
-
 ##### Links
 
 *** closed tabs in window ***
+
 Google developers: https://console.developers.google.com/apis/credentials?project=test1-180721
+
 Medium Article about FB and Google+: https://medium.com/aws-activate-startup-blog/dynamic-websites-using-the-aws-sdk-for-javascript-in-the-browser-b3dd90c25b1e
+
 AWS resource that looks like a good review for cognito with unauthenticated and authenticated users: https://aws.amazon.com/blogs/developer/authentication-in-the-browser-with-amazon-cognito-and-public-identity-providers/
-DynamoDB > Reading and Writing Items in Batch in DynamoDB: http://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/dynamodb-example-table-read-write-batch.html
 
+DynamoDB docs for ddb methods: http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/api-permissions-reference.html
 
+1.) DynamoDB > Reading and Writing Items in Batch in DynamoDB: http://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/dynamodb-example-table-read-write-batch.html
 
-
-
-AWS SDK for JavaScript: Code Examples: http://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/dynamodb-example-table-read-write-batch.html
+2.) Using IAM Policy Conditions for Fine-Grained Access Control (DynamoDB) http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/specifying-conditions.html

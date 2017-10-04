@@ -257,17 +257,6 @@ td {
     }
     c.I('date').innerHTML = months[c.month]+' '+c.year
     c.hasDate()
-    // console.log('c.data.current: ',c.data.current)
-
-/*------------WHERE I LEFT OFF--------------
-- to fix a lot of issues below... CHANGE c.year & .month to global & || update the API! (only api will work, but with delay)
-- One, it actually looks to be working
-- There is an issue with update....
-- methods aren't reading updating c.data... or any data changed dynamically after original
-- also added a direct hit to htmlJS update in the data.js
--
-
-------------------------*/
   }
 
   c.setCurrent = ()=>{ c.data.current = c.data[c.year][months[c.month]] }
@@ -300,18 +289,11 @@ td {
     if (updated) {
       putMyJson(_DATA, _PERSONAL_URI, ()=>{ // calback to change c.data
         console.log('Callback')
-        // c.data = _DATA.starChart[c.year][months[c.month]]
-        // c.current = _DATA.starChart[c.year][months[c.month]]
-        c.update()
+        c.update() // NEED THIS! you'll think you don't, but it's only for NEW USERS with no current year. otherwise you'll have to refresh the page.
       })
     }
-    // else {
-    //   // c.data = _DATA.starChart[c.year][months[c.month]]
-    //   // c.current = _DATA.starChart[c.year][months[c.month]]
-    //   // c.current = c.data
-    //   // console.log('c.current: ', c.current)
-    //   // c.update()
-    // }
+    //
+    // vvv... MOVE TO star-graph.html ...vvv
     c.setCurrent()
     let miles = 0
     for (const day of c.data.current) {
@@ -330,10 +312,11 @@ td {
         lbCnt++
       }
     }
-    console.log(lb)
     c.I('w').innerHTML = lb/lbCnt
+    // ^^^... MOVE TO star-graph.html ...^^^
+    //
 
-    c.update()
+    c.update() // Remove??? test THOROUGHLY
   }
 
   c._ADD_EVENT('click', 'dateNav', ([key, val, elm] = c.KVE(event))=>{
@@ -420,8 +403,7 @@ td {
       _DATA.starChart[c.year][months[c.month]][parseInt(key)][val] = state === false ? ' ' : false
       putMyJson(_DATA, _PERSONAL_URI)
     }
-    c.update()
-  })
+  }, true)
 
   c._ADD_EVENT('keypress', 'main', ([ key, val, elm ] = c.KVE(event))=>{
     let unknown = true
@@ -444,8 +426,7 @@ td {
       putMyJson(_DATA, _PERSONAL_URI)
       elm.blur()
     }
-    c.update()
-  })
+  }, true)
 
   c._ADD_EVENT('mouseover', 'main', ([ key, val ] = c.KVE(event), value)=>{
     c.setCurrent()

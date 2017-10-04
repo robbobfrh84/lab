@@ -11,5 +11,5 @@ Email list
 - how to handle and organize those lists (thinking mine-shaft-gap)
 
 ### Interesting/Check out
-When I was going through adding a domain to aws with s3, this refence to logging (like analytics, maybe? ) jumped out.
+When I was going through adding a domain to aws with s3, this refence to logging (like analytics, maybe? ) I jumped out.
 - Link: http://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/dynamodb-example-table-read-write-batch.html
