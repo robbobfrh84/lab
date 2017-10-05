@@ -1,4 +1,4 @@
-authenticateIdentityPool = (retry)=>{
+authenticateIdentityPool = (callback)=>{
   if (cognitoUser != null) { //Check if a user is already signed in
     cognitoUser.getSession(function(err, result) {
       if (result) {
@@ -14,11 +14,11 @@ authenticateIdentityPool = (retry)=>{
     })
     AWS.config.credentials.refresh((error) => {
       if (error) {
-        console.error('error, retry: ', error, retry)
-        if (!retry) authenticateIdentityPool()
+        console.error('error: ', error)
+        authenticateIdentityPool()
       } else {
-        console.log('\n\nAWS table: ['+table1+'] access granted.')
-        start_dynamoDB()
+        console.log('\n\nRole arn grants access to AWS table: '+table1)
+        if (callback) callback()
       }
     })
     user.innerHTML = 'You are now logged in as: '+ cognitoUser.username
@@ -43,9 +43,10 @@ signUp_User_To_Pool = ()=>{
 confirm_User = ()=>{
   cognitoUser.confirmRegistration(verification.value, true, function(err, result) {
     if (err) { textArea.innerHTML = err; return }
-    confirmBox.style.display = 'none'; loggedIn.style.display = ''
-    user.innerHTML = 'You are now logged in as: '+cognitoUser.username
-    textArea.innerHTML = JSON.stringify(cognitoUser, null, 2)
+    confirmBox.style.display = 'none';
+    noLogIn.style.display = ''
+    textArea.innerHTML = 'You can now logged in as: '+cognitoUser.username
+    logOut_User()
   })
 }
 
@@ -57,7 +58,7 @@ signIn_User = ()=>{
   cognitoUser = new AWSCognito.CognitoIdentityServiceProvider.CognitoUser(userData);
   cognitoUser.authenticateUser(authenticationDetails, {
     onSuccess: function (result) {
-      authenticateIdentityPool(result)
+      check_user_status()
     },
     onFailure: function(err) {
       textArea.innerHTML = err
@@ -109,16 +110,17 @@ forgot_User = ()=>{
   })
 }
 
-getUserAttributes = ()=>{
+getUserAttributes = (callback)=>{
   cognitoUser.getUserAttributes(function(err, attributes) {
     if (err) { console.log(err); return }
     else {
       cognitoUser.attributes = attributes
-      textArea.innerHTML = "*** User Attributes ***\n"
+      textArea.innerHTML = "*** Succesfully logged into Cognito User Pool ***\n"
       + "User: " + cognitoUser.username + "\n"
       + JSON.stringify(attributes, null, 2)
       // + '\n\n --- \n\n' + JSON.stringify(cognitoUser, null, 2)
       console.log('\ncognitoUser: ', cognitoUser)
+      if (callback) callback()
     }
   })
 }

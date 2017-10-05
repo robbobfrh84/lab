@@ -99,8 +99,22 @@ var userData = {
 }
 var cognitoUser = userPool.getCurrentUser();
 
-window.onload = ()=>{
-  authenticateIdentityPool()
+window.onload = ()=>{ check_user_status() }
+
+check_user_status = ()=>{
+  // vvv first authenticate user with AWS Cognito User Pool
+  authenticateIdentityPool(()=>{ // callback
+    // Successful login, will then fire up dynamoDB
+    start_dynamoDB((obj)=>{ // callback
+      // get user tables associated with this user
+      fetch_dynamoDB_tables(obj, (userInfo, usersList)=>{
+        // if user is not in dynamodb table add 'em'
+        check_user_to_table(userInfo)
+        // if user is not in the UserList row, add 'em'
+        check_user_in_ListUsers(usersList)
+      })
+    })
+  })
 }
 
 getUser = ()=>{
@@ -125,17 +139,7 @@ logOut = ()=>{      logOut_User() }
 logOutAll = ()=>{   logOutAll_Pools_And_Devices()}
 forgot = ()=>{      forgot_User() }
 
-/* --------------------------- DynamoDB Actions --------------------------------
-batchGet_dynamoDB()
-batchWrite_dynamoDB()
-
-
-NOTE: start_dynamoDB() is called when Cognito login's are successfull
-- The fuction calls:      get_dynamoDB()
-- And:                    put_dynamoDB()
-- AND/ instead? / !!!! did i finished back get???
-*/
-
+/* --------------------------- DynamoDB Actions --------------------------------*/
 get_DB = (params, callback)=>{ // not called by html, but within start_DynamoDB()
   get_dynamoDB(params, callback)
 }
@@ -152,7 +156,7 @@ getB_DB = ()=>{ // hardcoded data.
         ProjectionExpression: 'ID, IDname, Color'
       }
     }
-  })
+  }, (data, params)=>{ textArea.innerHTML = "*** Successful batchGet from DB ***\n\n"+JSON.stringify(data, undefined, 2) })
 }
 writeB_DB = ()=>{ // hardcoded data.
   batchWrite_dynamoDB({
@@ -178,7 +182,7 @@ writeB_DB = ()=>{ // hardcoded data.
         }
       ]
     }
-  })
+  }, (data, params)=>{ textArea.innerHTML = "*** Successful batchWrite to DB ***\n\n"+JSON.stringify(params, undefined, 2) })
 }
 
 </script>
