@@ -173,6 +173,56 @@ NEXT--->
   - ~~Clean and claify code~~
 
 
+
+
+
+
+
+
+
+
+
+
+
+FLOW:
+- all signin stuff should be well noted for testarea and displayed on signIn
+- after that any button presses clears field. dynamoDB
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 - 2) go through fine-grained access control.
   - Here's where you can try to impliment the chart you drew.
   - ***Clean and claify code***
