@@ -36,6 +36,12 @@
         * WriteBatchItem from Example from <br> DynamoDB Table: DataBasic (see code: <em>hard coded</em>)
       </div>
       <button onclick="writeB_DB()"> Write Batch </button>
+
+      <br><br>
+      <div style='font-size: 14px;'>
+        * Get Users List from <br> DynamoDB Table: SignUpUserList <br> (see code: <em>hard coded</em>)
+      </div>
+      <button onclick="getUser()"> Get Users </button>
     </div>
 <!-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
                          *** SIGN UP FIELD ***
@@ -97,6 +103,20 @@ window.onload = ()=>{
   authenticateIdentityPool()
 }
 
+getUser = ()=>{
+  console.log('get Users')
+  get_dynamoDB({
+    TableName: table1,
+      Key: {
+        'Username': {S: 'ListUsers'},
+        'Client_Id': {S: '0'}
+      }
+    }, (data)=>{
+      console.log(data.Item.Users)
+    }
+  )
+}
+
 /* ----------------------- COGNITO user life-cycle -------------------------- */
 signUp = ()=>{      signUp_User_To_Pool() }
 confirm = ()=>{     confirm_User() }
@@ -105,17 +125,16 @@ logOut = ()=>{      logOut_User() }
 logOutAll = ()=>{   logOutAll_Pools_And_Devices()}
 forgot = ()=>{      forgot_User() }
 
-/* ----------------------- DynamoDB Actions-------------------------- */
-// NOTE: start_dynamoDB() is called when Cognito login's are successfull
-// - The fuction calls:      get_dynamoDB()
-// - And:                    put_dynamoDB()
+/* --------------------------- DynamoDB Actions --------------------------------
+batchGet_dynamoDB()
+batchWrite_dynamoDB()
 
-getB_DB = ()=>{ // hardcoded data.
-  batchGet_dynamoDB()
-}
-writeB_DB = ()=>{ // hardcoded data.
-  batchWrite_dynamoDB()
-}
+
+NOTE: start_dynamoDB() is called when Cognito login's are successfull
+- The fuction calls:      get_dynamoDB()
+- And:                    put_dynamoDB()
+- AND/ instead? / !!!! did i finished back get???
+*/
 
 get_DB = (params, callback)=>{ // not called by html, but within start_DynamoDB()
   get_dynamoDB(params, callback)
@@ -123,6 +142,43 @@ get_DB = (params, callback)=>{ // not called by html, but within start_DynamoDB(
 
 put_DB = (params, callback)=>{ // not called, but within start_DynamoDB()
   put_dynamoDB(params, callback)
+}
+
+getB_DB = ()=>{ // hardcoded data.
+  batchGet_dynamoDB({
+    RequestItems: {
+      [table2]: {
+        Keys: [ {'ID': {N: '1'}}, {'ID': {N: '2'}}, ],
+        ProjectionExpression: 'ID, IDname, Color'
+      }
+    }
+  })
+}
+writeB_DB = ()=>{ // hardcoded data.
+  batchWrite_dynamoDB({
+    RequestItems: {
+      [table2]: [
+        {
+          PutRequest: {
+            Item: {
+              "ID": {N: "10" },
+                "IDname": {S: "Ten" },
+                "Color": {S: "Brown" },
+            }
+          }
+        },
+        {
+          PutRequest: {
+            Item: {
+              "ID": {N: "11" },
+                "IDname": {S: "Eleven" },
+                "Color": {S: "Pink" },
+            }
+          }
+        }
+      ]
+    }
+  })
 }
 
 </script>

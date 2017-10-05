@@ -166,9 +166,7 @@ SECURITY ISSUES:
 
 v v v v v ---- WHERE I LEFT OFF ---- v v v v
 
-- figured out how to ...
-  - Check if user is added to hardcoded DB table .
-  - If not Add 'em 'n' show 'em'
+- Added batch get/write to native auth.
 
 NEXT--->
 - ~~1) Continue with link below, examples for BATCH, like what is that?~~
