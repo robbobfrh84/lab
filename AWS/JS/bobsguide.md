@@ -12,29 +12,6 @@
 - **SignUpPool** (NativeAuth)
 - **FBSignIn** (dynamoDB-FB-browser)
 
-*UserPools*
-- **SignUp** (NativeAuth)
-
-*DynamoDB Tables*
-- **SignUpUserList** (NativeAuth)
-- **DataBasic** (NativeAuth)
-- **aws-created1** (dynamoDB-FB-browser)
-
-
-*s3 buckets*
-- **?**
-
-*53*
-- **?**
-
-*Roles & Policies*
-- **Cognito_SignUpPoolAuth_Role** (NativeAuth)
-- **Cognito_SignUpPoolUnAuth_Role** (NativeAuth)
-- **Cognito_FBSignUpAuth_Role** (dynamoDB-FB-browser)
-- **Cognito_FBSignUpUnAuth_Role** (dynamoDB-FB-browser)
-
-
-
 Introduction link that I used and referenced: http://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/welcome.html
 
 ### Getting Started for AWS SDK
