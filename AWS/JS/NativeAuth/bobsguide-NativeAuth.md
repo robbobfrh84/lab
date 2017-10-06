@@ -118,7 +118,7 @@ var poolData = {
 ```JSON
 "Resource": [
     "arn:aws:cognito-identity:us-west-2:13452463457:identitypool/us-west-2:1234e37-7a62-1234-asdf-adsf21341b45",
-    "**Amazon Resource Name (ARN)** Here"
+    "arn:aws:dynamodb:us-west-2:234646734574:table/SignUpUserList",
 ]
 ```
 
@@ -129,6 +129,15 @@ var poolData = {
 
 At this point in the code, with the dyanmoDB functions, i kinda went rouge.
 - start_dynamoDB() is an example
+
+At one point I added another table to the  `Resource` field to the "Cognito_SignUpPoolAuth_Role" we build above making it look like so...
+```JSON
+"Resource": [
+    "arn:aws:cognito-identity:us-west-2:13452463457:identitypool/us-west-2:1234e37-7a62-1234-asdf-adsf21341b45",
+    "arn:aws:dynamodb:us-west-2:234646734574:table/SignUpUserList",
+    "arn:aws:dynamodb:us-west-2:234560506734:table/DataBasic",
+]
+```
 
 ### dynamoDB-NativeAuth-browser.html Notes
 
@@ -160,55 +169,3 @@ SECURITY ISSUES:
   - How much of this CAN'T be done in the browser....?
   - like, when do we need to leverage a backend.
   - BUT, can we do function-like things with basic services....???????
-
---------------------------------------------------------------------------------
-##### Notes
-
-v v v v v ---- WHERE I LEFT OFF ---- v v v v
-
-- finalized and tested flow for native Auth. Copying code and creating a new flow off of that called same + FB/G+, start with FB. 
-
-NEXT--->
-- ~~1) Continue with link below, examples for BATCH, like what is that?~~
-  - ~~Clean and claify code~~
-
-- 2) Save and copy Native Auth, start new folder for NativeAuth + FB + G+
-  - Plug it in!
-  - keep basic fb .html.
-
-- 3) Google +
-  - Create basic login like facebboks
-  - Add google to NativeAuth + FB + G+
-
-- 4) fine-grained access control.
-  - Set up how signedin users get access to **new** column ("groups")
-
-- 5) DynamoDB operations to Add
-  - Remove (delete)
-
-- 5) Clean organize push code and your base exploratoion with AWS... WILL...BE...DONE
-  - Clean and clear dead tables, IAM Roles & policies, ID Pools, User Pools, S3 Buckets,
-  - Make Directory Notes in bobsguide for all aws resources, include Route 54 stuff too.
-
-
-- !!!! You know what would really be helpful. Your main question now is more about structure & flow. i.e. you wanna know the things twitter/facebook do. So just look for that, weather it dynamoDB, or MongoDB, or whatever, you just wanna... well... It's user data Architecture you're talking about, then!
-
-- CHECK links below to rebuild tab window we closed...
-
-
---------------------------------------------------------------------------------
-##### Links
-
-*** closed tabs in window ***
-
-Google developers: https://console.developers.google.com/apis/credentials?project=test1-180721
-
-Medium Article about FB and Google+: https://medium.com/aws-activate-startup-blog/dynamic-websites-using-the-aws-sdk-for-javascript-in-the-browser-b3dd90c25b1e
-
-AWS resource that looks like a good review for cognito with unauthenticated and authenticated users: https://aws.amazon.com/blogs/developer/authentication-in-the-browser-with-amazon-cognito-and-public-identity-providers/
-
-DynamoDB docs for ddb methods: http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/api-permissions-reference.html
-
-1.) DynamoDB > Reading and Writing Items in Batch in DynamoDB: http://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/dynamodb-example-table-read-write-batch.html
-
-2.) Using IAM Policy Conditions for Fine-Grained Access Control (DynamoDB) http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/specifying-conditions.html

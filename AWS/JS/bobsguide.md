@@ -7,6 +7,34 @@
 - * DynamoDB: Native Auth, Read/Write access & user info store
 * Has own readme file.
 
+#### Names of AWS services used
+*Federated Identity Pools*
+- **SignUpPool** (NativeAuth)
+- **FBSignIn** (dynamoDB-FB-browser)
+
+*UserPools*
+- **SignUp** (NativeAuth)
+
+*DynamoDB Tables*
+- **SignUpUserList** (NativeAuth)
+- **DataBasic** (NativeAuth)
+- **aws-created1** (dynamoDB-FB-browser)
+
+
+*s3 buckets*
+- **?**
+
+*53*
+- **?**
+
+*Roles & Policies*
+- **Cognito_SignUpPoolAuth_Role** (NativeAuth)
+- **Cognito_SignUpPoolUnAuth_Role** (NativeAuth)
+- **Cognito_FBSignUpAuth_Role** (dynamoDB-FB-browser)
+- **Cognito_FBSignUpUnAuth_Role** (dynamoDB-FB-browser)
+
+
+
 Introduction link that I used and referenced: http://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/welcome.html
 
 ### Getting Started for AWS SDK
@@ -33,6 +61,21 @@ Facebook login & upload files
 
 --------------------------------------------------------------------------------
 ### Notes
+
+--------------------------------------------------------------------------------
+##### Links
+
+Google developers: https://console.developers.google.com/apis/credentials?project=test1-180721
+
+Medium Article about FB and Google+: https://medium.com/aws-activate-startup-blog/dynamic-websites-using-the-aws-sdk-for-javascript-in-the-browser-b3dd90c25b1e
+
+AWS resource that looks like a good review for cognito with unauthenticated and authenticated users: https://aws.amazon.com/blogs/developer/authentication-in-the-browser-with-amazon-cognito-and-public-identity-providers/
+
+DynamoDB docs for ddb methods: http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/api-permissions-reference.html
+
+1.) DynamoDB > Reading and Writing Items in Batch in DynamoDB: http://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/dynamodb-example-table-read-write-batch.html
+
+2.) Using IAM Policy Conditions for Fine-Grained Access Control (DynamoDB) http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/specifying-conditions.html
 
 ### Other Helpful Links
 aws amazon forum question for Amazon Incognito: https://forums.aws.amazon.com/thread.jspa?threadID=170870

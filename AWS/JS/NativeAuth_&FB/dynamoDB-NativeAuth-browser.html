@@ -11,8 +11,11 @@
                             *** TEXT AREA ***
 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< -->
     <div style="float: left">
-      <h2>DynamoDB: Native Auth</h2>
-      <h4> &bull; Read/Write access & user info store</h4>
+      <h3>Sign In with Native Auth or FaceBook or Google+ </h3>
+      <h4> &bull; Using Amazon Cognito <br>
+           &bull; For Autherization for DyanmoDB
+      </h4>
+
       <textarea id="textArea" style="font-size: 14px; width:400px; height:500px; display: block;"></textarea>
     </div>
 <!-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -52,6 +55,12 @@
         <input id="passwordIn" type="password" placeholder="...password">
       </div>
       <div> <button style="height: 40px; width: 57px;" onclick="signIn()"> Sign In </button> </div>
+
+      <hr>
+      <div style="text-align: center;">
+        <button style="height: 40px; width: 90px;" onclick="fbsignIn()"> FaceBook Sign In </button>
+        <button style="height: 40px; width: 90px;" onclick="gsignIn()"> Google+ <br> Sign In </button>
+      </div>
 
       <hr>
       <div style="float: left">
@@ -99,6 +108,15 @@ var userData = {
 }
 var cognitoUser = userPool.getCurrentUser();
 
+
+fbsignIn = ()=>{
+  console.log('facebook sign in')
+}
+
+gsignIn = ()=>{
+  console.log("google+sign in")
+}
+
 window.onload = ()=>{ check_user_status() }
 
 check_user_status = ()=>{
@@ -126,6 +144,13 @@ logOutAll = ()=>{   logOutAll_Pools_And_Devices()}
 forgot = ()=>{      forgot_User() }
 
 /* --------------------------- DynamoDB Actions --------------------------------*/
+get_DB = (params, callback)=>{
+  get_dynamoDB(params, callback)
+}
+
+put_DB = (params, callback)=>{
+  put_dynamoDB(params, callback)
+}
 
 getB_DB = ()=>{ // hardcoded data.
   batchGet_dynamoDB({
