@@ -166,25 +166,25 @@ SECURITY ISSUES:
 
 v v v v v ---- WHERE I LEFT OFF ---- v v v v
 
-- Added batch get/write to native auth.
+- finalized and tested flow for native Auth. Copying code and creating a new flow off of that called same + FB/G+, start with FB. 
 
 NEXT--->
 - ~~1) Continue with link below, examples for BATCH, like what is that?~~
   - ~~Clean and claify code~~
 
-- 2) go through fine-grained access control.
-  - Here's where you can try to impliment the chart you drew.
-  - ***Clean and claify code***
+- 2) Save and copy Native Auth, start new folder for NativeAuth + FB + G+
+  - Plug it in!
+  - keep basic fb .html.
 
+- 3) Google +
+  - Create basic login like facebboks
+  - Add google to NativeAuth + FB + G+
 
-- 3) Continue to do basic CRUD operations, like edit, remove, and all the other fun stuff you did in the movies tutorial.
+- 4) fine-grained access control.
+  - Set up how signedin users get access to **new** column ("groups")
 
-
-- 4) impliment Google
-  - Might be best to have google+ be on its own then do a 3RD code base with all three.
-    - So you'll have UnAuth, NativeAuth, Google+, & Un/Native/G+/FB
-    - It's alot but walking through those well will be good review and the...
-
+- 5) DynamoDB operations to Add
+  - Remove (delete)
 
 - 5) Clean organize push code and your base exploratoion with AWS... WILL...BE...DONE
   - Clean and clear dead tables, IAM Roles & policies, ID Pools, User Pools, S3 Buckets,

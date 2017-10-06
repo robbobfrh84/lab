@@ -22,6 +22,8 @@ fetch_dynamoDB_tables = (obj, callback)=>{
     }
   }, (Userdata)=>{ // callback
     let usersList, userInfo;
+    console.log('00000', Userdata.Responses)
+
     for (const user of Userdata.Responses.SignUpUserList) {
       if (!user.publicUsers) usersList = user.publicUsers
       else {
@@ -29,13 +31,13 @@ fetch_dynamoDB_tables = (obj, callback)=>{
         textArea.innerHTML += '\n\n*** DynamoDB Table: "'+table1+'" user info row ***\n' + JSON.stringify(userInfo, null, 2)
       }
     }
-    callback(obj, userInfo, usersList)
+    callback(userInfo, usersList)
   })
 }
 
-check_user_to_table = (userInfo)=>{
-
-  if (!userInfo) { // if user not in table, add 'em.
+check_user_to_table = (obj, user)=>{
+  console.log('------', user)
+  if (!user) { // if user not in table, add 'em.
     put_dynamoDB({
       TableName: table1,
       Item: {
@@ -44,7 +46,7 @@ check_user_to_table = (userInfo)=>{
         'Email': {S: obj.email},
         'User_Pool_Id': {S: cognitoUser.pool.userPoolId},
       }
-    }, ()=>{ textArea.innerHTML += "\n\n*** User Added to table ***\n" + JSON.stringify(data, null, 2) })
+    }, ()=>{ console.log('\n* User Data added to "'+table1+'" table') })
   } else { console.log('\n* User Data already present in table')}
 
 }

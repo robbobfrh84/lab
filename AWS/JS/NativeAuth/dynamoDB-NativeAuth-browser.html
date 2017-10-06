@@ -54,6 +54,12 @@
       <div> <button style="height: 40px; width: 57px;" onclick="signIn()"> Sign In </button> </div>
 
       <hr>
+      <div style="text-align: center;">
+        <button style="height: 40px; width: 90px;" onclick="fbsignIn()"> FaceBook Sign In </button>
+        <button style="height: 40px; width: 90px;" onclick="gsignIn()"> Google+ <br> Sign In </button>
+      </div>
+
+      <hr>
       <div style="float: left">
         <input id="email" type="text" placeholder="...email"> <br>
         <input id="userNameUp" type="text" placeholder="...username"> <br>
@@ -99,6 +105,15 @@ var userData = {
 }
 var cognitoUser = userPool.getCurrentUser();
 
+
+fbsignIn = ()=>{
+  console.log('facebook sign in')
+}
+
+gsignIn = ()=>{
+  console.log("google+sign in")
+}
+
 window.onload = ()=>{ check_user_status() }
 
 check_user_status = ()=>{
@@ -108,27 +123,15 @@ check_user_status = ()=>{
     start_dynamoDB((obj)=>{ // callback
       // get user tables associated with this user
       fetch_dynamoDB_tables(obj, (userInfo, usersList)=>{
+        console.log('list', usersList, 'info', userInfo)
+
         // if user is not in dynamodb table add 'em'
-        check_user_to_table(userInfo)
+        check_user_to_table(obj, usersList)
         // if user is not in the UserList row, add 'em'
-        check_user_in_ListUsers(usersList)
+        check_user_in_ListUsers(userInfo)
       })
     })
   })
-}
-
-getUser = ()=>{
-  console.log('get Users')
-  get_dynamoDB({
-    TableName: table1,
-      Key: {
-        'Username': {S: 'ListUsers'},
-        'Client_Id': {S: '0'}
-      }
-    }, (data)=>{
-      console.log(data.Item.Users)
-    }
-  )
 }
 
 /* ----------------------- COGNITO user life-cycle -------------------------- */
@@ -140,11 +143,11 @@ logOutAll = ()=>{   logOutAll_Pools_And_Devices()}
 forgot = ()=>{      forgot_User() }
 
 /* --------------------------- DynamoDB Actions --------------------------------*/
-get_DB = (params, callback)=>{ // not called by html, but within start_DynamoDB()
+get_DB = (params, callback)=>{
   get_dynamoDB(params, callback)
 }
 
-put_DB = (params, callback)=>{ // not called, but within start_DynamoDB()
+put_DB = (params, callback)=>{
   put_dynamoDB(params, callback)
 }
 
@@ -183,6 +186,23 @@ writeB_DB = ()=>{ // hardcoded data.
       ]
     }
   }, (data, params)=>{ textArea.innerHTML = "*** Successful batchWrite to DB ***\n\n"+JSON.stringify(params, undefined, 2) })
+}
+
+getUser = ()=>{
+  get_dynamoDB({
+    TableName: table1,
+      Key: {
+        'Username': {S: 'ListUsers'},
+        'Client_Id': {S: '0'}
+      }
+    }, (data)=>{
+      let users = []
+      for (const user in data.Item.publicUsers.M) {
+        users.push(user)
+      }
+      textArea.innerHTML = "*** Public Users ***\n\n"+JSON.stringify(users, undefined, 2)
+    }
+  )
 }
 
 </script>
