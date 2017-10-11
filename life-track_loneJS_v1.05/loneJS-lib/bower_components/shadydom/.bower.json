@@ -1,0 +1,45 @@
+{
+  "name": "shadydom",
+  "description": "Shadow DOM polyfill",
+  "main": "shadydom.min.js",
+  "authors": [
+    "The Polymer Authors"
+  ],
+  "license": "BSD-3-Clause",
+  "keywords": [
+    "shady-dom",
+    "shadydom",
+    "shadow-dom",
+    "shadowdom",
+    "web-components",
+    "webcomponents",
+    "polyfill",
+    "shim"
+  ],
+  "homepage": "https://webcomponents.org/polyfills",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "web-component-tester": "^5",
+    "template": "webcomponents/template#master",
+    "custom-elements": "webcomponents/custom-elements#master",
+    "webcomponents-platform": "webcomponents/webcomponents-platform#master",
+    "shadycss": "webcomponents/shadycss#master"
+  },
+  "version": "1.0.0",
+  "_release": "1.0.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.0.0",
+    "commit": "260f79b33a3def94a22da6f32d5cd51039a26e46"
+  },
+  "_source": "https://github.com/webcomponents/shadydom.git",
+  "_target": "^1.0.0",
+  "_originalSource": "webcomponents/shadydom",
+  "_direct": true
+}
