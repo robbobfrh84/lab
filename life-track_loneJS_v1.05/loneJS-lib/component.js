@@ -59,13 +59,13 @@ class Component {
     this.events.push( {'type': type, 'method': method, 'id': id, 'update': update} )
   }
 
-  getDir (obj, dir, mDir = dir.split(' '), oObj = { 'DATA': obj }, mObj = []) {
+  getDir (obj, dir, mDir = dir.split(' '), oObj = { '_DATA': obj }, mObj = []) {
     if (dir === 'c.data') return this.data
     if (mDir.length > 1) {
       for (const i in mDir) {
         for (const p of mDir[i].split(/[.\[\]]/).filter(Boolean)) oObj = oObj[p]
         mObj.push(oObj)
-        oObj = { 'DATA': obj }
+        oObj = { '_DATA': obj }
       }
       oObj = mObj
     } else {
@@ -78,7 +78,7 @@ class Component {
     for (const component of _COMPONENTS_STORED_GLOBALLY) {
       if (component.hasAttribute('serve')) {
         const serve = component.getAttribute('serve')
-        component.setAttribute('served', JSON.stringify(this.getDir(DATA, serve)))
+        component.setAttribute('served', JSON.stringify(this.getDir(_DATA, serve)))
       }
     }
   }
@@ -90,7 +90,7 @@ class Component {
   serveDir (that) {
     if (that.hasAttribute('serve')) {
       let served = document.createAttribute('served')
-      served.value = JSON.stringify(this.getDir(DATA, that.getAttribute('serve')))
+      served.value = JSON.stringify(this.getDir(_DATA, that.getAttribute('serve')))
       that.setAttributeNode(served)
     }
     else if (!that.hasAttribute('serve') && this.data) {
