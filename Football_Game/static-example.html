@@ -18,9 +18,42 @@ body, html * {
 <script src='field.js'></script>
 <script>
 
-var x = 0
+var cx = 250, cy = 377
+var pixelStep = 1
+var step = 0
+var fps = 60
 
-window.onload = ()=>{ set(0) }
+window.onload = ()=>{ animate() }
+
+function animate() {
+  ctx.clearRect(0,0,(w*1.1)+10,(w*360)/160)
+  buildField(grass)
+  set(step)
+  playerPath(step)
+  step += pixelStep
+  if (step < 300) {
+    setTimeout( ()=>{ requestAnimationFrame(animate) }, 1000 / fps)
+  }
+  if (step%10 === 0) console.log(step)
+}
+
+playerPath = (step)=>{
+  if (step <= 60) {
+    cx = cx+0.1
+    cy = cy-1
+    buildPlayer(cx, cy, 7, teams[0].colors, true)
+  }
+  if (step > 60 & step <= 72) {
+    cx = cx-2
+    cy = cy-1
+    buildPlayer(cx, cy, 7, teams[0].colors, true)
+  }
+  if (step > 72 & step < 340) {
+    cx = cx-0.1
+    cy = cy-1.2
+    buildPlayer(cx, cy, 7, teams[0].colors, true)
+  }
+}
 
 set = ()=>{
   vertLine(10, ((h+5)/10)+150, w*1.1, (h/10)+150, 5, 'rgba(184,134,11, 0.15)')
@@ -29,19 +62,13 @@ set = ()=>{
   buildPlayer(150, 407, 7, teams[0].colors, true)
   buildPlayer(30, 377, 7, teams[0].colors, true)
   buildPlayer(90, 393, 7, teams[0].colors, true)
-  buildPlayer(250, 377, 7, teams[0].colors, true)
+  // buildPlayer(250, 377, 7, teams[0].colors, true)
 
   buildPlayer(150, 351, 7, teams[1].colors)
   buildPlayer(70, 330, 7, teams[1].colors)
   buildPlayer(90, 250, 7, teams[1].colors)
   buildPlayer(250, 290, 7, teams[1].colors)
 }
-
-// setInterval(function(){
-//   console.log('x')
-//   buildPlayer(250, 377-x, 7, teams[0].colors, true)
-//   x++
-// }, 200);
 
 </script>
 </html>

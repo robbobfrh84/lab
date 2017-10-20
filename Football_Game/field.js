@@ -14,9 +14,14 @@ img.src = 'darkGreenGainy.png'
 
 var home = teams[0]
 var away = teams[1]
+var grass
 
 img.onload = function(){
-  var grass = ctx.createPattern(this, "repeat")
+  grass = ctx.createPattern(this, "repeat")
+  buildField(grass)
+}
+
+buildField = (grass)=>{
   // field boundary
   roundedRect(5, 5, w*1.1, h, 15, null, grass)
   roundedRect(7.5, 7.5, w*1.1-5, h-5, 12.5, 5, null, 'rgba(255,255,255,0.35)')

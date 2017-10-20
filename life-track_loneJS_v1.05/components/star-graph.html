@@ -1,10 +1,14 @@
 <template id="star-graph">
 <!-- { { { { { { { { { { { { { { { {  CSS  } } } } } } } } } } } } } } } } } -->
 <style>
-
+.extra {
+  font-size: 14px;
+  color: rgba(255,255,255,0.8);
+}
 </style>
 <!-- < < < < < < < < < < < < < < < <  html > > > > > > > > > > > > > > > > > -->
 <content>
+  <span style='float: right' id='date'> </span>
   <body id="main">
     Miles Ran this month: &nbsp;
     <span id='miles' style="font-size: 25px;"></span>
@@ -31,6 +35,10 @@ c._ON_SET = (attr)=>{
 
   let noDrink = 0, noSmoke = 0, cardio = 0, miles = 0, lift = 0, scrum = 0, lb = 0, lbCnt = 0
   const month = c.data[c.data.currentY][months[c.data.currentM]]
+  const time = new Date()
+  const date = time.getDate()
+  const day = days[time.getDay()]
+  let suf = ''; if (date === 1) { suf += 'st' } else if (date === 2) {suf+='nd'} else if (date === 3) {suf+='rd'} else if (date > 3) {suf+='th'}
 
   for (const day of month) {
     if (day.drink === false) noDrink++
@@ -47,7 +55,15 @@ c._ON_SET = (attr)=>{
     if (day.scrum[1] === true || day.scrum === false) scrum++
   }
 
-  c.I('miles').innerHTML = Math.round(miles*100) / 100
+  c.I('date').innerHTML = 'Today is <div style="font-size: 20px;">'+day+', the '+date+suf+'</div>'
+
+  const mr = (Math.round(miles*100) / 100)
+  const cd = date
+  const d = c.data[c.data.currentY][months[c.data.currentM]].length
+  console.log((mr*d)/cd)
+  c.I('miles').innerHTML = (Math.round(miles*100) / 100)+' <span class="extra">Month Pace('+(Math.round(((mr*d)/cd)*100) / 100)+')</span>'
+
+
   c.I('aveWeight').innerHTML = lbCnt > 0 ? Math.round((lb/lbCnt)*100) / 100 : 'no data'
 
   c.I('noDrink').innerHTML = noDrink
