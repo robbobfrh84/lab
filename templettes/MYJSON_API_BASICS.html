@@ -1,75 +1,107 @@
 <!DOCTYPE html><html lang="en"><meta charset="UTF-8">
-<style> body { margin: 5%; } </style>
 <body>
-  <div> Check Console for more info... </div>
+  <strong>JavaScript AJAX request Class </strong> <br>
+  - Using myJson.com to Create, Read and Update data <br> <br>
+  <div>
+    <button onClick='getInputURI()'> <strong>'GET'</strong> ...Read myJson Object</button> <br> <br>
+    <input id='uri' value=""> <br> <br> <br>
+    <button> <strong>'POST'</strong> ...Create new myJson </button> <br> <br>
+    <textarea id='obj-text' rows='20'></textarea> <br> <br>
+  </div>
+  <div>
+    Returned Data...
+    <!-- <button> <strong>'POST'</strong> ...Create new myJson </button> <br> <br> -->
+    <textarea id='return-text' rows='20'></textarea> <br> <br>
+  </div>
+
+  <div> * <em>Check Console for more info... </em></div>
+
   <script>
-    var uri = ' https://api.myjson.com/bins/kavnr'; //AFTER CREATING a new URI, past uir here...
-    var myJsonUrl = 'https://api.myjson.com/bins';
-    // var testObj = JSON.stringify({
-    //   username : "Robbobfrh84",
-    //   email : "bobmain49@gmail.com",
-    //   age : 32,
-    //   fighers : {
-    //     Dan : {
-    //       age : 24,
-    //       spd : 7.1
-    //     },
-    //     Steve : {
-    //       age : 30,
-    //       spd : 8.2
-    //     }
-    //   }
-    // });
-    var json;
 
-    //This function will take an object, convert it into a string, and create a NEW Json from MyJson.com
-    postMyJson = function(obj){
-      var xhr = new XMLHttpRequest();
-      xhr.open("POST", myJsonUrl, true);
-      xhr.setRequestHeader("Content-type", "application/json");
-      xhr.onreadystatechange = function () {
-          if (xhr.readyState == 4) {
-              var returnData = JSON.parse(xhr.responseText);
-              console.log('New JSON url: ', returnData.uri, 'New Created JSON Object: ', obj);
-          }
+getInputURI = ()=>{
+  getMyJson(document.getElementById('uri').value, (data)=>{
+    console.log('callback', data)
+  })
+}
+
+var uri = 'https://api.myjson.com/bins/kavnr'; //AFTER CREATING a new URI, past uir here...
+var myJsonUrl = 'https://api.myjson.com/bins';
+document.getElementById('uri').value = uri
+document.getElementById('obj-text').value = JSON.stringify({ "Build new myJson Object Here": ";-)" }, true, 2)
+
+var json;
+
+//This function will take an object, convert it into a string, and create a NEW Json from MyJson.com
+postMyJson = function(obj){
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", myJsonUrl, true);
+  xhr.setRequestHeader("Content-type", "application/json");
+  xhr.onreadystatechange = function () {
+      if (xhr.readyState == 4) {
+          var returnData = JSON.parse(xhr.responseText);
+          console.log('New JSON url: ', returnData.uri, 'New Created JSON Object: ', obj);
       }
-      xhr.send(obj);
-    }
+  }
+  xhr.send(obj);
+}
 
-    getMyJson = function(uri){
-      var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function() {
-          if (xhr.readyState == XMLHttpRequest.DONE) {
-              json = JSON.stringify(xhr.responseText);
-              console.log(xhr.responseText);
-              console.log('MyJson URI: ', uri, 'API: ', json);
-              apiCallback(JSON.parse(xhr.responseText), uri);
-          }
+getMyJson = function(uri, callback){
+  var xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function() {
+      if (xhr.readyState == XMLHttpRequest.DONE) {
+          json = JSON.stringify(xhr.responseText);
+          console.log(xhr.responseText);
+          console.log('MyJson URI: ', uri, 'API: ', json);
+          apiCallback(JSON.parse(xhr.responseText), uri);
+      } if (callback) callback(json)
+  }
+  xhr.open('GET', uri, true);
+  xhr.send(null);
+}
+
+putMyJson = function(data, uri){
+  var xhr = new XMLHttpRequest();
+  xhr.open('PUT', uri);
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.onload = function() {
+      if (xhr.status === 200) {
+          var json = JSON.stringify(xhr.responseText);
+          console.log('NEW API: ', data);
       }
-      xhr.open('GET', uri, true);
-      xhr.send(null);
-    }
+  };
+  xhr.send(JSON.stringify(data));
+}
 
-    putMyJson = function(data, uri){
-      var xhr = new XMLHttpRequest();
-      xhr.open('PUT', uri);
-      xhr.setRequestHeader('Content-Type', 'application/json');
-      xhr.onload = function() {
-          if (xhr.status === 200) {
-              var json = JSON.stringify(xhr.responseText);
-              console.log('NEW API: ', data);
-          }
-      };
-      xhr.send(JSON.stringify(data));
-    }
+apiCallback = function(data, uri){
+  // data.fighers.Dan.age = 87;
+  // console.log(data);
+  // putMyJson(data, uri)
+}
 
-    apiCallback = function(data, uri){
-      data.fighers.Dan.age = 87;
-      console.log(data);
-      putMyJson(data, uri)
-    }
-    // postMyJson(testObj);
-    getMyJson(uri);
   </script>
 </body>
+<style>
+body {
+  margin: 2%;
+}
+div {
+  width: 47%;
+  margin: 1%;
+  display: inline-block;
+  vertical-align: top;
+}
+input, textarea {
+  width: 100%;
+}
+button {
+  background: rgba(100,149,237, 0.5);
+}
+#obj-text {
+  height: 232px;
+}
+#return-text {
+  height:350px;
+
+}
+</style>
 </html>

@@ -13,12 +13,12 @@ ctx.canvas.height = 400
 var fps = 60
 var percent = 0 // of COMPLETE path completion.
 var direction = 1
-// var speed = 0.25
+var speed = 0.25
 
 window.onload = ()=>{ animate() }
 
 animate = ()=>{
-  percent += direction//  * speed
+  percent += direction * speed
   if (percent < 0) { percent = 0; direction = 1 }
   if (percent > 100) { percent = 100; direction = -1 }
   draw(percent)
