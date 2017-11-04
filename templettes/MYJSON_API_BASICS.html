@@ -3,79 +3,76 @@
   <strong>JavaScript AJAX request Class </strong> <br>
   - Using myJson.com to Create, Read and Update data <br> <br>
   <div>
-    <button onClick='getInputURI()'> <strong>'GET'</strong> ...Read myJson Object</button> <br> <br>
-    <input id='uri' value=""> <br> <br> <br>
-    <button> <strong>'POST'</strong> ...Create new myJson </button> <br> <br>
+    <button onClick='htmlReq("GET", "input")'> <strong>'GET'</strong> </button>
+    <input id='uri' value=""> <br><br>
+    <button onClick='htmlReq("POST")'> <strong>'POST'</strong> </button>
+    <input id='post-uri' value="">
     <textarea id='obj-text' rows='20'></textarea> <br> <br>
   </div>
   <div>
-    Returned Data...
-    <!-- <button> <strong>'POST'</strong> ...Create new myJson </button> <br> <br> -->
-    <textarea id='return-text' rows='20'></textarea> <br> <br>
+    <button onClick='htmlReq("PUT")'> <strong>'PUT'</strong> </button>
+    <span id='put-reponse'></span>
+    <input id='put-uri' value="">
+    <textarea id='return-text' rows='20'></textarea>
   </div>
 
-  <div> * <em>Check Console for more info... </em></div>
+  <div class='w1'>  myJson empty: </div>
+  <button onClick='htmlReq("GET", "inner")'>'GET' https://api.myjson.com/bins/1he3cj</button> <br>
+  <div class='w1'>  myJson demo: </div>
+  <button onClick='htmlReq("GET", "inner")'>'GET' https://api.myjson.com/bins/kavnr</button> <br>
+  <div class='w1'>  Dogs: </div>
+  <button onClick='htmlReq("GET", "inner")'>'GET' https://dog.ceo/api/breeds/list</button><br>
+  <div class='w1'>  webtask demo: </div>
+  <button onClick='htmlReq("GET", "inner")'>'GET' https://wt-d3541a7a4a9626ba5a94768799b0825a-0.run.webtask.io/app</button><br>
+  <div class='w1'>  geonames demo: </div>
+  <button onClick='htmlReq("GET", "inner")'>'GET' http://api.geonames.org/searchJSON?q=chico&maxRows=1&username=robbobfrh84</button><br>
 
-  <script>
-
-getInputURI = ()=>{
-  getMyJson(document.getElementById('uri').value, (data)=>{
-    console.log('callback', data)
-  })
+<script>
+htmlReq = (type, this_uri)=>{
+  document.getElementById('put-reponse').innerHTML = ''
+  if (this_uri === 'inner') uri = event.path[0].innerText.split(' ')[1]
+  if (this_uri === 'input') uri = document.getElementById('uri').value
+  if (type === 'GET') {
+    _REQ(type, uri, null, (data)=>{
+      document.getElementById('return-text').value = JSON.stringify(data, true, 2)
+      document.getElementById('uri').value = uri
+      document.getElementById('put-uri').value = uri
+    })
+  }
+  if (type === 'POST') {
+    const postUri = document.getElementById('post-uri').value
+    const obj = JSON.parse(document.getElementById('obj-text').value)
+    _REQ(type, postUri, obj, (data)=>{
+      uri = data.uri
+      htmlReq('GET')
+    })
+  }
+  if (type === 'PUT') {
+    const obj = JSON.parse(document.getElementById('return-text').value)
+    _REQ(type, uri, obj, (data)=>{
+      document.getElementById('return-text').value = JSON.stringify(data, true, 2)
+      document.getElementById('put-reponse').innerHTML = '<em>* Put Successful</em>'
+    })
+  }
 }
 
-var uri = 'https://api.myjson.com/bins/kavnr'; //AFTER CREATING a new URI, past uir here...
-var myJsonUrl = 'https://api.myjson.com/bins';
-document.getElementById('uri').value = uri
+var uri = ''
+document.getElementById('uri').value = 'https://api.myjson.com/bins/kavnr'
+document.getElementById('post-uri').value = 'https://api.myjson.com/bins'
 document.getElementById('obj-text').value = JSON.stringify({ "Build new myJson Object Here": ";-)" }, true, 2)
 
-var json;
 
-//This function will take an object, convert it into a string, and create a NEW Json from MyJson.com
-postMyJson = function(obj){
+_REQ = (type, uri, data, callback)=>{
   var xhr = new XMLHttpRequest();
-  xhr.open("POST", myJsonUrl, true);
-  xhr.setRequestHeader("Content-type", "application/json");
+  xhr.open(type, uri, true);
+  if (type === 'POST' || type === "PUT") xhr.setRequestHeader("Content-type", "application/json");
   xhr.onreadystatechange = function () {
-      if (xhr.readyState == 4) {
-          var returnData = JSON.parse(xhr.responseText);
-          console.log('New JSON url: ', returnData.uri, 'New Created JSON Object: ', obj);
-      }
+    if (xhr.readyState == 4) {
+      if (callback) callback(JSON.parse(xhr.responseText))
+    }
   }
-  xhr.send(obj);
-}
-
-getMyJson = function(uri, callback){
-  var xhr = new XMLHttpRequest();
-  xhr.onreadystatechange = function() {
-      if (xhr.readyState == XMLHttpRequest.DONE) {
-          json = JSON.stringify(xhr.responseText);
-          console.log(xhr.responseText);
-          console.log('MyJson URI: ', uri, 'API: ', json);
-          apiCallback(JSON.parse(xhr.responseText), uri);
-      } if (callback) callback(json)
-  }
-  xhr.open('GET', uri, true);
-  xhr.send(null);
-}
-
-putMyJson = function(data, uri){
-  var xhr = new XMLHttpRequest();
-  xhr.open('PUT', uri);
-  xhr.setRequestHeader('Content-Type', 'application/json');
-  xhr.onload = function() {
-      if (xhr.status === 200) {
-          var json = JSON.stringify(xhr.responseText);
-          console.log('NEW API: ', data);
-      }
-  };
-  xhr.send(JSON.stringify(data));
-}
-
-apiCallback = function(data, uri){
-  // data.fighers.Dan.age = 87;
-  // console.log(data);
-  // putMyJson(data, uri)
+  if (type === 'POST' || type === 'PUT') xhr.send(JSON.stringify(data))
+  else xhr.send(null)
 }
 
   </script>
@@ -93,15 +90,20 @@ div {
 input, textarea {
   width: 100%;
 }
+input, button {
+  margin-bottom: 4px;
+}
 button {
   background: rgba(100,149,237, 0.5);
 }
 #obj-text {
-  height: 232px;
+  height: 200px;
 }
 #return-text {
-  height:350px;
-
+  height: 267px;
+}
+.w1 {
+  width: 120px;
 }
 </style>
 </html>
