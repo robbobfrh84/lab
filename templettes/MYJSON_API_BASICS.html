@@ -16,6 +16,8 @@
     <textarea id='return-text' rows='20'></textarea>
   </div>
 
+  <div class='w1'>  myJson cities: </div>
+  <button onClick='htmlReq("GET", "inner")'>'GET' https://api.myjson.com/bins/tyxyb</button><br>
   <div class='w1'>  myJson empty: </div>
   <button onClick='htmlReq("GET", "inner")'>'GET' https://api.myjson.com/bins/1he3cj</button> <br>
   <div class='w1'>  myJson demo: </div>
@@ -26,6 +28,10 @@
   <button onClick='htmlReq("GET", "inner")'>'GET' https://wt-d3541a7a4a9626ba5a94768799b0825a-0.run.webtask.io/app</button><br>
   <div class='w1'>  geonames demo: </div>
   <button onClick='htmlReq("GET", "inner")'>'GET' http://api.geonames.org/searchJSON?q=chico&maxRows=1&username=robbobfrh84</button><br>
+  <div class='w1'>  geonames demo2: </div>
+  <button onClick='htmlReq("GET", "inner")'>'GET' http://api.geonames.org/getJSON?geonameId=5336269&username=robbobfrh84</button><br>
+
+
 
 <script>
 htmlReq = (type, this_uri)=>{
@@ -95,6 +101,7 @@ input, button {
 }
 button {
   background: rgba(100,149,237, 0.5);
+  display: inline-block;
 }
 #obj-text {
   height: 200px;
