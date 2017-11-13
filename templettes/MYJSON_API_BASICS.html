@@ -16,6 +16,12 @@
     <textarea id='return-text' rows='20'></textarea>
   </div>
 
+  <div class='w1'> Current Solar system object: </div>
+  <button onClick='htmlReq("GET", "inner")'>'GET' http://www.strudel.org.uk/lookUP/json/?name=pluto</button><br>
+  <div class='w1'>  Exoplanet Archive: </div>
+  <button onClick='htmlReq("GET", "inner")'>'GET' https://exoplanetarchive.ipac.caltech.edu/cgi-bin/nstedAPI/nph-nstedAPI?table=exoplanets&select=pl_hostname,ra,dec&order=dec&format=JSON</button><br>
+  <div class='w1'>  Exoplanet Archive Specific Planet: </div>
+  <button onClick='htmlReq("GET", "inner")'>'GET' https://exoplanetarchive.ipac.caltech.edu/cgi-bin/nstedAPI/nph-nstedAPI?table=exoplanets&format=JSON&select=&#42;&where=pl_hostname%20like%20%27HD%20142022%20A%27%20</button><br>
   <div class='w1'>  myJson cities: </div>
   <button onClick='htmlReq("GET", "inner")'>'GET' https://api.myjson.com/bins/tyxyb</button><br>
   <div class='w1'>  myJson empty: </div>
@@ -31,8 +37,6 @@
   <div class='w1'>  geonames demo2: </div>
   <button onClick='htmlReq("GET", "inner")'>'GET' http://api.geonames.org/getJSON?geonameId=5336269&username=robbobfrh84</button><br>
 
-
-
 <script>
 htmlReq = (type, this_uri)=>{
   document.getElementById('put-reponse').innerHTML = ''
@@ -43,6 +47,7 @@ htmlReq = (type, this_uri)=>{
       document.getElementById('return-text').value = JSON.stringify(data, true, 2)
       document.getElementById('uri').value = uri
       document.getElementById('put-uri').value = uri
+      console.log(data)
     })
   }
   if (type === 'POST') {
@@ -102,6 +107,11 @@ input, button {
 button {
   background: rgba(100,149,237, 0.5);
   display: inline-block;
+  max-width: 70%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
 }
 #obj-text {
   height: 200px;
@@ -110,7 +120,16 @@ button {
   height: 267px;
 }
 .w1 {
-  width: 120px;
+  width: 130px;
 }
 </style>
 </html>
+
+<!--
+links of interest
+- https://exoplanetarchive.ipac.caltech.edu/docs/program_interfaces.html#k2
+NOTES:
+- when i checked the exoplanet count on nov. 11 it was 3550
+- NASA API KEY: https://api.nasa.gov/planetary/apod?api_key=f1YGJMaX97r4auw0n8pH5NYBJ3DYQVyyejRSaANM
+
+-->
