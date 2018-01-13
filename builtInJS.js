@@ -8,6 +8,8 @@ str.split('-') // >Arr. Splits str at -
 str.split(/[.\[\]]/) // >Arr removes . [ ]
 "Obj.str2[1].more".split(/[.\[\]]/).filter(Boolean) // >Arr removes . [ ] But! with this string it'll leave a dead "", the filter removes that.
 JSON.parse(data) // > Object from string of data.
+arr.sort(); // >Array
+arr.sort(function(a,b){return b - a}); //sorts an array followed by sort in reverse in reverse order.
 
 /******** DataTypes (changing / descovering)*******/
 parseInt(stringLiteralAsNumber) // >Intiger. converts string num to intiger.
@@ -17,6 +19,10 @@ Array.isArray(obj) // >Bool. wheather or not it's an array or Object. WHY NOT? t
 /******** Objects *******/
 Object.keys(obj) // >array of keys
 Object.keys(obj).indexOf('key') // >Intiger. find the index of a key within an object.
+
+/******** DOM Data, window/document/etc... *******/
+var project = window.location.href.split('?')[1] //Returns the string of the query string of the url WIHTOUT the ?.....
+
 
 /******** DOM interactions *******/
 document.querySelectorAll('[for]') // >Array of DOM objects with for attribute
@@ -35,7 +41,11 @@ var textElm = document.createTextNode('Some text') // creates text elm
 newTag.appendChild(textElm) // puts text elm inside new tag
 parent.appendChild(newTag) // puts tag into DOM
 let clone = tag.cloneNode(true) //cloneNode
+
+
+/******** DOM buildin call backs *******/
 document.onreadystatechange = function(){ if(document.readyState === 'complete'){ ...}} //function firest after document has been loaded... one of many ways to do this ... btw...
+onDOMContentLoaded = (()=>{ callSomeFunction() })()
 
 /******** RegExp *******/
 new RegExp(aBunchOfcharsArr.join('|')).test(toSearchThroughArr) // >Bool if ALL conditions are met. test() is NOT poop in this.
