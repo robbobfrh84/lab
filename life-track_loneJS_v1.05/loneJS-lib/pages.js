@@ -7,7 +7,7 @@ document.onreadystatechange = ()=>{
 }
 
 _PAGE_SET = (dir, initial, hash = '')=>{
-  event.preventDefault()
+  //event.preventDefault()
   let active = document.querySelectorAll('[activePage]')
   for (page of active) _PAGE_Display(page.getAttribute('pageName'))
   if (dir) {
