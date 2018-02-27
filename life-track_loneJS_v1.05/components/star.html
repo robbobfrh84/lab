@@ -172,7 +172,7 @@ td {
        <tr for='{x},{i} c.data.current'>
          <td indices='0' class="icons"> &#128685; </td>
          <td class='box' key='{i}' val='smoke'>
-           <span if='!{x}.smoke' class='star-plus ig'> &#10025; </span>
+           <span if='!{x}.smoke' key='{i}' val='smoke' class='star-plus ig'> &#10025; </span>
            <input if='{x}.smoke' key='{i}' val='smoke' placeholder="?" value='{x}.smoke' class='gray input ig'>
          </td>
        </tr>
@@ -293,7 +293,7 @@ td {
     c.update() // Remove??? test THOROUGHLY
   }
 
-  c._ADD_EVENT('click', 'dateNav', ([key, val, elm] = c.KVE(event))=>{
+  c._ADD_EVENT('click', 'dateNav', (e, [ key, val, elm ] = c.KVE(e))=>{
     if (['back', 'forward'].includes(elm.id)) {
       if (c.month === 0 && elm.id === 'back') { c.year--; c.month = 12;}
       if (c.month === 11 && elm.id === 'forward') { c.year++; c.month = -1; }
@@ -352,10 +352,10 @@ td {
     can.setAttribute('style', 'display: block;')
   }
 
-  c._ADD_EVENT('mousedown', 'main', ([ key, val, elm ] = c.KVE(event))=>{
+  c._ADD_EVENT('mousedown', 'main', (e, [ key, val, elm ] = c.KVE(e))=>{
     if (elm.id === 'cardio') { c.graph('cardio'); c.star = 'cardio' }
     if (elm.id === 'weight') { c.graph('weight'); c.star = 'weight' }
-    if (event.shiftKey) {
+    if (e.shiftKey) {
       let input = elm.getElementsByTagName('input')[0] || ''
       let span = elm.getElementsByTagName('span')[0] || ''
       if (val === 'weight') {
@@ -381,10 +381,10 @@ td {
     }
   }, true)
 
-  c._ADD_EVENT('keypress', 'main', ([ key, val, elm ] = c.KVE(event))=>{
+  c._ADD_EVENT('keypress', 'main', (e, [ key, val, elm ] = c.KVE(e))=>{
     let unknown = true
     c.setCurrent()
-    if (event.keyCode == 13) {
+    if (e.keyCode == 13) {
       if (elm.value !== '') {
         _DATA.starChart[c.year][months[c.month]][parseInt(key)][val] = elm.value
       }
@@ -404,7 +404,7 @@ td {
     }
   }, true)
 
-  c._ADD_EVENT('mouseover', 'main', ([ key, val ] = c.KVE(event), value)=>{
+  c._ADD_EVENT('mouseover', 'main', (e, [ key, val, elm ] = c.KVE(e))=>{
     c.setCurrent()
     let day = key ? parseInt(key)+1 : key
     const capVal = val ? val.charAt(0).toUpperCase() + val.slice(1) : val

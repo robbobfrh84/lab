@@ -18,12 +18,12 @@ class Component {
       const clone = document.importNode(template.content, true)
       that.serveDir(this)
       for (const e of that.events) {
-        let newEvent = clone.getElementById(e.id)
-        newEvent.addEventListener(e.type, ()=>{
+        let elm = clone.getElementById(e.id)
+        elm.addEventListener(e.type, (event)=>{
           const cdata = this.hasAttribute('serve') ? this.getAttribute('served') : null
           if (cdata) that.data = JSON.parse(cdata)
           that.root = this.shadowRoot
-          e.method()
+          e.method(event)
           if (e.update) {
             that.update(this)
             // that.htmlJS.update(that.data, that.root)
