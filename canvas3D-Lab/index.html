@@ -1,0 +1,47 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title> Canvas Template-full </title>
+<link rel="shortcut icon" href="https://cdn0.iconfinder.com/data/icons/set-app-incredibles/24/Configuration-2-01-128.png"/>
+<style>
+canvas, #scale { background-color: #dddddd; position: relative; top: -8px; left: -8px; }
+#scale { position: absolute; display: none; padding: 10px; }
+.btns {position: absolute; bottom: 0px; margin: 10px;}
+</style>
+</head>
+  <canvas id='c1'></canvas>
+  <div id='scale'> Scale to fit window ?
+    <button onClick="scale('yes')"> yes </button>
+    <button onClick="scale()"> no </button>
+  </div>
+  <div class='btns'>
+    <button onClick='build("main")'>main</button>
+    <button onClick='build("cube")'>cube</button>
+    <button onClick='build("hover")'>hover</button>
+  </div>
+
+</html>
+<script src="canvas.js"></script>
+<script src="main.js"></script>
+<script src="cube.js"></script>
+<script src="hover.js"></script>
+<script>
+
+var active = 'main'
+
+build = (func)=>{
+  if ('main' === func) main()
+  if ('cube' === func) cube()
+  if ('hover' === func) hover()
+  active = func
+}
+
+build(active)
+
+scale = (yes)=>{
+  document.getElementById('scale').style.display = 'none'
+  if (yes) build(active)
+}
+
+window.onresize = ()=>{
+  document.getElementById('scale').style.display = 'block'
+}
+
+</script>
