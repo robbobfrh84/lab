@@ -1,0 +1,121 @@
+<!DOCTYPE html><script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
+<body>
+  <div id='graphContainer'>
+    <canvas id="myChart"></canvas>
+  </div>
+  Miles:<input name='kmMi' type="radio" onClick='toggleKmMi(false)' checked> &nbsp;
+  Kilometers:<input name='kmMi' type="radio" onClick='toggleKmMi(true)'>
+  <span id='totalRan'></span>
+</body>
+<script>
+
+getMyJson = function(uri){
+  var xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState == XMLHttpRequest.DONE) {
+      json = JSON.stringify(xhr.responseText);
+      parseStarChart(JSON.parse(xhr.responseText).starChart);
+    }
+  }
+  xhr.open('GET', uri, true);
+  xhr.send(null);
+}
+
+parseStarChart = (data, newD = data)=>{
+  for (const y of [2017,2018]) {
+    for (const m in data[y]) {
+      for (const day in data[y][m]) { newD[y][m][day].weight = " " }
+    }
+  }
+  // SHOULD make a whole seperate build button called compair()
+  const monthCardio = newD[2018]["March"].map(x=>{
+    return x.cardio.length > 1 ? parseFloat(x.cardio[0]) : 0
+  })
+  console.log(monthCardio)
+  setData(false, monthCardio)
+}
+
+window.onload = ()=>{
+  getMyJson('https://api.myjson.com/bins/190b55')
+}
+
+toggleKmMi = function (km) {
+  document.getElementById("graphContainer").innerHTML = '&nbsp;';
+  document.getElementById("graphContainer").innerHTML = '<canvas id="myChart"></canvas>';
+  km ? setData(true) : setData()
+}
+
+setData = (km, data)=>{
+  const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+  const weekDays = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
+  const date = new Date()
+  const month = date.getMonth()
+  const monthName = months[month]
+  const year = date.getFullYear()
+  const daysInMonth = new Date(year,month+1,0).getDate()
+  const weekDay = weekDays[new Date(year,month,29).getDay()]
+  const dayOfMonth = date.getDate() // const dayOfMonth = 31;
+  console.log(weekDay, monthName, dayOfMonth, year)
+  console.log('Days in Month:',daysInMonth)
+
+  let runs = data
+  console.log(runs)
+  if (km) {
+    console.log('km')
+    runs = runs.map( x => {
+      const y = x*1.60934
+      return Math.round(100*y)/100
+    })
+  }
+  let runsTotal = []
+  let yLables = []
+  let runsTally = 0
+  let unit = km ? 'Kilometers' : 'Miles'
+  for (var i = 0; i <= daysInMonth; i++) {
+    yLables.push(i+1+'th')
+    if (i < dayOfMonth) {
+      runsTally += runs[i]
+      runsTotal.push( Math.round(100*runsTally)/100)
+    }
+  }
+  runsTally = Math.round(100*runsTally)/100
+  document.getElementById('totalRan').innerHTML = `
+    &nbsp;&nbsp;&nbsp; 👉 &nbsp;Total ${unit} ran: (${runsTally})
+  `
+  line(yLables, runs, runsTotal, runsTally, unit)
+}
+
+line = (yLables, runs, runsTotal, total, kmMi)=>{
+  const ctx = document.getElementById('myChart').getContext('2d')
+  const myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: yLables,
+      datasets: [
+        {
+          label: kmMi,
+          type: "bar",
+          data: runs,
+          backgroundColor: "rgba(100,0,0,0.7)"
+        },
+        {
+          label: 'Total '+kmMi+' Ran',
+          type: "line",
+          data: runsTotal,
+          borderColor: 'rgba(100,149,237,0.7)',
+          backgroundColor: "rgba(0,100,0,0.3)"
+        }
+      ],
+    },
+    options: {
+       tooltips: {
+          callbacks: {
+             title: function() {}
+          }
+       },
+    }
+  })
+}
+
+</script>
+</html>

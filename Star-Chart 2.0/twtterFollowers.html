@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<script src="https://sdk.amazonaws.com/js/aws-sdk-2.100.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
+
+<div id='graphContainer'>
+  <canvas id="myChart"></canvas>
+</div>
+<script>
+
+window.onload = ()=>{
+  get_aws_DDB_data()
+    .then(data => parseData(data))
+}
+
+parseData = (data)=>{
+  return new Promise((res, rej) => {
+    console.log(data.Item.timeline)
+    let xLabel = []
+    let users = []
+    data.Item.timeline.map( x => {
+      xLabel.push(x.time)
+      x.users.sort((a,b) =>  a.screen_name < b.screen_name ? -1 : 1 )
+      x.users.map( ( y, i ) => {
+        if (!users[i]) {
+          users[i] = {}
+          users[i].label = y.screen_name
+          users[i].type = 'line'
+          users[i].data = []
+        }
+        users[i].data.push(y.followers_count)
+      })
+    })
+    users[0].borderColor = 'cornflowerblue'
+    users[1].borderColor = 'firebrick'
+    users[2].borderColor = 'green'
+    console.log(users)
+    buildGraph(xLabel, users)
+  })
+}
+
+
+buildGraph = (xLabel, users)=>{
+  const ctx = document.getElementById('myChart').getContext('2d')
+  const myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: xLabel,
+      datasets: users
+      // datasets: [
+      //   {
+      //     label: 'Week End',
+      //     type: "bar",
+      //     data: [0,0,0,0,0,100,100,0,0,0,0,0,100,100],
+      //     backgroundColor: "rgba(100,0,0,0.2)"
+      //   },
+      //   {
+      //     label: '?',
+      //     type: "line",
+      //     data: [22,36,68,81,79],
+      //     borderColor: 'rgba(100,149,237,0.7)',
+      //   },
+      // ],
+    },
+    options: {
+       tooltips: {
+          callbacks: {
+             title: function() {}
+          }
+       },
+    }
+  })
+}
+
+get_aws_DDB_data = ()=>{
+  return new Promise((res, rej) => {
+    var table = 'twitter-users-followers-history'
+    var creds = new AWS.CognitoIdentityCredentials({
+      IdentityPoolId: 'us-east-1:8073513b-ea81-49a3-aa2f-943f4459f57a',
+      RoleArn: 'arn:aws:iam::118070506734:role/Cognito_dynamodbPublicReadUnauth_Role',
+    })
+    AWS.config.update({ region: 'us-east-1', credentials: creds })
+    var ddb = new AWS.DynamoDB({ apiVersion: '2012-10-08' })
+    var params = { Key: { "name": "allUsers" }, TableName: table}
+    var documentClient = new AWS.DynamoDB.DocumentClient();
+    documentClient.get(params, function(err, data) {
+      if (err) rej(err);
+      else res(data)
+    })
+  })
+}
+
+</script>
+</html>
