@@ -1,66 +1,132 @@
 <!DOCTYPE html><script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
 <body>
+  <div id='loader' style='opacity: 0;'></div>
   <div id='graphContainer'>
     <canvas id="myChart"></canvas>
   </div>
   Miles:<input name='kmMi' type="radio" onClick='toggleKmMi(false)' checked> &nbsp;
   Kilometers:<input name='kmMi' type="radio" onClick='toggleKmMi(true)'>
   <span id='totalRan'></span>
+  <div id='months'></div>
 </body>
+<script src='loader.js'></script>
 <script>
 
-getMyJson = function(uri){
-  var xhr = new XMLHttpRequest();
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState == XMLHttpRequest.DONE) {
-      json = JSON.stringify(xhr.responseText);
-      parseStarChart(JSON.parse(xhr.responseText).starChart);
-    }
-  }
-  xhr.open('GET', uri, true);
-  xhr.send(null);
+const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+const weekDays = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
+const date = new Date()
+const monthIndex = date.getMonth()
+const monthName = monthNames[monthIndex]
+const year = date.getFullYear()
+let allTogether = []
+
+toggleKmMi = function (km) {
+  document.getElementById("graphContainer").innerHTML = `&nbsp;`;
+  document.getElementById("graphContainer").innerHTML = `<canvas id="myChart"></canvas>`;
+  km ? setData(true) : setData()
 }
 
-parseStarChart = (data, newD = data)=>{
+clearChart = ()=>{
+  document.getElementById("graphContainer").innerHTML = `&nbsp;`;
+  document.getElementById("graphContainer").innerHTML = `<canvas id="myChart"></canvas>`;
+}
+
+/* ---------- ON LOAD ---------- */
+
+window.onload = ()=>{
+  loaderOn()
+  getMyJson('https://api.myjson.com/bins/190b55')
+    .then(x => {
+      buildMonths(x)
+      buildAll(x)
+      console.log('Fixed Star Chart for DynamoDB', parseStarChart(x))
+    })
+    .catch(err => console.log('Promise Error: ', err))
+}
+
+getMyJson = function(uri){
+  return new Promise((res, rej) => {
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState == XMLHttpRequest.DONE) {
+        json = JSON.stringify(xhr.responseText);
+        res(JSON.parse(xhr.responseText).starChart);
+      }
+    }
+    xhr.open('GET', uri, true);
+    xhr.send(null);
+  })
+}
+
+parseStarChart = (data, month, newD = data)=>{ // ⭐  This loop will fix "" 👉 " "
   for (const y of [2017,2018]) {
     for (const m in data[y]) {
       for (const day in data[y][m]) { newD[y][m][day].weight = " " }
     }
   }
-  // SHOULD make a whole seperate build button called compair()
-  const monthCardio = newD[2018]["March"].map(x=>{
-    return x.cardio.length > 1 ? parseFloat(x.cardio[0]) : 0
+  return newD
+}
+
+buildMonths = (data)=>{
+  const months = document.getElementById('months')
+  for (const year in data) {
+    if (year !== 'currentY' && year !== 'currentM') {
+      let div = document.createElement('div')
+      div.innerHTML += `<br><div>${year}</div>`
+      months.appendChild(div)
+      for (const month of monthNames) {
+        if (data[year][month]) {
+          const monthCardio = data[year][month].map(x=>{
+            return x.cardio.length > 1 ? parseFloat(x.cardio[0]) : 0
+          })
+          let btn = document.createElement('button')
+          btn.innerHTML = month
+          btn.addEventListener('click', ()=>{
+            clearChart()
+            setData({ km: false, runs: monthCardio, year:year, month:month })
+          })
+          months.appendChild(btn)
+          if (monthNames[data.currentM] == month && year == data.currentY) {
+            setData({ km: false, runs: monthCardio, year:year, month:month })
+          }
+          let tot = 0
+          allTogether.push({
+            label: month+' '+year,
+            data: monthCardio.map(x => Math.round((tot+=x)*100)/100),
+            borderColor: rgbR(),
+            backgroundColor: 'rgba(0,0,0,0)'
+          })
+        }
+      }
+    }
+  }
+}
+
+buildAll = ()=>{
+  let btn = document.createElement('button')
+  btn.innerHTML = 'ALL'
+  btn.style.marginTop = '10px'
+  btn.style.fontSize = '20px'
+  btn.addEventListener('click', ()=>{
+    clearChart()
+    compair(allTogether)
   })
-  console.log(monthCardio)
-  setData(false, monthCardio)
+  document.body.appendChild(btn)
 }
 
-window.onload = ()=>{
-  getMyJson('https://api.myjson.com/bins/190b55')
-}
-
-toggleKmMi = function (km) {
-  document.getElementById("graphContainer").innerHTML = '&nbsp;';
-  document.getElementById("graphContainer").innerHTML = '<canvas id="myChart"></canvas>';
-  km ? setData(true) : setData()
-}
-
-setData = (km, data)=>{
-  const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-  const weekDays = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
-  const date = new Date()
-  const month = date.getMonth()
-  const monthName = months[month]
-  const year = date.getFullYear()
-  const daysInMonth = new Date(year,month+1,0).getDate()
-  const weekDay = weekDays[new Date(year,month,29).getDay()]
-  const dayOfMonth = date.getDate() // const dayOfMonth = 31;
-  console.log(weekDay, monthName, dayOfMonth, year)
-  console.log('Days in Month:',daysInMonth)
-
-  let runs = data
-  console.log(runs)
-  if (km) {
+setData = (data)=>{
+  const daysInMonth = new Date(data.year,monthNames.indexOf(data.month)+1,0).getDate()
+  //
+  const weekDay = weekDays[new Date(year,monthIndex,monthIndex-1).getDay()]
+  //
+  let dayOfMonth = date.getDate()
+  if (year != data.year || monthName != data.month) {
+    dayOfMonth = daysInMonth
+  }
+  // console.log(weekDay, monthName, dayOfMonth, year)
+  // console.log('Days in Month:',daysInMonth)
+  let runs = data.runs
+  if (data.km) {
     console.log('km')
     runs = runs.map( x => {
       const y = x*1.60934
@@ -70,8 +136,8 @@ setData = (km, data)=>{
   let runsTotal = []
   let yLables = []
   let runsTally = 0
-  let unit = km ? 'Kilometers' : 'Miles'
-  for (var i = 0; i <= daysInMonth; i++) {
+  let unit = data.km ? 'Kilometers' : 'Miles'
+  for (var i = 0; i < daysInMonth; i++) {
     yLables.push(i+1+'th')
     if (i < dayOfMonth) {
       runsTally += runs[i]
@@ -108,13 +174,51 @@ line = (yLables, runs, runsTotal, total, kmMi)=>{
       ],
     },
     options: {
-       tooltips: {
-          callbacks: {
-             title: function() {}
+      tooltips: {
+        callbacks: {
+          title: function() {}
+        }
+      },
+      scales: {
+        yAxes: [{
+          display: true,
+          ticks: {
+            min: 0,
+            max: 175
           }
-       },
+        }]
+      }
     }
   })
+  loaderOff()
+}
+
+compair = (data)=>{
+  const ctx = document.getElementById('myChart').getContext('2d')
+  const myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: data[0].data.map((x,i)=> i+1),
+      datasets: data,
+    },
+    options: {
+      tooltips: {
+        callbacks: {
+          title: function() {}
+        }
+      },
+      scales: {
+        yAxes: [{
+          display: true,
+          ticks: {
+            min: 0,
+            max: 175
+          }
+        }]
+      }
+    }
+  })
+  loaderOff()
 }
 
 </script>

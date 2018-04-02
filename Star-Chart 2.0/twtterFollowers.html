@@ -2,19 +2,38 @@
 <script src="https://sdk.amazonaws.com/js/aws-sdk-2.100.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
 
-<div id='graphContainer'>
+<div id='graphContainer' style="height: 600px">
   <canvas id="myChart"></canvas>
 </div>
 <script>
 
 window.onload = ()=>{
   get_aws_DDB_data()
-    .then(data => parseData(data))
+    .then(x => parseData(x))
+    .then(x => buildGraph(x))
+    .catch(err => console.log('Promise Error: ', err))
+}
+
+get_aws_DDB_data = ()=>{
+  return new Promise((res, rej) => {
+    var table = 'twitter-users-followers-history'
+    var creds = new AWS.CognitoIdentityCredentials({
+      IdentityPoolId: 'us-east-1:8073513b-ea81-49a3-aa2f-943f4459f57a',
+      RoleArn: 'arn:aws:iam::118070506734:role/Cognito_dynamodbPublicReadUnauth_Role',
+    })
+    AWS.config.update({ region: 'us-east-1', credentials: creds })
+    var ddb = new AWS.DynamoDB({ apiVersion: '2012-10-08' })
+    var params = { Key: { "name": "allUsers" }, TableName: table}
+    var documentClient = new AWS.DynamoDB.DocumentClient();
+    documentClient.get(params, function(err, data) {
+      if (err) rej(err);
+      else res(data)
+    })
+  })
 }
 
 parseData = (data)=>{
   return new Promise((res, rej) => {
-    console.log(data.Item.timeline)
     let xLabel = []
     let users = []
     data.Item.timeline.map( x => {
@@ -33,59 +52,28 @@ parseData = (data)=>{
     users[0].borderColor = 'cornflowerblue'
     users[1].borderColor = 'firebrick'
     users[2].borderColor = 'green'
-    console.log(users)
-    buildGraph(xLabel, users)
+    res([xLabel, users])
   })
 }
 
 
-buildGraph = (xLabel, users)=>{
+buildGraph = (data, [ xLabel, users ] = data )=>{
   const ctx = document.getElementById('myChart').getContext('2d')
   const myChart = new Chart(ctx, {
     type: 'bar',
     data: {
       labels: xLabel,
       datasets: users
-      // datasets: [
-      //   {
-      //     label: 'Week End',
-      //     type: "bar",
-      //     data: [0,0,0,0,0,100,100,0,0,0,0,0,100,100],
-      //     backgroundColor: "rgba(100,0,0,0.2)"
-      //   },
-      //   {
-      //     label: '?',
-      //     type: "line",
-      //     data: [22,36,68,81,79],
-      //     borderColor: 'rgba(100,149,237,0.7)',
-      //   },
-      // ],
     },
     options: {
+      responsive: true,
+      maintainAspectRatio: false,
        tooltips: {
           callbacks: {
              title: function() {}
           }
        },
     }
-  })
-}
-
-get_aws_DDB_data = ()=>{
-  return new Promise((res, rej) => {
-    var table = 'twitter-users-followers-history'
-    var creds = new AWS.CognitoIdentityCredentials({
-      IdentityPoolId: 'us-east-1:8073513b-ea81-49a3-aa2f-943f4459f57a',
-      RoleArn: 'arn:aws:iam::118070506734:role/Cognito_dynamodbPublicReadUnauth_Role',
-    })
-    AWS.config.update({ region: 'us-east-1', credentials: creds })
-    var ddb = new AWS.DynamoDB({ apiVersion: '2012-10-08' })
-    var params = { Key: { "name": "allUsers" }, TableName: table}
-    var documentClient = new AWS.DynamoDB.DocumentClient();
-    documentClient.get(params, function(err, data) {
-      if (err) rej(err);
-      else res(data)
-    })
   })
 }
 
