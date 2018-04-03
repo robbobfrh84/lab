@@ -1,17 +1,38 @@
 <!DOCTYPE html>
 <script src="https://sdk.amazonaws.com/js/aws-sdk-2.100.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
-
+<div id='loader' style='opacity: 0;'></div>
+Tracking Total Twitter followers
 <div id='graphContainer' style="height: 600px">
   <canvas id="myChart"></canvas>
 </div>
+Tracking Daily Increase of Twitter Followers
+<div id='graphContainer2' style="height: 600px">
+  <canvas id="myChart2"></canvas>
+</div>
+<script src='loader.js'></script>
 <script>
 
 window.onload = ()=>{
-  get_aws_DDB_data()
-    .then(x => parseData(x))
-    .then(x => buildGraph(x))
+  loaderOn()
+  get_aws_DDB_data() // prioritize initial graph
+    .then(x => parse_fTrack_data(x,'line','myChart'))
+    .then(x => build_fTrack_graph(x,'myChart'))
+    .then(x => build_secondary_UI(x))
+    .then(x => console.log(x.log, x))
     .catch(err => console.log('Promise Error: ', err))
+}
+
+build_secondary_UI = (data)=>{
+  console.log('! Initial data & UI loaded. Building secondary data & UI...')
+  return new Promise((res, rej) => {
+    loaderOff()
+    parse_fTrack_data(data, 'bar', 'myChart2', true)
+      .then(x => build_fTrack_graph(x,'myChart2'))
+      .catch(err => console.log('Promise Error: ', err))
+    data.log = '! Secondary data & UI loaded'
+    res(data)
+  })
 }
 
 get_aws_DDB_data = ()=>{
@@ -27,53 +48,67 @@ get_aws_DDB_data = ()=>{
     var documentClient = new AWS.DynamoDB.DocumentClient();
     documentClient.get(params, function(err, data) {
       if (err) rej(err);
-      else res(data)
+      else res({ ddbData: data })
     })
   })
 }
 
-parseData = (data)=>{
+parse_fTrack_data = (data, type, id, previous)=>{
   return new Promise((res, rej) => {
     let xLabel = []
-    let users = []
-    data.Item.timeline.map( x => {
-      xLabel.push(x.time)
+    let xData = []
+    data.ddbData.Item.timeline.map((x, ind) => {
+      if (ind > 0 || !previous) xLabel.push(x.time)
       x.users.sort((a,b) =>  a.screen_name < b.screen_name ? -1 : 1 )
       x.users.map( ( y, i ) => {
-        if (!users[i]) {
-          users[i] = {}
-          users[i].label = y.screen_name
-          users[i].type = 'line'
-          users[i].data = []
+        if (!xData[i]) {
+          xData[i] = {}
+          xData[i].label = y.screen_name
+          xData[i].type = type
+          xData[i].data = []
+          if (previous) xData[i].previousDay = y.followers_count
         }
-        users[i].data.push(y.followers_count)
+        if (ind > 0 && previous) { // ⭐
+          xData[i].data.push(y.followers_count - xData[i].previousDay) // ⭐
+          xData[i].previousDay = y.followers_count // ⭐
+        } else if (!previous) {
+          xData[i].data.push(y.followers_count)
+        }
       })
     })
-    users[0].borderColor = 'cornflowerblue'
-    users[1].borderColor = 'firebrick'
-    users[2].borderColor = 'green'
-    res([xLabel, users])
+    xData[0].borderColor = 'cornflowerblue'
+    xData[1].borderColor = 'firebrick'
+    xData[2].borderColor = 'green'
+    if (type === 'bar') {
+      xData[0].backgroundColor = 'cornflowerblue'
+      xData[1].backgroundColor = 'firebrick'
+      xData[2].backgroundColor = 'green'
+    }
+    data[id] = { xLabel: xLabel, xData: xData, id: id }
+    res(data)
   })
 }
 
-
-buildGraph = (data, [ xLabel, users ] = data )=>{
-  const ctx = document.getElementById('myChart').getContext('2d')
-  const myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: xLabel,
-      datasets: users
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-       tooltips: {
-          callbacks: {
-             title: function() {}
-          }
-       },
-    }
+build_fTrack_graph = (data, id)=>{
+  return new Promise((res, rej) => {
+    const ctx = document.getElementById(id).getContext('2d')
+    const myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: data[id].xLabel,
+        datasets: data[id].xData
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+         tooltips: {
+            callbacks: {
+               title: function() {}
+            }
+         },
+      }
+    })
+    res(data)
   })
 }
 
