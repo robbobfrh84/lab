@@ -3,7 +3,8 @@
 <style>
 canvas, #scale { background-color: #dddddd; position: relative; top: -8px; left: -8px; }
 #scale { position: absolute; display: none; padding: 10px; }
-.btns {position: absolute; bottom: 0px; margin: 10px;}
+#btns { position: absolute; bottom: 5px; left: 5px;}
+#title { position: absolute; top: 5px; left: 5px;}
 </style>
 </head>
   <canvas id='c1'></canvas>
@@ -11,15 +12,18 @@ canvas, #scale { background-color: #dddddd; position: relative; top: -8px; left:
     <button onClick="scale('yes')"> yes </button>
     <button onClick="scale()"> no </button>
   </div>
-  <div class='btns'>
-    <button onClick='build("main")'>main</button>
+  <div id='title'></div>
+  <div id='btns'>
+    <button onClick='build("test")'>test</button>
+    <button onClick='build("xyz")'>xyz</button>
     <button onClick='build("cube")'>cube</button>
     <button onClick='build("hover")'>hover</button>
   </div>
 
 </html>
-<script src="canvas.js"></script>
-<script src="main.js"></script>
+<script src="canvas-class/canvas.js"></script>
+<script src="test.js"></script>
+<script src="xyz.js"></script>
 <script src="cube.js"></script>
 <script src="hover.js"></script>
 <script>
@@ -27,13 +31,14 @@ canvas, #scale { background-color: #dddddd; position: relative; top: -8px; left:
 var active = 'main'
 
 build = (func)=>{
-  if ('main' === func) main()
+  if ('test' === func) test()
+  if ('xyz' === func) xyz()
   if ('cube' === func) cube()
   if ('hover' === func) hover()
   active = func
+  document.getElementById('title').innerHTML = func
 }
-
-build(active)
+document.getElementById('btns').childNodes[1].onclick()
 
 scale = (yes)=>{
   document.getElementById('scale').style.display = 'none'
@@ -45,3 +50,4 @@ window.onresize = ()=>{
 }
 
 </script>
+<script src="http://localhost:35729/livereload.js"></script>
