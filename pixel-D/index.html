@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<script src='http://localhost:35729/livereload.js'></script>
+<script src="https://sdk.amazonaws.com/js/aws-sdk-2.100.0.min.js"></script>
+
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/showcase.css">
+
+<body>
+  <div id='loader' style='opacity: 0;'></div>
+  <div id='navBar-pages'>
+    <div id='navBar' >
+      <div class='left'>
+        <span id='navBar-title' class='navBar-button' onclick="pageSwap('home')">
+          pixel-D
+        </span>
+      </div>
+      <div class='right'>
+        <span id='navBar-showcase' class='navBar-button' onclick="pageSwap('showcase')">
+          showcase
+        </span> ::
+        <span id='navBar-create' class='navBar-button' onclick="pageSwap('create')"></span>
+        <span id='navBar-login' class='navBar-button' onclick="logInOut('login')">
+          login
+        </span>
+        <span id='navBar-accountHome' class='navBar-button' onclick="pageSwap('account')"></span>
+      </div>
+    </div>
+    <br>
+    <hr>
+    <div id='page-home' style='display: block;'></div>
+    <div id='page-signUp' style='display: none;'></div>
+    <div id='page-login' style='display: none;'></div>
+    <div id='page-account' style='display: none;'></div>
+    <div id='page-create' style='display: none;'></div>
+    <div id='page-showcase' style='display: none;'></div>
+  </div>
+</body>
+<script src='main.js'></script>
+<script src='js/loader.js'></script>
+<script src='js/color.js'></script>
+<script src='js/canvas.js'></script>
+<script src='js/ddb.js'></script>
+<script src='pages/page_home.js'></script>
+<script src='pages/page_signUp.js'></script>
+<script src='pages/page_login.js'></script>
+<script src='pages/page_account.js'></script>
+<script src='pages/page_create.js'></script>
+<script src='pages/page_showcase.js'></script>
+<html/>
+
+<!-- NOTES
+
+⭐ What about allowing horizontal lines?
+- to create a split block with a 45 degree angle?
+- OR: shaddow
+
+-->

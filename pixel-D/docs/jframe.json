@@ -1,0 +1,16 @@
+{
+  "Landing Page": {
+    "Top Nav Bar": [ "8x8","    ","Showcase","login" ],
+    "Body": "Welcome to "
+  },
+  "Logged In Landing Page": {
+    "Top Nav Bar": [ "8x8","    ","dropdown","create" ],
+    "dropDown": [
+      "Public",
+      "My Gallery",
+      "Account",
+      "logout"
+    ],
+    "Body": "My Galery"
+  }
+}
