@@ -1,30 +1,21 @@
 ddb = (type, action, account, obj, callback)=>{
   // you pass obj which is the box, but instead use GLOABAL boxData...
-
+  const timeStamp = Date.now()
   if (type === 'put') {
 
-    if (action === 'post') {
-      ddbCreate('blocks', account, {
-        timestamp : Date.now(),
+    if (action === 'signUp') {
+      ddbCreate('accounts', 'accounts', {
+        id: account+'-'+action+'-'+timeStamp+'-'+_randId(10),
+        signUpDate : timeStamp,
         account : account,
-        share : true,
-        gallery : [ 'default', 'posts' ],
-        blk : boxData
-      })
-      ddbCreate('blocks', 'public', {
-        timestamp : Date.now(),
-        account : account,
-        share : true,
-        gallery : [ 'default', 'posts' ],
-        blk : boxData
-      }, ()=>{
-        if (callback) callback()
-      })
+        share : true
+      }, ()=>{ if (callback) callback() })
     }
 
     if (action === 'save') {
       ddbCreate('blocks', account, {
-        timestamp : Date.now(),
+        id: account+'-'+action+'-'+timeStamp+'-'+_randId(10),
+        timestamp : timeStamp,
         account : account,
         share : true,
         gallery : [ 'default' ],
@@ -34,13 +25,48 @@ ddb = (type, action, account, obj, callback)=>{
       })
     }
 
-
-    if (action === 'signUp') {
-      ddbCreate('accounts', 'accounts', {
-        signUpDate : Date.now(),
+    if (action === 'post') {
+      ddbCreate('blocks', account, {
+        id: account+'-'+action+'-'+timeStamp+'-'+_randId(10),
+        timestamp : timeStamp,
         account : account,
-        share : true
-      }, ()=>{ if (callback) callback() })
+        share : true,
+        gallery : [ 'default', 'posts' ],
+        blk : boxData
+      })
+      ddbCreate('blocks', 'public', {
+        id: account+'-'+action+'-'+timeStamp+'-'+_randId(10),
+        timestamp : timeStamp,
+        account : account,
+        share : true,
+        gallery : [ 'default', 'posts' ],
+        blk : boxData
+      }, ()=>{
+        if (callback) callback()
+      })
+    }
+
+    if (action === 'append') {
+      if (!obj.post.appends) obj.post.appends = []
+      const id = account+'-append-'+timeStamp+'-'+_randId(10)
+      obj.post.appends.push({
+        child: id,
+        parentPos: obj.pos,
+        childPos: obj.selectedPos,
+        timeStamp: timeStamp,
+        grid: obj.gridSize
+      })
+      let newAppend = {
+        id: id,
+        account: account,
+        timestamp: timeStamp,
+        blk: boxData,
+        parent: obj.post.id,
+        share: true,
+        gallery: ["default","appends"]
+      }
+      console.log('New Original Post: ', obj.post)
+      console.log('New Append: ', newAppend)
     }
 
   }

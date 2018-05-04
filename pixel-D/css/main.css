@@ -8,11 +8,13 @@ body {
 button {
   cursor: pointer;
 }
+.f16 {
+  font-size: 16px;
+}
 #navBar-pages {
   font-size: 16px;
   text-align: center;
 }
-
 .b1 {
   min-width: 100px;
   height: 30px;

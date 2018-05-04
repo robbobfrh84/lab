@@ -4,12 +4,16 @@ var page = hash[0] || 'home'
 var oldPage = 'home'
 var account
 var accounts
+var artClone;
 var boxData = {}
-var postCanvases = []
+var boxDataAdj = { x: 0, y: 0 }
 var galCanvases = []
 var currentColor = 'brown'
 var mousedown = false
 var initial = true
+const g4 = [1,2,5,6]
+const g49 = [1,2,4,5]
+const g9 = [1,2,3,5,6,7,9,10,11]
 
 if (hash[1]) {
   account = hash[1]
@@ -42,12 +46,16 @@ pageSwap = (page)=>{
     buildPageShowcase()
   }
   if (page === 'create') {
-    buildPageCreate()
+    if (boxDataAdj.x != 0 && boxDataAdj.y != 0 ) {
+      boxDataAdj = { x: 0, y: 0 }
+      buildPageCreate()
+    }
   }
 }
 
 logInOut = ()=>{
   account = ''
+  boxDataAdj = { x: 0, y: 0 }
   pageSwap('login')
   document.getElementById('navBar-login').innerHTML = "login"
   document.getElementById('navBar-accountHome').innerHTML = ''
@@ -75,11 +83,3 @@ document.body.addEventListener('mousedown', ()=>{
 document.body.addEventListener('mouseup', ()=>{
   mousedown = false;
 })
-
-_rand = (min, max)=>{
-  return Math.floor(Math.random() * (max - min + 1) + min);
-}
-
-_rgbR = ()=>{
-  return 'rgb('+_rand(0,255)+', '+_rand(0,255)+', '+_rand(0,255)+')';
-}

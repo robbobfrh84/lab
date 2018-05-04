@@ -4,9 +4,11 @@
 
 <link rel="stylesheet" href="css/main.css">
 <link rel="stylesheet" href="css/showcase.css">
+<link rel="stylesheet" href="css/create.css">
 
 <body>
   <div id='loader' style='opacity: 0;'></div>
+  <canvas id='mouseTrack' width='0' height='0'></canvas>
   <div id='navBar-pages'>
     <div id='navBar' >
       <div class='left'>
@@ -36,6 +38,8 @@
   </div>
 </body>
 <script src='main.js'></script>
+<script src='js/_funcs.js'></script>
+<script src='js/_thumb_grid.js'></script>
 <script src='js/loader.js'></script>
 <script src='js/color.js'></script>
 <script src='js/canvas.js'></script>
@@ -52,6 +56,12 @@
 
 ⭐ What about allowing horizontal lines?
 - to create a split block with a 45 degree angle?
-- OR: shaddow
+- OR: shaddows
+
+⭐ make loader have tighter pixels with orbiting pixel.
+
+🚨 bug:
+- Showcase: switch to 16, toggle home and back t showcase, grid is off.
+
 
 -->
