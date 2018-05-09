@@ -1,17 +1,22 @@
 #page-create {
   font-size: 0px;
   color: #666;
+  width: 700px;
+  margin: auto;
 }
 #action-button {
   font-size: 16px;
 }
 #create-box, #create-thumb, #create-og-thumb {
   font-size: 0px;
-  background-color: #ccc;
+  /* background-color: #ccc; */
+  border: 5px solid rgba(0,0,0,0.1);
   margin: auto;
 }
 #create-thumb, #create-og-thumb {
   float: left;
+  background-color: rgba(0,0,0,0.05);
+  border: 3px solid rgba(0,0,0,0);
 }
 #create-thumb {
   /* width: 200px;
@@ -38,6 +43,9 @@
   width: 470px;
   margin: auto;
 }
+.action-container {
+  margin-right: 30px;
+}
 .create-swatch-div {
   width: 15px;
   height: 20px;
@@ -46,15 +54,18 @@
   font-size: 0px;
   cursor: pointer;
 }
-.blk, .tblk {
-  background-color: #aaa;
-  color: rgba(0,0,0,0.5);
+.blk, .tblk, .ogtblk, .tblk16, .tblk4 {
+  background-color: rgba(0,0,0,0);
+  /* color: rgba(0,0,0,0); */
   display: inline-block;
   cursor: pointer;
   padding: none;
   margin: none;
 }
-.tblk {
+.blk {
+  border: 1px solid rgba(0,0,0,0.1);
+}
+.tblk, .ogtblk, .tblk16, .tblk4 {
   cursor: initial;
 }
 #account {

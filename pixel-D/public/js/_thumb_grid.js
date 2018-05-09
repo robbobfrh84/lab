@@ -8,13 +8,14 @@ _buildCanvas = (width, id, obj, pix = width/8)=>{
   }
 }
 
-_buildDivCanvas = (blk, size, elm)=>{
+_buildDivCanvas = (blk, size, elm, id, blkClass)=>{
+  if (!blkClass) blkClass = 'tblk'
   let pixels = ''
   for (var i = 1; i <= size; i++) {
     for (var j = 1; j <= size; j++) {
       if (blk[i] && blk[i][j]) {
         pixels += `
-          <div class="tblk" id="tblk-${i}-${j}"
+          <div class="${blkClass}" id="${id}-${i}-${j}"
            style="background-color: ${blk[i][j].color}"></div>
         `
       }

@@ -1,17 +1,19 @@
 buildPageCreate = (editBlk, type, index)=>{
   const width = 264
   const mg = Math.floor(width*0.005)
-  const twidth = 64
   const tmg = 0
-  const size = 8
+  const size = 8 // for both pixels across and down. like 8 = 8x8
+  let twidth = 64
 
   SetInitialPage = ()=>{
     document.getElementById('page-create').innerHTML = `
       <div id='action-button' class='right'>
-        <button id='create-post-append-Btn' class='b1' onClick='post()'>
-          Post
-        </button><br><hr>
-        <button class='b1' onClick='save()'>Save</button>
+        <div class='action-container'>
+          <button id='create-post-append-Btn' class='b1' onClick='post()'>
+            Post
+          </button><br><hr>
+          <button class='b1' onClick='save()'>Save</button>
+        </div>
       </div>
       <div id='create-thumb'></div>
       <div id='create-box'></div>
@@ -32,7 +34,7 @@ buildPageCreate = (editBlk, type, index)=>{
       for (var j = 1; j <= pixels; j++) {
         box.innerHTML += `<div id="blk-${i}-${j}" class="blk" ></div>`
         thumb.innerHTML += `<div id="tblk-${i}-${j}" class="tblk" ></div>`
-        boxData[i][j] = { color: '#aaa' }
+        boxData[i][j] = { color: 'rgba(0,0,0,0)' }
       }
       box.innerHTML += `<br>`
       thumb.innerHTML += `<br>`
@@ -85,7 +87,7 @@ buildPageCreate = (editBlk, type, index)=>{
     const tblk = document.getElementById(gridThumb)
     const color =   blk.style.backgroundColor
     if (blk.id !== 'create-box') {
-      const newColor = blk.style.backgroundColor === currentColor ? '#aaa' : currentColor
+      const newColor = blk.style.backgroundColor === currentColor ? 'rgba(0,0,0,0)' : currentColor
       blk.style.backgroundColor = newColor
       tblk.style.backgroundColor = newColor
       const cord = blk.id.split('-')
@@ -144,26 +146,32 @@ buildPageCreate = (editBlk, type, index)=>{
     if (type === 'edit') {
       const actionButton = document.getElementById('action-button')
       actionButton.innerHTML = `
-        <button class='b1' onClick='post(boxData)'>Post</button><br><hr>
-        <button class='b1' onClick='update(boxData,${index})'>Update</button><br><hr>
-        Original: <div id='create-og-thumb'></div><hr>
-        <button class='b1' onClick='del(boxData,${index})'>Delete</button>
+        <div class='action-container'>
+          <button class='b1' onClick='post(boxData)'>Post</button><br><hr>
+          <button class='b1' onClick='update(boxData,${index})'>Update</button><br><hr>
+          Original: <div id='create-og-thumb'></div><hr>
+          <button class='b1' onClick='del(boxData,${index})'>Delete</button>
+        </div>
       `
       const ogThumb = document.getElementById('create-og-thumb')
       ogThumb.style.width = twidth+'px'
-      _buildDivCanvas(editBlk.blk, size, document.getElementById('create-og-thumb'))
+      _buildDivCanvas(editBlk.blk, size, document.getElementById('create-og-thumb'), 'ogtblk')
     }
     if (type === 'append') {
       const appendBtn = document.getElementById('create-post-append-Btn')
       appendBtn.innerHTML = 'Append'
       appendBtn.setAttribute('onClick', 'append()')
-      const pixW = Math.sqrt(editBlk.gridSize)*size
       //
       //
       // 🚨
       //
       //
       // console.log('built resized thumb here...', editBlk)
+      let blkAppend = 'tblk'
+      if (editBlk.gridSize == 16) blkAppend = 'tblk16'
+      if (editBlk.gridSize == 4) blkAppend = 'tblk4'
+      const pixW = Math.sqrt(editBlk.gridSize)*size
+
       adjustXY = (pos, a = {})=>{
         if ([2,6,10,14].includes(pos)) a.x = 8
         else if ([3,7,11,15].includes(pos)) a.x = 16
@@ -187,7 +195,7 @@ buildPageCreate = (editBlk, type, index)=>{
             gridBlk[i][j] = { color: editBlk.post.blk[i-aA.y][j-aA.x].color }
           } else if (i-boxDataAdj.y > 0 && j-boxDataAdj.x > 0
             && i-boxDataAdj.y-8 <= 0 && j-boxDataAdj.x-8 <= 0 ) {
-            gridBlk[i][j] = { color: '#aaa' }
+            gridBlk[i][j] = { color: 'rgba(0,0,0,0)' }
           } else {
             gridBlk[i][j] = { color: 'rgba(255,255,255,0.2)' }
           }
@@ -198,36 +206,39 @@ buildPageCreate = (editBlk, type, index)=>{
       //
       //
 
-      _buildDivCanvas(gridBlk, pixW, document.getElementById('create-thumb'))
+      _buildDivCanvas(gridBlk, pixW, document.getElementById('create-thumb'), 'tblk', blkAppend)
       _buildPostGrid(editBlk, document.getElementById('create-grid-canvas'), 'create-')
     }
   }
 
   const sheet = document.createElement('style')
   sheet.innerHTML = `
-    #create-box, #create-thumb, #create-og-thumb {
-      padding: ${mg}px;
-    }
     #create-thumb, #create-og-thumb {
       padding: ${tmg}px;
     }
-    .blk, .tblk {
+    .blk {
       width: ${(width/size)-(mg*2)}px;
       height: ${(width/size)-(mg*2)}px;
-      margin: ${mg}px;
     }
-    .tblk {
+    .tblk, .ogtblk, .tblk16, .tblk4 {
       width: ${(twidth/size)-(tmg*2)}px;
       height: ${(twidth/size)-(tmg*2)}px;
       margin: ${tmg}px;
     }
+    .tblk16 {
+      width: ${(((twidth*3)/4)/size)-(tmg*2)}px;
+      height: ${(((twidth*3)/4)/size)-(tmg*2)}px;
+    }
+    .tblk4 {
+      width: ${(((twidth*3)/2)/size)-(tmg*2)}px;
+      height: ${(((twidth*3)/2)/size)-(tmg*2)}px;
+    }
   `
 
   SetInitialPage()
-  buildUserCanvasBox(8)
+  buildUserCanvasBox(size)
   if (editBlk) {
     editCheck()
   }
   document.body.appendChild(sheet);
-
 }

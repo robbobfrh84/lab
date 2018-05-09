@@ -50,6 +50,7 @@ pageSwap = (page)=>{
       boxDataAdj = { x: 0, y: 0 }
       buildPageCreate()
     }
+    buildPageCreate()
   }
 }
 
