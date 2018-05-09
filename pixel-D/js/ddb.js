@@ -49,12 +49,14 @@ ddb = (type, action, account, obj, callback)=>{
     if (action === 'append') {
       if (!obj.post.appends) obj.post.appends = []
       const id = account+'-append-'+timeStamp+'-'+_randId(10)
+      if (!obj.post.decendentTree) obj.post.decendentTree = []
+      obj.post.decendentTree.push({pos: obj.selectedPos, parentPos: obj.pos})
       obj.post.appends.push({
         child: id,
         parentPos: obj.pos,
         childPos: obj.selectedPos,
         timeStamp: timeStamp,
-        grid: obj.gridSize
+        grid: obj.gridSize,
       })
       let newAppend = {
         id: id,
@@ -63,7 +65,7 @@ ddb = (type, action, account, obj, callback)=>{
         blk: boxData,
         parent: obj.post.id,
         share: true,
-        gallery: ["default","appends"]
+        gallery: ["default","appends"],
       }
       console.log('New Original Post: ', obj.post)
       console.log('New Append: ', newAppend)

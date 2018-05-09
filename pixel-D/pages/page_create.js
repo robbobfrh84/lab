@@ -4,7 +4,6 @@ buildPageCreate = (editBlk, type, index)=>{
   const twidth = 64
   const tmg = 0
   const size = 8
-  // boxDataAdj = { x: 0, y: 0 }
 
   SetInitialPage = ()=>{
     document.getElementById('page-create').innerHTML = `
@@ -134,75 +133,73 @@ buildPageCreate = (editBlk, type, index)=>{
   }
 
   editCheck = ()=>{
-    if (editBlk) {
-      const b = editBlk.blk
-      for (const x in b) { // 👈 This fills in BOTH User Canvas and Thumb for BOTH edit & clone.
-        for (const y in b[x]) {
-          currentColor = b[x][y].color
-          changeColor('blk-'+x+'-'+y)
-          currentColor = 'brown'
-        }
+    const b = editBlk.blk
+    for (const x in b) { // 👈 This fills in BOTH User Canvas and Thumb for BOTH edit & clone.
+      for (const y in b[x]) {
+        currentColor = b[x][y].color
+        changeColor('blk-'+x+'-'+y)
+        currentColor = 'brown'
       }
-      if (type === 'edit') {
-        const actionButton = document.getElementById('action-button')
-        actionButton.innerHTML = `
-          <button class='b1' onClick='post(boxData)'>Post</button><br><hr>
-          <button class='b1' onClick='update(boxData,${index})'>Update</button><br><hr>
-          Original: <div id='create-og-thumb'></div><hr>
-          <button class='b1' onClick='del(boxData,${index})'>Delete</button>
-        `
-        const ogThumb = document.getElementById('create-og-thumb')
-        ogThumb.style.width = twidth+'px'
-        _buildDivCanvas(editBlk.blk, size, document.getElementById('create-og-thumb'))
+    }
+    if (type === 'edit') {
+      const actionButton = document.getElementById('action-button')
+      actionButton.innerHTML = `
+        <button class='b1' onClick='post(boxData)'>Post</button><br><hr>
+        <button class='b1' onClick='update(boxData,${index})'>Update</button><br><hr>
+        Original: <div id='create-og-thumb'></div><hr>
+        <button class='b1' onClick='del(boxData,${index})'>Delete</button>
+      `
+      const ogThumb = document.getElementById('create-og-thumb')
+      ogThumb.style.width = twidth+'px'
+      _buildDivCanvas(editBlk.blk, size, document.getElementById('create-og-thumb'))
+    }
+    if (type === 'append') {
+      const appendBtn = document.getElementById('create-post-append-Btn')
+      appendBtn.innerHTML = 'Append'
+      appendBtn.setAttribute('onClick', 'append()')
+      const pixW = Math.sqrt(editBlk.gridSize)*size
+      //
+      //
+      // 🚨
+      //
+      //
+      // console.log('built resized thumb here...', editBlk)
+      adjustXY = (pos, a = {})=>{
+        if ([2,6,10,14].includes(pos)) a.x = 8
+        else if ([3,7,11,15].includes(pos)) a.x = 16
+        else if ([4,8,12,16].includes(pos)) a.x = 24
+        else a.x = 0
+        if ([5,6,7,8].includes(pos)) a.y = 8
+        else if ([9,10,11,12].includes(pos)) a.y = 16
+        else if ([13,14,15,16].includes(pos)) a.y = 24
+        else a.y = 0
+        return a
       }
-      if (type === 'append') {
-        const appendBtn = document.getElementById('create-post-append-Btn')
-        appendBtn.innerHTML = 'Append'
-        appendBtn.setAttribute('onClick', 'append()')
-        const pixW = Math.sqrt(editBlk.gridSize)*size
-        //
-        //
-        // 🚨
-        //
-        //
-        console.log('built resized thumb here...', editBlk)
-        adjustXY = (pos, a = {})=>{
-          if ([2,6,10,14].includes(pos)) a.x = 8
-          else if ([3,7,11,15].includes(pos)) a.x = 16
-          else if ([4,8,12,16].includes(pos)) a.x = 24
-          else a.x = 0
-          if ([5,6,7,8].includes(pos)) a.y = 8
-          else if ([9,10,11,12].includes(pos)) a.y = 16
-          else if ([13,14,15,16].includes(pos)) a.y = 24
-          else a.y = 0
-          return a
-        }
 
-        let aA = adjustXY(editBlk.pos)
-        boxDataAdj = adjustXY(editBlk.selectedPos)
+      let aA = adjustXY(editBlk.pos)
+      boxDataAdj = adjustXY(editBlk.selectedPos)
 
-        let gridBlk = []
-        for (var i = 0; i <= pixW; i++) {
-          gridBlk[i] = []
-          for (var j = 0; j <= pixW; j++) {
-            if (editBlk.post.blk[i-aA.y] && editBlk.post.blk[i-aA.y][j-aA.x]) {
-              gridBlk[i][j] = { color: editBlk.post.blk[i-aA.y][j-aA.x].color }
-            } else if (i-boxDataAdj.y > 0 && j-boxDataAdj.x > 0
-              && i-boxDataAdj.y-8 <= 0 && j-boxDataAdj.x-8 <= 0 ) {
-              gridBlk[i][j] = { color: '#aaa' }
-            } else {
-              gridBlk[i][j] = { color: 'rgba(255,255,255,0.2)' }
-            }
+      let gridBlk = []
+      for (var i = 0; i <= pixW; i++) {
+        gridBlk[i] = []
+        for (var j = 0; j <= pixW; j++) {
+          if (editBlk.post.blk[i-aA.y] && editBlk.post.blk[i-aA.y][j-aA.x]) {
+            gridBlk[i][j] = { color: editBlk.post.blk[i-aA.y][j-aA.x].color }
+          } else if (i-boxDataAdj.y > 0 && j-boxDataAdj.x > 0
+            && i-boxDataAdj.y-8 <= 0 && j-boxDataAdj.x-8 <= 0 ) {
+            gridBlk[i][j] = { color: '#aaa' }
+          } else {
+            gridBlk[i][j] = { color: 'rgba(255,255,255,0.2)' }
           }
         }
-        //
-        //
-        //
-        //
-
-        _buildDivCanvas(gridBlk, pixW, document.getElementById('create-thumb'))
-        // _buildPostGrid(editBlk, document.getElementById('create-grid-canvas'), 'create-')
       }
+      //
+      //
+      //
+      //
+
+      _buildDivCanvas(gridBlk, pixW, document.getElementById('create-thumb'))
+      _buildPostGrid(editBlk, document.getElementById('create-grid-canvas'), 'create-')
     }
   }
 
@@ -228,7 +225,9 @@ buildPageCreate = (editBlk, type, index)=>{
 
   SetInitialPage()
   buildUserCanvasBox(8)
-  editCheck()
+  if (editBlk) {
+    editCheck()
+  }
   document.body.appendChild(sheet);
 
 }
