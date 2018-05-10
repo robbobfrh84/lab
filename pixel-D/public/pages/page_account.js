@@ -16,19 +16,20 @@ buildAccount = ()=>{
   `
 
   if (account) {
-    ddbGet(account,(data)=>{
+    ddbGetVal('userBlks', account, (data)=>{
       const saved = document.getElementById('account-saved')
       const posts = document.getElementById('account-posts')
-      if (!data.Item) {
+      if (!data.Item[account]) {
         posts.innerHTML += `<br><hr>
           ...No Pixel Blocks yet Created... Click *-> ^ [Create] ^ to start!
         `
       } else {
-        for (var i = data.Item.blocks.length-1; i >= 0 ; i--) {
-          const where = data.Item.blocks[i].gallery.includes('posts') ? posts : saved
+        data = data.Item[account]
+        for (var i = data.length-1; i >= 0 ; i--) {
+          const where = data[i].gallery.includes('posts') ? posts : saved
           const id = 'galCanvas'+i
-          if (!data.Item.blocks[i].gallery.includes('posts')) {
-            const block = JSON.stringify(data.Item.blocks[i])
+          if (!data[i].gallery.includes('posts')) {
+            const block = JSON.stringify(data[i])
             where.innerHTML += `
               <div class='account-canvas-edit-box'>
                 <canvas id="${id}" class="showcase-canvas"></canvas>
@@ -45,7 +46,7 @@ buildAccount = ()=>{
               </div>
             `
           } else {
-            const block = JSON.stringify(data.Item.blocks[i])
+            const block = JSON.stringify(data[i])
             where.innerHTML += `
               <div class='account-canvas-edit-box'>
                 <canvas id="${id}" class="showcase-canvas"></canvas>
@@ -63,7 +64,7 @@ buildAccount = ()=>{
             `
           }
         }
-        data.Item.blocks.map((box,i)=>{
+        data.map((box,i)=>{
           const width = 56
           const pix = width/8
           galCanvases[i] = new canvas

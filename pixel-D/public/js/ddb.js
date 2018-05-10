@@ -1,7 +1,7 @@
 ddb = (type, action, account, obj, callback)=>{
   // you pass obj which is the box, but instead use GLOABAL boxData...
-  const timeStamp = Date.now()
   if (type === 'put') {
+    const timeStamp = Date.now()
 
     if (action === 'signUp') {
       ddbCreate('accounts', 'accounts', {
@@ -13,7 +13,7 @@ ddb = (type, action, account, obj, callback)=>{
     }
 
     if (action === 'save') {
-      ddbCreate('blocks', account, {
+      ddbCreate(account, 'userBlks', {
         id: account+'-'+action+'-'+timeStamp+'-'+_randId(10),
         timestamp : timeStamp,
         account : account,
@@ -26,7 +26,7 @@ ddb = (type, action, account, obj, callback)=>{
     }
 
     if (action === 'post') {
-      ddbCreate('blocks', account, {
+      ddbCreate(account, 'userBlks', {
         id: account+'-'+action+'-'+timeStamp+'-'+_randId(10),
         timestamp : timeStamp,
         account : account,
@@ -111,6 +111,18 @@ ddbGet = (item, callback)=>{
       if (callback) callback(data)
     }
   });
+}
+
+ddbGetVal = (name, attribute, callback)=>{
+  const getParams = {
+    TableName: ddbTable,
+    Key: { name: name },
+    ProjectionExpression: attribute,
+  }
+  documentClient.get(getParams, function(err, data) {
+    if (err) console.log(err, err.stack)
+    else callback(data)
+  })
 }
 
 // CHANGE UPDATE > to > create!
