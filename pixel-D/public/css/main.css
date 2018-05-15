@@ -75,3 +75,26 @@ button {
   position: absolute;
   top: 5px;
 }
+.blk, .tblk, .ogtblk, .tblk16, .tblk4 {
+  background-color: rgba(0,0,0,0);
+  display: inline-block;
+  cursor: pointer;
+  padding: none;
+  margin: none;
+}
+.blk {
+  border: 1px solid rgba(0,0,0,0.1);
+}
+.tblk, .ogtblk, .tblk16, .tblk4 {
+  cursor: initial;
+}
+#account {
+  color: #666
+}
+.div-no-gap-canvas {
+  font-size: 0px;
+  width: 192px;
+  background-color: rgba(0,0,0,0);
+  border: 3px solid rgba(0,0,0,0.05);
+  margin: auto;
+}

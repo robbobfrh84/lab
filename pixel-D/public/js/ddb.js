@@ -4,17 +4,17 @@ ddb = (type, action, account, obj, callback)=>{
     const timeStamp = Date.now()
 
     if (action === 'signUp') {
-      ddbCreate('accounts', 'accounts', {
-        id: account+'-'+action+'-'+timeStamp+'-'+_randId(10),
+      ddbCreateItem('accounts', account, {
+        id: account+'_'+action+'_'+timeStamp+'_'+_randId(10),
         signUpDate : timeStamp,
         account : account,
         share : true
       }, ()=>{ if (callback) callback() })
     }
 
-    if (action === 'save') {
-      ddbCreate(account, 'userBlks', {
-        id: account+'-'+action+'-'+timeStamp+'-'+_randId(10),
+    else if (action === 'save') {
+      ddbAddToList('userBlks', account, {
+        id: account+'_'+action+'_'+timeStamp+'_'+_randId(10),
         timestamp : timeStamp,
         account : account,
         share : true,
@@ -25,17 +25,18 @@ ddb = (type, action, account, obj, callback)=>{
       })
     }
 
-    if (action === 'post') {
-      ddbCreate(account, 'userBlks', {
-        id: account+'-'+action+'-'+timeStamp+'-'+_randId(10),
+    else if (action === 'post') {
+      const id = account+'_'+action+'_'+timeStamp+'_'+_randId(10)
+      ddbAddToList('userBlks', account, {
+        id: id,
         timestamp : timeStamp,
         account : account,
         share : true,
         gallery : [ 'default', 'posts' ],
         blk : boxData
       })
-      ddbCreate('blocks', 'public', {
-        id: account+'-'+action+'-'+timeStamp+'-'+_randId(10),
+      ddbAddToList('public', 'blocks', {
+        id: id,
         timestamp : timeStamp,
         account : account,
         share : true,
@@ -47,36 +48,44 @@ ddb = (type, action, account, obj, callback)=>{
     }
 
     if (action === 'append') {
-      if (!obj.post.appends) obj.post.appends = []
-      const id = account+'-append-'+timeStamp+'-'+_randId(10)
-      if (!obj.post.decendentTree) obj.post.decendentTree = []
-      obj.post.decendentTree.push({pos: obj.selectedPos, parentPos: obj.pos})
-      obj.post.appends.push({
+      const id = account+'_'+action+'_'+timeStamp+'_'+_randId(10)
+      const parentAppend = {
         child: id,
         parentPos: obj.pos,
         childPos: obj.selectedPos,
         timeStamp: timeStamp,
         grid: obj.gridSize,
-      })
-      let newAppend = {
+      }
+      const newAppend = {
         id: id,
         account: account,
         timestamp: timeStamp,
-        blk: boxData,
+        blks: [ { gen: 1, pos: obj.selectedPos, blk: boxData },
+                { gen: 0, pos: obj.pos, blk: obj.post.blk } ],
+        gen: 1,
+        grid: obj.gridSize,
+        parentPos: obj.pos,
         parent: obj.post.id,
         share: true,
-        gallery: ["default","appends"],
+        gallery: ['default','appends'],
       }
-      console.log('New Original Post: ', obj.post)
-      console.log('New Append: ', newAppend)
+      // 👇 ...Add NEW to append ⚠️ Should be done in ONE update as Lambda func in future... this is just slow and bad.
+      ddbCreateAddMap('appends', 'blocks.'+obj.post.id, id, newAppend, ()=>{ //
+        // 👇 ...UPDATE Parent node
+        ddbCreateAddMap('public', 'blocks['+obj.index+'].appends', id, parentAppend, ()=>{
+          // 👇 ...ADD NEW userBlk
+          ddbAddToList('userBlks', account, newAppend, ()=>{
+            if (callback) callback()
+          })
+        })
+      })
     }
-
   }
 
   else if (type === 'update') {
 
     if (action === 'saved') {
-      ddbUpdateBlk(account, obj, ()=>{
+      ddbCreateItem('userBlks', account+'['+obj.index+'].blk', obj.blk, ()=>{
         if (callback) callback()
       })
     }
@@ -99,81 +108,83 @@ var documentClient = new AWS.DynamoDB.DocumentClient();
 
 ddbGet = (item, callback)=>{
   var params = {
-      Key: { "name": item },
+      Key: { name: item },
       TableName: ddbTable
   };
   _loaderOn()
   documentClient.get(params, function(err, data) {
     _loaderOff()
-    if (err) {
-      console.log(err);
-    } else {
-      if (callback) callback(data)
-    }
+    if (err) console.log(err);
+    else if (callback) callback(data)
   });
 }
 
 ddbGetVal = (name, attribute, callback)=>{
-  const getParams = {
+  _loaderOn()
+  documentClient.get({
     TableName: ddbTable,
     Key: { name: name },
-    ProjectionExpression: attribute,
-  }
-  documentClient.get(getParams, function(err, data) {
+    ProjectionExpression: attribute
+  }, function(err, data) {
+    _loaderOff()
     if (err) console.log(err, err.stack)
     else callback(data)
   })
 }
 
-// CHANGE UPDATE > to > create!
-ddbCreate = (arrkey, account, data, callback) =>{
+ddbCreateItem = (name, attribute, data, callback)=>{
   _loaderOn()
-  const arrayKey = arrkey
-  const updateData = data
   documentClient.update({
     TableName: ddbTable,
-    Key: { name: account },
-    ReturnValues: 'ALL_NEW',
-    UpdateExpression: 'set #'+arrayKey+' = list_append(if_not_exists(#'+arrayKey+', :empty_list), :'+arrayKey+')',
-    ExpressionAttributeNames: {
-      ['#'+arrayKey]: arrayKey
-    },
-    ExpressionAttributeValues: {
-      [':'+arrayKey]: [updateData],
-      ':empty_list': []
-    }
+    Key: { name: name },
+    UpdateExpression: "set "+attribute+" = :b",
+    ExpressionAttributeValues: { ":b": data },
+    ReturnValues:"UPDATED_NEW"
   }, function(err, data) {
       _loaderOff()
-      if (err) {
-        console.log(err, err.stack)
-      } else {
-        console.log(' ! Create successful !')
+      if (err) { console.log(err, err.stack) }
+      else {
+        console.log(' ! Item Added/Updated to List Successful !')
         if (callback) callback()
       }
   });
 }
 
-ddbUpdateBlk = (account, blk, callback)=>{
+ddbAddToList = (name, attribute, data, callback)=>{
   _loaderOn()
-  console.log(blk.index)
-  const params = {
-      TableName: ddbTable,
-      Key: {
-          "name": account
-      },
-      UpdateExpression: "set blocks["+blk.index+"].blk = :b",
-      ExpressionAttributeValues:{
-          ":b": blk.new
-      },
-      ReturnValues:"UPDATED_NEW"
-  };
-  documentClient.update(params, function(err, data) {
-    _loaderOff()
-    if (err) {
-      console.log(err, err.stack)
-    } else {
-      console.log(' ! Update successful !')
-      if (callback) callback()
-    }
-  })
+  documentClient.update({
+    TableName: ddbTable,
+    Key: { name: name },
+    ReturnValues: 'ALL_NEW',
+    UpdateExpression: 'set #'+attribute+' = list_append(if_not_exists(#'
+      +attribute+', :empty_list), :'+attribute+')',
+    ExpressionAttributeNames: { ['#'+attribute]: attribute },
+    ExpressionAttributeValues: { [':'+attribute]: [data], ':empty_list': [] }
+  }, function(err, data) {
+      _loaderOff()
+      if (err) { console.log(err, err.stack) }
+      else {
+        console.log(' ! Item Added to List Successful !')
+        if (callback) callback()
+      }
+  });
+}
+
+ddbCreateAddMap = (name, attribute, node, data, callback)=>{
+  _loaderOn()
+  documentClient.update({
+    TableName: ddbTable,
+    Key: { name: name },
+    UpdateExpression: "set "+attribute+" = :a",
+    ConditionExpression: 'attribute_not_exists('+attribute+')',
+    ExpressionAttributeValues: { ":a": {} },
+  }, function(err, data2) {
+      _loaderOff()
+      if (err) console.log('Map of '+attribute+' Exists!')
+      else console.log('Map of '+attribute+' did not exsits, now it does')
+      ddbCreateItem(name, attribute+'.'+node, data, ()=>{ //
+        if (callback) callback()
+      })
+  });
+
 }

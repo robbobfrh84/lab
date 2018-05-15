@@ -3,7 +3,7 @@ AWS.config.update({region: "us-east-1"})
 var documentClient = new AWS.DynamoDB.DocumentClient();
 
 main = ()=>{
-  get('pixel-D-demo', "public", "blocks[0]") // table name, primary row name.
+  get('pixel-D-demo', "public", "blocks") // table name, primary row name.
 }
 
 get = (table, name, attribute)=>{

@@ -6,17 +6,24 @@ document.getElementById('page-signUp').innerHTML = `
 `
 
 addUser = ()=>{
-  let nameTaken = false
+  let nameFail = false
   const newUser = document.getElementById('userName')
-  for (const account of accounts) {
-    if (account.account == newUser.value) {
-      nameTaken = true
+  for (const account in accounts) {
+    if (account == newUser.value) {
+      nameFail = true
+      alert('this name is already taken, please select another...')
     }
   }
-  if (nameTaken) {
-    newUser.value = ""
-    alert('this name is already taken, please select another...')
-  } else {
+  if (!/^[a-zA-Z]/.test(newUser.value[0])) {
+    nameFail = true
+    alert('Username must start with a letter a-z or A-Z')
+  }
+  if (newUser.value.split(' ').length > 1) {
+    nameFail = true
+    alert('Username cannot contain a space')
+  }
+  if (!nameFail) {
+    console.log('ok to go')
     ddb('put','signUp',newUser.value,null,()=>{
       account = newUser.value
       pageSwap('account')
@@ -27,6 +34,5 @@ addUser = ()=>{
       })
     })
   }
-
-
+  newUser.value = ""
 }

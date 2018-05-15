@@ -4,26 +4,23 @@
   width: 700px;
   margin: auto;
 }
-#action-button {
+#create-action-button {
   font-size: 16px;
 }
-#create-box, #create-thumb, #create-og-thumb {
+#create-box, #create-og-thumb {
   font-size: 0px;
-  /* background-color: #ccc; */
   border: 5px solid rgba(0,0,0,0.1);
   margin: auto;
 }
-#create-thumb, #create-og-thumb {
+#create-og-thumb {
   float: left;
   background-color: rgba(0,0,0,0.05);
   border: 3px solid rgba(0,0,0,0);
 }
 #create-thumb {
-  /* width: 200px;
-  min-width: 200px;
-  height: 200px; */
-  margin: auto;
-  /* background-color: rgba(0,0,0,0); */
+  float: left;
+  border: 3px solid rgba(0,0,0,0.05);
+  background-color: rgba(0,0,0,0);
 }
 #create-og-thumb {
   float: none;
@@ -43,7 +40,7 @@
   width: 470px;
   margin: auto;
 }
-.action-container {
+.create-action-container {
   margin-right: 30px;
 }
 .create-swatch-div {
@@ -53,23 +50,6 @@
   color: rgba(0,0,0,0);
   font-size: 0px;
   cursor: pointer;
-}
-.blk, .tblk, .ogtblk, .tblk16, .tblk4 {
-  background-color: rgba(0,0,0,0);
-  /* color: rgba(0,0,0,0); */
-  display: inline-block;
-  cursor: pointer;
-  padding: none;
-  margin: none;
-}
-.blk {
-  border: 1px solid rgba(0,0,0,0.1);
-}
-.tblk, .ogtblk, .tblk16, .tblk4 {
-  cursor: initial;
-}
-#account {
-  color: #666
 }
 #create-grid-canvas {
   width: 178px;

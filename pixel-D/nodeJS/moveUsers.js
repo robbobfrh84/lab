@@ -4,11 +4,11 @@ var documentClient = new AWS.DynamoDB.DocumentClient();
 
 move = (table, name, attribute, value)=>{
   const params = {
-      TableName: table,
-      Key: { name: name },
-      UpdateExpression: "set "+attribute+" = :b",
-      ExpressionAttributeValues:{ ":b": value },
-      ReturnValues:"UPDATED_NEW"
+    TableName: table,
+    Key: { name: name },
+    UpdateExpression: "set "+attribute+" = :b",
+    ExpressionAttributeValues:{ ":b": value },
+    ReturnValues:"UPDATED_NEW"
   };
   documentClient.update(params, function(err, data) {
     if (err) console.log(err, err.stack)

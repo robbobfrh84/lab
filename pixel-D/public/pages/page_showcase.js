@@ -3,14 +3,15 @@ buildPageShowcase = ()=>{
   ddbGet('public',(data)=>{
     document.getElementById('page-showcase').innerHTML = ""
     document.getElementById('page-showcase').innerHTML = `
-      SHOWCASE 2!
-      <hr><div> Posts </div>
+      SHOWCASE!
+      <br><br>
       <div id='showcase-posts-container'></div>
     `
     for (var i = data.Item.blocks.length-1; i >= 0 ; i--) {
       const metaBlk = {
         post: data.Item.blocks[i],
         id: 'art'+i,
+        index: i,
         gridSize: 9,
         pos: 6,
         width: 46
@@ -26,26 +27,38 @@ buildPageShowcase = ()=>{
   })
 
   buildPost = (metaBlk, i)=>{
+    const appends = !metaBlk.post.appends ? "" :
+      `<button class='showcase-appends'
+        onClick='appends(${JSON.stringify({ a: metaBlk, i: i })})'>
+          View Appends (${Object.keys(metaBlk.post.appends).length})
+        </button>
+      `
     document.getElementById('showcase-posts-container').innerHTML += `
       <div class="showcase-post" stringBox='${JSON.stringify(metaBlk)}' id="post-${metaBlk.id}">
         <div class="showcase-grid-append-box">
           <div class="showcase-canvas-append-box" id="grid-${metaBlk.id}"></div>
           <div class='showcase-grid-box'>
             <div class='showcase-grid-toggle' gridsize='4'>4</div>
-            <div class='showcase-grid-toggle showcase-grid-toggle-active' gridsize='9'>9</div>
+            <div class='showcase-grid-toggle showcase-grid-toggle-active'
+              gridsize='9'>9</div>
             <div class='showcase-grid-toggle' gridsize='16'>16</div>
           </div>
         </div>
         <canvas id="large-${metaBlk.id}" class="showcase-canvas-large"></canvas>
-        <div class='showcase-userbox'> ${metaBlk.post.account} </div>
+        <div class='showcase-userbox'>
+          <button class='showcase-star' onClick='star()'> &star; </button>
+          ${metaBlk.post.account}
+        </div>
         <hr>
-        <button class='showcase-follow' onClick='follow()'> follow > ${metaBlk.post.account} </button>
+        <button class='showcase-btn' onClick='follow()'> follow >
+          ${metaBlk.post.account} </button>
         <hr>
-        <button class='showcase-clone' onClick='clone(${JSON.stringify(metaBlk.post)})'> clone </button>
+        <button class='showcase-btn'
+          onClick='clone(${JSON.stringify(metaBlk.post)})'> clone </button>
         <hr>
         <div class='showcase-append-note'> *Click empty box to append</div>
         <hr>
-        <button class='showcase-star' onClick='star()'> &star; </button>
+        ${appends}
       </div>
     `
     setTimeout(()=>{
@@ -94,6 +107,11 @@ buildPageShowcase = ()=>{
 
   star = ()=>{
     alert("You liked this Pixel Art! ...At this point in demo-mode, that's all we do here... Nobody will really know you like it... unless you tell them in person.")
+  }
+
+  appends = (data)=>{
+    pageSwap('appends')
+    buildAppendsPage(data.a, data.i)
   }
 
   selectNode = (event, metaBlk, pos, newNode, parentNode)=>{

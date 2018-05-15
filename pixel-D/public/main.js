@@ -21,7 +21,7 @@ if (hash[1]) {
 
 window.onload = ()=>{
   ddbGet('accounts', (data)=>{
-    accounts = data.Item.accounts
+    accounts = data.Item
     var user = !account ? '' : '/'+account
     window.location.hash = '#'+page+user
     if (account) setAccount(account)
@@ -41,17 +41,19 @@ pageSwap = (page)=>{
   oldPage = page
   if ((page === 'create' || page === 'account') && !account) {
     pageSwap('login')
-  }
-  if (page === 'showcase') {
-    buildPageShowcase()
-  }
-  if (page === 'create') {
-    if (boxDataAdj.x != 0 && boxDataAdj.y != 0 ) {
-      boxDataAdj = { x: 0, y: 0 }
+    if (page === 'create') {
+      if (boxDataAdj.x != 0 && boxDataAdj.y != 0 ) {
+        boxDataAdj = { x: 0, y: 0 }
+        buildPageCreate()
+      }
       buildPageCreate()
     }
-    buildPageCreate()
+  } else if (page === 'showcase') {
+    buildPageShowcase()
+  } else if (initial && page === 'appends') {
+    pageSwap('showcase')
   }
+
 }
 
 logInOut = ()=>{
