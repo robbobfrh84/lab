@@ -1,17 +1,26 @@
+#post-parent-showcase-container {
+  background-color: rgba(50,50,255,0.1);
+  width: 630px;
+  padding: 10px;
+  margin: auto;
+  height: 196px;
+}
+#appends-parent-container,
 #showcase-posts-container {
   width: 600px;
   margin: auto;
 }
+#appends-parent-container {
+  background: url("../gfx/paper_fibers_darker1.png");
+}
 .showcase-post {
-  width: 100%;
-  height: 183px;
   background-color: rgba(0,0,0,0.1);
   padding: 5px;
-  margin: 5px;
   margin-bottom: 30px;
 }
 .showcase-post > hr {
-  margin: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 .showcase-grid-append-box {
   float: left;

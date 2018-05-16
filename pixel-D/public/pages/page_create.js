@@ -1,4 +1,5 @@
 buildPageCreate = (editBlk, type, index)=>{
+  boxDataAdj = type === 'clone' ? { x: 0, y: 0 } : boxDataAdj
   const width = 264
   const mg = Math.floor(width*0.005)
   const tmg = 0
@@ -85,7 +86,7 @@ buildPageCreate = (editBlk, type, index)=>{
     gridThumb = 'tblk-'+(parseInt(ind[1])+boxDataAdj.y)+'-'+(parseInt(ind[2])+boxDataAdj.x)
     const blk = document.getElementById(id)
     const tblk = document.getElementById(gridThumb)
-    const color =   blk.style.backgroundColor
+    const color = blk.style.backgroundColor
     if (blk.id !== 'create-box') {
       const newColor = blk.style.backgroundColor === currentColor ? 'rgba(0,0,0,0)' : currentColor
       blk.style.backgroundColor = newColor

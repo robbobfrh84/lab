@@ -1,8 +1,8 @@
 ### Where I Left Off...
-* Ok. it dosn't make sence to have `_setDivCanvas` have multiple grids.
-  * you just lose your ability to create unique sets. make it singulare andlook over the call instead.  
+* add the metadata build inside the `_buildPost` and consolidate
 
 ### 3-step
+* Setup
 * ADD: "view" func on "accounts" to go to "appends" of post, even if empty.
 
 ### To-Do

@@ -1,4 +1,5 @@
 buildAppendsPage = (parent, pubIndex, page)=>{
+  // Call this file page_showcase_appends.js ??? - THEN, i think the file making makes since, and to leave as appends-blabla, OR: chane to showcase-appends-blabla
   const appendsPage = document.getElementById('page-appends')
 
   ddbGetVal('appends', 'blocks.'+parent.post.id, (data)=>{
@@ -6,8 +7,12 @@ buildAppendsPage = (parent, pubIndex, page)=>{
     appendsPage.innerHTML = `
       Appends for <br>
       <em style="font-size: 13px;">${parent.post.id}</em> <br>
+      <div id='post-parent-showcase-container'>
+        <div id='appends-parent-container'></div>
+      </div>
       <div id='appends-posts-container'></div>
     `
+    _buildPost(parent.post, pubIndex, 'appends-parent-container','-appends')
     if (!data) appendsPage.innerHTML += "...no appends to this Pixel Art."
     else {
       const box = data.Item.blocks[parent.post.id]
@@ -21,7 +26,5 @@ buildAppendsPage = (parent, pubIndex, page)=>{
       }
     }
   })
-
-
 
 }
