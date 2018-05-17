@@ -170,41 +170,6 @@ buildPageCreate = (editBlk, type, index)=>{
       const appendBtn = document.getElementById('create-post-append-Btn')
       appendBtn.innerHTML = 'Append'
       appendBtn.setAttribute('onClick', 'append()')
-      //
-      //
-      // let blkAppend = 'tblk'
-      // if (editBlk.gridSize == 16) blkAppend = 'tblk16'
-      // if (editBlk.gridSize == 4) blkAppend = 'tblk4'
-      // const pixW = Math.sqrt(editBlk.gridSize)*size
-      // adjustXY = (pos, a = {})=>{
-      //   if ([2,6,10,14].includes(pos)) a.x = 8
-      //   else if ([3,7,11,15].includes(pos)) a.x = 16
-      //   else if ([4,8,12,16].includes(pos)) a.x = 24
-      //   else a.x = 0
-      //   if ([5,6,7,8].includes(pos)) a.y = 8
-      //   else if ([9,10,11,12].includes(pos)) a.y = 16
-      //   else if ([13,14,15,16].includes(pos)) a.y = 24
-      //   else a.y = 0
-      //   return a
-      // }
-      // let aA = adjustXY(editBlk.pos)
-      // boxDataAdj = adjustXY(editBlk.selectedPos)
-      //
-      // let gridBlk = []
-      // for (var i = 0; i <= pixW; i++) {
-      //   gridBlk[i] = []
-      //   for (var j = 0; j <= pixW; j++) {
-      //     if (editBlk.post.blk[i-aA.y] && editBlk.post.blk[i-aA.y][j-aA.x]) {
-      //       gridBlk[i][j] = { color: editBlk.post.blk[i-aA.y][j-aA.x].color }
-      //     } else if (i-boxDataAdj.y > 0 && j-boxDataAdj.x > 0
-      //       && i-boxDataAdj.y-8 <= 0 && j-boxDataAdj.x-8 <= 0 ) {
-      //       gridBlk[i][j] = { color: 'rgba(0,0,0,0)' }
-      //     } else {
-      //       gridBlk[i][j] = { color: 'rgba(255,255,255,0.2)' }
-      //     }
-      //   }
-      // }
-      // _buildDivCanvas(gridBlk, pixW, document.getElementById('create-thumb'), 'tblk', blkAppend)
       _buildPostGrid(editBlk, document.getElementById('create-grid-canvas'), 'create-')
     }
   }

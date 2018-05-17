@@ -272,7 +272,35 @@ _gridChange = (post, grid)=>{
     post.parentElement.setAttribute('stringBox', JSON.stringify(metaBlk))
     _buildPostGrid(metaBlk, post.childNodes[1], 'grid-', metaBlk.type)
   }
+  document.body.addEventListener('mouseover', function(event){
+    if (event.target.classList.contains('showcase-canvas-append-box')) {
+      const allbox = event.target.getElementsByClassName('showcase-canvas-empty')
+      for (const box of allbox) {
+        box.style.backgroundColor = 'rgba(0,0,0,0.2)'
+      }
+    }
+    else {
+      const allbox = document.getElementsByClassName('showcase-canvas-empty')
+      for (const box of allbox) {
+        box.style.backgroundColor = 'rgba(0,0,0,0.1)'
+      }
+    }
+    if (event.target.classList.contains('showcase-canvas-empty')) {
+      event.target.style.backgroundColor = 'rgba(0,0,0,0.2)'
+    }
+  })
+  document.body.addEventListener('click', function(event){
+    if (event.target.classList.contains('showcase-grid-toggle')) {
+      for (const div of event.target.parentElement.children) {
+        div.classList.remove('showcase-grid-toggle-active')
+      }
+      event.target.classList.add('showcase-grid-toggle-active')
+      const post = event.target.parentElement.parentElement
+      _gridChange(post, event.target.innerHTML)
+    }
+  })
 }
+
 _clone = (metaBlk)=>{
   pageSwap('create')
   buildPageCreate(metaBlk, 'clone')
@@ -290,30 +318,3 @@ _appends = (data)=>{
   pageSwap('appends')
   buildAppendsPage(data.a, data.i)
 }
-document.body.addEventListener('mouseover', function(event){
-  if (event.target.classList.contains('showcase-canvas-append-box')) {
-    const allbox = event.target.getElementsByClassName('showcase-canvas-empty')
-    for (const box of allbox) {
-      box.style.backgroundColor = 'rgba(0,0,0,0.2)'
-    }
-  }
-  else {
-    const allbox = document.getElementsByClassName('showcase-canvas-empty')
-    for (const box of allbox) {
-      box.style.backgroundColor = 'rgba(0,0,0,0.1)'
-    }
-  }
-  if (event.target.classList.contains('showcase-canvas-empty')) {
-    event.target.style.backgroundColor = 'rgba(0,0,0,0.2)'
-  }
-})
-document.body.addEventListener('click', function(event){
-  if (event.target.classList.contains('showcase-grid-toggle')) {
-    for (const div of event.target.parentElement.children) {
-      div.classList.remove('showcase-grid-toggle-active')
-    }
-    event.target.classList.add('showcase-grid-toggle-active')
-    const post = event.target.parentElement.parentElement
-    _gridChange(post, event.target.innerHTML)
-  }
-})

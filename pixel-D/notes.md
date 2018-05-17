@@ -1,8 +1,8 @@
 ### Where I Left Off...
-* add the metadata build inside the `_buildPost` and consolidate
+* Start to build new post of appends... consider refactoring the rename refactoring you did on whiteboard. 
 
 ### 3-step
-* Setup
+* Cleanup code to match whiteboard.
 * ADD: "view" func on "accounts" to go to "appends" of post, even if empty.
 
 ### To-Do
