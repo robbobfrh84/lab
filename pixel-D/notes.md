@@ -1,16 +1,23 @@
 ### Where I Left Off...
-* Start to build new post of appends... consider refactoring the rename refactoring you did on whiteboard. 
+* There's lots of noted out code and refactoring waiting to be clean/redone.
+  * BUT, I think we can tinker with adding additional blks to the Grid sections first. I'm not 100% sure how hard that will be.
+  * IF, i realize it a different issue, i should refactor first to clear my mind for the potential heavy-thinking build. 
+* I've made notes in either To-D- or 3-step about it.
 
 ### 3-step
-* Cleanup code to match whiteboard.
-* ADD: "view" func on "accounts" to go to "appends" of post, even if empty.
+* Start to build new post of appends... consider refactoring the rename refactoring you did on whiteboard.
+* REFACTOR: merge use of `_placeBlksInGrid` for `_setDiveCanvas`
+* FIX: figure out if we should remove the re-set of the 9 grid, or use that part of page_showcase to build our actual grid and largethumb instead...
+* ADD: multi-click and move blk
+* ADD: appends section in accounts.
 
 ### To-Do
-* BUG: auto clear/save create page for clone, update, post and just reg. "create"
-* Add view append *if* it has some
-* Add append page with initial post displayed and all apends at that level.
-* create a wire-frame box for galery thumbs. will make stand out more.
-* re-style create and append to have a more "set"/decided feel.
+* ADD: "view" func on "accounts" to go to "appends" of post, even if empty.
+* BUG: jumping around different types of "create" pages, causes errors. investigate...
+* ADD: view append *if* it has some
+* ADD: create a wire-frame box for galery thumbs. will make stand out more.
+* REFACTOR: re-style create and create_append to have a more "set"/decided feel.
+  * - HardCode sizes into create.css/main.css as well. may need 3x sets.
 
 ### Sprint
 * Curate create page only for initial append... 1

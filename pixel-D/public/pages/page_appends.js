@@ -8,25 +8,25 @@ buildAppendsPage = (parent, pubIndex, page)=>{
       Appends for <br>
       <em style="font-size: 13px;">${parent.post.id}</em> <br>
       <div id='post-parent-showcase-container'>
-        <div id='appends-parent-container'></div>
+        <div id='appends-parent-container' class='posts-container'></div>
       </div>
-      <div id='appends-posts-container'></div>
+      <div id='appends-posts-container' class='posts-container'></div>
     `
     _buildPost(parent.post, pubIndex, 'appends-parent-container','-appends')
     if (!data) appendsPage.innerHTML += "...no appends to this Pixel Art."
     else {
       const box = data.Item.blocks[parent.post.id]
-      const revBox = []
+      const reverseBox = []
       for (var i = 0; i < Object.keys(box).length; i++) {
-        revBox[Object.keys(box).length-i] = box[Object.keys(box)[i]]
+        reverseBox[Object.keys(box).length-i] = box[Object.keys(box)[i]]
       }
-      const appends = document.getElementById('appends-posts-container')
-      for (const b in revBox) {
-        appends.innerHTML += `
-          <hr> ${revBox[b].id}
-          <div class='div-no-gap-canvas' id='${revBox[b].id}'><div>
-        `
-        _setDivCanvas(revBox[b], document.getElementById(revBox[b].id))
+      for (const b in reverseBox) { // ⚠️ 👀  ...ohhhhh I do need this
+        // document.getElementById('appends-posts-container').innerHTML += `
+        //   <hr> ${reverseBox[b].id}
+        //   <div class='div-no-gap-canvas' id='${reverseBox[b].id}'><div>
+        // `
+        _buildPost(reverseBox[b], pubIndex, 'appends-posts-container','-post')
+        // _setDivCanvas(reverseBox[b], document.getElementById(reverseBox[b].id))
       }
     }
   })

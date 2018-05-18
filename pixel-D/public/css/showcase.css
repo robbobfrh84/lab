@@ -4,13 +4,13 @@
   padding: 10px;
   margin: auto;
   height: 196px;
+  margin-bottom: 30px;
 }
-#appends-parent-container,
-#showcase-posts-container {
+.posts-container {
   width: 600px;
   margin: auto;
 }
-#appends-parent-container {
+.posts-container {
   background: url("../gfx/paper_fibers_darker1.png");
 }
 .showcase-post {
@@ -88,7 +88,9 @@
   float: left;
   margin-top: 4px;
   margin-right: 10px;
-  padding-left: 10px;
+  padding: 5px;
+  margin-left: 10px;
+  border: solid rgba(0,0,0,0.08) 2px;
 }
 .showcase-userbox, .showcase-btn, .showcase-appends {
   font-size: 18px;

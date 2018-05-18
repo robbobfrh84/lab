@@ -7,13 +7,16 @@ _setDivCanvas = (box, appends, selected)=>{
   appends.innerHTML += `
     <div id='${box.id}'><div>
   `
-  const aj = box.blks.map((ajust)=>{
-    return _adjustXY(ajust.pos)
-  })
   boxDataAdj = null
   if (selected) {
     boxDataAdj = _adjustXY(selected)
   }
+  //
+  // !!!
+  //
+  const aj = box.blks.map((ajust)=>{
+    return _adjustXY(ajust.pos)
+  })
   let gridBlk = []
   for (var i = 0; i <= pixW; i++) {
     gridBlk[i] = []
@@ -49,6 +52,43 @@ _adjustXY = (pos, a = {})=>{
   else if ([13,14,15,16].includes(pos)) a.y = 24
   else a.y = 0
   return a
+}
+
+_placeBlksInGrid = (box, canvasType)=>{
+  console.log(box)
+  const pixW = Math.sqrt(box.grid)*8
+
+  const aj = box.blks.map((ajust)=>{
+    return _adjustXY(ajust.pos)
+  })
+  let gridBlk = []
+  for (var i = 0; i <= pixW; i++) {
+    gridBlk[i] = []
+    for (var j = 0; j <= pixW; j++) {
+      let fill = false
+      for (const p in box.blks) {
+        if (box.blks[p].blk[i-aj[p].y] && box.blks[p].blk[i-aj[p].y][j-aj[p].x]) {
+          gridBlk[i][j] = { color: box.blks[p].blk[i-aj[p].y][j-aj[p].x].color }
+          fill = true
+        }
+      }
+      if (!fill && canvasType === 'div') {
+        if (boxDataAdj && i-boxDataAdj.y > 0 && j-boxDataAdj.x > 0
+          && i-boxDataAdj.y-8 <= 0 && j-boxDataAdj.x-8 <= 0 ) {
+          gridBlk[i][j] = { color: 'rgba(0,0,0,0)' }
+        } else {
+          gridBlk[i][j] = { color: 'rgba(0,0,0,0.1)' }
+        }
+      }
+
+    }
+    if (canvasType === 'div') {
+      _buildDivCanvas(gridBlk, pixW, document.getElementById(box.id), 'tblk', blkAppend)
+    }
+  }
+  if (canvasType === 'canvas') {
+    return gridBlk
+  }
 }
 
 /*
@@ -95,12 +135,25 @@ _buildPost = (blk, i, id, type)=>{
   `
   setTimeout(()=>{
     const grid = document.getElementById('grid-'+metaBlk.post.id+type)
-    _buildCanvas(176, 'large-'+metaBlk.post.id+type, metaBlk.post.blk)
-    _buildPostGrid(metaBlk, grid, 'grid-', type)
+    if (metaBlk.post.blks) {
+      metaBlk.post.blk = metaBlk.post.blks[0].blk
+      _buildPostGrid(metaBlk, grid, 'grid-', type)
+      const gridBlks = _placeBlksInGrid(metaBlk.post, 'canvas')
+      const sizeKey = { '1': 168, '4': 160, '9': 168, '16': 160 }
+      const w = sizeKey[metaBlk.post.grid]
+      _buildCanvas(w, metaBlk.post.grid, 'large-'+metaBlk.post.id+type, gridBlks)
+      // _buildCanvas(176, '9', 'large-'+metaBlk.post.id+type, metaBlk.post.blk)
+    } else {
+      _buildCanvas(168, '1', 'large-'+metaBlk.post.id+type, metaBlk.post.blk)
+    }
+    // 👇 ⚠️ OK... so for posts. we don't need this because when we reset to 9/centered, it actually does the work... so for posts this part really shouldn't be done...
+    if (type !== '-post') _buildPostGrid(metaBlk, grid, 'grid-', type)
   },10)
 }
 
-_buildCanvas = (width, id, obj, pix = width/8)=>{
+_buildCanvas = (width, gridSize, id, obj)=>{
+  gridKey = { '1': 8, '4': 16, '9': 24, '16': 32 }
+  const pix = width/gridKey[gridSize]
   const ctx = new canvas
   ctx.new(id,width,width)
   for (const x in obj) {
@@ -127,7 +180,7 @@ _buildPostGrid = (metaBlk, parent, canvasId, type)=>{
         _clickArt(event, canvasId, type)
       })
       parent.appendChild(box)
-      _buildCanvas(metaBlk.width, box.id, metaBlk.post.blk)
+      _buildCanvas(metaBlk.width, '1', box.id, metaBlk.post.blk)
     } else {
       const empty = document.createElement('div')
       const pos = i
@@ -176,7 +229,7 @@ _clickArt = function(event, canvasId, type){
     box.classList.add("showcase-canvas")
     parent.appendChild(box)
     parent.appendChild(mask)
-    _buildCanvas(metaBlk.width, box.id, metaBlk.post.blk)
+    _buildCanvas(metaBlk.width, '1', box.id, metaBlk.post.blk)
   }
 }
 
