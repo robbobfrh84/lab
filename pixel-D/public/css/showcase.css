@@ -127,3 +127,30 @@
   top: 100px;
   left: 100px;
 }
+.showcase-grid4 {
+  width: 70px;
+  height: 70px;
+}
+.showcase-grid9 {
+  width: 46px;
+  height: 46px;
+}
+.showcase-grid16 {
+  width: 34px;
+  height: 34px;
+}
+.showcase-grid-adj4 {
+  min-width: 70px;
+  height: 70px;
+  margin-left: -71px;
+}
+.showcase-grid-adj9 {
+  min-width: 46px;
+  height: 46px;
+  margin-left: -47px;
+}
+.showcase-grid-adj16 {
+  min-width: 34px;
+  height: 34px;
+  margin-left: -35px;
+}

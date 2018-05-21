@@ -41,19 +41,13 @@ pageSwap = (page)=>{
   oldPage = page
   if ((page === 'create' || page === 'account') && !account) {
     pageSwap('login')
-    if (page === 'create') {
-      if (boxDataAdj.x != 0 && boxDataAdj.y != 0 ) {
-        boxDataAdj = { x: 0, y: 0 }
-        buildPageCreate()
-      }
-      buildPageCreate()
-    }
+  } else if (page === 'create') {
+    boxDataAdj = { x: 0, y: 0 }
   } else if (page === 'showcase') {
     buildPageShowcase()
   } else if (initial && page === 'appends') {
     pageSwap('showcase')
   }
-
 }
 
 logInOut = ()=>{

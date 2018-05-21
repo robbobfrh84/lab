@@ -166,12 +166,21 @@ buildPageCreate = (editBlk, type, index)=>{
       let prepBox = {}; prepBox[editBlk.post.id] = editBlk.post
       const gridBox = document.getElementById('create-thumb')
       gridBox.innerHTML = ''
-      _setDivCanvas(editBlk.post, gridBox, editBlk.selectedPos)
+      prepDivCanvas(editBlk.post, gridBox, editBlk.selectedPos)
       const appendBtn = document.getElementById('create-post-append-Btn')
       appendBtn.innerHTML = 'Append'
       appendBtn.setAttribute('onClick', 'append()')
       _buildPostGrid(editBlk, document.getElementById('create-grid-canvas'), 'create-')
     }
+  }
+
+  prepDivCanvas = (box, appends, selected, blkAppend = 'tblk')=>{
+    if (box.grid == 16) blkAppend = 'tblk16'
+    if (box.grid == 4) blkAppend = 'tblk4'
+    appends.innerHTML += `<div id='${box.id}'><div>`
+    boxDataAdj = null
+    if (selected) boxDataAdj = _adjustXY(selected)
+    _placeBlksInGrid(box, 'div', blkAppend)
   }
 
   const sheet = document.createElement('style')

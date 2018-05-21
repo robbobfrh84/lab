@@ -1,47 +1,3 @@
-_setDivCanvas = (box, appends, selected)=>{
-  const size = 8 // for both pixels across and down. like 8 = 8x8
-  let blkAppend = 'tblk'
-  if (box.grid == 16) blkAppend = 'tblk16'
-  if (box.grid == 4) blkAppend = 'tblk4'
-  const pixW = Math.sqrt(box.grid)*size
-  appends.innerHTML += `
-    <div id='${box.id}'><div>
-  `
-  boxDataAdj = null
-  if (selected) {
-    boxDataAdj = _adjustXY(selected)
-  }
-  //
-  // !!!
-  //
-  const aj = box.blks.map((ajust)=>{
-    return _adjustXY(ajust.pos)
-  })
-  let gridBlk = []
-  for (var i = 0; i <= pixW; i++) {
-    gridBlk[i] = []
-    for (var j = 0; j <= pixW; j++) {
-      let fill = false
-      for (const p in box.blks) {
-        if (box.blks[p].blk[i-aj[p].y] && box.blks[p].blk[i-aj[p].y][j-aj[p].x]) {
-          gridBlk[i][j] = { color: box.blks[p].blk[i-aj[p].y][j-aj[p].x].color }
-          fill = true
-        }
-      }
-      if (!fill) {
-        if (boxDataAdj && i-boxDataAdj.y > 0 && j-boxDataAdj.x > 0
-          && i-boxDataAdj.y-8 <= 0 && j-boxDataAdj.x-8 <= 0 ) {
-          gridBlk[i][j] = { color: 'rgba(0,0,0,0)' }
-        } else {
-          gridBlk[i][j] = { color: 'rgba(0,0,0,0.1)' }
-        }
-      }
-
-    }
-    _buildDivCanvas(gridBlk, pixW, document.getElementById(box.id), 'tblk', blkAppend)
-  }
-}
-
 _adjustXY = (pos, a = {})=>{
   if ([2,6,10,14].includes(pos)) a.x = 8
   else if ([3,7,11,15].includes(pos)) a.x = 16
@@ -54,13 +10,10 @@ _adjustXY = (pos, a = {})=>{
   return a
 }
 
-_placeBlksInGrid = (box, canvasType)=>{
-  console.log(box)
+_placeBlksInGrid = (box, canvasType, cl)=>{
   const pixW = Math.sqrt(box.grid)*8
-
-  const aj = box.blks.map((ajust)=>{
-    return _adjustXY(ajust.pos)
-  })
+  const elm = canvasType === 'div' ? document.getElementById(box.id) : null
+  const aj = box.blks.map((ajust)=>{ return _adjustXY(ajust.pos)})
   let gridBlk = []
   for (var i = 0; i <= pixW; i++) {
     gridBlk[i] = []
@@ -80,15 +33,10 @@ _placeBlksInGrid = (box, canvasType)=>{
           gridBlk[i][j] = { color: 'rgba(0,0,0,0.1)' }
         }
       }
-
     }
-    if (canvasType === 'div') {
-      _buildDivCanvas(gridBlk, pixW, document.getElementById(box.id), 'tblk', blkAppend)
-    }
+    if (canvasType === 'div') _buildDivCanvas(gridBlk, pixW, elm, 'tblk', cl)
   }
-  if (canvasType === 'canvas') {
-    return gridBlk
-  }
+  if (canvasType === 'canvas') return gridBlk
 }
 
 /*
@@ -96,8 +44,11 @@ _placeBlksInGrid = (box, canvasType)=>{
 */
 
 _buildPost = (blk, i, id, type)=>{
-  const metaBlk = { post: blk,      type: type,    index: i,
-                    gridSize: 9,    pos: 6,        width: 46 }
+  const gridSize = blk.grid ? parseInt(blk.grid) : 9
+  const gridSizeKey = { '4': 70, '9': 46, '16': 34 }
+  const gW = gridSizeKey[gridSize]
+  const metaBlk = { post: blk,      type: type,    gridSize: gridSize,
+                    index: i,       pos: 6,        width: 46 }
   const appends = !metaBlk.post.appends ? "" :
     `<button class='showcase-appends'
       onClick='_appends(${JSON.stringify({ a: metaBlk, i: i })})'>
@@ -136,18 +87,19 @@ _buildPost = (blk, i, id, type)=>{
   setTimeout(()=>{
     const grid = document.getElementById('grid-'+metaBlk.post.id+type)
     if (metaBlk.post.blks) {
-      metaBlk.post.blk = metaBlk.post.blks[0].blk
-      _buildPostGrid(metaBlk, grid, 'grid-', type)
+      // metaBlk.post.blk = metaBlk.post.blks[0].blk
       const gridBlks = _placeBlksInGrid(metaBlk.post, 'canvas')
       const sizeKey = { '1': 168, '4': 160, '9': 168, '16': 160 }
       const w = sizeKey[metaBlk.post.grid]
       _buildCanvas(w, metaBlk.post.grid, 'large-'+metaBlk.post.id+type, gridBlks)
-      // _buildCanvas(176, '9', 'large-'+metaBlk.post.id+type, metaBlk.post.blk)
+      // _buildPostGrid(metaBlk, grid, 'grid-', type)
     } else {
       _buildCanvas(168, '1', 'large-'+metaBlk.post.id+type, metaBlk.post.blk)
     }
     // 👇 ⚠️ OK... so for posts. we don't need this because when we reset to 9/centered, it actually does the work... so for posts this part really shouldn't be done...
-    if (type !== '-post') _buildPostGrid(metaBlk, grid, 'grid-', type)
+    // if (type !== '-post') _buildPostGrid(metaBlk, grid, 'grid-', type)
+    _buildPostGrid(metaBlk, grid, 'grid-', type)
+    // ⚠️ DO WE NEED DELAY????
   },10)
 }
 
@@ -167,25 +119,31 @@ _buildPostGrid = (metaBlk, parent, canvasId, type)=>{
   while (parent.hasChildNodes()){
     parent.removeChild(parent.lastChild);
   }
+  let positions = {}
+  if (metaBlk.post.blks) metaBlk.post.blks.map( b => { positions[b.pos] = b.blk })
+  else positions[metaBlk.pos] = metaBlk.post.blk
   for (var i = 1; i <= metaBlk.gridSize; i++) {
     let adjIndex = i
     if (metaBlk.gridSize == 4) adjIndex = g4[i-1]
     else if (metaBlk.gridSize == 9) adjIndex = g9[i-1]
-    if (adjIndex === metaBlk.pos) {
+    if (positions[adjIndex]) {
       const box = document.createElement('canvas')
-      box.id = canvasId+"-"+metaBlk.post.id+type
+      box.id = canvasId+"-"+metaBlk.post.id+'_'+i+'_'+type
       box.classList.add("showcase-canvas")
+      box.classList.add("showcase-grid"+metaBlk.gridSize)
       box.setAttribute('stringbox', JSON.stringify(metaBlk))
       box.addEventListener('click', function(event){
         _clickArt(event, canvasId, type)
       })
       parent.appendChild(box)
-      _buildCanvas(metaBlk.width, '1', box.id, metaBlk.post.blk)
+      const gridSizeKey = { '4': 70, '9': 46, '16': 34 }
+      metaBlk.width = gridSizeKey[metaBlk.gridSize]
+      _buildCanvas(metaBlk.width, '1', box.id, positions[adjIndex]) // this is always '1' because it's referenceing the entire canvas area 1:16, 1:24, 1:32
     } else {
       const empty = document.createElement('div')
       const pos = i
       empty.classList.add("showcase-canvas-empty")
-      empty.classList.add("showcase-canvas-empty"+metaBlk.post.id+type)
+      empty.classList.add("showcase-grid"+metaBlk.gridSize)
       empty.addEventListener('click', function(event){
         _selectNode(event, metaBlk, pos)
       })
@@ -214,6 +172,8 @@ _clickArt = function(event, canvasId, type){
     const mask = document.createElement('div')
     mask.classList.add("showcase-canvas-mask")
     mask.classList.add("showcase-canvas-mask"+metaBlk.post.id+type)
+    mask.classList.add("showcase-grid"+metaBlk.gridSize)
+    mask.classList.add("showcase-grid-adj"+metaBlk.gridSize)
     mask.pos = i
     mask.stringBox = metaBlk
     mask.addEventListener('click', function(event){
@@ -227,9 +187,10 @@ _clickArt = function(event, canvasId, type){
     const box = document.createElement('canvas')
     box.id = canvasId+i+"-"+metaBlk.id+type
     box.classList.add("showcase-canvas")
+    box.classList.add("showcase-grid"+metaBlk.gridSize)
     parent.appendChild(box)
     parent.appendChild(mask)
-    _buildCanvas(metaBlk.width, '1', box.id, metaBlk.post.blk)
+    _buildCanvas(metaBlk.width, '1', box.id, metaBlk.post.blk) // this is always '1' because it's referenceing the entire canvas area 1:16, 1:24, 1:32
   }
 }
 
@@ -250,13 +211,14 @@ _buildDivCanvas = (blk, size, elm, id, blkClass)=>{
   elm.innerHTML = pixels
 }
 
-_gridChange = (post, grid)=>{
+_gridCheck = (post, grid)=>{
   let metaBlk = JSON.parse(post.parentElement.getAttribute('stringBox'))
+  let changed = true
   if (grid == 4 && !g4.includes(metaBlk.pos)) {
     const children = post.childNodes[1].children
     for (var i = 0; i < children.length; i++) {
-      if ((metaBlk.gridSize == 16 && g4.includes(i+1))
-      ||  (metaBlk.gridSize == 9 && g49.includes(i+1))) {
+      if ((children.length == 16 && g4.includes(i+1))
+      ||  (children.length == 9 && g49.includes(i+1))) {
         const elm = children[i]
         elm.style.backgroundColor = 'rgba(0,0,0,0.2)'
         setTimeout(()=>{ elm.style.backgroundColor = 'rgba(0,0,0,0.1)' },200)
@@ -264,6 +226,7 @@ _gridChange = (post, grid)=>{
         setTimeout(()=>{ elm.style.backgroundColor = 'rgba(0,0,0,0.1)' },600)
       }
     }
+    changed = false
   } else if (grid == 9 && !g9.includes(metaBlk.pos)) {
     const children = post.childNodes[1].children
     for (var i = 0; i < children.length; i++) {
@@ -275,83 +238,11 @@ _gridChange = (post, grid)=>{
         setTimeout(()=>{ elm.style.backgroundColor = 'rgba(0,0,0,0.1)' },600)
       }
     }
-  } else {
-    const sheet = document.createElement('style')
-    if (grid == 4) {
-      const w = 70
-      metaBlk.width = w
-      sheet.innerHTML = `
-        .showcase-canvas-empty${metaBlk.post.id+metaBlk.type} {
-          width: ${w}px;
-          height: ${w}px;
-        }
-        .showcase-canvas-mask${metaBlk.post.id+metaBlk.type} {
-          min-width: ${w}px;
-          height: ${w}px;
-          margin-left: -${w+1}px;
-        }
-      `
-    } else if (grid == 9) {
-      const w = 46
-      metaBlk.width = w
-      sheet.innerHTML = `
-        .showcase-canvas-empty${metaBlk.post.id+metaBlk.type} {
-          width: ${w}px;
-          height: ${w}px;
-        }
-        .showcase-canvas-mask${metaBlk.post.id+metaBlk.type} {
-          min-width: ${w}px;
-          height: ${w}px;
-          margin-left: -${w+1}px;
-        }
-      `
-    } else {
-      const w = 34
-      metaBlk.width = w
-      sheet.innerHTML = `
-        .showcase-canvas-empty${metaBlk.post.id+metaBlk.type} {
-          width: ${w}px;
-          height: ${w}px;
-        }
-        .showcase-canvas-mask${metaBlk.post.id+metaBlk.type} {
-          min-width: ${w}px;
-          height: ${w}px;
-          margin-left: -${w+1}px;
-        }
-      `
-    }
-    document.body.append(sheet)
-    metaBlk.gridSize = grid
-    post.parentElement.setAttribute('stringBox', JSON.stringify(metaBlk))
-    _buildPostGrid(metaBlk, post.childNodes[1], 'grid-', metaBlk.type)
+    changed = false
   }
-  document.body.addEventListener('mouseover', function(event){
-    if (event.target.classList.contains('showcase-canvas-append-box')) {
-      const allbox = event.target.getElementsByClassName('showcase-canvas-empty')
-      for (const box of allbox) {
-        box.style.backgroundColor = 'rgba(0,0,0,0.2)'
-      }
-    }
-    else {
-      const allbox = document.getElementsByClassName('showcase-canvas-empty')
-      for (const box of allbox) {
-        box.style.backgroundColor = 'rgba(0,0,0,0.1)'
-      }
-    }
-    if (event.target.classList.contains('showcase-canvas-empty')) {
-      event.target.style.backgroundColor = 'rgba(0,0,0,0.2)'
-    }
-  })
-  document.body.addEventListener('click', function(event){
-    if (event.target.classList.contains('showcase-grid-toggle')) {
-      for (const div of event.target.parentElement.children) {
-        div.classList.remove('showcase-grid-toggle-active')
-      }
-      event.target.classList.add('showcase-grid-toggle-active')
-      const post = event.target.parentElement.parentElement
-      _gridChange(post, event.target.innerHTML)
-    }
-  })
+  metaBlk.gridSize = grid
+  if (changed) _buildPostGrid(metaBlk, post.childNodes[1], 'grid-', metaBlk.type)
+  return changed
 }
 
 _clone = (metaBlk)=>{
@@ -371,3 +262,34 @@ _appends = (data)=>{
   pageSwap('appends')
   buildAppendsPage(data.a, data.i)
 }
+
+document.body.addEventListener('mouseover', function(event){
+  if (event.target.classList.contains('showcase-canvas-append-box')) {
+    const allbox = event.target.getElementsByClassName('showcase-canvas-empty')
+    for (const box of allbox) {
+      box.style.backgroundColor = 'rgba(0,0,0,0.2)'
+    }
+  }
+  else {
+    const allbox = document.getElementsByClassName('showcase-canvas-empty')
+    for (const box of allbox) {
+      box.style.backgroundColor = 'rgba(0,0,0,0.1)'
+    }
+  }
+  if (event.target.classList.contains('showcase-canvas-empty')) {
+    event.target.style.backgroundColor = 'rgba(0,0,0,0.2)'
+  }
+})
+
+document.body.addEventListener('click', function(event){
+  if (event.target.classList.contains('showcase-grid-toggle')) {
+    const post = event.target.parentElement.parentElement
+    const changed = _gridCheck(post, event.target.innerHTML)
+    if (changed) {
+      for (const div of event.target.parentElement.children) {
+        div.classList.remove('showcase-grid-toggle-active')
+      }
+      event.target.classList.add('showcase-grid-toggle-active')
+    }
+  }
+})

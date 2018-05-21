@@ -20,13 +20,8 @@ buildAppendsPage = (parent, pubIndex, page)=>{
       for (var i = 0; i < Object.keys(box).length; i++) {
         reverseBox[Object.keys(box).length-i] = box[Object.keys(box)[i]]
       }
-      for (const b in reverseBox) { // ⚠️ 👀  ...ohhhhh I do need this
-        // document.getElementById('appends-posts-container').innerHTML += `
-        //   <hr> ${reverseBox[b].id}
-        //   <div class='div-no-gap-canvas' id='${reverseBox[b].id}'><div>
-        // `
+      for (const b in reverseBox) {
         _buildPost(reverseBox[b], pubIndex, 'appends-posts-container','-post')
-        // _setDivCanvas(reverseBox[b], document.getElementById(reverseBox[b].id))
       }
     }
   })

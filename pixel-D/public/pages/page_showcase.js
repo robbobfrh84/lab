@@ -11,9 +11,9 @@ buildPageShowcase = ()=>{
       _buildPost(data.Item.blocks[i], i, 'showcase-posts-container', '-post')
     }
     // 👇 This will reset any grids back to 3x3
-    for (const cont of document.getElementsByClassName('showcase-grid-append-box')) {
-      _gridChange(cont, 9, '-post')
-    }
+    // for (const cont of document.getElementsByClassName('showcase-grid-append-box')) {
+    //   _gridCheck(cont, 9)
+    // }
   })
 
 }
