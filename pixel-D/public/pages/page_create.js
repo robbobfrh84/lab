@@ -157,11 +157,23 @@ buildPageCreate = (editBlk, type, index)=>{
       _buildDivCanvas(editBlk.blk, size, document.getElementById('create-og-thumb'), 'ogtblk')
     }
     if (type === 'append') {
-      editBlk.post.blks = [{
-        blk: editBlk.post.blk,
-        pos: editBlk.pos,
-        gen: '?',
-      }]
+
+      if (!editBlk.post.blks) {
+        editBlk.post.blks = [{
+          blk: editBlk.post.blk,
+          pos: editBlk.pos,
+          gen: '?',
+        }]
+      }
+
+      let nextGen = 0
+      editBlk.post.blks.map(x=>{ if (x.gen > nextGen) nextGen = x.gen })
+      nextGen++
+
+      console.log("!!!!🚨 _Here's where we get GENERATION!")
+      console.log('nextGen',nextGen)
+      console.log('editBlks.post.blks: ',editBlk.post.blks)
+
       editBlk.post.grid = editBlk.gridSize
       let prepBox = {}; prepBox[editBlk.post.id] = editBlk.post
       const gridBox = document.getElementById('create-thumb')
@@ -170,6 +182,9 @@ buildPageCreate = (editBlk, type, index)=>{
       const appendBtn = document.getElementById('create-post-append-Btn')
       appendBtn.innerHTML = 'Append'
       appendBtn.setAttribute('onClick', 'append()')
+      //
+      //
+      // 👇 This builds the selector grid. 
       _buildPostGrid(editBlk, document.getElementById('create-grid-canvas'), 'create-')
     }
   }

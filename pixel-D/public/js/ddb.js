@@ -70,15 +70,15 @@ ddb = (type, action, account, obj, callback)=>{
         gallery: ['default','appends'],
       }
       // 👇 ...Add NEW to append ⚠️ Should be done in ONE update as Lambda func in future... this is just slow and bad.
-      ddbCreateAddMap('appends', 'blocks.'+obj.post.id, id, newAppend, ()=>{ //
-        // 👇 ...UPDATE Parent node
-        ddbCreateAddMap('public', 'blocks['+obj.index+'].appends', id, parentAppend, ()=>{
-          // 👇 ...ADD NEW userBlk
-          ddbAddToList('userBlks', account, newAppend, ()=>{
-            if (callback) callback()
-          })
-        })
-      })
+      // ddbCreateAddMap('appends', 'blocks.'+obj.post.id, id, newAppend, ()=>{ //
+      //   // 👇 ...UPDATE Parent node
+      //   ddbCreateAddMap('public', 'blocks['+obj.index+'].appends', id, parentAppend, ()=>{
+      //     // 👇 ...ADD NEW userBlk
+      //     ddbAddToList('userBlks', account, newAppend, ()=>{
+      //       if (callback) callback()
+      //     })
+      //   })
+      // })
     }
   }
 

@@ -39,10 +39,6 @@ _placeBlksInGrid = (box, canvasType, cl)=>{
   if (canvasType === 'canvas') return gridBlk
 }
 
-/*
- ----------------------      posts / appends_posts      -----------------------
-*/
-
 _buildPost = (blk, i, id, type)=>{
   const gridSize = blk.grid ? parseInt(blk.grid) : 9
   const gridSizeKey = { '4': 70, '9': 46, '16': 34 }
@@ -131,6 +127,7 @@ _buildPostGrid = (metaBlk, parent, canvasId, type)=>{
       box.id = canvasId+"-"+metaBlk.post.id+'_'+i+'_'+type
       box.classList.add("showcase-canvas")
       box.classList.add("showcase-grid"+metaBlk.gridSize)
+      box.setAttribute('pos',adjIndex)
       box.setAttribute('stringbox', JSON.stringify(metaBlk))
       box.addEventListener('click', function(event){
         _clickArt(event, canvasId, type)
@@ -161,39 +158,6 @@ _selectNode = (event, metaBlk, pos, newNode, parentNode)=>{
   buildPageCreate(metaBlk, 'append')
 }
 
-_clickArt = function(event, canvasId, type){
-  const parent = event.target.parentElement
-  const metaBlk = JSON.parse(event.target.getAttribute('stringbox'))
-  while (parent.hasChildNodes()){
-    parent.removeChild(parent.lastChild);
-  }
-  for (var i = 1; i <= metaBlk.gridSize; i++) {
-    const index = i
-    const mask = document.createElement('div')
-    mask.classList.add("showcase-canvas-mask")
-    mask.classList.add("showcase-canvas-mask"+metaBlk.post.id+type)
-    mask.classList.add("showcase-grid"+metaBlk.gridSize)
-    mask.classList.add("showcase-grid-adj"+metaBlk.gridSize)
-    mask.pos = i
-    mask.stringBox = metaBlk
-    mask.addEventListener('click', function(event){
-      metaBlk.pos = index
-      if (metaBlk.gridSize == 4) metaBlk.pos = g4[index-1]
-      if (metaBlk.gridSize == 9) metaBlk.pos = g9[index-1]
-      const container = document.getElementById('post-'+metaBlk.post.id+type)
-      container.setAttribute('stringBox', JSON.stringify(metaBlk))
-      _buildPostGrid(metaBlk, event.target.parentElement, canvasId, type)
-    })
-    const box = document.createElement('canvas')
-    box.id = canvasId+i+"-"+metaBlk.id+type
-    box.classList.add("showcase-canvas")
-    box.classList.add("showcase-grid"+metaBlk.gridSize)
-    parent.appendChild(box)
-    parent.appendChild(mask)
-    _buildCanvas(metaBlk.width, '1', box.id, metaBlk.post.blk) // this is always '1' because it's referenceing the entire canvas area 1:16, 1:24, 1:32
-  }
-}
-
 _buildDivCanvas = (blk, size, elm, id, blkClass)=>{
   if (!blkClass) blkClass = 'tblk'
   let pixels = ''
@@ -209,40 +173,6 @@ _buildDivCanvas = (blk, size, elm, id, blkClass)=>{
     pixels += `<br>`
   }
   elm.innerHTML = pixels
-}
-
-_gridCheck = (post, grid)=>{
-  let metaBlk = JSON.parse(post.parentElement.getAttribute('stringBox'))
-  let changed = true
-  if (grid == 4 && !g4.includes(metaBlk.pos)) {
-    const children = post.childNodes[1].children
-    for (var i = 0; i < children.length; i++) {
-      if ((children.length == 16 && g4.includes(i+1))
-      ||  (children.length == 9 && g49.includes(i+1))) {
-        const elm = children[i]
-        elm.style.backgroundColor = 'rgba(0,0,0,0.2)'
-        setTimeout(()=>{ elm.style.backgroundColor = 'rgba(0,0,0,0.1)' },200)
-        setTimeout(()=>{ elm.style.backgroundColor = 'rgba(0,0,0,0.2)' },400)
-        setTimeout(()=>{ elm.style.backgroundColor = 'rgba(0,0,0,0.1)' },600)
-      }
-    }
-    changed = false
-  } else if (grid == 9 && !g9.includes(metaBlk.pos)) {
-    const children = post.childNodes[1].children
-    for (var i = 0; i < children.length; i++) {
-      if (g9.includes(i+1)) {
-        const elm = children[i]
-        elm.style.backgroundColor = 'rgba(0,0,0,0.2)'
-        setTimeout(()=>{ elm.style.backgroundColor = 'rgba(0,0,0,0.1)' },200)
-        setTimeout(()=>{ elm.style.backgroundColor = 'rgba(0,0,0,0.2)' },400)
-        setTimeout(()=>{ elm.style.backgroundColor = 'rgba(0,0,0,0.1)' },600)
-      }
-    }
-    changed = false
-  }
-  metaBlk.gridSize = grid
-  if (changed) _buildPostGrid(metaBlk, post.childNodes[1], 'grid-', metaBlk.type)
-  return changed
 }
 
 _clone = (metaBlk)=>{

@@ -1,30 +1,36 @@
 ### Where I Left Off...
-* Ok... now you fixed the odd thing with the highlighting being off when you were selecting 4 grid.
-* now, selected multiple posts, then NOT selecting a new location, then trying to selected and move another doesn't work. they're conflicting with ids somehow.
-* You used to actually have it dynamic classes with id names. that might be what you're missing now... 
+* I think in create page your gonna habe to build a slightly unique grid
+* ... becuase `_buildPost ` creates the whole post in one with 4,9,16
+* ... so you might just have to create that little part in `page_create`
 
 ### 3-step
+* ⚠️ DO WE NEED DELAY????
+* ADD: POST, double check data is being properly curated for recursive... go through 100% of 4, 9, 16
+  * delete dead posts for users...
+* Review/ Update/ Plan "Sprint and "down the road"
+
+### To-Do
 * Start to build new post of appends... consider refactoring the rename refactoring you did on whiteboard.
-* FIX: figure out if we should remove the re-set of the 9 grid, or use that part of page_showcase to build our actual grid and largethumb instead...
-* ADD: multi-click and move blk
+
+page_appends / page_showcase:
+* CHECK: delay needed for 87 after all our changes?
 * STYLE: appends page parent
   * remove [view appends (2)] button.
   * make more obvious.
-* ADD: appends section in accounts.
 
-### To-Do
-* BUG: open showcase, click sixteen, move blk down ONE, click 9, click 4. wrong boxes are highlighing
-* ADD: clear button below swatch.
-* ADD: "view" func on "accounts" to go to "appends" of post, even if empty.
-* BUG: jumping around different types of "create" pages, causes errors. investigate...
-* ADD: view append *if* it has some
+page_accounts:
+* ADD: appends section in accounts.
+* ADD: view append *if* it has some, *else* have the btn, just gray.
 * ADD: create a wire-frame box for galery thumbs. will make stand out more.
+* REFACTOR: hard-code css *if* possible.
+
+page_create:
+* ADD: Post new Append! careful with ddb!
+* ADD: clear button below swatch.
 * REFACTOR: re-style create and create_append to have a more "set"/decided feel.
-  * - HardCode sizes into create.css/main.css as well. may need 3x sets.
-* REFACTOR: just make static 4/9/16 css for > .showcase-canvas-empty / -mask and remove from `_blkBuilds`
 
 ### Sprint
-* Curate create page only for initial append... 1
+* maybe: have `_clickArt` save a global version of blk that can be drag/dropped into *other* post grid areas. canvases.
 * Clean code, test
 * Create clone for Matt to play with
 * email Matt

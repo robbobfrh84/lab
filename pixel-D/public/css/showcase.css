@@ -56,11 +56,14 @@
   min-width: 46px;
   height: 46px;
   margin-left: -47px;
-  opacity: 0.9;
+  opacity: 0.95;
   background-color: #999;
 }
 .showcase-canvas-mask:hover {
-  opacity: 0.1;
+  opacity: 0;
+}
+.showcase-canvas-mask-exists {
+  opacity: 0.2;
 }
 .showcase-grid-box {
   width: 160px;

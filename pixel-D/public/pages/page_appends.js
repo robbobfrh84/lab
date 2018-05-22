@@ -1,6 +1,5 @@
 buildAppendsPage = (parent, pubIndex, page)=>{
-  // Call this file page_showcase_appends.js ??? - THEN, i think the file making makes since, and to leave as appends-blabla, OR: chane to showcase-appends-blabla
-  // ALSO: the callback needs to grab all the appends after a new create.
+
   const appendsPage = document.getElementById('page-appends')
   ddbGetVal('appends', 'blocks.'+parent.post.id, (data)=>{
     appendsPage.innerHTML = ''
@@ -16,12 +15,9 @@ buildAppendsPage = (parent, pubIndex, page)=>{
     if (!data) appendsPage.innerHTML += "...no appends to this Pixel Art."
     else {
       const box = data.Item.blocks[parent.post.id]
-      const reverseBox = []
       for (var i = 0; i < Object.keys(box).length; i++) {
-        reverseBox[Object.keys(box).length-i] = box[Object.keys(box)[i]]
-      }
-      for (const b in reverseBox) {
-        _buildPost(reverseBox[b], pubIndex, 'appends-posts-container','-post')
+        _buildPost( box[Object.keys(box)[i]], pubIndex,
+                    'appends-posts-container', '-post' )
       }
     }
   })
