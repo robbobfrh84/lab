@@ -1,0 +1,100 @@
+html * {
+  font-family: avenir;
+}
+body {
+  font-size: 0px;
+  background-color: #eee;
+}
+button {
+  cursor: pointer;
+}
+.f16 {
+  font-size: 16px;
+}
+#navBar-pages {
+  font-size: 16px;
+  text-align: center;
+}
+.b1 {
+  min-width: 100px;
+  height: 30px;
+  font-size: 20px;
+  font-weight: 200;
+  color: #333;
+  margin: 5px;
+  background-color: rgba(0,0,255,0.1);
+}
+.b1:hover {
+  background-color: rgba(0,0,255,0.3);
+}
+.b2 {
+  min-width: 70px;
+  height: 25px;
+  font-size: 16px;
+}
+.b3 {
+  min-width: 200px;
+}
+.b4 {
+  min-width: 38px;
+  font-size: 14px;
+  color: #666;
+  padding: 0px;
+  height: 25px;
+  position: relative;
+  top: -9px;
+  display: block;
+}
+.b4:hover {
+  color: black
+}
+.account-edit-box {
+  margin-left: -6px;
+  margin-right: 10px;
+  display: inline-block;
+  height: 50px;
+}
+.account-canvas-edit-box {
+  display: inline-block;
+}
+.navBar-button {
+  cursor: pointer;
+}
+.right {
+  float: right;
+}
+.left {
+  float: left;
+}
+.login-btn {
+  width: 100px;
+  display: inline-block;
+}
+#login-accountHome-btn {
+  display: inline-block;
+  position: absolute;
+  top: 5px;
+}
+.blk, .tblk, .ogtblk, .tblk16, .tblk4 {
+  background-color: rgba(0,0,0,0);
+  display: inline-block;
+  cursor: pointer;
+  padding: none;
+  margin: none;
+}
+.blk {
+  border: 1px solid rgba(0,0,0,0.1);
+}
+.tblk, .ogtblk, .tblk16, .tblk4 {
+  cursor: initial;
+}
+#account {
+  color: #666
+}
+.div-no-gap-canvas {
+  font-size: 0px;
+  width: 192px;
+  background-color: rgba(0,0,0,0);
+  border: 3px solid rgba(0,0,0,0.05);
+  margin: auto;
+}

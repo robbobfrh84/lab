@@ -1,0 +1,29 @@
+<!DOCTYPE html><html lang="en"><meta charset="UTF-8">
+<style>
+body { background-image: url("darkGreenGainy.png"); }
+</style>
+<body>
+<div id="field-frame">
+  <canvas id='myCanvas' width='600' height='600'></canvas>
+</div>
+<script src='teams.js'></script>
+<script>
+
+var ctx = document.getElementById("myCanvas").getContext("2d")
+var startY = 50;
+
+window.onload = ()=>{
+  ctx.font = "20px Arial";
+  for (team of teams) {
+    ctx.fillText(team.city+" "+team.teamName,0,startY-30);
+    buildPlayer(30, startY, 19, team.colors, true)
+    buildPlayer(90, startY, 20, team.colors)
+    buildPlayer(145, startY, 7, team.colors, true)
+    buildPlayer(170, startY, 8, team.colors)
+    startY+=100
+  }
+}
+
+</script>
+</body>
+</html>

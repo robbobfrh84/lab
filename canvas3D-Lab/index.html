@@ -1,0 +1,53 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title> Canvas Template-full </title>
+<link rel="shortcut icon" href="https://cdn0.iconfinder.com/data/icons/set-app-incredibles/24/Configuration-2-01-128.png"/>
+<style>
+canvas, #scale { background-color: #dddddd; position: relative; top: -8px; left: -8px; }
+#scale { position: absolute; display: none; padding: 10px; }
+#btns { position: absolute; bottom: 5px; left: 5px;}
+#title { position: absolute; top: 5px; left: 5px;}
+</style>
+</head>
+  <canvas id='c1'></canvas>
+  <div id='scale'> Scale to fit window ?
+    <button onClick="scale('yes')"> yes </button>
+    <button onClick="scale()"> no </button>
+  </div>
+  <div id='title'></div>
+  <div id='btns'>
+    <button onClick='build("test")'>test</button>
+    <button onClick='build("xyz")'>xyz</button>
+    <button onClick='build("cube")'>cube</button>
+    <button onClick='build("hover")'>hover</button>
+  </div>
+
+</html>
+<script src="canvas-class/canvas.js"></script>
+<script src="test.js"></script>
+<script src="xyz.js"></script>
+<script src="cube.js"></script>
+<script src="hover.js"></script>
+<script>
+
+var active = 'main'
+
+build = (func)=>{
+  if ('test' === func) test()
+  if ('xyz' === func) xyz()
+  if ('cube' === func) cube()
+  if ('hover' === func) hover()
+  active = func
+  document.getElementById('title').innerHTML = func
+}
+document.getElementById('btns').childNodes[1].onclick()
+
+scale = (yes)=>{
+  document.getElementById('scale').style.display = 'none'
+  if (yes) build(active)
+}
+
+window.onresize = ()=>{
+  document.getElementById('scale').style.display = 'block'
+}
+
+</script>
+<script src="http://localhost:35729/livereload.js"></script>

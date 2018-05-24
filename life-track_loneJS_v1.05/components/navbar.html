@@ -1,0 +1,82 @@
+<template id="navbar">
+<!-- { { { { { { { { { { { { { { { {  CSS  } } } } } } } } } } } } } } } } } -->
+<style>
+.main {
+  padding: 2px;
+}
+hr {
+  margin-top: 1px;
+}
+.nav-buttons {
+  float: right;
+  padding-top: 5px;
+}
+.nav {
+  font-size: 20px;
+}
+.nav {
+  opacity: 1;
+  padding: 8px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+.nav:hover {
+  color: rgba(255,255,255, 0.5);
+}
+#home {
+  font-size: 30px;
+  padding-top: 0px;
+}
+</style>
+<!-- < < < < < < < < < < < < < < < <  html > > > > > > > > > > > > > > > > > -->
+<content>
+  <div class="main">
+    <span id='home' class='nav' onclick="_PAGE_SET('home')">
+      Life Track -
+    </span>
+    <span class='nav-buttons'> ::
+      <span id='data' class='nav' onclick="_PAGE_SET('data')"> [ Data ] </span> ::
+      <span id='star' class='nav' onclick="_PAGE_SET('star')"> &#9733; </span> ::
+      <span id='graph' class='nav' onclick="_PAGE_SET('graph')"> { Graph } </span> ::
+      <span id='map' class='nav' onclick="_PAGE_SET('map')"> < map > </span> ::
+    </span>
+    <hr>
+  </div>
+</content>
+</template>
+<!-- () () () () () () () () () ()  JavaScript () () () () () () () () () () -->
+<script>
+
+(( c = new Component('navbar-tag') )=>{
+
+  c._ON_SET = (attr)=>{
+    c.up = true
+    c.I('home').style.opacity = 1
+    c.I('data').style.opacity = 1
+    c.I('star').style.opacity = 1
+    c.I('graph').style.opacity = 1
+    c.I('map').style.opacity = 1
+  }
+
+  c.animate = ()=>{
+    const dir = c.directory[0] === '/' ? c.directory.slice(1) : c.directory
+    const op = parseFloat(c.I(dir).style.opacity)
+    if (c.up) {
+      c.I(dir).style.opacity = op + 0.04
+      if (op >= 1) c.up = false
+    }
+    if (!c.up) {
+      c.I(dir).style.opacity = op - 0.04
+      if (op <= 0.3) c.up = true
+    }
+  }
+
+  setInterval(function(){
+    if (c.directory !== 'undefined') c.animate()
+  }, 50);
+
+  c._NEW_ELM()
+})()
+
+</script>
+<!--  / / / / / / / / / / / / / / /   Notes    / / / / / / / / / / / / / / / -->

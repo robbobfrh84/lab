@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<h3>myJson Basic Example</h3><em>(See console for important logs)</em>
+...
+<button> Create User </button>
+<button> See All Users </button>
+<div id='users'></div>
+<script>
+//
+var hardData = {}
+var new_myJson_URL = 'https://api.myjson.com/bins'
+var myJson = 'https://api.myjson.com/bins/skdlj'
+var browserData
+
+window.onload = ()=>{
+  console.log('loading Api')
+  getMyObj()
+}
+
+getNewApi = ()=>{
+  req('POST', new_myJson_URL, hardData, (data)=>{
+    console.log(data)
+  })
+}
+
+getMyObj = ()=>{
+  req("GET", myJson, null, (data)=>{
+    console.log(data)
+    browserData = data
+  })
+}
+
+putMyObj = ()=>{
+  req('PUT', myJson, browserData, (data)=>{
+    console.log(data)
+  })
+}
+
+req = (type, url, data, callback)=>{
+  var xhr = new XMLHttpRequest();
+  xhr.open(type, url, true);
+  if (type === 'POST' || type === "PUT") {
+    xhr.setRequestHeader("Content-type", "application/json");
+  }
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState == 4) {
+      if (callback) callback(JSON.parse(xhr.responseText))
+    }
+  }
+  if (type === 'POST' || type === 'PUT') {
+    xhr.send(JSON.stringify(data))
+  }
+  else xhr.send(null)
+}
+
+</script>
+<html/>
+
+<!-- NOTES:
+getApi = ()=>{
+  req('GET', "https://api.myjson.com/bins/18islz", )
+} -->

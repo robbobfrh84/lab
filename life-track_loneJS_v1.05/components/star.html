@@ -1,0 +1,436 @@
+<template id="star">
+<!-- { { { { { { { { { { { { { { { {  CSS  } } } } } } } } } } } } } } } } } -->
+<style>
+#main {
+  text-align: center;
+  display: none;
+}
+#dateNav {
+  text-align: center;
+}
+#date {
+  font-size: 30px;
+}
+#back, #forward {
+  font-size: 25px;
+}
+.shift-click {
+  position: absolute;
+  right: 25px;
+  color: rgba(255,255,255,0.5);
+  float: right;
+}
+table {
+  margin: auto;
+}
+#cardio, #weight {
+  cursor: pointer;
+}
+.bg {
+  background-color: rgba(0,0,0,0.2);
+  margin: auto;
+}
+#myCanvas {
+  width: 1000px;
+  height: 230px;
+  display: none;
+}
+.icons {
+  font-size: 26px;
+  padding-bottom: 0px;
+  padding-right: 6px;
+  color: rgba(218,165,32,1)
+}
+.date {
+  color: rgba(255,255,255,0.8);
+  font-size: 20px;
+  padding-left: 10px;
+  padding-right: 12px;
+  width: 200px;
+  text-align: center;
+  display: inline-block;
+}
+.arrow {
+  cursor: pointer;
+  color: rgba(255,255,255,0.5);
+  transition: color 0.2s;
+  font-size: 16px;
+}
+.arrow:hover {
+  color: rgba(255,255,255,0.2);
+  transition: color 0.2s;
+}
+.box {
+  position: relative;
+  cursor: pointer;
+  border: 1px;
+  margin-right: 10px;
+  min-width: 30px;
+  max-height: 30px;
+  font-size: 22px;
+  background-color: rgba(255,255,255,0.1);
+  transition: background-color 0.2s;
+}
+.box:hover {
+  background-color: rgba(255,255,255,0.3);
+  transition: background-color 0.5s;
+}
+td {
+  text-align: center;
+}
+.star-plus {
+  position: absolute; left: 1.5px; top: -2px;
+  font-size: 35px;
+  color: rgba(218,165,32,1);
+}
+.gray {
+  color: rgba(0,0,0,0.5);
+}
+.data-value {
+  color: rgba(255,255,255,0.7);
+  position: relative;
+  font-size: 25px;
+}
+.ig {
+  pointer-events: none;
+}
+.input {
+  position: absolute; left: -0.5px; top: 4px;
+  width: 32px;
+  font-size: 20px;
+  background: none;
+  border: none;
+  text-align: center;
+  margin-left: -1px;
+  margin-top: 1px;
+}
+.wide {
+  width: 50px;
+  font-size: 16px;
+}
+.undefined {
+  color: rgba(255,255,255,0.3);
+}
+.q {
+  font-family: Arial;
+  font-size: 18px;
+  color: rgba(0,0,0,0.13);
+}
+.undefined-wide {
+  margin-top: 5px;
+  background-image: url("../gfx/wild_oliva.png");
+  z-index: 10000;
+}
+.weight {
+  max-width: 28px;
+  max-height: 32px;
+  font-size: 16px;
+  word-break: break-all;
+  overflow: hidden;
+  padding: auto;
+  margin: auto;
+}
+@media screen and (max-width: 1100px) {
+  .box {
+    min-width: 25px;
+    max-height: 25px;
+  }
+  .icons {
+    font-size: 22px;
+  }
+  .star-plus {
+    font-size: 29px;
+  }
+  .input {
+    position: absolute; left: -1px; top: 3px;
+    width: 28px;
+    font-size: 17px;
+  }
+  .weight {
+    max-width: 25px;
+    max-height: 25px;
+    font-size: 12px;
+  }
+}
+</style>
+<!-- < < < < < < < < < < < < < < < <  html > > > > > > > > > > > > > > > > > -->
+<content>
+  <div id='dateNav'>
+    <!-- &nbsp; &nbsp; &nbsp; &nbsp; -->
+    <span id='back' class='arrow'> &#9664; </span>
+    <div id='date' class='date'></div>
+    <span id='forward' class='arrow'> &#9654; </span>
+  </div>
+  <!-- <div id='main' var='{data} c.data'> -->
+  <div id='main'>
+    <table>
+     <tr for='{dd} c.data.current'>
+       <th indices='0' class="icons"> &#10025; </th>
+       <th> {dd}.date.day </th>
+     </tr>
+     <tbody id='chart'>
+       <tr for='{x},{i} c.data.current'>
+         <td indices='0' class="icons"> &#128685; </td>
+         <td class='box' key='{i}' val='smoke'>
+           <span if='!{x}.smoke' key='{i}' val='smoke' class='star-plus ig'> &#10025; </span>
+           <input if='{x}.smoke' key='{i}' val='smoke' placeholder="?" value='{x}.smoke' class='gray input ig'>
+         </td>
+       </tr>
+       <tr for='{x},{i} c.data.current'>
+         <td indices='0' class="icons"> &#127865; </td>
+         <td class='box' key='{i}' val='drink'>
+           <span if='!{x}.drink' class='star-plus ig'> &#10025; </span>
+           <input if='{x}.drink' key='{i}' val='drink' placeholder="?" value='{x}.drink' class='gray input ig'>
+         </td>
+       </tr>
+       <tr for='{x},{i} c.data.current'>
+         <td indices='0' class="icons" id='cardio'> &#127939; </td>
+         <td class='box' key='{i}' val='cardio'>
+           <span if='!{x}.cardio' class='star-plus ig'> &#10025; </span>
+           <span if='{x}.cardio[1]' class='star-plus ig'> &#10025; </span>
+           <input if='{x}.cardio[0]' key='{i}' val='cardio' placeholder="?" value='{x}.cardio[0]' class='data-value input ig'>
+         </td>
+       </tr>
+       <tr for='{x},{i} c.data.current'>
+         <td indices='0' class="icons"> &#127947; </td>
+         <td class='box' key='{i}' val='lift'>
+           <span if='!{x}.lift' class='star-plus ig'> &#10025; </span>
+           <span if='{x}.lift[1]' class='star-plus ig'> &#10025; </span>
+           <input if='{x}.lift[0]' key='{i}' val='lift' placeholder="?" value='{x}.lift[0]' class='data-value input ig'>
+         </td>
+       </tr>
+       <tr for='{x},{i} c.data.current'>
+         <td indices='0' class="icons" style='color: rgba(0,0,0,0.6);'> &#128694; </td>
+         <td class='box' key='{i}' val='walk'>
+           <span if='!{x}.walk' class='star-plus ig'> &#10025; </span>
+           <span if='{x}.walk[1]' class='star-plus ig'> &#10025; </span>
+           <input if='{x}.walk[0]' key='{i}' val='walk' placeholder="?" value='{x}.walk[0]' class='data-value input ig'>
+         </td>
+       </tr>
+       <tr for='{x},{i} c.data.current'>
+         <td indices='0' class="icons" style='color: rgba(0,0,0,0.6);'> &#9745; </td>
+         <td class='box' key='{i}' val='scrum'>
+           <span if='!{x}.scrum' class='star-plus ig'> &#10025; </span>
+           <span if='{x}.scrum[1]' class='star-plus ig'> &#10025; </span>
+           <input if='{x}.scrum[0]' key='{i}' val='scrum' placeholder="?" value='{x}.scrum[0]' class='data-value input ig'>
+         </td>
+       </tr>
+       <tr for='{x},{i} c.data.current'>
+         <td indices='0' class="icons" style='color: rgba(0,0,0,0.6);' id='weight'> &#x2696; </td>
+         <td class='box' key='{i}' val='weight'>
+           <span if='!{x}.weight[0]' class='q ig'> ? </span>
+           <div if='{x}.weight[0]' class='weight ig'>
+             {x}.weight[0]
+           </div>
+           <input if='{x}.weight[0]' key='{i}' val='weight' placeholder='' value='' class='data-value wide input ig'>
+         </td>
+       </tr>
+     </tbody>
+   </table>
+   <span id='hover-day'></span>
+   <span class='shift-click'>[ Shift + Click ] <em> *enters values</em></span>
+   <br>
+   <canvas id="myCanvas" class='bg'></canvas> <br><br><br>
+  </div>
+</content>
+</template>
+<!-- () () () () () () () () () ()  JavaScript () () () () () () () () () () -->
+<script>
+
+(( c = new Component('star-tag') )=>{
+
+  const months = ['January','February','March','April','May','June','July','August','September','October','November','December']
+  const days = ['Sunday','Monday','Tueday','Wednesday','Thursday','Friday','Saturday']
+
+  c._ON_SET = (attr)=>{ // this prevents the flickering effect before ifJS is loaded...
+    c.I('main').setAttribute('style', 'display: block;')
+    if (c.star) c.graph(c.star)
+    if (!c.time) {
+      c.time = new Date()
+      c.month = c.time.getMonth()
+      c.year = c.time.getFullYear()
+      _DATA.starChart.currentY = c.year
+      _DATA.starChart.currentM = c.month
+    }
+    c.I('date').innerHTML = months[c.month]+' '+c.year
+    c.hasDate()
+  }
+
+  c.setCurrent = ()=>{ c.data.current = c.data[c.year][months[c.month]] }
+
+  c.hasDate = (updated = false)=>{
+    if (!_DATA.starChart) {
+      console.log('User does not have any Star Chart Data')
+      _DATA.starChart = {}
+      updated = true
+    }
+    if (!_DATA.starChart[c.year]) {
+      console.log('adding year')
+      _DATA.starChart[c.year] = {}
+      updated = true
+    }
+    if (!_DATA.starChart[c.year][months[c.month]]) {
+      console.log('adding month')
+      _DATA.starChart[c.year][months[c.month]] = []
+      for (var i = 0; i < 31; i++) {
+        let day = c.d = new Date(c.year,c.month,i+1)
+        day = days[day.getDay()]
+        _DATA.starChart[c.year][months[c.month]].push({
+          date: { day: i+1, weekDay: day },
+          smoke: ' ', drink: ' ', cardio: ' ', lift: ' ',
+          walk: ' ', scrum: ' ', weight: '', water: ' ',
+        })
+      }
+      updated = true
+    }
+    if (updated) {
+      putMyJson(_DATA, _PERSONAL_URI, ()=>{ // calback to change c.data
+        console.log('Callback')
+        c.update() // NEED THIS! you'll think you don't, but it's only for NEW USERS with no current year. otherwise you'll have to refresh the page.
+      })
+    }
+    c.setCurrent()
+    c.update() // Remove??? test THOROUGHLY
+  }
+
+  c._ADD_EVENT('click', 'dateNav', (e, [ key, val, elm ] = c.KVE(e))=>{
+    if (['back', 'forward'].includes(elm.id)) {
+      if (c.month === 0 && elm.id === 'back') { c.year--; c.month = 12;}
+      if (c.month === 11 && elm.id === 'forward') { c.year++; c.month = -1; }
+      c.month += elm.id === 'back' ? -1 : 1
+      c.I('date').innerHTML = months[c.month]+' '+c.year
+      _DATA.starChart.currentY = c.year
+      _DATA.starChart.currentM = c.month
+      c.hasDate()
+    }
+    c.updateLocal() // here's where running this page off of c.data.currentM/Y will eliminate this
+  }, true)
+
+  c.graph = (star)=>{
+    if (c.data) {
+      if (cV) cV.clear()
+      let a = []
+      if (star === 'weight') {
+        for (const p of c.data.test) {
+          const x = parseInt(p.weight[0]) > 1 ? parseInt(p.weight[0]) : 'undefined'
+          a.push(x)
+        }
+      }
+      if (star === 'cardio') {
+        let cnt = 142
+        for (const p of c.data.test) {
+          const x = parseInt(p.cardio[0]) >= 1 ? (cnt += parseInt(p.cardio[0])) : 'undefined'
+          a.push(x)
+        }
+      }
+      var cV = new canvas
+      cV.new(c.I('myCanvas'), 1000,230)
+      const margin = 15
+      const step = (1000-(margin*2))/(a.length-1)
+      let x = margin
+      let path = []
+      let last = 0
+      for (var i = 0; i < a.length; i++) {
+        path.push(['l', x, 800-(Math.round(a[i])*4) ])
+        x+=step
+        if (a[i] !== 'undefined') {
+          last = x
+        }
+      }
+      cV.path(10, a[0][2], path, 4, 'darkgreen')
+      path.unshift(['l', margin, 300])
+      path.push(['l', last-step, 300])
+      cV.path(10, a[0][2], path, 0, 'rgba(20,20,155,0)', 'rgba(20,20,155,0.2)')
+      x = margin
+      path = []
+      for (var i = 0; i < a.length; i++) {
+        cV.cir(x, 800-(Math.round(a[i])*4), 5, 'gray', 3, 'rgba(100,0,0,0.4)')
+        x+=step
+      }
+    }
+    let can = c.I('myCanvas')
+    can.setAttribute('style', 'display: block;')
+  }
+
+  c._ADD_EVENT('mousedown', 'main', (e, [ key, val, elm ] = c.KVE(e))=>{
+    if (elm.id === 'cardio') { c.graph('cardio'); c.star = 'cardio' }
+    if (elm.id === 'weight') { c.graph('weight'); c.star = 'weight' }
+    if (e.shiftKey) {
+      let input = elm.getElementsByTagName('input')[0] || ''
+      let span = elm.getElementsByTagName('span')[0] || ''
+      if (val === 'weight') {
+        span = elm.getElementsByTagName('div')[0]
+        span.setAttribute('style', 'display: none;')
+        input.value = _DATA.starChart[c.year][months[c.month]][parseInt(key)][val][0]
+        input.className += ' undefined-wide'
+      } else {
+        input.className += ' undefined'
+      }
+      span.className += ' undefined'
+      if (span && !span.getAttribute('style', 'display')) [ input.placeholder, input.value ] = [ '', '']
+      if (isNaN(input.value)) [ input.placeholder, input.value ] = [ '', '']
+      input.setSelectionRange(input.value.length+1, input.value.length+1)
+      input.style.display = ''
+      setTimeout(()=>{ input.focus() },1)
+    }
+    else if (val !== 'weight' && val){
+      let state = _DATA.starChart[c.year][months[c.month]][parseInt(key)][val]
+      if (typeof state === 'object' || state > 0) state = false
+      _DATA.starChart[c.year][months[c.month]][parseInt(key)][val] = state === false ? ' ' : false
+      putMyJson(_DATA, _PERSONAL_URI)
+    }
+  }, true)
+
+  c._ADD_EVENT('keypress', 'main', (e, [ key, val, elm ] = c.KVE(e))=>{
+    let unknown = true
+    c.setCurrent()
+    if (e.keyCode == 13) {
+      if (elm.value !== '') {
+        _DATA.starChart[c.year][months[c.month]][parseInt(key)][val] = elm.value
+      }
+      if (['cardio','lift','walk','scrum','weight'].includes(val)) {
+        if (parseInt(elm.value) === 0) unknown = false
+        _DATA.starChart[c.year][months[c.month]][parseInt(key)][val] = [ elm.value, unknown ]
+        elm.classList.remove('undefined-wide')
+      }
+      if (val === 'weight') {
+        elm.value = ''
+        let span = elm.parentElement.getElementsByTagName('div')[0]
+        span.setAttribute('style', 'display: "";')
+        span.classList.remove('undefined')
+      }
+      putMyJson(_DATA, _PERSONAL_URI)
+      elm.blur()
+    }
+  }, true)
+
+  c._ADD_EVENT('mouseover', 'main', (e, [ key, val, elm ] = c.KVE(e))=>{
+    c.setCurrent()
+    let day = key ? parseInt(key)+1 : key
+    const capVal = val ? val.charAt(0).toUpperCase() + val.slice(1) : val
+    if (val) {
+      if (day === 1) day += 'st'
+      else if (day === 2) day += 'nd'
+      else if (day === 3) day += 'rd'
+      else if (day > 3) day += 'th'
+      value = typeof c.data.current[parseInt(key)][val] === 'object' ?
+        c.data.current[parseInt(key)][val][0] : c.data.current[parseInt(key)][val]
+      if (!value) value = '&#10025;'
+    }
+    c.I('hover-day').innerHTML = (!val) ? '' :
+      months[c.month]+' '+day+' '+capVal+': '+(value === ' ' ? '?' : value)
+  })
+
+  c._NEW_ELM()
+})()
+
+</script>
+<!--  / / / / / / / / / / / / / / /   Notes    / / / / / / / / / / / / / / /
+- add class='' ('saturday'&'sunday') to dynamic array in htmlJS so you can dynamically assign classes
+- click+download Json to archive json folder?
+- Add days locks + unlock all!
+- Add Weight
+- figure out what to do with long floats triple digits?
+  - round? (and have float display box of currently clicked on ... )
+- Add Water Bottles Drank?
+-->

@@ -1,0 +1,57 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title> Life Track </title><script type="text/javascript" src="loneJS-lib/component.js"></script><script type="text/javascript" src="loneJS-lib/html.js"></script><script type="text/javascript" src="loneJS-lib/pages.js"></script><script type="text/javascript" src="loneJS-lib/polyfills.js"></script><script type="text/javascript" src="data.js"></script>
+  <link rel="stylesheet" href="main.css">
+  <script src="canvas.js"></script>
+
+  <!-- DEPENDENCIES -->
+  <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.39.1/mapbox-gl.js'></script>
+  <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.39.1/mapbox-gl.css' rel='stylesheet' />
+
+  <!-- COMPONENTS -->
+  <link rel="import" href="components/navbar.html">
+  <link rel="import" href="components/data.html">
+  <link rel="import" href="components/graph.html">
+  <link rel="import" href="components/star.html">
+  <link rel="import" href="components/star-graph.html">
+
+  <link rel="import" href="components/map.html">
+  <link rel="import" href="components/cssSolarSystem.html">
+  <!-- <link rel="import" href="components/loading.html"> -->
+  <!-- Temporary... -->
+  <link rel="import" href="components/old-star.html">
+
+
+</head>
+<body>
+
+<navbar-tag></navbar-tag>
+
+<MAINp pageName="home" activePage='true'>
+  <cssSolarSystem-tag></cssSolarSystem-tag>
+  <!-- <loading-tag serve='_DATA.home'></loading-tag> -->
+</MAINp>
+
+<MAINp pageName="data">
+  <data-tag serve='_DATA.add'></data-tag>
+</MAINp>
+
+<MAINp pageName="star">
+  <!-- <star-tag></star-tag> -->
+  <star-tag serve='_DATA.starChart'></star-tag> <br>
+  <star-graph-tag serve='_DATA.starChart'></star-graph-tag>
+  <!-- <old-star-tag serve='_DATA'></old-star-tag> -->
+</MAINp>
+
+<MAINp pageName="graph">
+  <graph-tag serve="_DATA.run1"></graph-tag>
+</MAINp>
+
+<MAINp pageName="map">
+  <map-tag serve="_DATA.run1"></map-tag>
+</MAINp>
+
+</body>
+</html>
+
+<!--  / / / / / / / / / / / / / / /   Notes    / / / / / / / / / / / / / / /
+
+-->

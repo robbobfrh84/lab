@@ -1,0 +1,86 @@
+<!DOCTYPE html><html lang="en"><meta charset="UTF-8">
+<style>
+body {
+  background-color: #666;
+}
+#field-frame {
+  margin: 15px;
+}
+#myCanvas {
+  background-image: url("darkGreenGainy.png");
+  border-radius: 2px;
+  box-shadow: 1px 0.5px 3px rgba(0,0,0,0.75);
+}
+</style>
+<body>
+  <div id="field-frame">
+    <canvas id='myCanvas'></canvas>
+  </div>
+  <script>
+
+  var marginAdj = 40
+  var ajw = ((window.innerHeight-marginAdj)*160)/360
+  // ajw = 600 // Un-note for static ?px width.
+  var c = ajw/200 // Chalk-line thickenss.
+  var w = ajw+c // set window to fit field dimentions...
+  var h = (w*360)/160
+  var ctx = document.getElementById("myCanvas")
+  ctx.width = w
+  ctx.height = h
+  ctx = document.getElementById("myCanvas").getContext("2d")
+
+  function buildField () {
+    ctx.beginPath()
+    // vvv left-right lines
+    ctx.moveTo(c/2, 0); ctx.lineTo((c/2), h)
+    ctx.moveTo(w-(c/2), 0); ctx.lineTo(w-(c/2), h)
+    // vvv PAT hash marks
+    ctx.moveTo((w/2)-(h/160)+c, (h/12)+((h/120)*2)); ctx.lineTo((w/2)+(w/160)+c, (h/12)+((h/120)*2))
+    ctx.moveTo((w/2)-(h/160)+c, (h/12)+((h/120)*98)); ctx.lineTo((w/2)+(w/160)+c, (h/12)+((h/120)*98))
+    // vvv 10-yard markers
+    for (let i = 0; i <= 12; i++) {
+      let adj = i === 0 ? (c/2) : i === 12 ? -(c/2) : 0
+      ctx.moveTo(0, i*(h/12)+adj); ctx.lineTo(w, i*(h/12)+adj)
+    }
+    // vvv 1-yard hash markers
+    for (let i = 1; i < 100; i++) {
+      ctx.moveTo(0, i*(h/120)+(h/12)); ctx.lineTo(w/50, i*(h/120)+(h/12))
+      ctx.moveTo(w, i*(h/120)+(h/12)); ctx.lineTo(w-(w/50), i*(h/120)+(h/12))
+      ctx.moveTo((w/2)-(w/(160/9.5)), i*(h/120)+(h/12)); ctx.lineTo((w/2)-(w/(160/9.5))-(w/50), i*(h/120)+(h/12))
+      ctx.moveTo((w/2)+(w/(160/9.5)), i*(h/120)+(h/12)); ctx.lineTo((w/2)+(w/(160/9.5))+(w/50), i*(h/120)+(h/12))
+    }
+    // add line attributes and close out path.
+    ctx.lineWidth = c
+    ctx.strokeStyle = 'rgba(255,255,255,0.4)'
+    ctx.stroke()
+    // vvv endzone colors.
+    rect(0, 0, w, h/12, 'rgba(255,255,255,0.1)')
+    rect(0, (h/12)*11, w, h/12, 'rgba(255,255,255,0.1)')
+    // create 5-yard markers.
+    ctx.beginPath()
+    for (let i = 0; i < 10; i++) {
+      ctx.moveTo(0, i*(h/12)+(h/120)*15); ctx.lineTo(w, i*(h/12)+(h/120)*15)
+    }
+    // add line attributes and close out path.
+    ctx.lineWidth = c
+    ctx.strokeStyle = 'rgba(255,255,255,0.1)'
+    ctx.stroke()
+    // c = document.getElementById("myCanvas")
+    // ctx = c.getContext("2d")
+    // ctx.rotate(20*Math.PI/180);
+
+  }
+
+  function rect(sx,yx,x,y,fS) {
+    ctx.beginPath()
+    ctx.rect(sx, yx, x, y)
+    ctx.fillStyle = fS || 'black'
+    fS ? ctx.fill() : null
+    ctx.stroke() // flipp stroke & ^^^ puts fill on TOP, covering 1/2 of lineWidth
+  }
+
+  buildField()
+
+  </script>
+</body>
+</html>

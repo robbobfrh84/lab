@@ -1,0 +1,262 @@
+<template id="cssSolarSystem">
+<!-- { { { { { { { { { { { { { { { {  CSS  } } } } } } } } } } } } } } } } } -->
+<style>
+content {
+  position: absolute;
+  pointer-events: none;
+  top: 0px;
+  width: 100%;
+}
+
+#container {
+  height: 500px;
+  width: 500px;
+  margin: auto;
+}
+
+#sun {
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: #fcf75a;
+  margin-top: 248px;
+  margin-left: 235px;
+}
+
+.path {
+  border-radius: 50%;
+  border: 1px grey;
+  position: absolute;
+}
+.path-mercury {
+  margin-top: 239px;
+  margin-left: 225px;
+  height: 40px;
+  width: 40px;
+  box-shadow: 0 1px 1px #914702;
+  -webkit-animation: orbit 1.25s linear infinite;
+          animation: orbit 1.25s linear infinite;
+}
+.path-venus {
+  margin-top: 214px;
+  margin-left: 200px;
+  height: 90px;
+  width: 90px;
+  box-shadow: 0 1px 1px #e29c04;
+  -webkit-animation: orbit 2.91667s linear infinite;
+          animation: orbit 2.91667s linear infinite;
+}
+.path-earth {
+  margin-top: 189px;
+  margin-left: 175px;
+  height: 140px;
+  width: 140px;
+  box-shadow: 0 1px 1px #274fa5;
+  -webkit-animation: orbit 5s linear infinite;
+          animation: orbit 5s linear infinite;
+}
+.path-mars {
+  margin-top: 164px;
+  margin-left: 150px;
+  height: 190px;
+  width: 190px;
+  box-shadow: 0 1px 1px #871501;
+  -webkit-animation: orbit 9.58333s linear infinite;
+          animation: orbit 9.58333s linear infinite;
+}
+.path-jupiter {
+  margin-top: 139px;
+  margin-left: 125px;
+  height: 240px;
+  width: 240px;
+  box-shadow: 0 1px 1px #c68441;
+  -webkit-animation: orbit 59.16667s linear infinite;
+          animation: orbit 59.16667s linear infinite;
+}
+.path-saturn {
+  margin-top: 114px;
+  margin-left: 100px;
+  height: 290px;
+  width: 290px;
+  box-shadow: 0 1px 1px #fcb05f;
+  -webkit-animation: orbit 147.5s linear infinite;
+          animation: orbit 147.5s linear infinite;
+}
+.path-uranus {
+  margin-top: 89px;
+  margin-left: 75px;
+  height: 340px;
+  width: 340px;
+  box-shadow: 0 1px 1px #09c46a;
+  -webkit-animation: orbit 420.41667s linear infinite;
+          animation: orbit 420.41667s linear infinite;
+}
+.path-neptune {
+  margin-top: 64px;
+  margin-left: 50px;
+  height: 390px;
+  width: 390px;
+  box-shadow: 0 1px 1px #68ccff;
+  -webkit-animation: orbit 824.58333s linear infinite;
+          animation: orbit 824.58333s linear infinite;
+}
+.path-pluto {
+  margin-top: 39px;
+  margin-left: 25px;
+  height: 440px;
+  width: 440px;
+  box-shadow: 0 1px 1px #97999e;
+  -webkit-animation: orbit 1240.41667s linear infinite;
+          animation: orbit 1240.41667s linear infinite;
+}
+
+#mercury {
+  position: absolute;
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  margin: 15px -5px;
+  background-color: #914702;
+}
+
+#venus {
+  position: absolute;
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  margin: 40px -5px;
+  background-color: #e29c04;
+}
+
+#earth {
+  position: absolute;
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  margin: 65px -5px;
+  background-color: #274fa5;
+}
+
+#mars {
+  position: absolute;
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  margin: 90px -5px;
+  background-color: #871501;
+}
+
+#jupiter {
+  position: absolute;
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  margin: 115px -5px;
+  background-color: #c68441;
+}
+
+#saturn {
+  position: absolute;
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  margin: 140px -5px;
+  background-color: #fcb05f;
+}
+
+#uranus {
+  position: absolute;
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  margin: 165px -5px;
+  background-color: #09c46a;
+}
+
+#neptune {
+  position: absolute;
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  margin: 190px -5px;
+  background-color: #68ccff;
+}
+
+#pluto {
+  position: absolute;
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  margin: 215px -5px;
+  background-color: #97999e;
+}
+
+@-webkit-keyframes orbit {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes orbit {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+</style>
+<!-- < < < < < < < < < < < < < < < <  html > > > > > > > > > > > > > > > > > -->
+<content>
+
+  <div id="container">
+    <div class="path path-pluto">
+      <div id="pluto"></div>
+    </div>
+    <div class="path path-neptune">
+      <div id="neptune"></div>
+    </div>
+    <div class="path path-uranus">
+      <div id="uranus"></div>
+    </div>
+    <div class="path path-saturn">
+      <div id="saturn"></div>
+    </div>
+    <div class="path path-jupiter">
+      <div id="jupiter"></div>
+    </div>
+    <div class="path path-mars">
+      <div id="mars"></div>
+    </div>
+    <div class="path path-earth">
+      <div id="earth"></div>
+    </div>
+    <div class="path path-venus">
+      <div id="venus"></div>
+    </div>
+    <div class="path path-mercury">
+      <div id="mercury"></div>
+    </div>
+    <div id="sun"></div>
+  </div>
+  
+</content>
+</template>
+<!-- () () () () () () () () () ()  JavaScript () () () () () () () () () () -->
+<script>
+
+(( c = new Component('cssSolarSystem-tag') )=>{
+  c._NEW_ELM()
+})()
+
+</script>
+<!--  / / / / / / / / / / / / / / /   Notes    / / / / / / / / / / / / / / / -->

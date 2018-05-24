@@ -1,0 +1,155 @@
+<!DOCTYPE html><html><head><meta charset="utf-8">
+<style>
+html {
+  background-color: #bbb;
+}
+.icon {
+  padding-left: 10px;
+  padding-top: 10px;
+}
+.icon-box {
+  position: relative;
+  background-color: rgba(0,0,0,0.05);
+  box-shadow: 0 0 10px rgba(0,0,0,1);
+  border-radius: 100%;
+  width: 90px;
+  height: 90px;
+  margin: 5px;
+  display: inline-block;
+  transition: background-color 0.5s, box-shadow 0.5s;
+}
+.icon-box:hover {
+  background-color: rgba(0,0,0,0.4);
+  box-shadow: inset 0 0 7px rgba(0,0,0,0.7);
+  transition: background-color 0.5s, box-shadow 0.5s;
+}
+.small {
+  width: 40px;
+  height: 40px;
+}
+.icon-small {
+  padding-left: 5px;
+  padding-top: 5px;
+}
+</style>
+</head>
+<body id='body'>
+
+</body>
+</html>
+<script>
+
+var width = 70
+var sWidth = 30
+
+window.onload = ()=>{
+  let br = false
+  for (const c of fData.teams.conferences) {
+    for (const d of c.divisions) {
+      for (const t of d.teams) {
+        body.innerHTML += '<div class="icon-box small" onclick="pick(event)" >'
+        + '<img class="icon icon-small" src="logos/'+t.name+'.svg" width="'+sWidth+'" height="'+sWidth+'"></div>'
+      }
+      br = !br
+      if (!br) body.innerHTML += '<br>'
+      if (br) body.innerHTML += ' &nbsp; '
+    }
+    body.innerHTML += '<br>'
+  }
+  body.innerHTML += '<hr>'
+  for (const c of fData.teams.conferences) {
+    for (const d of c.divisions) {
+      body.innerHTML += '<br>'
+      for (const t of d.teams) {
+        body.innerHTML += '<div class="icon-box">'
+        + '<img class="icon" src="logos/'+t.name+'.svg" width="'+width+'" height="'+width+'">'
+        + '</div>'
+      }
+    }
+  }
+}
+
+var fData = {
+  teams: {
+    conferences: [
+      { name: 'AFC',
+        divisions: [
+          { name: 'North',
+            teams: [
+              { name: 'PIT' },
+              { name: 'BAL' },
+              { name: 'CLE' },
+              { name: 'CIN' },
+            ]
+          },
+          { name: 'South',
+            teams: [
+              { name: 'TEN' },
+              { name: 'JAX' },
+              { name: 'IND' },
+              { name: 'HOU' },
+            ]
+          },
+          { name: 'East',
+            teams: [
+              { name: 'BUF' },
+              { name: 'NE' },
+              { name: 'MIA' },
+              { name: 'NYJ' },
+            ]
+          },
+          { name: 'West',
+            teams: [
+              { name: 'KC' },
+              { name: 'DEN', won: false },
+              { name: 'OAK' },
+              { name: 'LAC' },
+            ]
+          },
+        ]
+      },
+      { name: 'NFC',
+        divisions: [
+          { name: 'North',
+            teams: [
+              { name: 'MIN' },
+              { name: 'DET' },
+              { name: 'GB' },
+              { name: 'CHI' },
+            ]
+          },
+          { name: 'South',
+            teams: [
+              { name: 'ATL', won: false },
+              { name: 'CAR' },
+              { name: 'TB' },
+              { name: 'NO', won: true },
+            ]
+          },
+          { name: 'East',
+            teams: [
+              { name: 'PHI' },
+              { name: 'DAL' },
+              { name: 'WAS' },
+              { name: 'NYG' },
+            ]
+          },
+          { name: 'West',
+            teams: [
+              { name: 'LAR' },
+              { name: 'SEA' },
+              { name: 'ARI' },
+              { name: 'SF' },
+            ]
+          },
+        ]
+      }
+    ]
+  }
+}
+
+</script>
+
+<!-- *** NOTES ***
+
+-->

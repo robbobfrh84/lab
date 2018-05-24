@@ -1,0 +1,232 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>bracket-canvas</title></head>
+  <body>
+    <div style='background-color: red; text-align: left; height: 76px; width: 200px;'>
+      <div style='background-color: green; position: relative; height: 38px; '>
+        <div style='background-color: yellow; position: absolute; bottom: 0;'> 2) And Number One </div>
+      </div>
+      <div style='background-color: blue;
+          position: relative; height: 38px; '>
+        <div style='background-color: yellow; position: absolute; bottom: 0; '> 2) And Number Tow and more and more and more</div>
+      </div>
+    </div>
+      <input id="inputText" value='32' type="text" style="width: 70px;"/>
+      <button class="ui button" onclick="newBracket(13)">Go</button>
+      <div id='bracket-shell'>
+        <canvas id='bracket-canvas' width="1024" height="640"></canvas>
+      </div>
+    </div>
+  </body>
+</html>
+<script type="text/javascript" src='canvas.js'></script>
+<script type="text/javascript">
+
+inputText.addEventListener("keypress", function (e) { newBracket(e.keyCode) })
+
+const bStyle = 'toCenter' // Options: 'leftToRight', 'toCenter'
+var bracket = [1]
+var seeds = [
+  { seed: 1, name: 'Terminator II: Demolition Day Starring more and more'},
+  { seed: 2, name: 'Total Recall'},
+  { seed: 3, name: 'Terminator'},
+  { seed: 4, name: 'Kindergarden Cop asdf asdf asdf asdf asdf'},
+  { seed: 5, name: 'Predator'}
+]
+
+const [ w, h ] = [ 1024, 640 ]
+const c = new canvasJS
+c.new('bracket-canvas', 1024, 640)
+
+function newBracket(clicked) {
+  if (inputText.value > 2048) inputText.value = '2048'
+  if (clicked === 13){
+    const p = document.getElementById('bracket-shell')
+    while (p.childElementCount > 1) { p.removeChild(p.lastChild) } // removes all old content from bracket when size changed.
+    c.clear() // clears old canvas like ^^^
+    bracket = [1]
+    const contenders = inputText.value
+    let swap = false
+    for (var i = 2; i <= contenders; i++) {
+      let lowSeed = bracket[0]
+      let lowSeedIndex = 0
+      swap = !swap
+      for (const j in bracket) {
+        if (bracket[j] > lowSeed){
+          lowSeed = bracket[j]
+          lowSeedIndex = j
+        }
+      }
+      bracket[lowSeedIndex] = swap ? [lowSeed, i] : [i, lowSeed]
+      if (lowSeedIndex === 0 && contenders != i){
+        bracket = [].concat.apply([], bracket)
+        console.log('Squash', bracket)
+      }
+    }
+    bracket.forEach(function(m, i) {
+      if (!m[0]) m = m%2 ? [ m, '* bye *'] : ['* bye *', m]
+      bracket[i] = [m[0], m[1]]
+    })
+    console.log('Bracket: ', JSON.stringify(bracket))
+    buildBracket(bracket.length*2)
+  }
+}
+
+function buildBracket(contenders) {
+  let op = 0
+  const lrCols = (c=>{ c=0; ct=contenders; while(ct > 2) { ct/=2; c++ } return c })()
+  const cols = lrCols*2+1
+  const cW = w/cols
+  c.rec(cW*lrCols, 0, cW, h, 'rgba(255,255,255,'+0.7+')')
+  for (let i = 0; i < lrCols; i++) {
+    op+=0.1
+    c.rec(cW*i, 0, cW, h, 'rgba(255,50,50,'+op+')')
+    c.rec(w-(cW*(i+1)), 0, cW, h, 'rgba(255,50,50,'+op+')')
+  }
+  for (let i = 0; i < lrCols; i++) {
+    placeDots(cW+(cW*i), contenders, i+1, cW, i+1 === lrCols ? true : false)
+  }
+  c.path((w/2)-cW,h/16, [
+    ['l', (w/2)+cW, h/16],
+    ['l', (w/2)+cW, h/8],
+    ['l', (w/2)-cW, h/8],
+    ['l', (w/2)-cW, h/16]
+  ], 2,'cornflowerblue')
+}
+
+function placeDots(x1, cndr, rnd, cW, final) { // CHANGE name of func.... not only dotz
+  const dots = (c=>{ c=0; while(rnd >= c) { cndr/=2; c++ } return cndr })()
+  const textAdj = 36
+  const pad = textAdj
+  const y = ((h-(pad*2))/dots)
+  const yG = (y/2+pad)
+  for (var i = 0; i < dots; i++) {
+    const ry = (i*y)+yG
+    const stagger = final ? h/12 : 0
+    c.cir(x1,ry-stagger,4,'cornflowerblue')
+    c.cir(w-x1,ry+stagger,4,'cornflowerblue')
+
+    c.path(x1-cW,ry-(yG/2)+(pad/2), [
+      ['l', x1, ry-(yG/2)+(pad/2)],
+      ['l', x1, ry+(yG/2)-(pad/2)],
+      ['l', x1-cW, ry+(yG/2)-(pad/2)]
+    ], 2,'cornflowerblue')
+
+    c.path(w-(x1-cW),ry-(yG/2)+(pad/2), [
+      ['l', w-x1, ry-(yG/2)+(pad/2)],
+      ['l', w-x1, ry+(yG/2)-(pad/2)],
+      ['l', w-(x1-cW), ry+(yG/2)-(pad/2)]
+    ], 2,'cornflowerblue')
+
+    // NEEDS TO HANDLE RESULTS OF FIRST ROUND!!!!
+    // we should really call a seperate function here....
+    const seed = ((l = bracket.length, b = bracket)=>{
+      if (rnd !== 1) return [['?','?'],['?','?']]
+      if (bStyle === 'toCenter') return [b[i], [b[l-1-i][1], b[l-1-i][0]]]
+      if (bStyle === 'leftToRight') return [b[i], b[(bracket.length/2)+i]]
+    })()
+
+    if (stagger) { // this either can be compounded into the resto of this function or given it's own...
+      c.line(x1, ry-stagger, x1+cW*0.9, ry-stagger, 2, 'cornflowerblue')
+      c.line(w-x1, ry+stagger, x1+cW*0.1, ry+stagger, 2, 'cornflowerblue')
+      c.text('Final', w/2-23, h/2+7, 20, 'Arial', 'cornflowerblue')
+      c.text('Champion', w/2-45, 25, 'Arial', 'cornflowerblue')
+
+      newTag('bracket-shell', 'div', {
+        innerHTML: '<div>'+seed[0][0]+'</div>'
+          +'<div style="padding-top: '+((ry/2)-stagger-textAdj)+'px;">'+seed[0][1]+'</div>',
+        className: 'contender',
+        style: 'top: '+(ry-stagger-textAdj)+'px; '
+          +'left: '+(x1)+'px;'
+          +'width: '+(cW+1)+'px;'
+          +'height: '+((ry/2)-stagger+textAdj)+'px;'
+      })
+    }
+    // IGNOR FINAL!!!! it's done ^^^^  up there...
+    const info1 = seeds[seed[0][0]-1] || 0
+    const info2 = seeds[seed[0][1]-1] || 0
+    const info3 = seeds[seed[1][0]-1] || 0
+    const info4 = seeds[seed[1][1]-1] || 0
+
+    newTag('bracket-shell', 'div', {
+      innerHTML: '<div style="position: relative; height: '+(y/4)+'px;">'
+        + '<div style="position: absolute; bottom: 0; ">'+seed[0][0]+') '+ (info1 ? info1.name : 'TBD') + '</div></div>'
+        +'<div style="position: absolute; bottom: 0; left: 0; word-break: break-all; overflow: hidden; max-height: '+(y/2)+'px;">'+seed[0][1]+') '
+        + (info2 ? info2.name : 'TBD') + '</div>',
+      className: 'contender',
+      style: 'top: '+(ry-(y/4))+'px; '
+        +'left: '+(x1-cW)+'px;'
+        +'width: '+(cW+1)+'px;'
+        +'text-align: left;'
+        +'height: '+(y/2)+'px;'
+    })
+    newTag('bracket-shell', 'div', {
+      innerHTML: '<div style="position: relative;">'
+        + (info3 ? info3.name : 'TBD') + ' ('+seed[1][0]+'</div>'
+        +'<div style="padding-top: '+(y/2-textAdj)+'px;">'+seed[1][1]+'</div>',
+      className: 'contender',
+      style: 'top: '+((ry-(y/4))-textAdj)+'px; '
+        +'left: '+(w-x1)+'px;'
+        +'width: '+(cW+1)+'px;'
+        +'text-align: right;'
+        +'height: '+(y+textAdj-(y/2))+'px;'
+    })
+  }
+}
+
+function newTag(par, tag, attr) {
+  const parent = document.getElementById(par)
+  const child = document.createElement(tag)
+  for (const att in attr) {
+    if (att === 'e') {
+      child.addEventListener(attr.e[0], attr.e[1])
+    } else {
+      child[att] = attr[att]
+    }
+  }
+  parent.appendChild(child)
+}
+
+onDOMContentLoaded = (()=>{ newBracket(13) })()
+
+</script>
+
+<style>
+body {
+  text-align: center;
+  background-color: #ddd;
+}
+#bracket-shell {
+  margin: auto;
+  margin-top: 5px;
+  position: relative;
+  background: #ddd;
+  width: 1024px;
+}
+#bracket-canvas {
+  background-color: #eee;
+}
+.contender {
+  position: absolute;
+  background-color: rgba(0,0,0,0.1);
+
+}
+</style>
+
+<!-- *** NOTES ***
+
+3 STEP
+- figure out how to handle text.... canvas or jockied div.
+- refractor: make notes of what's going on. there's a lot that bulked up on the same level, which is ok... but let's note it out.
+
+MVP
+- add html.js
+- put complete rect vars back... it's just bothering me... really should only be gutted for serious reasons you'll never really need to do, rather, having the other options you WILL end up needing...
+- canvas hover: figure out
+- canvas text: add seed#
+- input name and input seed (create builtIn object with names/seeds 1-16)
+- elipsee overflow
+- small hover effect + click to advance winner.
+- click again returns winner (or matchup dot becomes return arrow, and click that)
+- refractor
+- finalize with modest styling if you want
+
+-->

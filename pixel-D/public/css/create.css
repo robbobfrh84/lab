@@ -1,0 +1,57 @@
+#page-create {
+  font-size: 0px;
+  color: #666;
+  width: 700px;
+  margin: auto;
+}
+#create-action-button {
+  font-size: 16px;
+}
+#create-box, #create-og-thumb {
+  font-size: 0px;
+  border: 5px solid rgba(0,0,0,0.1);
+  margin: auto;
+}
+#create-og-thumb {
+  float: left;
+  background-color: rgba(0,0,0,0.05);
+  border: 3px solid rgba(0,0,0,0);
+}
+#create-thumb {
+  float: left;
+  border: 3px solid rgba(0,0,0,0.05);
+  background-color: rgba(0,0,0,0);
+}
+#create-og-thumb {
+  float: none;
+}
+#create-box {
+  margin-bottom: 15px;
+}
+#create-hoverColor {
+  padding: 5px;
+  background-color: rgba(0,0,0,0);
+  width: 510px;
+  margin: auto;
+}
+#create-colors {
+  padding: 5px;
+  background-color: brown;
+  width: 470px;
+  margin: auto;
+}
+.create-action-container {
+  margin-right: 30px;
+}
+.create-swatch-div {
+  width: 15px;
+  height: 20px;
+  display: inline-block;
+  color: rgba(0,0,0,0);
+  font-size: 0px;
+  cursor: pointer;
+}
+#create-grid-canvas {
+  width: 178px;
+  margin: auto;
+}

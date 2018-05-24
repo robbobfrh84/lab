@@ -1,0 +1,141 @@
+<!DOCTYPE html><html lang="en"><meta charset="UTF-8">
+<body>
+  <strong>JavaScript AJAX request Class </strong> <br>
+  - Using myJson.com to Create, Read and Update data <br> <br>
+  <div>
+    <button onClick='htmlReq("GET", "input")'> <strong>'GET'</strong> </button>
+    <input id='uri' value=""> <br><br>
+    <button onClick='htmlReq("POST")'> <strong>'POST'</strong> </button>
+    <input id='post-uri' value="">
+    <textarea id='obj-text' rows='20'></textarea> <br> <br>
+  </div>
+  <div>
+    <button onClick='htmlReq("PUT")'> <strong>'PUT'</strong> </button>
+    <span id='put-reponse'></span>
+    <input id='put-uri' value="">
+    <textarea id='return-text' rows='20'></textarea>
+  </div>
+
+  <div class='w1'> Current Solar system object: </div>
+  <button onClick='htmlReq("GET", "inner")'>'GET' http://www.strudel.org.uk/lookUP/json/?name=pluto</button><br>
+  <div class='w1'>  Exoplanet Archive: </div>
+  <button onClick='htmlReq("GET", "inner")'>'GET' https://exoplanetarchive.ipac.caltech.edu/cgi-bin/nstedAPI/nph-nstedAPI?table=exoplanets&select=pl_hostname,ra,dec&order=dec&format=JSON</button><br>
+  <div class='w1'>  Exoplanet Archive Specific Planet: </div>
+  <button onClick='htmlReq("GET", "inner")'>'GET' https://exoplanetarchive.ipac.caltech.edu/cgi-bin/nstedAPI/nph-nstedAPI?table=exoplanets&format=JSON&select=&#42;&where=pl_hostname%20like%20%27HD%20142022%20A%27%20</button><br>
+  <div class='w1'>  myJson cities: </div>
+  <button onClick='htmlReq("GET", "inner")'>'GET' https://api.myjson.com/bins/tyxyb</button><br>
+  <div class='w1'>  myJson empty: </div>
+  <button onClick='htmlReq("GET", "inner")'>'GET' https://api.myjson.com/bins/1he3cj</button> <br>
+  <div class='w1'>  myJson demo: </div>
+  <button onClick='htmlReq("GET", "inner")'>'GET' https://api.myjson.com/bins/kavnr</button> <br>
+  <div class='w1'>  Dogs: </div>
+  <button onClick='htmlReq("GET", "inner")'>'GET' https://dog.ceo/api/breeds/list</button><br>
+  <div class='w1'>  webtask demo: </div>
+  <button onClick='htmlReq("GET", "inner")'>'GET' https://wt-d3541a7a4a9626ba5a94768799b0825a-0.run.webtask.io/app</button><br>
+  <div class='w1'>  geonames demo: </div>
+  <button onClick='htmlReq("GET", "inner")'>'GET' http://api.geonames.org/searchJSON?q=chico&maxRows=1&username=robbobfrh84</button><br>
+  <div class='w1'>  geonames demo2: </div>
+  <button onClick='htmlReq("GET", "inner")'>'GET' http://api.geonames.org/getJSON?geonameId=5336269&username=robbobfrh84</button><br>
+  <div class='w1'>  iNaturlist User: robbobfrh84: </div>
+  <button onClick='htmlReq("GET", "inner")'>'GET' https://api.inaturalist.org/v1/users/robbobfrh84</button><br>
+  <div class='w1'>  iNaturlist robbobfrh84 Oberservations: </div>
+  <button onClick='htmlReq("GET", "inner")'>'GET' https://api.inaturalist.org/v1/observations?user_id=337422&order=desc&order_by=created_at</button><br>
+
+
+
+<script>
+htmlReq = (type, this_uri)=>{
+  document.getElementById('put-reponse').innerHTML = ''
+  if (this_uri === 'inner') uri = event.path[0].innerText.split(' ')[1]
+  if (this_uri === 'input') uri = document.getElementById('uri').value
+  if (type === 'GET') {
+    _REQ(type, uri, null, (data)=>{
+      document.getElementById('return-text').value = JSON.stringify(data, true, 2)
+      document.getElementById('uri').value = uri
+      document.getElementById('put-uri').value = uri
+      console.log(data)
+    })
+  }
+  if (type === 'POST') {
+    const postUri = document.getElementById('post-uri').value
+    const obj = JSON.parse(document.getElementById('obj-text').value)
+    _REQ(type, postUri, obj, (data)=>{
+      uri = data.uri
+      htmlReq('GET')
+    })
+  }
+  if (type === 'PUT') {
+    const obj = JSON.parse(document.getElementById('return-text').value)
+    _REQ(type, uri, obj, (data)=>{
+      document.getElementById('return-text').value = JSON.stringify(data, true, 2)
+      document.getElementById('put-reponse').innerHTML = '<em>* Put Successful</em>'
+    })
+  }
+}
+
+var uri = ''
+document.getElementById('uri').value = 'https://api.myjson.com/bins/kavnr'
+document.getElementById('post-uri').value = 'https://api.myjson.com/bins'
+document.getElementById('obj-text').value = JSON.stringify({ "Build new myJson Object Here": ";-)" }, true, 2)
+
+
+_REQ = (type, uri, data, callback)=>{
+  var xhr = new XMLHttpRequest();
+  xhr.open(type, uri, true);
+  if (type === 'POST' || type === "PUT") xhr.setRequestHeader("Content-type", "application/json");
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState == 4) {
+      if (callback) callback(JSON.parse(xhr.responseText))
+    }
+  }
+  if (type === 'POST' || type === 'PUT') xhr.send(JSON.stringify(data))
+  else xhr.send(null)
+}
+
+  </script>
+</body>
+<style>
+body {
+  margin: 2%;
+}
+div {
+  width: 47%;
+  margin: 1%;
+  display: inline-block;
+  vertical-align: top;
+}
+input, textarea {
+  width: 100%;
+}
+input, button {
+  margin-bottom: 4px;
+}
+button {
+  background: rgba(100,149,237, 0.5);
+  display: inline-block;
+  max-width: 70%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+}
+#obj-text {
+  height: 200px;
+}
+#return-text {
+  height: 267px;
+}
+.w1 {
+  width: 130px;
+}
+</style>
+</html>
+
+<!--
+links of interest
+- https://exoplanetarchive.ipac.caltech.edu/docs/program_interfaces.html#k2
+NOTES:
+- when i checked the exoplanet count on nov. 11 it was 3550
+- NASA API KEY: https://api.nasa.gov/planetary/apod?api_key=f1YGJMaX97r4auw0n8pH5NYBJ3DYQVyyejRSaANM
+
+-->

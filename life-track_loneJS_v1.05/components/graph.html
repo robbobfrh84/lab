@@ -1,0 +1,54 @@
+<template id="graph">
+<!-- { { { { { { { { { { { { { { { {  CSS  } } } } } } } } } } } } } } } } } -->
+<style>
+content {
+  text-align: center;
+}
+.bg {
+  background-color: rgba(0,0,0,0.2);
+  margin: auto;
+}
+#myCanvas5 {
+  width: 90%;
+  height: 400px;
+}
+</style>
+<!-- < < < < < < < < < < < < < < < <  html > > > > > > > > > > > > > > > > > -->
+<content>
+<div>
+  <canvas id="myCanvas5" class='bg'></canvas>
+</div>
+</content>
+</template>
+<!-- () () () () () () () () () ()  JavaScript () () () () () () () () () () -->
+<script>
+
+
+
+(( c = new Component('graph-tag') )=>{
+
+  c._ON_SET = (attr)=>{
+    if (c.data.gpx) {
+      let a = c.data.gpx.trk.trkseg.trkpt
+      var c5 = new canvas
+      c5.new(c.I('myCanvas5'), 1000,300)
+
+      let x = -4
+      const step = 1012/a.length
+      let path = [ ['l', x, 300]]
+
+      for (var i = 0; i < a.length; i++) {
+        path.push(['l', x, (Math.round(a[i].ele)*2)-180])
+        x+=step
+      }
+      path.push(['l', x, 300])
+
+      c5.path(10, a[0][2], path, 4, 'darkgreen', 'rgba(20,20,155,0.2)')
+    }
+  }
+
+  c._NEW_ELM()
+})()
+
+</script>
+<!--  / / / / / / / / / / / / / / /   Notes    / / / / / / / / / / / / / / / -->

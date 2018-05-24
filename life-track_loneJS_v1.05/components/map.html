@@ -1,0 +1,78 @@
+<template id="map">
+<!-- { { { { { { { { { { { { { { { {  CSS  } } } } } } } } } } } } } } } } } -->
+<style>
+#main {
+  margin-top: 20px;
+}
+#map-box {
+  width: 85%;
+  margin: auto;
+}
+#map {
+  height: 500px;
+}
+
+</style>
+<!-- < < < < < < < < < < < < < < < <  html > > > > > > > > > > > > > > > > > -->
+<content>
+  <div id='main'>
+    <div id="map-box">
+      <div id="map"></div>
+    </div>
+  </div>
+
+</content>
+</template>
+<!-- () () () () () () () () () ()  JavaScript () () () () () () () () () () -->
+<script>
+
+(( c = new Component('map-tag') )=>{
+  c._ON_SET = (attr)=>{
+
+    if (!c.map && c.data.gpx) {
+
+      let path = []
+      for (const p of c.data.gpx.trk.trkseg.trkpt) {
+        path.push([parseFloat(p['-lon']), parseFloat(p['-lat'])])
+      }
+
+      mapboxgl.accessToken = 'pk.eyJ1IjoiZW1pbHlhbm5lbW9zZXMiLCJhIjoiY2o2MDNzcGFpMGhnZzMyb2Y4cHRzeTN4dSJ9.fczhGQMwUNueFQTTsfuw2A';
+      c.map = new mapboxgl.Map({
+        container: c.I('map'),
+        style: 'mapbox://styles/mapbox/streets-v9',
+        center: [-97.726176, 30.278436],
+        zoom: 14
+      });
+
+      c.map.on('load', function () {
+          c.map.addLayer({
+              "id": "route",
+              "type": "line",
+              "source": {
+                  "type": "geojson",
+                  "data": {
+                      "type": "Feature",
+                      "properties": {},
+                      "geometry": {
+                          "type": "LineString",
+                          "coordinates": path
+                      }
+                  }
+              },
+              "layout": {
+                  "line-join": "round",
+                  "line-cap": "round"
+              },
+              "paint": {
+                  "line-color": "#888",
+                  "line-width": 8
+              }
+          });
+      });
+    }
+  }
+  c._NEW_ELM()
+})()
+
+</script>
+<!--  / / / / / / / / / / / / / / /   Notes    / / / / / / / / / / / / / / / -->

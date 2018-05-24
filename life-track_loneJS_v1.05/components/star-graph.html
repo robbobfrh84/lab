@@ -1,0 +1,86 @@
+<template id="star-graph">
+<!-- { { { { { { { { { { { { { { { {  CSS  } } } } } } } } } } } } } } } } } -->
+<style>
+.extra {
+  font-size: 14px;
+  color: rgba(255,255,255,0.8);
+}
+</style>
+<!-- < < < < < < < < < < < < < < < <  html > > > > > > > > > > > > > > > > > -->
+<content>
+  <span style='float: right' id='date'> </span>
+  <body id="main">
+    Miles Ran this month: &nbsp;
+    <span id='miles' style="font-size: 25px;"></span>
+    <br></br>
+    Average Weight: &nbsp;
+    <span id='aveWeight' style="font-size: 25px;"></span> <hr>
+    Alc. Free days:
+    <span id='noDrink'></span> <br>
+    Smoke Free days:
+    <span id='noSmoke'></span> <br>
+    Cardio days:
+    <span id='cardio'></span> <br>
+    Lift days:
+    <span id='lift'></span> <br>
+    Chores days:
+    <span id='scrum'></span> <br>
+  </body>
+</content>
+</template>
+<!-- () () () () () () () () () Component  Script () () () () () () () () () -->
+<script> /* --------------------- */ (( c = new Component('star-graph-tag') )=>{
+
+c._ON_SET = (attr)=>{
+
+  let noDrink = 0, noSmoke = 0, cardio = 0, miles = 0, lift = 0, scrum = 0, lb = 0, lbCnt = 0
+  const month = c.data[c.data.currentY][months[c.data.currentM]]
+  const time = new Date()
+  const date = time.getDate()
+  const day = days[time.getDay()]
+  let suf = ''; if (date === 1) { suf += 'st' } else if (date === 2) {suf+='nd'} else if (date === 3) {suf+='rd'} else if (date > 3) {suf+='th'}
+
+  let drinks = 0, smokes = 0
+  for (const day of month) {
+    if (day.drink === false) noDrink++
+    if (day.drink > 0) { drinks += parseInt(day.drink) }
+    if (day.smoke === false) noSmoke++
+    if (day.smoke > 0) { smokes += parseInt(day.smoke) }
+    if (day.cardio === false || parseInt(day.cardio) > 0) {
+      if (parseInt(day.cardio) > 0) miles += parseFloat(day.cardio[0])
+      cardio++
+    }
+    if (parseInt(day.weight) > 0) {
+      lb += parseFloat(day.weight[0])
+      lbCnt++
+    }
+    if (day.lift[1] === true || day.lift === false) lift++
+    if (day.scrum[1] === true || day.scrum === false) scrum++
+  }
+
+  c.I('date').innerHTML = 'Today is <div style="font-size: 20px;">'+day+', the '+date+suf+'</div>'
+
+  const mr = (Math.round(miles*100) / 100)
+  const cd = date
+  const d = c.data[c.data.currentY][months[c.data.currentM]].length
+  c.I('miles').innerHTML = (Math.round(miles*100) / 100)+' <span class="extra">Month Pace('+(Math.round(((mr*d)/cd)*100) / 100)+')</span>'
+
+  c.I('aveWeight').innerHTML = lbCnt > 0 ? Math.round((lb/lbCnt)*100) / 100 : 'no data'
+
+  c.I('noDrink').innerHTML = noDrink+' (tot. '+drinks+')'
+
+  c.I('noSmoke').innerHTML = noSmoke+' (tot. '+smokes+')'
+
+  c.I('cardio').innerHTML = cardio
+
+  c.I('lift').innerHTML = lift
+
+  c.I('scrum').innerHTML = scrum
+
+}
+
+const months = ['January','February','March','April','May','June','July','August','September','October','November','December']
+const days = ['Sunday','Monday','Tueday','Wednesday','Thursday','Friday','Saturday']
+
+/* -------------------------------- */c._NEW_ELM()})() </script>
+<!--  / / / / / / / / / / / / / / /   Notes    / / / / / / / / / / / / / / / -->

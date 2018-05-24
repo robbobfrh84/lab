@@ -1,0 +1,373 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title> ChartJS Example </title>
+<link rel="shortcut icon" href="https://cdn0.iconfinder.com/data/icons/set-app-incredibles/24/Configuration-2-01-128.png"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
+<style media="screen">
+
+</style>
+</head>
+  <body>
+    <button onClick='show(line)'> line </button>
+    <button onClick='show(bar)'> bar </button>
+    <button onClick='show(radar)'> radar </button>
+    <button onClick='show(polar)'> polar </button>
+    <button onClick='show(pie)'> pie </button>
+    <button onClick='show(doughnut)'> doughnut </button>
+    <button onClick='show(multiLine)'> multi line </button>
+    <button onClick='show(lineBar)'> line & bar </button>
+    <button onClick='show(editHover)'> Edit Hover </button>
+    <button onClick='show(trackProgress, "trackProgress")'> Track Progress </button>
+    <br>
+    <div id="graphContainer">
+      <canvas id="myChart"></canvas>
+    </div>
+    <div id='trackProgress' style='display: none;'>
+      Miles:<input name='kmMi' type="radio" onClick='toggleKmMi(false)' checked> &nbsp;
+      Kilometers:<input name='kmMi' type="radio" onClick='toggleKmMi(true)'>
+    </div>
+    <br><br>
+    ...click a dang button 👆
+  </body>
+</html>
+<script type="text/javascript">
+
+show = (graph, note)=>{
+  document.getElementById("graphContainer").innerHTML = '&nbsp;';
+  document.getElementById("graphContainer").innerHTML = '<canvas id="myChart"></canvas>';
+  graph()
+  const track = document.getElementById('trackProgress')
+  track.style.display = note === 'trackProgress' ? 'block' : 'none'
+}
+
+line = ()=>{
+  const ctx = document.getElementById('myChart').getContext('2d')
+  const myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
+      datasets: [{
+        label: 'apples',
+        data: [12, 19, 3, 17, 6, 3, 7],
+        backgroundColor: "rgba(153,255,51,0.4)"
+      }, {
+        label: 'oranges',
+        data: [2, 29, 5, 5, 2, 3, 10],
+        backgroundColor: "rgba(255,153,0,0.4)"
+      }]
+    }
+  })
+}
+
+bar = ()=>{
+  const ctx = document.getElementById("myChart").getContext('2d')
+  const myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ["M", "T", "W", "T", "F", "S", "S"],
+      datasets: [{
+        label: 'apples',
+        data: [12, 19, 3, 17, 28, 24, 7],
+        backgroundColor: "rgba(153,255,51,1)"
+      }, {
+        label: 'oranges',
+        data: [30, 29, 5, 5, 20, 3, 10],
+        backgroundColor: "rgba(255,153,0,1)"
+      }]
+    }
+  })
+}
+
+radar = ()=>{
+  const ctx = document.getElementById("myChart")
+  const myChart = new Chart(ctx, {
+    type: 'radar',
+    data: {
+      labels: ["M", "T", "W", "T", "F", "S", "S"],
+      datasets: [{
+        label: 'apples',
+        backgroundColor: "rgba(153,255,51,0.4)",
+        borderColor: "rgba(153,255,51,1)",
+        data: [12, 19, 3, 17, 28, 24, 7]
+      }, {
+        label: 'oranges',
+        backgroundColor: "rgba(255,153,0,0.4)",
+        borderColor: "rgba(255,153,0,1)",
+        data: [30, 29, 5, 5, 20, 3, 10]
+      }]
+    }
+  })
+}
+
+polar = ()=>{
+  const ctx = document.getElementById("myChart").getContext('2d')
+  const myChart = new Chart(ctx, {
+    type: 'polarArea',
+    data: {
+      labels: ["M", "T", "W", "T", "F", "S", "S"],
+      datasets: [{
+        backgroundColor: [
+          "#2ecc71",
+          "#3498db",
+          "#95a5a6",
+          "#9b59b6",
+          "#f1c40f",
+          "#e74c3c",
+          "#34495e"
+        ],
+        data: [12, 19, 3, 17, 28, 24, 7]
+      }]
+    }
+  })
+}
+
+pie = ()=>{
+  const ctx = document.getElementById("myChart").getContext('2d')
+  const myChart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+      labels: ["M", "T", "W", "T", "F", "S", "S"],
+      datasets: [{
+        backgroundColor: [
+          "#2ecc71",
+          "#3498db",
+          "#95a5a6",
+          "#9b59b6",
+          "#f1c40f",
+          "#e74c3c",
+          "#34495e"
+        ],
+        data: [12, 19, 3, 17, 28, 24, 7]
+      }]
+    }
+  })
+}
+
+doughnut = ()=>{
+  const ctx = document.getElementById("myChart").getContext('2d');
+  const myChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: ["M", "T", "W", "T", "F", "S", "S"],
+      datasets: [{
+        backgroundColor: [
+          "#2ecc71",
+          "#3498db",
+          "#95a5a6",
+          "#9b59b6",
+          "#f1c40f",
+          "#e74c3c",
+          "#34495e"
+        ],
+        data: [12, 19, 3, 17, 28, 24, 7]
+      }]
+    }
+  })
+}
+
+multiLine = ()=>{
+  const ctx = document.getElementById("myChart").getContext('2d');
+  const myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: [1500,1600,1700,1750,1800,1850,1900,1950,1999,2050],
+      datasets: [{
+          data: [86,114,106,106,107,111,133,221,783,2478],
+          label: "Africa",
+          borderColor: "#3e95cd",
+          fill: false
+        }, {
+          data: [282,350,411,502,635,809,947,1402,3700,5267],
+          label: "Asia",
+          borderColor: "#8e5ea2",
+          fill: false
+        }, {
+          data: [168,170,178,190,203,276,408,547,675,734],
+          label: "Europe",
+          borderColor: "#3cba9f",
+          fill: false
+        }, {
+          data: [40,20,10,16,24,38,74,167,508,784],
+          label: "Latin America",
+          borderColor: "#e8c3b9",
+          fill: false
+        }, {
+          data: [6,3,2,2,7,26,82,172,312,433],
+          label: "North America",
+          borderColor: "#c45850",
+          fill: false
+        }
+      ]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'World population per region (in millions)'
+      }
+    }
+  })
+}
+
+lineBar = ()=>{
+  const ctx = document.getElementById("myChart").getContext('2d');
+  const myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ["1900", "1950", "1999", "2050"],
+      datasets: [{
+          label: "Europe",
+          type: "line",
+          borderColor: "#8e5ea2",
+          data: [408,547,675,734],
+          fill: false
+        }, {
+          label: "Africa",
+          type: "line",
+          borderColor: "#3e95cd",
+          data: [133,221,783,2478],
+          fill: false
+        }, {
+          label: "Europe",
+          type: "bar",
+          backgroundColor: "rgba(0,0,0,0.2)",
+          data: [408,547,675,734],
+        }, {
+          label: "Africa",
+          type: "bar",
+          backgroundColor: "rgba(0,0,0,0.2)",
+          backgroundColorHover: "#3e95cd",
+          data: [133,221,783,2478]
+        }
+      ]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'Population growth (millions): Europe & Africa'
+      },
+      legend: { display: false }
+    }
+  })
+}
+
+editHover = ()=>{
+  const ctx = document.getElementById('myChart').getContext('2d')
+  const myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
+      datasets: [{
+        label: 'See Code for {hide xLables} and {HIDE ALL}',
+        data: [12, 19, 3, 17, 6, 3, 7],
+        backgroundColor: "rgba(153,255,51,0.4)"
+      }, {
+        label: 'oranges',
+        data: [2, 29, 5, 5, 2, 3, 10],
+        backgroundColor: "rgba(255,153,0,0.4)"
+      }]
+    },
+    options: {
+       tooltips: {
+
+          callbacks: { // 👇 This edits the xLabel axis with the original data.
+             title: function(tooltipItem, data) {
+               return 'Day of Week: '+tooltipItem[0].xLabel
+             }, // 👇 This edits the data fields, in this case the
+             label: function(tooltipItem, data) {
+               console.log('ok', tooltipItem, data)
+               if (tooltipItem.datasetIndex === 1) {
+                 return 'Wonderful Oranges: '+tooltipItem.yLabel
+               }
+               return data.datasets[tooltipItem.datasetIndex].label
+             }
+          }
+
+          // callbacks: { // 👈 This will hide *Just* the xLabel
+          //   title: ()=>{}
+          // }
+
+          //enabled: false //🖐 NO tooltip hover at all!
+
+       },
+    }
+  })
+}
+
+toggleKmMi = function (km) {
+  document.getElementById("graphContainer").innerHTML = '&nbsp;';
+  document.getElementById("graphContainer").innerHTML = '<canvas id="myChart"></canvas>';
+  km ? trackProgress(true) : trackProgress()
+}
+
+trackProgress = (km)=>{
+
+  setData = (km)=>{
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+    const weekDays = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
+    const date = new Date()
+    const month = date.getMonth()
+    const monthName = months[month]
+    const year = date.getFullYear()
+    const daysInMonth = new Date(year,month+1,0).getDate()
+    const weekDay = weekDays[new Date(year,month,29).getDay()]
+    const dayOfMonth = date.getDate()
+    console.log(weekDay, monthName, dayOfMonth, year)
+    console.log('Days in Month:',daysInMonth)
+
+    let runs = [5,0,4.2,0,0,6.2,10,5.7,10,0,6.2,13.5,0,0,6.8,7.2,6.1,0,8.5,7.5,4.9,0,7.3,0,0,7.2,11.2,0,8]
+    if (km) {
+      console.log('km')
+      runs = runs.map( x => {
+        const y = x*1.60934
+        return Math.round(100*y)/100
+      })
+    }
+    let runsTotal = []
+    let yLables = []
+    let runsTally = 0
+    for (var i = 0; i < daysInMonth; i++) {
+      yLables.push(i+1+'th')
+      runsTally+=runs[i]
+      runsTotal.push( Math.round(100*runsTally)/100)
+    }
+
+    drawline(yLables, runs, runsTotal, km ? 'Kilometers' : 'Miles')
+  }
+
+  drawline = (yLables, runs, runsTotal, kmMi)=>{
+    const ctx = document.getElementById('myChart').getContext('2d')
+    const myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: yLables,
+        datasets: [
+          {
+            label: kmMi,
+            type: "bar",
+            data: runs,
+            backgroundColor: "rgba(100,0,0,0.7)"
+          },
+          {
+            label: 'Total Month '+kmMi,
+            type: "line",
+            data: runsTotal,
+            borderColor: 'rgba(100,149,237,0.7)',
+            backgroundColor: "rgba(0,100,0,0.3)"
+          }
+        ],
+      },
+      options: {
+         tooltips: {
+            callbacks: {
+               title: function() {}
+            }
+         },
+      }
+    })
+  }
+  setData(km)
+}
+
+</script>
+
+<!-- *** NOTES ***
+
+-->
