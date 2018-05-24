@@ -43,12 +43,13 @@ _buildPost = (blk, i, id, type)=>{
   const gridSize = blk.grid ? parseInt(blk.grid) : 9
   const gridSizeKey = { '4': 70, '9': 46, '16': 34 }
   const gW = gridSizeKey[gridSize]
-  const metaBlk = { post: blk,      type: type,    gridSize: gridSize,
+  const metaBlk = { post: blk,      type: type,    gridSize:  gridSize,
                     index: i,       pos: 6,        width: 46 }
+  const appendsTot = _flattenAppends(blk.tree).length
   const appends = !metaBlk.post.appends ? "" :
     `<button class='showcase-appends'
       onClick='_appends(${JSON.stringify({ a: metaBlk, i: i })})'>
-        View Appends (${Object.keys(metaBlk.post.appends).length})
+        View Appends (${appendsTot})
       </button>
     `
   document.getElementById(id).innerHTML += `

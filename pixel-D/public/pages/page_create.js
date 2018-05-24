@@ -123,9 +123,24 @@ buildPageCreate = (editBlk, type, index)=>{
   }
 
   append = ()=>{
-    ddb('put', 'append', account, editBlk, ()=>{
-      pageSwap('append')
-      buildAccount()
+    ddb('put', 'append', account, editBlk, (returnData)=>{
+      doAppend= (blk, index)=>{
+        blk.tree = blk.appends
+        const gridSize = blk.grid ? parseInt(blk.grid) : 9
+        const metaBlk = { post: blk, width: 46, type: type
+          , gridSize:  gridSize, index: index, pos: 6 }
+        buildAppendsPage(metaBlk, index)
+        pageSwap('appends')
+      }
+      if (editBlk.post.parent) {
+        ddbGetVal('appends', 'blocks.'+editBlk.post.id, (data)=>{
+          doAppend(data.Item.blocks[editBlk.post.id], editBlk.index)
+        })
+      } else {
+        ddbGetVal('public', 'blocks['+editBlk.index+']', (data)=>{
+          doAppend(data.Item.blocks[0], editBlk.index)
+        })
+      }
     })
   }
 
@@ -157,23 +172,13 @@ buildPageCreate = (editBlk, type, index)=>{
       _buildDivCanvas(editBlk.blk, size, document.getElementById('create-og-thumb'), 'ogtblk')
     }
     if (type === 'append') {
-
       if (!editBlk.post.blks) {
         editBlk.post.blks = [{
           blk: editBlk.post.blk,
           pos: editBlk.pos,
-          gen: '?',
+          gen: 0,
         }]
       }
-
-      let nextGen = 0
-      editBlk.post.blks.map(x=>{ if (x.gen > nextGen) nextGen = x.gen })
-      nextGen++
-
-      console.log("!!!!🚨 _Here's where we get GENERATION!")
-      console.log('nextGen',nextGen)
-      console.log('editBlks.post.blks: ',editBlk.post.blks)
-
       editBlk.post.grid = editBlk.gridSize
       let prepBox = {}; prepBox[editBlk.post.id] = editBlk.post
       const gridBox = document.getElementById('create-thumb')
@@ -182,9 +187,7 @@ buildPageCreate = (editBlk, type, index)=>{
       const appendBtn = document.getElementById('create-post-append-Btn')
       appendBtn.innerHTML = 'Append'
       appendBtn.setAttribute('onClick', 'append()')
-      //
-      //
-      // 👇 This builds the selector grid. 
+      // 👇 This builds the selector grid.
       _buildPostGrid(editBlk, document.getElementById('create-grid-canvas'), 'create-')
     }
   }

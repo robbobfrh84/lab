@@ -1,17 +1,12 @@
 ### Where I Left Off...
-* I think in create page your gonna habe to build a slightly unique grid
-* ... becuase `_buildPost ` creates the whole post in one with 4,9,16
-* ... so you might just have to create that little part in `page_create`
+* lost my mind
 
 ### 3-step
 * ⚠️ DO WE NEED DELAY????
-* ADD: POST, double check data is being properly curated for recursive... go through 100% of 4, 9, 16
-  * delete dead posts for users...
+* Add / Fix: grid move/4,9,16 on create
 * Review/ Update/ Plan "Sprint and "down the road"
 
 ### To-Do
-* Start to build new post of appends... consider refactoring the rename refactoring you did on whiteboard.
-
 page_appends / page_showcase:
 * CHECK: delay needed for 87 after all our changes?
 * STYLE: appends page parent

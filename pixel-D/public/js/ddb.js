@@ -49,36 +49,59 @@ ddb = (type, action, account, obj, callback)=>{
 
     if (action === 'append') {
       const id = account+'_'+action+'_'+timeStamp+'_'+_randId(10)
+      let nextGen = 0
+      obj.post.blks.map(x=>{ if (x.gen > nextGen) nextGen = x.gen })
+      nextGen++
       const parentAppend = {
-        child: id,
-        parentPos: obj.pos,
-        childPos: obj.selectedPos,
+        id: id,
+        pos: { grid: obj.gridSize, childPos: obj.selectedPos, parPos: obj.pos },
+        gen: nextGen,
         timeStamp: timeStamp,
-        grid: obj.gridSize,
+        appends: {}
       }
+      obj.post.blks.push({ gen: nextGen, pos: obj.selectedPos, blk: boxData })
       const newAppend = {
         id: id,
         account: account,
         timestamp: timeStamp,
-        blks: [ { gen: 1, pos: obj.selectedPos, blk: boxData },
-                { gen: 0, pos: obj.pos, blk: obj.post.blk } ],
-        gen: 1,
+        blks: obj.post.blks,
+        ogPost: obj.post.ogPost || { p: obj.post.id, i: obj.index },
+        directLine: obj.post.directLine ? obj.post.directLine+'.appends.'+id : id,
+        gen: nextGen,
         grid: obj.gridSize,
-        parentPos: obj.pos,
         parent: obj.post.id,
         share: true,
         gallery: ['default','appends'],
       }
-      // 👇 ...Add NEW to append ⚠️ Should be done in ONE update as Lambda func in future... this is just slow and bad.
-      // ddbCreateAddMap('appends', 'blocks.'+obj.post.id, id, newAppend, ()=>{ //
-      //   // 👇 ...UPDATE Parent node
-      //   ddbCreateAddMap('public', 'blocks['+obj.index+'].appends', id, parentAppend, ()=>{
-      //     // 👇 ...ADD NEW userBlk
-      //     ddbAddToList('userBlks', account, newAppend, ()=>{
-      //       if (callback) callback()
-      //     })
-      //   })
-      // })
+
+      callback()
+
+      appendsUpdate = (id, newAppend, parentAppend, account, callback)=>{
+        // 👇 ...Add NEW to append ⚠️ Should be done in ONE update as Lambda func in future... this is just slow and bad.
+        ddbCreateAddMap('appends', 'blocks', id, newAppend, ()=>{ //
+          // 👇 ...UPDATE Parent node
+          ddbCreateAddMap('public', 'blocks['+obj.index+'].appends'
+            , newAppend.directLine, parentAppend, ()=>{
+            // 👇 ...If appending and append, add to that. else just add userBlk
+            if (obj.post.parent) {
+              ddbCreateAddMap('appends', 'blocks.'+obj.post.id+'.appends'
+                , id, parentAppend, ()=>{ //
+                // 👇 ...ADD NEW userBlk
+                ddbAddToList('userBlks', account, newAppend, ()=>{
+                  if (callback) callback()
+                })
+              })
+            } else {
+
+              // 👇 ...ADD NEW userBlk
+              ddbAddToList('userBlks', account, newAppend, ()=>{
+                if (callback) callback()
+              })
+            }
+          })
+        })
+      }
+      appendsUpdate(id, newAppend, parentAppend, account, callback)
     }
   }
 

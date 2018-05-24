@@ -17,3 +17,32 @@ _randId = (length)=>{
   }
   return generateId(length)
 }
+
+_flattenAppends = (obj)=>{
+  let flattened = []
+  recursion = (obj)=>{
+    for (const something in obj) {
+      if (!obj[something].appends) return false
+      if (Object.keys(obj[something].appends).length > 0) {
+        recursion(obj[something].appends)
+      }
+      flattened.push('blocks.'+obj[something].id)
+    }
+  }
+  recursion(obj)
+  return flattened
+}
+
+_trimTree = (limb, tree)=>{
+  let trim = {}
+  recursion = (obj)=>{
+    for (const something in obj) {
+      if (obj[something].id === limb.id) trim = obj[something].appends
+      if (Object.keys(obj[something].appends).length > 0) {
+        recursion(obj[something].appends)
+      }
+    }
+  }
+  recursion(tree)
+  return trim
+}

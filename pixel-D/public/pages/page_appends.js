@@ -1,7 +1,9 @@
-buildAppendsPage = (parent, pubIndex, page)=>{
-
+buildAppendsPage = (parent, pubIndex)=>{
   const appendsPage = document.getElementById('page-appends')
-  ddbGetVal('appends', 'blocks.'+parent.post.id, (data)=>{
+
+  let flatAppends = _flattenAppends(parent.post.tree)
+  ddbGetVal('appends', flatAppends, (data)=>{
+    const box = data.Item.blocks
     appendsPage.innerHTML = ''
     appendsPage.innerHTML = `
       Appends for <br>
@@ -11,13 +13,13 @@ buildAppendsPage = (parent, pubIndex, page)=>{
       </div>
       <div id='appends-posts-container' class='posts-container'></div>
     `
-    _buildPost(parent.post, pubIndex, 'appends-parent-container','-appends')
+    _buildPost(parent.post, pubIndex, 'appends-parent-container'
+      ,'-appends')
     if (!data) appendsPage.innerHTML += "...no appends to this Pixel Art."
     else {
-      const box = data.Item.blocks[parent.post.id]
-      for (var i = 0; i < Object.keys(box).length; i++) {
-        _buildPost( box[Object.keys(box)[i]], pubIndex,
-                    'appends-posts-container', '-post' )
+      for (const b in box) {
+        box[b].tree = _trimTree(box[b], parent.post.tree)
+        _buildPost( box[b], pubIndex, 'appends-posts-container', '-post')
       }
     }
   })
