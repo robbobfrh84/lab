@@ -19,10 +19,10 @@ _clickArt = function(event, canvasId, type){
     const index = i
     const adjInd = _adjGridPosition(metaBlk.gridSize, i)
     const mask = document.createElement('div')
-    mask.classList.add("showcase-canvas-mask")
-    mask.classList.add("showcase-canvas-mask"+metaBlk.post.id+type)
-    mask.classList.add("showcase-grid"+metaBlk.gridSize)
-    mask.classList.add("showcase-grid-adj"+metaBlk.gridSize)
+    mask.classList.add("posts-canvas-mask")
+    mask.classList.add("posts-canvas-mask"+metaBlk.post.id+type)
+    mask.classList.add("posts-grid"+metaBlk.gridSize)
+    mask.classList.add("posts-grid-adj"+metaBlk.gridSize)
     mask.pos = i
     mask.stringBox = metaBlk
     mask.addEventListener('click', function(event){
@@ -39,7 +39,7 @@ _clickArt = function(event, canvasId, type){
       _buildPostGrid(metaBlk, event.target.parentElement, canvasId, type)
     })
     if (exists[adjInd]) {
-      mask.classList.add("showcase-canvas-mask-exists")
+      mask.classList.add("posts-canvas-mask-exists")
       _setInGrid(metaBlk, parent, mask, canvasId, i, type, exists[adjInd].blk)
     } else {
       _setInGrid(metaBlk, parent, mask, canvasId, i, type, selected.blk)
@@ -50,8 +50,8 @@ _clickArt = function(event, canvasId, type){
 _setInGrid = (metaBlk, parent, mask, canvasId, i, type, blk)=>{
   const box = document.createElement('canvas')
   box.id = canvasId+i+"-"+metaBlk.post.id+type
-  box.classList.add("showcase-canvas")
-  box.classList.add("showcase-grid"+metaBlk.gridSize)
+  box.classList.add("posts-canvas")
+  box.classList.add("posts-grid"+metaBlk.gridSize)
   parent.appendChild(box)
   parent.appendChild(mask)
   _buildCanvas(metaBlk.width, '1', box.id, blk) // this is always '1' because it's referenceing the entire canvas area 1:16, 1:24, 1:32

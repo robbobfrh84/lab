@@ -1,7 +1,7 @@
 document.getElementById('page-home').innerHTML = `
   <h1>
     Welcome to <br>
-    The Pixel Art Dialogism Project
+    The Pixel Art Dialogism Project (P.A.D.A)
   </h1>
   <em> ...Translation: A collabrative doodle </em>
   <br> And, we need <strong>your </strong>help

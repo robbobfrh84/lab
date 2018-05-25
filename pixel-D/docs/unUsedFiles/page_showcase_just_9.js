@@ -1,10 +1,10 @@
-buildPageShowcase = ()=>{
+buildPageposts = ()=>{
 
   ddbGet('public',(data)=>{
-    document.getElementById('page-showcase').innerHTML = `
-      SHOWCASE!
+    document.getElementById('page-posts').innerHTML = `
+      posts!
       <hr><div> Posts </div>
-      <div id='showcase-posts-container'></div>
+      <div id='posts-posts-container'></div>
     `
     let cnt = 0
 
@@ -12,35 +12,35 @@ buildPageShowcase = ()=>{
       const box = data.Item.blocks[i]
       const stringBox = JSON.stringify(box)
       const id = 'postCanvas'+i
-      document.getElementById('showcase-posts-container').innerHTML += `
-        <div class="showcase-post">
-          <div class="showcase-canvas-append-box">
-            <div class="showcase-canvas-empty"></div>
-            <div class="showcase-canvas-empty"></div>
-            <div class="showcase-canvas-empty"></div>
-            <div class="showcase-canvas-empty"></div>
-            <canvas id="${id}" class="showcase-canvas"></canvas>
-            <div class="showcase-canvas-empty"></div>
-            <div class="showcase-canvas-empty"></div>
-            <div class="showcase-canvas-empty"></div>
-            <div class="showcase-canvas-empty"></div>
+      document.getElementById('posts-posts-container').innerHTML += `
+        <div class="posts-post">
+          <div class="posts-canvas-append-box">
+            <div class="posts-canvas-empty"></div>
+            <div class="posts-canvas-empty"></div>
+            <div class="posts-canvas-empty"></div>
+            <div class="posts-canvas-empty"></div>
+            <canvas id="${id}" class="posts-canvas"></canvas>
+            <div class="posts-canvas-empty"></div>
+            <div class="posts-canvas-empty"></div>
+            <div class="posts-canvas-empty"></div>
+            <div class="posts-canvas-empty"></div>
           </div>
-          <canvas id="large-${id}" class="showcase-canvas-large"></canvas>
-          <div class='showcase-userbox'> ${box.account} </div>
+          <canvas id="large-${id}" class="posts-canvas-large"></canvas>
+          <div class='posts-userbox'> ${box.account} </div>
           <hr>
-          <button class='showcase-follow' onClick='follow()'> follow > ${box.account} </button>
+          <button class='posts-follow' onClick='follow()'> follow > ${box.account} </button>
           <hr>
-          <button class='showcase-clone' onClick='clone(${stringBox})'> clone </button>
+          <button class='posts-clone' onClick='clone(${stringBox})'> clone </button>
           <hr>
-          <div class='showcase-append-note'> *Click empty box to append</div>
+          <div class='posts-append-note'> *Click empty box to append</div>
           <hr>
-          <button class='showcase-star' onClick='star()'> &star; </button>
+          <button class='posts-star' onClick='star()'> &star; </button>
         </div>
       `
     }
 
     data.Item.blocks.map((box,i)=>{
-      showcase_buildThumb(box.blk, i)
+      posts_buildThumb(box.blk, i)
     })
   })
 
@@ -59,7 +59,7 @@ buildPageShowcase = ()=>{
 
 }
 
-showcase_buildThumb = (obj, i)=>{
+posts_buildThumb = (obj, i)=>{
   const width = 56
   const pix = width/8
   postCanvases[i] = new canvas

@@ -1,3 +1,16 @@
+var ddbTable = 'padaBob2'
+// pixel-D-demo, padaPubic, padaBob, padaBob2, padaMatt, pagaMatt2
+var ddbRegion = 'us-east-1'
+var ddbCreds = new AWS.CognitoIdentityCredentials({
+  IdentityPoolId: 'us-east-1:cf5562ab-671b-43cf-b256-bba5f6c91f8e',
+  RoleArn: 'arn:aws:iam::118070506734:role/Cognito_pixelDDemoUnauth_Role2',
+})
+AWS.config.update({
+    region: ddbRegion,
+    credentials: ddbCreds
+});
+var documentClient = new AWS.DynamoDB.DocumentClient();
+
 ddb = (type, action, account, obj, callback)=>{
   // you pass obj which is the box, but instead use GLOABAL boxData...
   if (type === 'put') {
@@ -74,7 +87,7 @@ ddb = (type, action, account, obj, callback)=>{
         gallery: ['default','appends'],
       }
 
-      callback()
+      // callback()
 
       appendsUpdate = (id, newAppend, parentAppend, account, callback)=>{
         // 👇 ...Add NEW to append ⚠️ Should be done in ONE update as Lambda func in future... this is just slow and bad.
@@ -116,18 +129,6 @@ ddb = (type, action, account, obj, callback)=>{
   }
 
 }
-
-var ddbTable = 'pixel-D-demo'
-var ddbRegion = 'us-east-1'
-var ddbCreds = new AWS.CognitoIdentityCredentials({
-  IdentityPoolId: 'us-east-1:cf5562ab-671b-43cf-b256-bba5f6c91f8e',
-  RoleArn: 'arn:aws:iam::118070506734:role/Cognito_pixelDDemoUnauth_Role2',
-})
-AWS.config.update({
-    region: ddbRegion,
-    credentials: ddbCreds
-});
-var documentClient = new AWS.DynamoDB.DocumentClient();
 
 ddbGet = (item, callback)=>{
   var params = {

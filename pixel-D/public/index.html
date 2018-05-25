@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<!-- <script src='http://localhost:35729/livereload.js'></script> -->
+<script src='http://localhost:35729/livereload.js'></script>
 <script src="https://sdk.amazonaws.com/js/aws-sdk-2.100.0.min.js"></script>
 
 <link rel="stylesheet" href="css/main.css">
-<link rel="stylesheet" href="css/showcase.css">
+<link rel="stylesheet" href="css/posts.css">
 <link rel="stylesheet" href="css/create.css">
 
 <body style='background: url("gfx/paper_fibers_darker1.png")'>
@@ -13,12 +13,12 @@
     <div id='navBar' >
       <div class='left'>
         <span id='navBar-title' class='navBar-button' onclick="pageSwap('home')">
-          pixel-D !
+          <div style='font-size: 20px; color: #666;'> P.A.D.A </div>
         </span>
       </div>
       <div class='right'>
-        <span id='navBar-showcase' class='navBar-button' onclick="pageSwap('showcase')">
-          showcase
+        <span id='navBar-posts' class='navBar-button' onclick="pageSwap('posts')">
+          posts
         </span> ::
         <span id='navBar-create' class='navBar-button' onclick="pageSwap('create')"></span>
         <span id='navBar-login' class='navBar-button' onclick="logInOut('login')">
@@ -34,7 +34,7 @@
     <div id='page-login' style='display: none;'></div>
     <div id='page-account' style='display: none;'></div>
     <div id='page-create' style='display: none;'></div>
-    <div id='page-showcase' style='display: none;'></div>
+    <div id='page-posts' style='display: none;'></div>
     <div id='page-appends' style='display: none;'></div>
   </div>
 </body>
@@ -51,6 +51,6 @@
 <script src='pages/page_login.js'></script>
 <script src='pages/page_account.js'></script>
 <script src='pages/page_create.js'></script>
-<script src='pages/page_showcase.js'></script>
+<script src='pages/page_posts.js'></script>
 <script src='pages/page_appends.js'></script>
 <html/>
