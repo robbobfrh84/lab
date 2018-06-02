@@ -151,9 +151,8 @@ buildPageCreate = (editBlk, type, index)=>{
     })
   }
 
-  remove = (boxData, index)=>{
+  remove = (boxData, index)=>{ // 'update: ok... same as update, but make a bool set to removed = true'
     alert('Sorry, Delete has yet to be added to this app')
-    console.log('update: ok... same as update, but make a bool set to removed = true')
   }
 
   editCheck = ()=>{
