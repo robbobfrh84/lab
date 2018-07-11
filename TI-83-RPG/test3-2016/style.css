@@ -10,11 +10,17 @@ th {
   background-color: rgba(0,0,0,0.1);
   padding: 5px;
 }
-.col-gender, .col-age, .col-rating {
+.col-gender, .col-age, .col-rating, .col-skills {
   width: 1px;
 }
 .col-age {
   width: 1px;
+}
+.col-skills {
+  background-color: rgba(0,0,0,0.25);
+}
+.activeColumn {
+  background-color: rgba(0,0,200,0.2);
 }
 .cnt {
   background-color: rgba(0,0,0,0);
@@ -27,9 +33,12 @@ th {
   padding-left: 5px;
 }
 .fighter-i > .cnt-i {
-  background-color: rgba(0,0,0,0.1);
+  background-color: rgba(0,0,200,0.2);
   padding-left: 0px;
   text-align: center;
+}
+.fighter-row-skills {
+  background-color: rgba(200,0,000,0.1);
 }
 .zero-100 {
   width: 45px;
@@ -37,4 +46,13 @@ th {
 .div1 {
   display: inline-block;
   width: 80px;
+}
+.col {
+  cursor: pointer;
+}
+.col:hover {
+  background-color: rgba(0,0,0,0.2);
+}
+.activeColumn:hover {
+  background-color: rgba(0,0,200,0.15);
 }

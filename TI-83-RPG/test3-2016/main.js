@@ -1,9 +1,18 @@
+var sortref = {name: null, dir:false}
+
 window.onload = ()=>{
   test16()
 }
 
+
+
+
+
+/* * * * * * * TEST FUNCS / VARS* * * * * * */
+
+var fighters = []
+
 test16 = ()=>{
-  let fighters = []
   const testFighters = [
     { name: 'Rombus',       gender: 'M'},
     { name: 'Flambough',    gender: 'F'},
@@ -25,7 +34,7 @@ test16 = ()=>{
     {
       name: 'Scartle',
       gender: 'M',
-      age: 48,
+      age: 4,
       skills: {
         speed : 30,
         strangth : 70,
@@ -38,7 +47,7 @@ test16 = ()=>{
     }
   ]
   for (var i = 0; i < testFighters.length; i++) {
-    fighters.push(new Fighter(testFighters[i]))
+    fighters.push(new Fighter(testFighters[i], i+1))
   }
   buildFighersList(fighters)
 }

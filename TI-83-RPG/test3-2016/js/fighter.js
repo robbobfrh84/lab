@@ -1,10 +1,13 @@
 class Fighter {
 
-  constructor (set) {
+  constructor (set, id) {
     this.name = set.name || null,
+    this.id = 'TI#'+id,
     this.gender = set.gender || null,
     this.age = set.age || random(18,40),
     this.skills = this.buildSkills(set.skills),
+    this.record = { win : 0, loss : 0 },
+    this.status = 'active',
     this.rating = this.getRating(this.skills)
   }
 
