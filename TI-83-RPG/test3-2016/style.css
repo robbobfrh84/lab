@@ -1,0 +1,40 @@
+body {
+  background-color: #eee;
+}
+table {
+  width: 100%;
+}
+th {
+  text-align: left;
+  font-size: 20px;
+  background-color: rgba(0,0,0,0.1);
+  padding: 5px;
+}
+.col-gender, .col-age, .col-rating {
+  width: 1px;
+}
+.col-age {
+  width: 1px;
+}
+.cnt {
+  background-color: rgba(0,0,0,0);
+  width: 20px;
+}
+.fighter-i {
+  background-color: rgba(200,0,0,0.05);
+}
+.fighter-i > td {
+  padding-left: 5px;
+}
+.fighter-i > .cnt-i {
+  background-color: rgba(0,0,0,0.1);
+  padding-left: 0px;
+  text-align: center;
+}
+.zero-100 {
+  width: 45px;
+}
+.div1 {
+  display: inline-block;
+  width: 80px;
+}
