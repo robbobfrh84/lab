@@ -2,7 +2,7 @@ const fightersList = document.getElementById('fighters-list');
 
 buildFighersList = (fighters, active)=>{
   if (!active) active = 'id'
-  fightersList.innerHTML = `
+  fightersList.innerHTML = /*html*/`
     <table id='fighters-list-table'>
       <tr id='fighters-list-table-column-names-top'>
         <th class='cnt'></th>
@@ -22,23 +22,31 @@ buildFighersList = (fighters, active)=>{
     let ac = name === active ? 'activeColumn' : ''
     if (name === 'skills') {
       for (const sk in fighters[0][name]) {
-        ac = sk === active ? 'activeColumn' : ''
-        colNames.innerHTML += `
+        ac = sk === active.split('.')[1] ? 'activeColumn' : ''
+        colNames.innerHTML += /*html*/`
           <th class='col col-${name} ${ac}' onclick='toggleCol()' name='${name}.${sk}'>
-            ${sk[0]+sk[1]+sk[2]+'.'}
+            <div class="arrow-up-${ac}-${sortref.dir}"></div>
+            <div class='fighters-list-table-column-name'> 
+              ${sk[0]+sk[1]+sk[2]+'.'} 
+            </div>
+            <div class="arrow-down-${ac}-${sortref.dir}"></div>
           </th>
         `
       }
     } else {
-      colNames.innerHTML += `
+      colNames.innerHTML += /*html*/`
         <th class='col col-${name} ${ac}' onclick='toggleCol()' name='${name}'>
-          ${name[0].toUpperCase() + name.slice(1)}
+          <div class="arrow-up-${ac}-${sortref.dir}"></div>
+          <div class='fighters-list-table-column-name'> 
+            ${name[0].toUpperCase() + name.slice(1)} 
+          </div>
+          <div class="arrow-down-${ac}-${sortref.dir}"></div>
         </th>
       `
     }
   }
   for (var i = 0; i < fighters.length; i++) {
-    table.innerHTML += `
+    table.innerHTML += /*html*/`
       <tr class='fighter-i' id='fighter-${fighters[i].name}'>
         <td class='cnt-i'> ${i+1} </td>
       </tr>
@@ -47,17 +55,16 @@ buildFighersList = (fighters, active)=>{
     for (const val in fighters[i]) {
       if (val === 'skills') {
         for (const sk in fighters[i][val]) {
-          fighter.innerHTML += `
+          fighter.innerHTML += /*html*/`
             <td class='fighter-row-${val}'> ${fighters[i][val][sk]} </td>
           `
         }
       } else {
         const v = valStr(fighters[i][val])
-        fighter.innerHTML += `
+        fighter.innerHTML += /*html*/`
           <td class='fighter-row-${val}'> ${v} </td>
         `
       }
-
     }
   }
 }

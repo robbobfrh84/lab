@@ -14,13 +14,11 @@ class Fighter {
   buildSkills (set) {
     if (!set) set = {}
     return {
-      speed : set.speed || random(0,100),
-      strangth : set.strangth || random(0,100),
-      experience : set.experience || random(0,100),
-      intelligence : set.intelligence || random(0,100),
-      endurance : set.endurance || random(0,100),
-      coaching : set.coaching || random(0,100),
-      willPower : set.willPower || random(0,100)
+      speed : set.speed || random(0,10),
+      strangth : set.strangth || random(0,10),
+      experience : set.experience || random(0,4), // 🚨 NOTE! starting out with limited experience!
+      intelligence : set.intelligence || random(0,10),
+      willPower : set.willPower || random(0,10)
     }
   }
 
@@ -31,7 +29,7 @@ class Fighter {
         all.push(obj[key]);
       }
     }
-    return Math.round(((all.reduce(function add(a, b){return a+b}, 0))/all.length)*10)/100
+    return Math.round(((all.reduce(function add(a, b){return a+b}, 0))/all.length)*10)/10
   }
 
 }

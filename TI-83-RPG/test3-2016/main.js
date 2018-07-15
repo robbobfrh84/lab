@@ -16,33 +16,32 @@ test16 = ()=>{
   const testFighters = [
     { name: 'Rombus',       gender: 'M'},
     { name: 'Flambough',    gender: 'F'},
-    { name: 'Comma',        gender: 'A'},
+    { name: 'Splimeter',    gender: 'F'},
+    { name: 'Comma',        gender: 'U'},
     { name: 'Cupbert',      gender: 'M'},
     { name: 'Sadle',        gender: 'F'},
     { name: 'Krazter',      gender: 'M'},
-    { name: 'Lemmen',       gender: 'A'},
-    { name: 'Pradabumblom', gender: 'A'},
+    { name: 'Lemmen',       gender: 'U'},
+    { name: 'Pradabumblom', gender: 'U'},
     { name: 'Mrambkle',     gender: 'AM'},
     { name: 'Slopbrough',   gender: 'F'},
     { name: 'Azhenchin',    gender: 'F',},
     { name: 'Ein',          gender: 'AM'},
     { name: 'Laxicom',      gender: 'M'},
-    { name: 'Riiiiin',      gender: 'A'},
-    { name: 'Uun',          gender: 'A'},
+    { name: 'Riiiiin',      gender: 'U'},
+    { name: 'Uun',          gender: 'U'},
     { name: 'Gerice',       gender: 'M'},
     { name: 'Slowberblow',  gender: 'M'},
     {
       name: 'Scartle',
       gender: 'M',
-      age: 4,
+      age: 40,
       skills: {
-        speed : 30,
-        strangth : 70,
-        experience : 99,
-        intelligence : 90,
-        endurance : 20,
-        coaching : 20,
-        willPower : 63
+        speed : 3,
+        strangth : 6,
+        experience : 5,
+        intelligence : 8,
+        willPower : 6
       }
     }
   ]
