@@ -2,8 +2,6 @@ body {
   background-color: #eee;
 }
 
-
-
 /* Flighters List */
 table {
   width: 100%;
@@ -11,20 +9,12 @@ table {
 th {
   text-align: left;
   font-size: 20px;
-  /* background-color: rgba(0,0,0,0.1); */
-  /* padding: 5px; */
 }
-.col-gender, .col-age, .col-rating, .col-skills {
+.col-gender, .col-age, .col-rating {
   width: 1px;
 }
 .col-age {
   width: 1px;
-}
-.col-skills {
-  background-color: rgba(0,0,0,0.25);
-}
-.activeColumn {
-  background-color: rgba(0,0,200,0.2);
 }
 .cnt {
   background-color: rgba(0,0,0,0);
@@ -51,19 +41,28 @@ th {
   display: inline-block;
   width: 80px;
 }
+#topCol {
+  background-color: rgba(50,0,0,0.2);
+  text-align: center;
+}
 .col {
+  background-color: rgba(0,0,0,0.1);
   cursor: pointer;
 }
 .col:hover {
   background-color: rgba(0,0,0,0.2);
 }
+.col-skills {
+  background-color: rgba(0,0,0,0.25);
+}
 .activeColumn:hover {
   background-color: rgba(0,0,200,0.15);
 }
 .fighters-list-table-column-name {
-  background-color: rgba(0,0,0,0.1);
   padding: 5px;
-  pointer-events: none;
+}
+.activeColumn {
+  background-color: rgba(0,0,200,0.2);
 }
 .arrow-up-activeColumn-true {
   width: 0; 

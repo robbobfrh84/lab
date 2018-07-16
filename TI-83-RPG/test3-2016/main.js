@@ -1,12 +1,8 @@
-var sortref = {name: null, dir:false}
+var sortref = { name: 'id', dir: false }
 
 window.onload = ()=>{
   test16()
 }
-
-
-
-
 
 /* * * * * * * TEST FUNCS / VARS* * * * * * */
 
