@@ -1,0 +1,9 @@
+body {
+  background-color: #eee;
+}
+
+.d6s {
+  font-size: 30px;
+  line-height: 19px;
+  display: inline-block;
+}

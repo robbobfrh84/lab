@@ -1,4 +1,5 @@
-var sortref = { name: 'id', dir: false }
+var _sortref = { name: 'id', dir: false } 
+var d6 = ['&#x2680;','&#x2681;','&#x2682;','&#x2683;','&#x2684;','&#x2685;']
 
 window.onload = ()=>{
   test16()
@@ -44,5 +45,6 @@ test16 = ()=>{
   for (var i = 0; i < testFighters.length; i++) {
     fighters.push(new Fighter(testFighters[i], i+1))
   }
-  buildFighersList(fighters)
+  _build_List(fighters)
+  _build_spar()
 }
