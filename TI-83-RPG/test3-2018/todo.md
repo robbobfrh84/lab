@@ -1,14 +1,17 @@
 NOTES ⚀ ⚁ ⚂ ⚃ ⚄ ⚅
 
 ### 3-step
-* Make global funcs _globalName()
-* hover show row. 
-* build constructor and create new function.
-* build a test 16 build function onload.
-* find sortable table and build to match
+* Add win_type
+* Losser/winner on bout not updating to fighters
+* Animate
+* Add Overtime Annimation
+  * I'd say just clear willpower
  
 ### Next
-
+* When hover over spar fighter name, highlight the correct row. 
+* strength NOT strangth
+* 
+  
 ### Later
 
 ### Ideas for rules and gaming 

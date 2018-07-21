@@ -3,7 +3,7 @@
   font-weight: 900;
 }
 #page_spar .fightBtn {
-  width: 120px;
+  width: 150px;
   font-size: 20px;
   background-color: rgba(178, 34, 34, 0.3);
   color:#333;
@@ -72,4 +72,8 @@
 }
 #page_spar .skill-willPower {
   background-color: rgba(88,65,5,0.2);
+}
+#page_spar .spar-results {
+  font-size: 30px;
+  padding-left: 20px;
 }

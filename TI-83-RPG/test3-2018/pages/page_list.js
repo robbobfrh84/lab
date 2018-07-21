@@ -1,4 +1,16 @@
-_build_List = (fsort, active)=>{
+_page_list = (fsort, active)=>{
+  const hideFields = ['id','status', 'history']
+  const changeLabel = {
+    speed: 'spd.',
+    strangth: 'str.',
+    experience: 'exp.',
+    intelligence: 'int.',
+    willPower: 'wp',
+    wins: 'W',
+    losses: 'L',
+    winP: '%',
+    rating: 'Rat.'
+  }
 
   build = ()=>{
     const fightersList = document.getElementById('page_list');
@@ -10,17 +22,10 @@ _build_List = (fsort, active)=>{
       skillsDisplay = '<em>'+name+'</em>'
     }
     fightersList.innerHTML = /*html*/`
-      <h3> Fighters List </h3>
       <table id='fighters-list-table'>
         <tr id='fighters-list-table-column-names-top'>
-          <th class='cnt'></th>
-          <th class='cnt'></th>
-          <th class='cnt'></th>
-          <th class='cnt'></th>
-          <th class='cnt'></th>
-          <th class='col-name-th' 
-            colspan="${Object.keys(fighters[0].skills).length}" 
-            id='topCol'>
+          <th></th><th></th><th></th><th></th>
+          <th id='topCol' class='col-name-th' colspan="5" >
             ${skillsDisplay}
           </th>
         </tr>
@@ -32,11 +37,14 @@ _build_List = (fsort, active)=>{
     colNames.innerHTML += `
       <th class='cnt'></th>
     `
+    fsort[0].winP = '-'
     for (const name in fsort[0]) {
       let ac = name === active ? 'activeColumn' : ''
       if (name === 'skills') {
         for (const sk in fsort[0][name]) {
           ac = sk === active.split('.')[1] ? 'activeColumn' : ''
+          let label = sk
+          if (changeLabel[label]) label = changeLabel[label]
           colNames.innerHTML += /*html*/`
             <th class='col-name-th'>
               <div class="arrow-up-${ac}-${_sortref.dir}"></div>
@@ -45,24 +53,29 @@ _build_List = (fsort, active)=>{
                    onmouseover='skillsHover()'
                    onmouseout='skillsHoverOff()'
                    name='${name}.${sk}'> 
-                ${sk[0]+sk[1]+sk[2]+'.'} 
+                ${label} 
               </div>
               <div class="arrow-down-${ac}-${_sortref.dir}"></div>
             </th>
           `
         }
       } else {
-        colNames.innerHTML += /*html*/`
-          <th class='col-name-th'>
-            <div class="arrow-up-${ac}-${_sortref.dir}"></div>
-            <div class='col fighters-list-table-column-name ${ac}' 
-                 onclick='toggleCol()'
-                 name='${name}'> 
-              ${name[0].toUpperCase() + name.slice(1)} 
-            </div>
-            <div class="arrow-down-${ac}-${_sortref.dir}"></div>
-          </th>
-        `
+        let label = name[0].toUpperCase() + name.slice(1)
+        if (label === 'Gender') label = '&#x26A7'
+        if (changeLabel[name]) label = changeLabel[name]
+        if (!hideFields.includes(name)){
+          colNames.innerHTML += /*html*/`
+            <th class='col-name-th'>
+              <div class="arrow-up-${ac}-${_sortref.dir}"></div>
+              <div class='col col-${name} fighters-list-table-column-name ${ac}' 
+                  onclick='toggleCol()'
+                  name='${name}'> 
+                ${label} 
+              </div>
+              <div class="arrow-down-${ac}-${_sortref.dir}"></div>
+            </th>
+          `
+        }
       }
     }
     for (var i = 0; i < fsort.length; i++) {
@@ -72,6 +85,12 @@ _build_List = (fsort, active)=>{
         </tr>
       `
       const fighter = document.getElementById('fighter-'+fsort[i].name)
+      if (fsort[i].wins + fsort[i].losses === 0) {
+        fsort[i].winP = parseFloat(0.000).toFixed(3)
+      } else {
+        fsort[i].winP = fsort[i].wins / (fsort[i].wins + fsort[i].losses)
+        fsort[i].winP =  parseFloat(Math.round(fsort[i].winP * 100) / 100).toFixed(3)
+      }
       for (const val in fsort[i]) {
         if (val === 'skills') {
           for (const sk in fsort[i][val]) {
@@ -81,7 +100,7 @@ _build_List = (fsort, active)=>{
               </td>
             `
           }
-        } else {
+        } else if (!hideFields.includes(val)){
           const v = valStr(fsort[i][val])
           fighter.innerHTML += /*html*/`
             <td class='fighter-row-${val}'> ${v} </td>
@@ -112,7 +131,7 @@ _build_List = (fsort, active)=>{
       if (_sortref.dir) sf.sort((a,b)=>{return a[name] - b[name]})
       else sf.sort((a,b)=>{return b[name] - a[name]})
     }
-    _build_List(sf, name)
+    _page_list(sf, name)
   }
   
   skillsHover = ()=>{

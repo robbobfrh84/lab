@@ -1,6 +1,8 @@
 #page_list #fighters-list-table {
   width: 100%;
-  border-collapse: collapse
+  max-width: 1000px;
+  border-collapse: collapse;
+  margin: auto;
 }
 #page_list .col-name-th {
   text-align: left;
@@ -8,11 +10,9 @@
   padding: 0px;
   height: 45px;
 }
-#page_list .col-gender, .col-age, .col-rating {
-  width: 1px;
-}
-#page_list .col-age {
-  width: 1px;
+#page_list .col-gender, .col-age, .col-rating, 
+.col-wins, .col-losses, .col-winP {
+  text-align: center;
 }
 #page_list .cnt {
   background-color: rgba(0,0,0,0);

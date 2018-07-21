@@ -7,13 +7,16 @@ class Fighter {
     this.age = set.age || _rand(18,40),
     this.skills = this.buildSkills(set.skills),
     this.rating = this.getRating(this.skills),
-    this.record = { win : 0, loss : 0 },
-    this.status = 'active'
+    this.wins = 0,
+    this.losses = 0,
+    this.status = 'active',
+    this.history = []
   }
 
   buildSkills (set) {
     if (!set) set = {}
     return {
+      // testaddingSkill : set.testAddingSkill || _rand(0,10),
       speed : set.speed || _rand(0,10),
       strangth : set.strangth || _rand(0,10),
       experience : set.experience || _rand(0,4), // 🚨 NOTE! starting out with limited experience!
