@@ -1,0 +1,79 @@
+#page_spar .title {
+  font-size: 24px;
+  font-weight: 900;
+}
+#page_spar .fightBtn {
+  width: 150px;
+  font-size: 20px;
+  background-color: rgba(178, 34, 34, 0.3);
+  color:#333;
+  box-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+  cursor: pointer;
+  transition: color .25s, background-color .25s;
+}
+#page_spar .fightBtn:hover {
+  background-color: rgba(178, 34, 34, 0.5);
+  color:#111;
+  box-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+}
+#page_spar .box {
+  background-color: rgba(0,0,0,0.2);
+  margin-top: 10px;
+  padding: 5px;
+  display: inline-block;
+}
+#page_spar .name {
+  font-size: 30px;
+  font-weight: 900;
+  margin: 5px 5px;
+  display: inline-block;
+}
+#page_spar .rating {
+  position: relative;
+  top: -6px;
+  font-size: 14px;
+  color: rgb(79, 79, 150);
+}
+#page_spar .skills-box {
+  position: relative;
+  float: right;
+  margin-left: 10px;
+  padding-top: 11px;
+  display: inline-block;
+}
+#page_spar .skill, .skill-ready {
+ margin-right: 5px;
+ padding: 2px 3px;
+ display: inline-block;
+ width: 45px;
+ text-align: center;
+}
+#page_spar .skill-ready {
+  font-size: 18px;
+  width: 20px;
+  text-align: center;
+}
+#page_spar .skill-rating {
+  font-size: 18px;
+  padding-top: 0px;
+  display: inline-block;
+}
+#page_spar .skill-speed {
+  background-color: rgba(110,21,21,0.2);
+}
+#page_spar .skill-strangth {
+  background-color: rgba(0,45,82,0.2);
+}
+#page_spar .skill-experience {
+  background-color: rgba(40,0,69,0.2);
+}
+#page_spar .skill-intelligence {
+  background-color:rgba(0,42,0,0.2);
+}
+#page_spar .skill-willPower {
+  background-color: rgba(88,65,5,0.2);
+}
+#page_spar .spar-results {
+  font-size: 30px;
+  padding-left: 20px;
+}

@@ -51,7 +51,6 @@
   font-size: 0px;
   cursor: pointer;
 }
-#create-grid-canvas {
-  width: 178px;
-  margin: auto;
+#create-grid-canvas-parent {
+  font-size: 12px;
 }

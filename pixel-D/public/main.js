@@ -43,10 +43,10 @@ pageSwap = (page)=>{
     pageSwap('login')
   } else if (page === 'create') {
     boxDataAdj = { x: 0, y: 0 }
-  } else if (page === 'showcase') {
-    buildPageShowcase()
+  } else if (page === 'posts') {
+    buildPageposts()
   } else if (initial && page === 'appends') {
-    pageSwap('showcase')
+    pageSwap('posts')
   }
 }
 

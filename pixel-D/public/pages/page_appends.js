@@ -8,7 +8,7 @@ buildAppendsPage = (parent, pubIndex)=>{
     appendsPage.innerHTML = `
       Appends for <br>
       <em style="font-size: 13px;">${parent.post.id}</em> <br>
-      <div id='post-parent-showcase-container'>
+      <div id='post-parent-posts-container'>
         <div id='appends-parent-container' class='posts-container'></div>
       </div>
       <div id='appends-posts-container' class='posts-container'></div>

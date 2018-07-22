@@ -13,7 +13,13 @@ buildPageCreate = (editBlk, type, index)=>{
           <button id='create-post-append-Btn' class='b1' onClick='post()'>
             Post
           </button><br><hr>
-          <button class='b1' onClick='save()'>Save</button>
+          <button class='b1' onClick='save()'>
+            Save
+          </button>
+          <br><hr>
+          <button class='b1' onClick='location.reload();'>
+            Clear
+          </button>
         </div>
       </div>
       <div id='create-thumb'></div>
@@ -22,7 +28,8 @@ buildPageCreate = (editBlk, type, index)=>{
         <div id='create-colors'></div>
       </div>
       <hr class='f16'>
-      <div id='create-grid-canvas'></div>
+      <div id='create-grid-canvas-parent' class='posts-container'></div>
+      <div id='create-note' class='f16' style='margin-top: -20px;'></div>
     `
   }
 
@@ -99,9 +106,9 @@ buildPageCreate = (editBlk, type, index)=>{
   }
 
   post = ()=>{
-    pageSwap('showcase')
+    pageSwap('posts')
     ddb('put', 'post', account, boxData, ()=>{
-      pageSwap('showcase')
+      pageSwap('posts')
       buildAccount()
     })
   }
@@ -144,8 +151,8 @@ buildPageCreate = (editBlk, type, index)=>{
     })
   }
 
-  remove = (boxData, index)=>{
-    console.log('update: ok... same as update, but make a bool set to removed = true')
+  remove = (boxData, index)=>{ // 'update: ok... same as update, but make a bool set to removed = true'
+    alert('Sorry, Delete has yet to be added to this app')
   }
 
   editCheck = ()=>{
@@ -187,9 +194,22 @@ buildPageCreate = (editBlk, type, index)=>{
       const appendBtn = document.getElementById('create-post-append-Btn')
       appendBtn.innerHTML = 'Append'
       appendBtn.setAttribute('onClick', 'append()')
+      const note = document.getElementById('create-note')
+      note.innerHTML = `
+        &#x1F6A8; WARNING: Selecting a new block will erase all work done on current block.
+        <br>
+        <button onclick="info()" class='b1'>more</button>
+      `
       // 👇 This builds the selector grid.
-      _buildPostGrid(editBlk, document.getElementById('create-grid-canvas'), 'create-')
+      _buildPost(editBlk.post, editBlk.post.index, 'create-grid-canvas-parent','-create')
     }
+  }
+
+  info = ()=>{
+    alert(`
+      You must click a new block to append and reset pixel canvas.\n
+      To save your work, click [Append] and then append your append.
+    `)
   }
 
   prepDivCanvas = (box, appends, selected, blkAppend = 'tblk')=>{
