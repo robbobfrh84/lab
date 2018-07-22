@@ -93,8 +93,14 @@ button {
 }
 .div-no-gap-canvas {
   font-size: 0px;
-  width: 192px;
   background-color: rgba(0,0,0,0);
   border: 3px solid rgba(0,0,0,0.05);
   margin: auto;
+}
+.gal-frame {
+  font-size: 0px;
+  background-color: rgba(0,0,0,0);
+  border: 3px solid rgba(0,0,0,0.05);
+  margin: auto;
+  padding: 5px;
 }

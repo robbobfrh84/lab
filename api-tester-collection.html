@@ -21,7 +21,7 @@
   <div class='w1'>  Exoplanet Archive: </div>
   <button onClick='htmlReq("GET", "inner")'>'GET' https://exoplanetarchive.ipac.caltech.edu/cgi-bin/nstedAPI/nph-nstedAPI?table=exoplanets&select=pl_hostname,ra,dec&order=dec&format=JSON</button><br>
   <div class='w1'>  Exoplanet Archive Specific Planet: </div>
-  <button onClick='htmlReq("GET", "inner")'>'GET' https://exoplanetarchive.ipac.caltech.edu/cgi-bin/nstedAPI/nph-nstedAPI?table=exoplanets&format=JSON&select=&#42;&where=pl_hostname%20like%20%27HD%20142022%20A%27%20</button><br>
+  <button onClick='htmlReq("GET", "inner")'>'GET' https://exoplanetarchive.ipac.caltech.edu/cgi-bin/nstedAPI/nph-nstedAPI?table=exoplanets&format=json&where=pl_name%20like%20%27BD%2B20%20594%20b%27</button><br>
   <div class='w1'>  myJson cities: </div>
   <button onClick='htmlReq("GET", "inner")'>'GET' https://api.myjson.com/bins/tyxyb</button><br>
   <div class='w1'>  myJson empty: </div>
@@ -80,6 +80,7 @@ document.getElementById('obj-text').value = JSON.stringify({ "Build new myJson O
 
 
 _REQ = (type, uri, data, callback)=>{
+  console.log(type, uri, data)
   var xhr = new XMLHttpRequest();
   xhr.open(type, uri, true);
   if (type === 'POST' || type === "PUT") xhr.setRequestHeader("Content-type", "application/json");

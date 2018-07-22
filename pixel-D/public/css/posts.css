@@ -1,0 +1,159 @@
+#post-parent-posts-container {
+  background-color: rgba(50,50,255,0.1);
+  width: 630px;
+  padding: 10px;
+  margin: auto;
+  height: 196px;
+  margin-bottom: 30px;
+}
+.posts-container {
+  width: 600px;
+  margin: auto;
+}
+.posts-container {
+  background: url("../gfx/paper_fibers_darker1.png");
+}
+.posts-post {
+  background-color: rgba(0,0,0,0.1);
+  height: 185px;
+  padding: 5px;
+  margin-bottom: 30px;
+}
+.posts-post > hr {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.posts-grid-append-box {
+  float: left;
+}
+.posts-canvas-append-box {
+  width: 178px;
+  height: 148px;
+  font-size: 0px;
+  display: inline-block;
+  background-color: rgba(0,0,0,0.1);
+  padding-top: 5px;
+}
+.posts-canvas {
+  margin: 1px;
+  opacity: 1;
+}
+.posts-canvas:hover {
+  opacity: 0.5;
+}
+.posts-canvas-empty {
+  width: 46px;
+  height: 46px;
+  margin: 0px;
+  border: solid 1px rgba(255,255,255,0.2);
+  background-color: rgba(0,0,0,0.1);
+  display: inline-block;
+}
+.posts-canvas-mask {
+  position: absolute;
+  display: inline-block;
+  margin: 1px;
+  min-width: 46px;
+  height: 46px;
+  margin-left: -47px;
+  opacity: 0.95;
+  background-color: #999;
+}
+.posts-canvas-mask:hover {
+  opacity: 0;
+}
+.posts-canvas-mask-exists {
+  opacity: 0.2;
+}
+.posts-grid-box {
+  width: 160px;
+  font-size: 14px;
+  margin: auto;
+}
+.posts-grid-toggle {
+  font-size: 14px;
+  padding: 4px;
+  width: 34px;
+  background-color: rgba(0,0,150,0.2);
+  margin: 2px 1px 0px 1px;
+  display: inline-block;
+  cursor: pointer;
+}
+.posts-grid-toggle:hover {
+  box-shadow: 0px 0px 8px 0px inset rgba(0,0,0,0.5);
+  background-color: rgba(155,155,255,0.5);
+}
+.posts-grid-toggle-active {
+  box-shadow: 0px 0px 8px 0px inset rgba(0,0,0,0.5);
+  background-color: rgba(155,155,255,0.5);
+}
+.posts-canvas-large {
+  float: left;
+  margin-top: 4px;
+  margin-right: 10px;
+  padding: 5px;
+  margin-left: 10px;
+  border: solid rgba(0,0,0,0.08) 2px;
+}
+.posts-userbox, .posts-btn, .posts-appends {
+  font-size: 18px;
+  display: inline-block;
+  width: 200px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.posts-userbox {
+  margin-bottom: -10px;
+}
+.posts-star {
+  font-size: 15px;
+  margin-bottom: 3px;
+  border-radius: 5px;
+  float: left;
+  box-shadow: 0px 0px 2px 0px inset rgba(0,0,0,0.5);
+  background-color: rgba(255,55,55,0.2);
+}
+.posts-append-note {
+  font-size: 14px;
+}
+.posts-appends {
+  box-shadow: 0px 0px 2px 0px inset rgba(0,0,0,0.5);
+  background-color: rgba(155,155,255,0.5);
+  border-radius: 4px;
+  font-size: 15px;
+  height: 32px;
+}
+#mouseTrack {
+  font-size: 14px;
+  position: absolute;
+  top: 100px;
+  left: 100px;
+}
+.posts-grid4 {
+  width: 70px;
+  height: 70px;
+}
+.posts-grid9 {
+  width: 46px;
+  height: 46px;
+}
+.posts-grid16 {
+  width: 34px;
+  height: 34px;
+}
+.posts-grid-adj4 {
+  min-width: 70px;
+  height: 70px;
+  margin-left: -71px;
+}
+.posts-grid-adj9 {
+  min-width: 46px;
+  height: 46px;
+  margin-left: -47px;
+}
+.posts-grid-adj16 {
+  min-width: 34px;
+  height: 34px;
+  margin-left: -35px;
+}
