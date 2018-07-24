@@ -1,0 +1,195 @@
+<html>
+<head>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<title>Google Sheets as a Database – Authenticated INSERT with Apps Script using Execution API - Working Example</title>
+
+<script type="text/javascript">
+
+var CLIENT_ID = '740403016477-81siquahg4rc50euuh1g445a98f6vdgs.apps.googleusercontent.com';
+var SCRIPT_ID = 'M6ja1yQbqjbJBVkFn0dx71kEgAwng8dN7';
+var SCOPES = ['https://www.googleapis.com/auth/spreadsheets',
+	'https://www.googleapis.com/auth/userinfo.email'];
+
+function checkAuth() {
+	gapi.auth.authorize({
+		'client_id': CLIENT_ID,
+		'scope': SCOPES,
+		'immediate': true
+	}, handleAuthResult);
+}
+
+function handleAuthResult(authResult) {
+	var authorizeDiv = document.getElementById('authorize-div');
+	var loadDiv = document.getElementById('loading');
+	if (authResult && !authResult.error) { // Hide auth UI, then load client library.
+		authorizeDiv.style.display = 'none';
+		loadDiv.style.display = 'block';
+		callScriptFunction();
+	} else { // Show auth UI, allowing the user to initiate authorization by // clicking authorize button.
+		authorizeDiv.style.display = 'inline';
+	}
+}
+
+function handleAuthClick(event) {
+	gapi.auth.authorize({
+		client_id: CLIENT_ID,
+		scope: SCOPES,
+		immediate: false
+	}, handleAuthResult);
+	return false;
+}
+
+function callScriptFunction() {
+	var request = {
+		'function': 'getData'
+	};
+	var op = gapi.client.request({
+		'root': 'https://script.googleapis.com',
+		'path': 'v1/scripts/' + SCRIPT_ID + ':run',
+		'method': 'POST',
+		'body': request
+	});
+	op.execute(function (resp) {
+		handleGetDataResponse(resp);
+	});
+}
+
+
+function handleGetDataResponse(resp) {
+	if (resp.error && resp.error.status) {
+		appendPre('Error calling API:');
+		appendPre(JSON.stringify(resp, null, 2));
+	} else if (resp.error) {
+		var error = resp.error.details[0];
+		appendPre('Script error message: ' + error.errorMessage);
+		if (error.scriptStackTraceElements) {
+			appendPre('Script error stacktrace:');
+			for (var i = 0; i < error.scriptStackTraceElements.length; i++) {
+				var trace = error.scriptStackTraceElements[i];
+				appendPre('\t' + trace.function + ':' + trace.lineNumber);
+			}
+		}
+	} else {
+		console.log(resp.response.result);
+		var comments = resp.response.result.comments;
+		if (Object.keys(comments).length == 0) {
+			appendPre('No comments returned!');
+		} else {
+			var ul = document.getElementById('commentlist')
+			ul.innerHTML = '';
+			Object.keys(comments).forEach(function (id) {
+				appendComment(comments[id]);
+			});
+			var loadDiv = document.getElementById('loading');
+			loadDiv.style.display = 'none';
+		}
+	}
+}
+
+
+jQuery(document).ready(function ($) {
+	$('#foo').find("input, select, button, textarea").prop("disabled", false);
+	$("#foo").submit(function (event) {
+		$form = $('#foo');
+		var $inputs = $form.find("input, select, button, textarea");
+		var serializedData = $form.serializeObject();
+		var request = {
+			'function': 'setData',
+			'parameters': serializedData,
+			'devMode': true // Optional.
+		};
+		var op = gapi.client.request({
+			'root': 'https://script.googleapis.com',
+			'path': 'v1/scripts/' + SCRIPT_ID + ':run',
+			'method': 'POST',
+			'body': request
+		});
+		op.execute(function (resp) {
+			handleGetDataResponse(resp);
+		});
+		event.preventDefault();
+	});
+});
+
+function appendPre(message) {
+	var pre = document.getElementById('output');
+	var textContent = document.createTextNode(message + '\n');
+	pre.appendChild(textContent);
+}
+
+function appendComment(comment) {
+	var comment_list = document.getElementById('commentlist');
+	var commentNode = document.createElement("li");
+	commentNode.innerHTML = "<article><header><cite><p class='comment-author-name'>" + comment.name + " - " + comment.Email + "</p></cite><time>" + comment.Timestamp + "</time></header><section class='comment-content comment'><p>" + comment.comment + "</p> </section></article>";
+	comment_list.appendChild(commentNode);
+}
+
+$.fn.serializeObject = function () {
+	var o = {};
+	var a = this.serializeArray();
+	$.each(a, function () {
+		if (o[this.name] !== undefined) {
+			if (!o[this.name].push) {
+				o[this.name] = [o[this.name]];
+			}
+			o[this.name].push(this.value || '');
+		} else {
+			o[this.name] = this.value || '';
+		}
+	});
+	return o;
+};
+
+</script>
+
+<style>
+	.comments-area article header cite,
+	.comments-area article header time {
+		margin-left: 0px;
+	}
+
+	.site {
+		padding-top: 15px;
+	}
+</style>
+
+</head>
+
+<body>
+	<div id="page" class="hfeed site">
+		<div id="authorize-div" style="display: none">
+			<span>Authorize access to Google Apps Script Execution API</span>
+			<!--Button for the user to click to initiate auth sequence -->
+			<button id="authorize-button" onclick="handleAuthClick(event)"> Authorize </button>
+		</div>
+		<pre id="output"></pre>
+		<div id="respond" class="comment-respond">
+			<form id="foo">
+				<p>
+					<label for="name">Name:</label>
+					<input id="name" name="name" type="text" value="" disabled/>
+				</p>
+				<p>
+					<label for="comment">Comment:</label>
+					<br/>
+					<textarea id="comment" name="comment" cols="40" disabled></textarea>
+				</p>
+				<p align="center">
+					<strong>Please note:</strong> By submitting this form by clicking 'Send' you permit your email address (displayed in an obscured
+					format), name and comment will be recorded and displayed below. Your email address will not be used in any other way
+					(e.g. direct marketing)</p>
+				<input type="submit" value="Send" />
+			</form>
+		</div>
+		<div id="comments" class="comments-area">
+			<div id="loading" style="display:none">
+				<article>Loading...</article>
+			</div>
+			<ol class="commentlist" id="commentlist">
+			</ol>
+		</div>
+	</div>
+</body>
+<script src="https://apis.google.com/js/client.js?onload=checkAuth"></script>
+
+</html>
