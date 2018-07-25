@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Testy</title>
+</head>
+<body>
+  YO!
+  <table id='table'>
+    <tr>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Data</th>
+    </tr>
+  </table>
+</body>
+</html>
+<script>
+var bobDemo = "https://spreadsheets.google.com/feeds/list/1y3sqWKW1DwmLR-4HtA1e56rhd8y3rSs1KhtpsCjcFtU/od6/public/values?alt=json"
+// var apiDemo = "https://script.google.com/macros/s/AKfycbw2iuyQ-etSQlaV3OSp_OVLF5JpcnsXG5qxiE1j3FaxBE1fi5KR"
+// var apiDemo = "https://script.google.com/macros/s/AKfycbw2iuyQ-etSQlaV3OSp_OVLF5JpcnsXG5qxiE1j3FaxBE1fi5KR/exec?action=get&prodid=g1234&prodid=g2435"
+// var apiDemo = "https://script.googleusercontent.com/macros/echo?user_content_key=vh1Lbvrvn7sUtUlV8-O8vhT45rCG540RioWqtGv04gzdvjAGr98bral5DomJg6KZ_3wb-qC1LTsrHbe1b2BiKty4fCjMx624m5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnPpztsZNcSdWqktANuplSRJjuhTTAaXWZ1mjJnPfQMAcHndroc9XV2erPTmY09SpUJTJjMqnYhlU&lib=Ma7DONX1_W9pz8AdFeeVfTQlcjm-Gs3hT"
+
+_GET = (url, callback)=>{
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', url, true);
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState == 4) {
+      console.log(xhr)
+      if (callback) callback(JSON.parse(xhr.responseText))
+    }
+  }
+  xhr.send(null)
+}
+
+_GET(bobDemo, (data)=>{
+  data = data.feed.entry
+  console.log('data: ', data);
+  const table = document.getElementById("table")
+  for (const row of data) {
+    table.innerHTML += /*html*/`
+      <tr>
+        <td> ${row.gsx$name.$t} </td>
+        <td> ${row.gsx$age.$t} </td>
+        <td> ${row.gsx$data.$t} </td>
+      </tr>
+    `
+  }
+
+})
+
+</script>

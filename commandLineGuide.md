@@ -24,6 +24,7 @@
 ### CPUish stuff
 - ps -e				>>> shows all running directory locations
 - top				>>> shows all running programs in real time on CPU
+- htop			>>> same as top but nicer UI
 - top -o cpu			>>> shows running programs sorted by cpu time
 - kill <PID>			>>> find PID in ^^^. This will kill that program
 
