@@ -1,0 +1,47 @@
+body {
+  background: url('tx1.png');
+  font-family: avenir;
+  font-size: 20px;
+}
+.fslg {
+  font-size: 28px;
+}
+.comment-container {
+  text-align: center;
+}
+.comment-box {
+  width: 500px;
+  height: 62px;
+  border-radius: 5px;
+  border: 2px solid rgba(0,0,0,0.3);
+  font-size: 25px;
+  padding: 5px 15px 5px 15px;
+  vertical-align: top;
+  resize: none;
+  background-color: rgba(0,0,0,0.05);
+}
+.float-right {
+  float: right;
+}
+.user-icon-div {
+  display: inline-block;
+  width: 38px;
+  height: 38px;
+  border: 2px solid rgba(100, 148, 237, 0.795);
+  border-radius: 100%;
+  background-color: rgba(0,0,0,0.1);
+}
+.user-icon {
+  width: 30px;
+  position: relative;
+  top: 5px;
+  left: 3px;
+}
+/* #comment-box {
+  color: rgba(0,0,0,0.5)
+}
+#comment-box2 {
+  position: relative;
+  top: 75px;
+  pointer-events: none;
+} */
