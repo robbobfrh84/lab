@@ -49,11 +49,11 @@ _page_list = (fsort, active)=>{
             <th class='col-name-th'>
               <div class="arrow-up-${ac}-${_sortref.dir}"></div>
               <div class='col fighters-list-table-column-name ${ac} col-skills-${sk}'
-                   onclick='toggleCol()' 
+                   onclick='toggleCol()'
                    onmouseover='skillsHover()'
                    onmouseout='skillsHoverOff()'
-                   name='${name}.${sk}'> 
-                ${label} 
+                   name='${name}.${sk}'>
+                ${label}
               </div>
               <div class="arrow-down-${ac}-${_sortref.dir}"></div>
             </th>
@@ -67,10 +67,10 @@ _page_list = (fsort, active)=>{
           colNames.innerHTML += /*html*/`
             <th class='col-name-th'>
               <div class="arrow-up-${ac}-${_sortref.dir}"></div>
-              <div class='col col-${name} fighters-list-table-column-name ${ac}' 
+              <div class='col col-${name} fighters-list-table-column-name ${ac}'
                   onclick='toggleCol()'
-                  name='${name}'> 
-                ${label} 
+                  name='${name}'>
+                ${label}
               </div>
               <div class="arrow-down-${ac}-${_sortref.dir}"></div>
             </th>
@@ -95,8 +95,8 @@ _page_list = (fsort, active)=>{
         if (val === 'skills') {
           for (const sk in fsort[i][val]) {
             fighter.innerHTML += /*html*/`
-              <td class='fighter-row-${val} col-skills-cell-${sk}'> 
-                ${fsort[i][val][sk]} 
+              <td class='fighter-row-${val} col-skills-cell-${sk}'>
+                ${fsort[i][val][sk]}
               </td>
             `
           }
@@ -109,7 +109,7 @@ _page_list = (fsort, active)=>{
       }
     }
   }
-  
+
   toggleCol = (name = event.target.attributes.name.value)=>{
     _sortref.dir = !_sortref.dir
     if (_sortref.name !== name) _sortref.dir = false
@@ -133,7 +133,7 @@ _page_list = (fsort, active)=>{
     }
     _page_list(sf, name)
   }
-  
+
   skillsHover = ()=>{
     const skill = document.getElementById('topCol')
     let name = event.target.attributes.name.value.split('.')[1]
@@ -142,12 +142,12 @@ _page_list = (fsort, active)=>{
       skill.innerHTML = '<em>'+name+'</em>'
     }
   }
-  
+
   skillsHoverOff = ()=>{
     const skill = document.getElementById('topCol')
     skill.innerHTML = 'Skills'
   }
-  
+
   valStr = (val)=>{
     let strVal = ''
     if (typeof val !== 'object') {
@@ -162,5 +162,3 @@ _page_list = (fsort, active)=>{
 
   build()
 }
-
-
