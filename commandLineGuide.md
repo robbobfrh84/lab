@@ -22,6 +22,7 @@
 
 ---
 ### CPUish stuff
+- arp -a 				>>> shows all http server LAN IP addresses
 - ps -e				>>> shows all running directory locations
 - top				>>> shows all running programs in real time on CPU
 - htop			>>> same as top but nicer UI
