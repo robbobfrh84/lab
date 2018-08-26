@@ -1,5 +1,5 @@
 <!DOCTYPE html><html lang="en">
-<title> ? title ? </title> <!-- <link rel="icon" href="link/or/path">  -->
+<title> Moon Phase </title> <!-- <link rel="icon" href="link/or/path">  -->
 <head>
   <meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +12,7 @@
   </div>
 </body>
 <script>
+
 phase = (phases)=>{
   var moon = document.getElementById('moon')
   moon.innerHTML = phases[0]
@@ -22,6 +23,7 @@ phase = (phases)=>{
   },500)
 }
 phase(['🌑','🌒','🌓','🌔','🌕','🌖','🌗','🌘'])
+
 </script>
 <style media="screen">
 html * {
@@ -30,7 +32,7 @@ html * {
 .container {
   width: 100%;
   height: 100vh;
-  background: #c9eeff;
+  background: #444;
 }
 .sky {
   position: absolute;
