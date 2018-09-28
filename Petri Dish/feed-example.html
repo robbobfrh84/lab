@@ -1,0 +1,199 @@
+<!-- LINKS!!!
+Lots of smoothed out motion maths: http://javascript.info/tutorial/animation#the-generic-animation
+.this links: http://www.phpied.com/3-ways-to-define-a-javascript-class/
+.this with Apply Call & bind: http://javascriptissexy.com/javascript-apply-call-and-bind-methods-are-essential-for-javascript-professionals/
+-->
+<!DOCTYPE html><html lang="en"><meta charset="UTF-8">
+<style>
+  html * { margin: 0; }
+  #dataBar1{
+    position: absolute;
+    width: 100%;
+    background: rgba(50, 150, 50,0.9);
+    box-shadow: 3px 3px 5px 6px rgba(200,200,200,0.75);
+  }
+  .dataBar{
+    color: rgba(240,240,240,0.9);
+    width: 32%;
+    float: left;
+    margin: 0.5%;
+    padding-top: 10px;
+  }
+  #title{
+    font-size: 24px;
+    margin-left: 2%;
+    width: 20%;
+    padding-top: 0;
+  }
+  /*#mouseTracker, #{
+
+  }*/
+  #at{
+    background-color: rgb(230,230,230);
+    display: block;
+    box-shadow: 3px 3px 5px 6px rgba(200,200,200,0.75);
+  }
+  .hidden{
+    display: none;
+  }
+  #crossHair{
+    pointer-events: none;
+  }
+</style>
+<body>
+  <div id='dataBar1'>
+    <div class='dataBar' id='title' >Petri Dish</div>
+    <div class='dataBar' id='mouseTracker' >Mouse Coordinates:</div>
+    <div class='dataBar' id='clickCoor' >[Click] to feed Organisms</div>
+  </div>
+  <svg xmlns="http://www.w3.org/2000/svg" id='at' width=100% viewBox="0 0 1000 600"
+      onmousemove='mouseTrack(event)' onmouseout='clearCoor()' onmousedown='click(event)'>
+    <defs><filter id="f1" height="130%" width="130%"><feGaussianBlur in="SourceAlpha" stdDeviation="5"></feGaussianBlur> <feOffset dx="5" dy="5" result="offsetblur"></feOffset><feComponentTransfer><feFuncA type="linear" slope="0.5"></feFuncA></feComponentTransfer><feMerge><feMergeNode></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge></filter></defs>
+    <!-- <svg id='crossHair' x='-512' width='75' height='75' viewBox="5 2 512 512"><path fill='rgba(100,100,100,0.8)' d="M242.775 11.816h27.748c1.45.259 2.892.657 4.354.756 19.345 1.302 38.269 4.913 56.653 10.992 56.896 18.813 101.41 53.611 133.262 104.368 18.448 29.398 29.873 61.428 34.372 95.88.823 6.314 1.548 12.642 2.318 18.963v27.748c-.26 1.458-.658 2.905-.757 4.373-1.306 19.345-4.916 38.269-10.997 56.654-18.818 56.894-53.619 101.404-104.38 133.251-29.4 18.445-61.429 29.869-95.882 34.364-6.308.822-12.629 1.546-18.943 2.316h-27.748c-1.451-.26-2.892-.657-4.353-.756-19.346-1.302-38.27-4.912-56.655-10.992-56.896-18.813-101.409-53.611-133.26-104.367-18.449-29.398-29.874-61.429-34.373-95.88-.824-6.315-1.548-12.643-2.319-18.964v-27.748c.259-1.458.657-2.905.756-4.373 1.306-19.345 4.917-38.269 10.998-56.654 18.819-56.893 53.62-101.403 104.38-133.25 29.4-18.446 61.43-29.87 95.882-34.364 6.309-.823 12.629-1.547 18.944-2.317zm-.229 21.007c-59.154 4.637-109.116 27.806-149.461 70.745-36.557 38.908-56.26 85.367-60.218 139.212h34.816l.338 7.414h23.03v-7.235h12.14v7.376h40.679l.394-7.386h12.1v7.378h40.683l.427-7.474h11.795l.374 7.256h40.662v-40.44c-2.625-.158-4.993-.3-7.422-.445v-11.761l7.391-.43v-40.915h-7.394v-12.114h7.391v-41.037h-7.38v-12.149h7.359v-22.775l-7.703-.434c-.001-11.717-.001-22.96-.001-34.786zm20.603 176.743v40.624h40.55l.326-7.192h12.119v7.318h40.673l.391-7.329h12.143v7.333h40.599c.152-2.63.29-5.014.433-7.468h12.013v7.444h22.796c.192-2.64.366-5.019.574-7.844h34.319c-5.902-116.556-105.289-205.684-209.492-209.017v34.218l-7.541.408v23.081h7.326v12.143h-7.305v40.871h7.312v12.298h-7.304v40.653l7.265.319v12.139l-7.197.001zm-12.958 235.712v-23.034h-7.231v-12.142h7.376v-40.678l-7.386-.391v-12.104h7.378v-40.68l-7.474-.427v-11.796l7.253-.373v-40.66h-40.44l-.446 7.418h-11.767l-.418-7.386h-40.922v7.39h-12.116v-7.387h-41.035v7.375h-12.151v-7.354h-22.775l-.43 7.703h-34.791c4.676 59.462 28.049 109.617 71.349 150.021 38.807 36.212 85.071 55.735 138.618 59.653v-34.815l7.408-.333zm20.483 35.219c60.511-4.793 111.242-28.806 151.812-73.209 35.172-38.495 54.156-84.157 57.925-136.822h-35.048v-7.497h-22.804c-.142 2.608-.27 4.986-.396 7.344h-12.114v-7.344h-40.631l-.396 7.354h-12.147v-7.345h-40.608l-.479 7.442h-11.771l-.36-7.207h-40.643v40.421l7.372.445v11.795l-7.327.354v40.987h7.333v12.136h-7.33v40.877h7.32v12.133h-7.301v22.92l7.593.356v34.86z"/><path d="M242.775 11.816c-6.314.77-12.635 1.494-18.943 2.316-34.453 4.495-66.482 15.918-95.882 34.364-50.761 31.848-85.562 76.358-104.38 133.252-6.081 18.386-9.692 37.309-10.998 56.654-.099 1.468-.497 2.915-.756 4.373v-230.959h230.959zM501.481 242.775c-.771-6.322-1.495-12.649-2.318-18.963-4.499-34.452-15.924-66.482-34.372-95.88-31.852-50.757-76.365-85.555-133.262-104.368-18.385-6.079-37.309-9.689-56.653-10.992-1.462-.099-2.903-.497-4.354-.756h230.959v230.959zM11.816 270.522c.771 6.321 1.495 12.648 2.319 18.964 4.499 34.451 15.923 66.481 34.373 95.88 31.851 50.756 76.364 85.554 133.26 104.367 18.386 6.08 37.31 9.69 56.655 10.992 1.461.099 2.902.496 4.353.756h-230.959c-.001-76.986-.001-153.972-.001-230.959zM270.522 501.481c6.314-.771 12.636-1.494 18.943-2.316 34.453-4.495 66.481-15.919 95.882-34.364 50.761-31.847 85.562-76.357 104.38-133.251 6.081-18.386 9.691-37.31 10.997-56.654.099-1.468.497-2.915.757-4.373v230.959c-76.986-.001-153.972-.001-230.959-.001zM242.546 32.823v34.786c2.672.15 5.031.283 7.703.434v22.775h-7.359v12.149h7.38v41.037h-7.391v12.114h7.394v40.915l-7.391.43v11.761l7.422.445v40.44h-40.662l-.374-7.256h-11.795l-.427 7.474h-40.683v-7.378h-12.1l-.394 7.386h-40.679v-7.376h-12.14v7.235h-23.03l-.338-7.414h-34.816c3.958-53.845 23.661-100.304 60.218-139.212 40.346-42.939 90.308-66.108 149.462-70.745zM263.149 209.566h7.197v-12.139l-7.265-.319v-40.653h7.304v-12.298h-7.312v-40.871h7.305v-12.143h-7.326v-23.081l7.541-.408v-34.218c104.203 3.333 203.59 92.461 209.491 209.019h-34.319c-.208 2.825-.382 5.204-.574 7.844h-22.796v-7.444h-12.013l-.433 7.468h-40.599v-7.333h-12.143l-.391 7.329h-40.673v-7.318h-12.119c-.104 2.287-.207 4.549-.326 7.192h-40.55c.001-13.588.001-26.948.001-40.627zM250.191 445.278c-2.383.107-4.652.209-7.407.335v34.815c-53.547-3.918-99.811-23.441-138.618-59.653-43.3-40.404-66.673-90.56-71.349-150.021h34.791l.43-7.703h22.775v7.354h12.151v-7.375h41.035v7.387h12.116v-7.39h40.922l.418 7.386h11.767l.446-7.418h40.44v40.66l-7.253.373v11.796l7.474.427v40.68h-7.378v12.104l7.386.391v40.678h-7.376v12.142h7.231c-.001 7.797-.001 15.28-.001 23.032zM270.674 480.497v-34.858l-7.593-.356v-22.92h7.301v-12.133h-7.32v-40.877h7.33v-12.136h-7.333v-40.987c2.349-.114 4.71-.229 7.327-.354v-11.795l-7.372-.445v-40.421h40.643l.36 7.207h11.771l.479-7.442h40.608v7.345h12.147c.126-2.346.254-4.73.396-7.354h40.631v7.344h12.114l.396-7.344h22.804v7.497h35.048c-3.769 52.665-22.753 98.327-57.925 136.822-40.57 44.401-91.301 68.414-151.812 73.207z" fill="none"/></svg> -->
+
+    <circle id='og0' cx="500" cy="300" r="15" stroke='rgba(102,155,235,0.35)' stroke-width="10"
+      fill='rgba(102,155,235,0.89)'/>
+
+  </svg>
+  <script>
+//Global Variables....
+  var svgElement = "http://www.w3.org/2000/svg";
+  var svgX = 1000; //main svg container's viewbox width for windowsize adjustments.
+  var svgY = 600; //main svg container's viewbox height.
+  var foodCnt = 0;
+
+//Mouse tracker and click functions...
+  function mouseTrack(e) { //Updates x and y coordinates in GUI...
+    mouseTracker.innerHTML = "Mouse Coordinates: (" + e.clientX + ", " + e.clientY + ")";
+  }
+  function clearCoor() { //If mouse isn't over the main screen, GUI to display no coordinates.
+    mouseTracker.innerHTML = "Mouse off - - - - ";
+  }
+  function click(e){
+    var winW = window.innerWidth; //Window Width (dataBar1.clientHeight for html tags)
+    var x = e.clientX-10; //clicked window x coordinate
+    var y = e.clientY-10; //clicked window y coordinate
+    clickCoor.innerHTML = "Target Location: (" + x + ", " + y + ")";
+    var foodPack = [];
+    for (var i = 0; i < 3; i++){
+      createEl('at','circle',[['id','food'+foodCnt],['cx',(x+r(-5,5))],['cy',(y+r(-5,5))],['r',r(2,4)]
+      ,['fill','rgba(169,53,47,0.65)'],['stroke-width',1],['stroke','rgba(0,200,0,0.25)']]);
+      foodPack[i] = 'food'+foodCnt;
+      foodCnt++;
+    }
+    var timer = setInterval(function(){ target(x,y,timer,foodPack);},15);
+  }
+
+//Random Functions & SVG builds
+  function r(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  }
+  function rgbR(a){
+    var s = 'rgba('+r(0,255)+','+r(0,255)+','+r(0,255);
+    a === null ? s+=')' : s+=','+a+')';
+    console.log(s);
+    return s;
+  }
+
+  function createEl(container,type,att){
+    var newObj = document.createElementNS(svgElement, type);
+    for (var i=0; i<att.length; i++){
+      newObj.setAttributeNS(null, att[i][0],att[i][1]);
+    }
+    document.getElementById(container).appendChild(newObj); return newObj;
+  }
+//Organism Constructor Function with Org Prototype.
+  var idCnt = 0;
+  var Org = function(id,x,y,spd,size,color,border,bordCol,built,name){
+    //----------Genetic Features----------
+    this.name = name || 'Unknown';
+    this.id = id || (id = 'og'+idCnt);
+    this.x = x || (x = r(50,svgX-50));
+    this.y = y || (y = r(50,svgY-50));
+    this.spd = spd || (spd = r(3,30)/10); //pixel distance per screen update
+    this.size = size || (size = r(10,20));
+    this.color = color || (color = 'rgba('+r(102,122)+','+r(135,175)+','+r(215,255)+','+0.89+')');
+    this.border = border || (border = r(8,12));
+    this.bordCol = bordCol || (bordCol = color.slice(0,color.length-3)+'35)');
+    this.wonderSpd = spd/4;
+    //----------LifeTime Atrributes----------
+    this.state = 'wondering';
+    this.food = [];
+    //----------Functions----------
+    this.wonder = function(){
+      var test = this;
+      var nx = r(50,svgX-50);
+      var ny = r(50,svgY-50);
+      var t = setInterval(function(){ move(nx,ny,test,t);},15);
+    };
+    if (!built){
+      createEl('at','circle',[['id',id],['cx',x],['cy',y],['r',size]
+      ,['fill',color],['stroke-width',border],['stroke',bordCol]]);
+    }
+    idCnt++;
+  }
+
+  var og0 = new Org(null,svgX/2,svgY/2,2,15,'rgba(102,155,235,0.89)',10,null,true,'Adev');
+  var og = [og0];
+  for (var i = 0; i < 10; i++){
+    og[idCnt] = new Org();
+  }
+
+  for (var i = 0; i < og.length; i++){
+    og[i].wonder();
+  }
+
+  function move(nx,ny,o,timer){
+    var dx = nx-o.x; // get x/y pixel differential.
+    var dy = ny-o.y;
+    var h = Math.sqrt(Math.pow(dx,2)+Math.pow(dy,2)); //pathagorean theorem for direct path distance.
+    o.x += (dx*o.wonderSpd)/h; //coord for step on path to nx, ny.
+    o.y += (dy*o.wonderSpd)/h;
+    void(o.spd >= h && (o.x = nx, o.y = ny));
+    var id = document.getElementById(o.id);
+    id.setAttributeNS(null, 'cx', o.x);
+    id.setAttributeNS(null, 'cy', o.y);
+    for (var i = 0; i < o.food.length; i++){
+      var f = document.getElementById(o.food[i].id);
+      f.setAttributeNS(null, 'cx', o.x+o.food[i].cx);
+      f.setAttributeNS(null, 'cy', o.y+o.food[i].cy);
+    }
+    if(o.spd >= h){
+      clearInterval(timer);
+      void(o.state === 'wondering' && (o.wonder()));
+    };
+  }
+
+//Updating Location functions...
+  function target(nx,ny,timer,foodPack){
+    for (var i = 0; i < og.length; i++){
+      var o = og[i];
+      var dx = nx-o.x; // get x/y pixel differential.
+      var dy = ny-o.y;
+      var h = Math.sqrt(Math.pow(dx,2)+Math.pow(dy,2)); //pathagorean theorem for direct path distance.
+      o.x += (dx*o.spd)/h; //coord for step on path to nx, ny.
+      o.y += (dy*o.spd)/h;
+      var id = document.getElementById(o.id);
+      void(o.spd >= h && (o.x = nx, o.y = ny));
+      id.setAttributeNS(null, 'cx', o.x);
+      id.setAttributeNS(null, 'cy', o.y);
+      if(o.spd >= h){
+        clearInterval(timer);
+        for (var j = 0; j < foodPack.length; j++){
+          var x = document.getElementById(foodPack[j]);
+          x.setAttributeNS(null, 'opacity', 0.5);
+          o.food[o.food.length] = {id: x.id,
+            cx: r(-5,5),
+            cy: r(-5,5)
+          };
+        }
+        break;
+      };
+    }
+  }
+
+
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+----------SPRINT 1 GOALS----------
+- use max radius to control shrink during mitosis and growth after.
+- create smooth stop prototype.
+- maximus math in set fuction. Extra vars ok.
+- Add opacity as Cell attribute and create fadeInOut prototype.
+- implimint random mitosis direction mitosis
+
+----------NOTES----------
+
+
+----------FUTURE SPRINT POINTS----------
+
+----------REFACTORING THOUGHTS----------
+- clean shell to only have neccessary vars?
