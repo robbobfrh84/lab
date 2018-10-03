@@ -1,0 +1,126 @@
+<!DOCTYPE html><html>
+<head>
+  <meta charset="utf-8">
+  <title> Solar System </title>
+  <link rel="stylesheet" href="main.css">
+</head>
+<script src="canvas.js"></script>
+
+<h2> Soloar Sytem Size Comparison:  </h2>
+<h3> Sun > Mercury > Venus > Earth > Mars > Jupitor > Saturn > Uranus > Neptune </h3>
+
+<canvas id="myCanvas" class='canvas'></canvas>
+
+<script>
+
+window.onload = ()=>{
+  build_size_comparison({
+    pix_per_miles: 1500,
+    min_width: 1000,
+    right_pad: 50,
+    padding: 15
+  })
+}
+
+build_size_comparison = (size)=>{
+
+  sol.star.adj_r = sol.star.radius/size.pix_per_miles
+  let cur_x = (sol.star.adj_r+size.padding)*2
+
+  size.height = (sol.star.adj_r+size.padding)*2
+
+  sol.planets.map( planet =>{
+    const pr = planet.radius/size.pix_per_miles
+    console.log('planet: ',planet.name,pr,"  cur_x: ", cur_x);
+    planet.adj_r = pr
+    planet.x = cur_x + pr + size.padding
+    cur_x += (pr*2)+size.padding
+    return planet
+  })
+
+  const width = cur_x
+  size.width = width+size.right_pad < size.min_width ? size.min_width : width+size.right_pad
+
+  const c = new canvas
+  c.new('myCanvas', size.width, size.height)
+
+  c.cir(
+    sol.star.adj_r+size.padding,
+    size.height/2,
+    sol.star.adj_r,
+    sol.star.color
+  )
+
+  for (const planet of sol.planets) {
+    c.cir(
+      planet.x,
+      size.height/2,
+      planet.adj_r,
+      planet.color
+    )
+  }
+
+}
+
+// Units in miles
+const sol = {
+  star: {
+    radius: 432169,
+    color: 'goldenrod'
+  },
+  planets: [
+    {
+      name: "mercury",
+      color: "darkgoldenrod",
+      ave_distance_from_sun: 35980000,
+      radius: 1516,
+    },
+    {
+      name: "venus",
+      color: "azure",
+      ave_distance_from_sun: 67240000,
+      radius: 3760
+    },
+    {
+      name: "earth",
+      color: "deepskyblue",
+      ave_distance_from_sun: 92960000,
+      radius: 3959
+    },
+    {
+      name: "mars",
+      color: "coral",
+      ave_distance_from_sun: 141600000,
+      radius: 2106
+    },
+    {
+      name: "jupitor",
+      color: "peru",
+      ave_distance_from_sun: 483800000,
+      radius: 43441
+    },
+    {
+      name: "saturn",
+      color: "yellow",
+      ave_distance_from_sun: 890700000,
+      radius: 36184
+    },
+    {
+      name: "uranus",
+      color: "paleturquoise",
+      ave_distance_from_sun: 1784000000,
+      radius: 15759
+    },
+    {
+      name: "neptune",
+      color: "blue",
+      ave_distance_from_sun: 2793000000,
+      radius: 15299
+    },
+  ]
+}
+
+
+
+
+</script>
