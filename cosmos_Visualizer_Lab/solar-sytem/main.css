@@ -1,5 +1,27 @@
+* {
+  font-family: sans-serif;
+  font-weight: lighter;
+}
+body {
+  padding: 0;
+  margin: 0;
+}
+nav {
+  background-color: #444;
+}
+h1 {
+  color: #ddd;
+  margin-top: 0;
+}
+h1,h3 {
+  text-align: center;
+}
 .canvas {
   background: #444;
   display: table;
   margin: 0 auto;
+}
+.inline-header {
+  font-size: 30px;
+  display: inline-block;
 }

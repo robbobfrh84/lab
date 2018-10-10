@@ -42,8 +42,8 @@ span {
     <span> Ball Size: </span> <input id='bs'>
     <button onclick="reset()" style='margin: auto;'> Reset </button>
   </div>
-	<h1> Click to to explode balls! <h1>
-	<h2> Right+Click to to explode balls! <h2>
+	<h1> Click to add balls! <h1>
+	<h2> Right+Click to explode balls! <h2>
 
 </body>
 <script type="text/javascript">
@@ -263,9 +263,9 @@ set = ()=>{
   let numBallsDecriment = numBalls
   while (numBallsDecriment--) addBall()
   canvas.onmousedown = function(e) {
-    if (e.which == 3) {
+    if (e.which == 1) {
       addBall(mouse.x, mouse.y)
-    } else if (e.which == 1) { // right-click
+    } else if (e.which == 3) { // right-click
       mouse.down = true;
       document.body.style.cursor = 'none';
     }
