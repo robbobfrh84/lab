@@ -1,0 +1,50 @@
+<!DOCTYPE html><html lang="en">
+<title> Bounce Box </title> <!-- <link rel="icon" href="link/or/path">  -->
+<head>
+  <meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="text/javascript" src="ball.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body> Bounce Box </body>
+<div id='box'></div>
+<button onclick="()=>{kill = !kill}"> pause </button>
+<script>
+
+const boxX = 600
+const boxY = 400
+const ballCnt = 10
+let kill = false
+let balls = []
+
+window.onload = ()=>{
+
+  random = (min, max)=>{
+    return Math.floor(Math.random() * (max - min + 1) + min)
+  }
+
+  rgbR = ()=>{
+    return 'rgb('+random(0,255)+', '+random(0,255)+', '+random(0,255)+')'
+  }
+
+  box.style.width = boxX+'px'
+  box.style.height = boxY+'px'
+
+  for (var i = 0; i < ballCnt; i++) {
+    const radius = random(5,30)
+    balls.push(new Ball({
+      r: radius,
+      velX: random(-4,4),
+      velY: random(-4,4),
+      startX: random(0,(boxX-(radius*2))),
+      startY: random(0,(boxY-(radius*2))),
+      color: rgbR()
+    }))
+  }
+
+}
+
+
+
+</script>
+</html>
