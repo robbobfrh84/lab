@@ -7,7 +7,7 @@
 </head>
 
 <body>
-Hello!
+Hello! ! !
 <h1 id="bigOne"></h1>
 </body>
 
@@ -29,8 +29,11 @@ console.log(dbRef)
 
 dbRef.on('value', snap => {
   console.log("snap :", snap)
-  bigOne.innerText = snap.val())
-}
+  bigOne.innerText = snap.val()
+})
+
+firebase.database().ref('text/').set("🤓")
+
 
 </script>
 </html>
