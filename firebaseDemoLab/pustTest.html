@@ -5,10 +5,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://www.gstatic.com/firebasejs/5.5.7/firebase.js"></script>
 </head>
-
+<style media="screen">
+#playground {
+  position: relative;
+  background-color: #ccc;
+  width: 650px;
+  height: 360px;
+  touch-action: none;
+}
+#ball {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 50px;
+  height: 50px;
+  background-color: cornflowerblue;
+  border-radius: 100%;
+  pointer-events: none;
+}
+</style>
 <body>
-Hello! ! !
 <h1 id="bigOne"></h1>
+<div id='playground'>
+  <div id="ball"></div>
+</div>
 </body>
 
 <script type="text/javascript">
@@ -25,14 +45,39 @@ firebase.initializeApp(config)
 
 var bigOne = document.getElementById('bigOne')
 var dbRef = firebase.database().ref().child('text')
+var xy = firebase.database().ref().child('xy')
+
+firebase.database().ref('text/').set("🤓")
+
 console.log(dbRef)
 
 dbRef.on('value', snap => {
-  console.log("snap :", snap)
   bigOne.innerText = snap.val()
 })
 
-firebase.database().ref('text/').set("🤓")
+xy.on('value', snap => {
+  console.log("snap :", snap.val())
+  const v = snap.val()
+  ball.style.left = v.x+'px'
+  ball.style.top = v.y+'px'
+
+})
+
+playground.onmousemove = function() {
+  ball.style.left = event.offsetX+'px'
+  ball.style.top = event.offsetY+'px'
+  firebase.database().ref('xy/').set({x:event.offsetX, y:event.offsetY})
+}
+
+playground.ontouchmove = function() {
+  event.preventDefault();
+  var x = event.touches[0].clientX;
+  var y = event.touches[0].clientY;
+  ball.style.left = x+'px'
+  ball.style.top = y+'px'
+  firebase.database().ref('xy/').set({x:x, y:y})
+}
+
 
 
 </script>
