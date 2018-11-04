@@ -1,31 +1,13 @@
-/**
- * Copyright 2015 Google Inc. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-// 'use strict';
 var firebase = {
-  apiKey = "AIzaSyA-sPkqzr9sZmAwNTSuWQ0muXIChC36Oe8",
-  authDomain = "fir-realtimedatabase-dem-ead13.firebaseapp.com",
-  databaseURL = "https://fir-realtimedatabase-dem-ead13.firebaseio.com",
-  projectId = "fir-realtimedatabase-dem-ead13",
-  storageBucket = "fir-realtimedatabase-dem-ead13.appspot.com",
-  messagingSenderId = "332488716787"
+  apiKey: "AIzaSyA-sPkqzr9sZmAwNTSuWQ0muXIChC36Oe8",
+  authDomain: "fir-realtimedatabase-dem-ead13.firebaseapp.com",
+  databaseURL: "https://fir-realtimedatabase-dem-ead13.firebaseio.com",
+  projectId: "fir-realtimedatabase-dem-ead13",
+  storageBucket: "fir-realtimedatabase-dem-ead13.appspot.com",
+  messagingSenderId: "332488716787"
 }
 firebase.initializeApp(config)
 
-
-// Shortcuts to DOM Elements.
 var messageForm = document.getElementById('message-form');
 var messageInput = document.getElementById('new-post-message');
 var titleInput = document.getElementById('new-post-title');
@@ -42,12 +24,7 @@ var myPostsMenuButton = document.getElementById('menu-my-posts');
 var myTopPostsMenuButton = document.getElementById('menu-my-top-posts');
 var listeningFirebaseRefs = [];
 
-/**
- * Saves a new post to the Firebase DB.
- */
-// [START write_fan_out]
 function writeNewPost(uid, username, picture, title, body) {
-  // A post entry.
   var postData = {
     author: username,
     uid: uid,
@@ -56,23 +33,13 @@ function writeNewPost(uid, username, picture, title, body) {
     starCount: 0,
     authorPic: picture
   };
-
-  // Get a key for a new Post.
   var newPostKey = firebase.database().ref().child('posts').push().key;
-
-  // Write the new post's data simultaneously in the posts list and the user's post list.
   var updates = {};
   updates['/posts/' + newPostKey] = postData;
   updates['/user-posts/' + uid + '/' + newPostKey] = postData;
-
   return firebase.database().ref().update(updates);
 }
-// [END write_fan_out]
 
-/**
- * Star/unstar post.
- */
-// [START post_stars_transaction]
 function toggleStar(postRef, uid) {
   postRef.transaction(function(post) {
     if (post) {
@@ -90,11 +57,7 @@ function toggleStar(postRef, uid) {
     return post;
   });
 }
-// [END post_stars_transaction]
 
-/**
- * Creates a post element.
- */
 function createPostElement(postId, title, text, author, authorId, authorPic) {
   var uid = firebase.auth().currentUser.uid;
 
@@ -127,7 +90,6 @@ function createPostElement(postId, title, text, author, authorId, authorPic) {
         '</div>' +
       '</div>';
 
-  // Create the DOM element from the HTML.
   var div = document.createElement('div');
   div.innerHTML = html;
   var postElement = div.firstChild;
@@ -140,15 +102,12 @@ function createPostElement(postId, title, text, author, authorId, authorPic) {
   var star = postElement.getElementsByClassName('starred')[0];
   var unStar = postElement.getElementsByClassName('not-starred')[0];
 
-  // Set values.
   postElement.getElementsByClassName('text')[0].innerText = text;
   postElement.getElementsByClassName('mdl-card__title-text')[0].innerText = title;
   postElement.getElementsByClassName('username')[0].innerText = author || 'Anonymous';
   postElement.getElementsByClassName('avatar')[0].style.backgroundImage = 'url("' +
       (authorPic || './silhouette.jpg') + '")';
 
-  // Listen for comments.
-  // [START child_event_listener_recycler]
   var commentsRef = firebase.database().ref('post-comments/' + postId);
   commentsRef.on('child_added', function(data) {
     addCommentElement(postElement, data.key, data.val().text, data.val().author);
@@ -161,10 +120,7 @@ function createPostElement(postId, title, text, author, authorId, authorPic) {
   commentsRef.on('child_removed', function(data) {
     deleteComment(postElement, data.key);
   });
-  // [END child_event_listener_recycler]
 
-  // Listen for likes counts.
-  // [START post_value_event_listener]
   var starCountRef = firebase.database().ref('posts/' + postId + '/starCount');
   starCountRef.on('value', function(snapshot) {
     updateStarCount(postElement, snapshot.val());
