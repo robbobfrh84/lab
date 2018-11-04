@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 // 'use strict';
-var config = {
-  apiKey: apiKey,
-  authDomain: authDomain,
-  databaseURL: databaseURL,
-  projectId: projectId,
-  storageBucket: storageBucket,
-  messagingSenderId: messagingSenderId
+var firebase = {
+  apiKey = "AIzaSyA-sPkqzr9sZmAwNTSuWQ0muXIChC36Oe8",
+  authDomain = "fir-realtimedatabase-dem-ead13.firebaseapp.com",
+  databaseURL = "https://fir-realtimedatabase-dem-ead13.firebaseio.com",
+  projectId = "fir-realtimedatabase-dem-ead13",
+  storageBucket = "fir-realtimedatabase-dem-ead13.appspot.com",
+  messagingSenderId = "332488716787"
 }
 firebase.initializeApp(config)
 
