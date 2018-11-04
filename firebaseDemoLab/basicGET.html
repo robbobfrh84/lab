@@ -1,0 +1,32 @@
+<!DOCTYPE html><html lang="en">
+<title> firebase-RealtimeDatabase-demo </title> <!-- <link rel="icon" href="link/or/path">  -->
+<head>
+  <meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://www.gstatic.com/firebasejs/5.5.7/firebase.js"></script>
+</head>
+
+<body>
+Hello!
+<h1 id="bigOne"></h1>
+</body>
+
+<script type="text/javascript">
+
+var config = {
+  apiKey: "AIzaSyA-sPkqzr9sZmAwNTSuWQ0muXIChC36Oe8",
+  authDomain: "fir-realtimedatabase-dem-ead13.firebaseapp.com",
+  databaseURL: "https://fir-realtimedatabase-dem-ead13.firebaseio.com",
+  projectId: "fir-realtimedatabase-dem-ead13",
+  storageBucket: "fir-realtimedatabase-dem-ead13.appspot.com",
+  messagingSenderId: "332488716787"
+}
+firebase.initializeApp(config)
+
+var bigOne = document.getElementById('bigOne')
+var dbRef = firebase.database().ref().child('text')
+
+dbRef.on('value', snap => bigOne.innerText = snap.val())
+
+</script>
+</html>
