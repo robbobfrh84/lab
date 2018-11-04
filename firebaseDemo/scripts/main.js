@@ -1,4 +1,4 @@
-var firebase = {
+var config = {
   apiKey: "AIzaSyA-sPkqzr9sZmAwNTSuWQ0muXIChC36Oe8",
   authDomain: "fir-realtimedatabase-dem-ead13.firebaseapp.com",
   databaseURL: "https://fir-realtimedatabase-dem-ead13.firebaseio.com",
