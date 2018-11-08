@@ -8,7 +8,7 @@
 </head>
 <body> Bounce Box </body>
 <div id='box'></div>
-<button onclick="()=>{kill = !kill}"> pause </button>
+<button onclick="pause()"> pause </button>
 <script>
 
 const boxX = 600
@@ -42,6 +42,15 @@ window.onload = ()=>{
     }))
   }
 
+}
+
+pause = function(){
+  if (kill) {
+    kill = !kill
+    balls.map(b=>b.move())
+  } else {
+    kill = !kill
+  }
 }
 
 
