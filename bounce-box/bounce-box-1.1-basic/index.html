@@ -1,0 +1,146 @@
+<!DOCTYPE html><html lang="en">
+<title> Bounce Box </title> <!-- <link rel="icon" href="link/or/path">  -->
+<head>
+  <meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+  <h1> Bounce Box </h1>
+
+  <table>
+    <tr>
+      <th>Box</th>
+      <th class="fixed-width"></th>
+      <th>Balls</th>
+      <th class="fixed-width"></th>
+    </tr>
+    <tr>
+      <td> Width: </td>
+      <td><input id="width" value="600"></td>
+      <td> Amount: </td>
+      <td><input id="amount" value="3"></td>
+    </tr>
+    <tr>
+      <td> Height: </td>
+      <td><input id="height" value="400"></td>
+      <td> Size: </td>
+      <td><input id="size" value="50"></td>
+    </tr>
+  </table>
+
+  <button onclick="go()"> Go! </button>
+
+  <div id='box'></div>
+
+</body>
+<script>
+
+var boxX, boxY
+
+window.onload = ()=>{
+  go()
+}
+
+buildBox = function(){
+  width.value = width.value > 1000 ? 1000 : width.value
+  height.value = height.value > 800 ? 800 : height.value
+  box.style.width = width.value+'px'
+  box.style.height = height.value+'px'
+  boxX = width.value
+  boxY = height.value
+}
+
+go = function(){
+  while(box.hasChildNodes()) { box.removeChild(box.lastChild)}
+  buildBox()
+  for (var i = 0; i < amount.value; i++) {
+    const b = new Ball_obj
+    b.start()
+  }
+}
+
+random = function(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min)
+}
+
+function Ball_obj() {
+
+  this.trajectoryX = random(2, 10)
+  this.trajectoryY = random(2, 10)
+
+  this.move = function() {
+    const currentX = parseInt(this.elm.style.top.split('px')[0])
+    const currentY = parseInt(this.elm.style.left.split('px')[0])
+    this.elm.style.top = currentX + this.trajectoryX +'px'
+    this.elm.style.left = currentY + this.trajectoryY +'px'
+    this.checkWall()
+    requestAnimationFrame(this.move.bind(this)) // OR controll speed with: setTimeout(this.move.bind(ball), 200)
+  },
+
+  this.checkWall = function(){
+    const left = parseInt(this.elm.style.left.split('px')[0])
+    const top = parseInt(this.elm.style.top.split('px')[0])
+    if (left >= (boxX - this.radius*2) || left <= 0) {
+      this.trajectoryY *= -1
+    }
+    if (top >= (boxY - this.radius*2)
+    || parseInt(this.elm.style.top.split('px')[0]) <= 0) {
+      this.trajectoryX *= -1
+    }
+  },
+
+  this.start = function(){
+    this.elm = document.createElement('div')
+    this.elm.classList.add('balls')
+    this.radius = size.value/2
+    this.elm.style.left = random(size.value, (boxX-size.value))+"px"
+    this.elm.style.top = random(size.value, (boxY-size.value))+"px"
+    this.elm.style.width = size.value+'px'
+    this.elm.style.height = size.value+'px'
+    box.appendChild(this.elm)
+    this.move()
+  }
+}
+
+</script>
+<style>
+body {
+  text-align: center; font-family: sans-serif;
+}
+h1 {
+  margin: 0px;
+  font-weight: lighter;
+}
+table {
+  margin: auto;
+  background-color: #ddd;
+  padding: 3px 10px;
+}
+tr {
+  text-align: left;
+  padding: 20px;
+}
+  th.fixed-width {
+  width: 160px;
+}
+button {
+  margin: 10px;
+  background-color: cornflowerblue;
+  cursor: pointer;
+  width: 200px;
+}
+#box {
+  position: relative;
+  width: 400px;
+  height: 300px;
+  background-color: #aaa;
+  margin: auto;
+}
+.balls {
+  position: absolute;
+  border-radius: 100%;
+  background-color: blue;
+}
+</style>
+</html>
