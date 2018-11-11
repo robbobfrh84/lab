@@ -1,0 +1,78 @@
+<!DOCTYPE html><html lang="en">
+<title> 3 Basic Multi </title>
+<head>
+  <meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<input id='inputName' placeholder='...enter name'>
+<button id='createUser'>Join</button>
+<hr>
+
+<div class="slidecontainer">
+  <span id="displayName"> Name: ___ </span> | <span id="val"> Val: ___  </span>
+  <input type="range" min="0" max="1023" value="500" class="slider" id="myRange">
+</div>
+<hr>
+<div id="sliders"></div>
+
+</body>
+<script>
+
+const url = 'http://192.168.1.85:8080/'
+let xhr = new XMLHttpRequest();
+let userName = ''
+let value = ''
+
+myRange.oninput = function(){
+  send(url+'?value='+this.value+'&'+userName, function(data){
+    val.textContent = data[userName]
+    for (const player in data) {
+      console.log(player)
+      // check for new activeplayers
+      // update players
+    }
+  })
+}
+
+createUser.onclick = function(){
+  send(url+'?createUser='+inputName.value, function(data){
+    displayName.textContent = inputName.value
+    userName = inputName.value
+    for (const player in data) {
+      buildSlider(data, player)
+    }
+  })
+}
+
+send = function(url, callback){
+  xhr = new XMLHttpRequest();
+  xhr.open('GET', url, true);
+  xhr.onreadystatechange = function () {
+    if (this.readyState == 4) {
+      if (this.status == 200) {
+        console.log(JSON.parse(xhr.responseText))
+        callback(JSON.parse(xhr.responseText))
+      }
+    }
+  }
+  xhr.send(null)
+}
+
+buildSlider = function(data, player){
+  sliders.innerHTML += `
+    <div class="slidecontainer">
+      <span id="displayName-${player}">${player}</span> |
+      <span id="val-${player}"> ${data[player]} </span>
+      <input type="range" min="0" max="1023" value="${data[player]}"
+      class="slider" id="myRange-${player}">
+    </div>
+  `
+}
+
+
+
+</script>
+</html>
