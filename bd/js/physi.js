@@ -389,9 +389,10 @@ window.Physijs = (function() {
 
 		Eventable.call( this );
 		THREE.Scene.call( this );
-		console.log('ok!')
+		console.log('ok!2')
 
-		this._worker = new Worker( Physijs.scripts.worker || 'bd/js/physijs_worker.js' );
+		this._worker = new Worker( 'bd/js/physijs_Xworker.js' );
+		// this._worker = new Worker( Physijs.scripts.worker || 'bd/js/physijs_worker.js' );
 		this._worker.transferableMessage = this._worker.webkitPostMessage || this._worker.postMessage;
 		this._materials_ref_counts = {};
 		this._objects = {};
