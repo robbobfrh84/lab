@@ -416,11 +416,11 @@ function handleKeyDown ( keyEvent, dynamicKey ) {
   // REFACTOR AS Seperate FUNCTION
 
   if (keyEvent && typeof fire[player].action[keyCode] !== "undefined") {
-    fire.turn = player
+    //fire.turn = player
     fire[player].action[keyCode] = true
-    fire[player].position = getPos(player)
-    firebase.database().ref('game').set(fire)
-    last_update = Date.now()
+    //fire[player].position = getPos(player)
+    //firebase.database().ref('game').set(fire)
+    // last_update = Date.now()
   }
 
   // getPos(busArray)
@@ -488,11 +488,11 @@ function handleKeyUp ( keyEvent, dynamicKey ) {
    keyCode = keyEvent ? keyEvent.keyCode : dynamicKey
    // REFACTOR AS Seperate FUNCTION
    if (keyEvent && typeof fire[player].action[keyCode] !== "undefined") {
-     fire.turn = player
+     //fire.turn = player
      fire[player].action[keyCode] = false
-     fire[player].position = getPos(player)
-     firebase.database().ref('game').set(fire)
-     last_update = Date.now()
+     //fire[player].position = getPos(player)
+     //firebase.database().ref('game').set(fire)
+     //last_update = Date.now()
    }
 
    switch( keyCode ) {

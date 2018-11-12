@@ -1,4 +1,5 @@
-var player, opponent
+var player
+var opponent
 var fire = {}
 var previous_state
 var last_update = Date.now()
@@ -15,29 +16,61 @@ var config = {
 firebase.initializeApp(config)
 
 var dbRef = firebase.database().ref().child('game')
-firebase.database().ref('game/p1').set({
+
+fire.p1 = {
   action: {
     "37": false,
     "38": false,
     "39": false,
     "40": false
   },
-  position: {}
-})
-firebase.database().ref('game/p2').set({
+  position: getPos('p1')
+}
+fire.p2 = {
   action: {
     "76": false,
     "222": false,
     "80": false,
     "186": false
   },
-  position: {}
-})
+  position: getPos('p2')
+}
 
+firebase.database().ref('game/p1').set(fire.p1)
+firebase.database().ref('game/p2').set(fire.p2)
 
-dbRef.on('value', snap => {
-  fire = snap.val()
-  if (fire.turn === opponent) {
+// dbRef.on('value', snap => {
+//   fire = snap.val()
+//   if (fire.turn === opponent) {
+//     for (const key in fire[opponent].action) {
+//       if (previous_state[opponent].action[key] !== fire[opponent].action[key]) {
+//         if (fire[opponent].action[key] === true){
+//           console.log('down', key)
+//           handleKeyDown(null, parseInt(key))
+//         } else {
+//           console.log('up', key)
+//           handleKeyUp(null, parseInt(key))
+//         }
+//       }
+//     }
+//     setPos(opponent)
+//   }
+//   previous_state = fire
+//
+// })
+
+function selectPlayer(event, color, p){
+  player = p
+  opponent = p === 'p1' ? 'p2' : 'p1'
+  multiPlayerConsole.style.color = color
+  multiPlayerConsole.innerHTML = "Player 1: "+event.srcElement.textContent
+
+  previous_state = fire
+  var dbRefO = firebase.database().ref().child('game/'+opponent)
+
+  dbRefO.on('value', snap => {
+    console.log('val')
+    fire[opponent] = snap.val()
     for (const key in fire[opponent].action) {
       if (previous_state[opponent].action[key] !== fire[opponent].action[key]) {
         if (fire[opponent].action[key] === true){
@@ -50,16 +83,12 @@ dbRef.on('value', snap => {
       }
     }
     setPos(opponent)
-  }
-  previous_state = fire
+    previous_state = fire
+  })
 
-})
+  fire[player].position = getPos(player)
+  firebase.database().ref('game/'+player).set(fire[player])
 
-function selectPlayer(event, color, p){
-  player = p
-  opponent = p === 'p1' ? 'p2' : 'p1'
-  multiPlayerConsole.style.color = color
-  multiPlayerConsole.innerHTML = "Player 1: "+event.srcElement.textContent
   start_auto_position_checker()
 }
 
@@ -79,39 +108,6 @@ function getPos(player){
     frp: [b.wheel_fr.position.x, b.wheel_fr.position.y, b.wheel_fr.position.z],
     frr: [b.wheel_fr.rotation._x, b.wheel_fr.rotation._y, b.wheel_fr.rotation._z]
   }
-
-  // b1p = b1.frame.position
-  // b1r = b1.frame.rotation
-  //
-  //
-  // b1_blp = b1.wheel_bl.position
-  // b1_blr = b1.wheel_bl.rotation
-  //
-  // b1_brp = b1.wheel_br.position
-  // b1_brr = b1.wheel_br.rotation
-  //
-  // b1_flp = b1.wheel_fl.position
-  // b1_flr = b1.wheel_fl.rotation
-  //
-  // b1_frp = b1.wheel_fr.position
-  // b1_frr = b1.wheel_fr.rotation
-
-
-  // console.log("*")
-  // console.log('\n'
-  // +'busArray[0].frame.position.set('+b1p.x+','+b1p.y+','+b1p.z+');\n'
-  // +'busArray[0].frame.rotation.set('+b1r._x+','+b1r._y+','+b1r._z+');\n'
-  // +'busArray[0].wheel_bl.position.set('+b1_blp.x+','+b1_blp.y+','+b1_blp.z+');\n'
-  // +'busArray[0].wheel_bl.rotation.set('+b1_blr._x+','+b1_blr._y+','+b1_blr._z+');\n'
-  // +'busArray[0].wheel_br.position.set('+b1_brp.x+','+b1_brp.y+','+b1_brp.z+');\n'
-  // +'busArray[0].wheel_br.rotation.set('+b1_brr._x+','+b1_brr._y+','+b1_brr._z+');\n'
-  //
-  // +'busArray[0].wheel_fl.position.set('+b1_flp.x+','+b1_flp.y+','+b1_flp.z+');\n'
-  // +'busArray[0].wheel_fl.rotation.set('+b1_flr._x+','+b1_flr._y+','+b1_flr._z+');\n'
-  // +'busArray[0].wheel_fr.position.set('+b1_frp.x+','+b1_frp.y+','+b1_frp.z+');\n'
-  // +'busArray[0].wheel_fr.rotation.set('+b1_frr._x+','+b1_frr._y+','+b1_frr._z+');\n'
-  // )
-
 }
 
 function setPos(player){
@@ -144,15 +140,9 @@ function setPos(player){
 
 function start_auto_position_checker(){
   setInterval(function(){
-    const now = Date.now()
-    if (now > last_update+100) {
-      console.log('update')
-      fire.turn = player
-      fire[player].position = getPos(player)
-      firebase.database().ref('game').set(fire)
-      last_update = Date.now() - 10
-    }
-  }, 100)
+    fire[player].position = getPos(player)
+    firebase.database().ref('game/'+player).set(fire[player])
+  }, 50)
 }
 
 // NOTES
