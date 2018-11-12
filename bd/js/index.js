@@ -7,8 +7,8 @@
 
 /////---Sources---/////
 
-Physijs.scripts.worker = window.origin+"/js/physijs_worker.js";
-Physijs.scripts.ammo = window.origin+"/js/ammo.js";
+Physijs.scripts.worker = window.origin+"/bd/js/physijs_worker.js";
+Physijs.scripts.ammo = window.origin+"/bd/js/ammo.js";
 
 /////---Settings---/////
 
