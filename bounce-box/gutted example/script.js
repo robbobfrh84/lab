@@ -115,7 +115,8 @@ function wallCollision(ball) {
 function ballCollision() {
     for (var obj1 in objArray) {
         for (var obj2 in objArray) {
-            if (obj1 !== obj2 && distanceNextFrame(objArray[obj1], objArray[obj2]) <= 0) {
+            if (obj1 !== obj2 &&
+              distanceNextFrame(objArray[obj1], objArray[obj2]) <= 0) {
                 var theta1 = objArray[obj1].angle();
                 var theta2 = objArray[obj2].angle();
                 var phi = Math.atan2(objArray[obj2].y - objArray[obj1].y, objArray[obj2].x - objArray[obj1].x);
@@ -144,9 +145,13 @@ function staticCollision() {
     for (var obj1 in objArray) {
         for (var obj2 in objArray) {
             if (obj1 !== obj2 &&
-                distance(objArray[obj1], objArray[obj2]) < objArray[obj1].radius + objArray[obj2].radius)
+                distance(objArray[obj1], objArray[obj2])
+                < objArray[obj1].radius + objArray[obj2].radius)
             {
-                var theta = Math.atan2((objArray[obj1].y - objArray[obj2].y), (objArray[obj1].x - objArray[obj2].x));
+                var theta = Math.atan2(
+                  (objArray[obj1].y - objArray[obj2].y),
+                  (objArray[obj1].x - objArray[obj2].x)
+                );
                 var overlap = objArray[obj1].radius + objArray[obj2].radius - distance (objArray[obj1], objArray[obj2]);
                 var smallerObject = objArray[obj1].radius < objArray[obj2].radius ? obj1 : obj2
                 objArray[smallerObject].x -= overlap * Math.cos(theta);
