@@ -1,0 +1,47 @@
+<!DOCTYPE html><html lang="en">
+<title> Bounce Box </title>
+<head>
+  <meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="text/javascript" src="ball.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h1> Bounce Box </h1> <div id='pauseBtn'>▶️</div>
+
+<div id="box"></div>
+</body>
+<script>
+
+const bb = new BounceBox({
+  id: 'box',  // * Required.
+  boxWidth: 600,
+  boxHeight: 400,
+  pause: true,
+  gravityOne: false,
+  dragOn: true
+})
+
+window.onload = function(){
+
+  for (var i = 0; i < 15; i++) {
+    bb.addBall() // *random
+  }
+
+  bb.addBall({ // *custom
+    radius: 80,
+    x: bb.boxWidth/2,
+    y: bb.boxHeight/2,
+    vx: "0",
+    vy: "0"
+  })
+
+}
+
+pauseBtn.onclick = function(){
+  bb.pause = !bb.pause
+  this.innerHTML = bb.pause ? "▶️" : "⏸"
+}
+
+</script>
+</html>

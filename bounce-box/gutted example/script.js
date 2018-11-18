@@ -117,9 +117,11 @@ function ballCollision() {
         for (var obj2 in objArray) {
             if (obj1 !== obj2 &&
               distanceNextFrame(objArray[obj1], objArray[obj2]) <= 0) {
+
                 var theta1 = objArray[obj1].angle();
                 var theta2 = objArray[obj2].angle();
                 var phi = Math.atan2(objArray[obj2].y - objArray[obj1].y, objArray[obj2].x - objArray[obj1].x);
+
                 var m1 = objArray[obj1].mass;
                 var m2 = objArray[obj2].mass;
                 var v1 = objArray[obj1].speed();
@@ -215,9 +217,10 @@ function logger() {
 }
 
 // spawn the initial small thingies.
-// for (i = 0; i<160; i++) {
-//     objArray[objArray.length] = new Ball(randomX(), randomY(), randomRadius());
-// }
+for (i = 0; i<160; i++) {
+// for (i = 0; i<260; i++) {
+    objArray[objArray.length] = new Ball(randomX(), randomY(), randomRadius());
+}
 
 bigBalls = true;
 

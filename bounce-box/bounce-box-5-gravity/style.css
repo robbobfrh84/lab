@@ -1,14 +1,28 @@
 body {
   font-family: sans-serif;
   font-weight: 200;
-  font-size: 25px;
   letter-spacing: 2px;
   text-align: center;
+  margin: 0;
+  padding: 0;
+}
+h1 {
+  font-size: 25px;
+  font-weight: 200;
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+}
+#pauseBtn {
+  cursor: pointer;
+  font-size: 25px;
+  display: inline-block;
 }
 #box {
   position: relative;
   background-color: #aaa;
   margin: auto;
+  margin-bottom: 5px;
 }
 .balls {
   position: absolute;
