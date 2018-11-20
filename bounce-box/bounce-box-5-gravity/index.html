@@ -7,41 +7,35 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<h1> Bounce Box </h1> <div id='pauseBtn'>▶️</div>
-
+<h1> Bounce Box </h1> <div id='pauseBtn'>⏸</div> |
+<none> Gravity: </none> <div id='gravityBtn'>⬇️</div>
 <div id="box"></div>
 </body>
 <script>
 
 const bb = new BounceBox({
   id: 'box',  // * Required.
-  boxWidth: 600,
+  boxWidth: window.innerWidth - 50,
   boxHeight: 400,
-  pause: true,
-  gravityOne: false,
+  pause: false,
+  gravityOn: false,
   dragOn: true
 })
 
 window.onload = function(){
-
-  for (var i = 0; i < 150; i++) {
-    // bb.addBall() // *random
-    bb.addBall({radius:bb.random(4,16)})
+  for (var i = 0; i < 100; i++) {
+    bb.addBall({radius:bb.random(5,15)})
   }
-
-  // bb.addBall({ // *custom
-  //   radius: 80,
-  //   x: bb.boxWidth/2,
-  //   y: bb.boxHeight/2,
-  //   vx: "0",
-  //   vy: "0"
-  // })
-
 }
 
 pauseBtn.onclick = function(){
   bb.pause = !bb.pause
   this.innerHTML = bb.pause ? "▶️" : "⏸"
+}
+
+gravityBtn.onclick = function(){
+  bb.gravityOn = !bb.gravityOn
+  this.innerHTML = bb.gravityOn ? "🛑" : "⬇️"
 }
 
 </script>

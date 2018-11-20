@@ -13,7 +13,7 @@ h1 {
   padding: 0;
   display: inline-block;
 }
-#pauseBtn {
+#pauseBtn, #gravityBtn {
   cursor: pointer;
   font-size: 25px;
   display: inline-block;
@@ -25,6 +25,11 @@ h1 {
   margin-bottom: 5px;
 }
 .balls {
+  opacity: 0.9;
   position: absolute;
   border-radius: 100%;
+  /* border-width: 2px;
+  border-style: solid;
+  border-color: rgba(0,0,0,0.3); */
+  /* box-shadow: 2px 2px 2px black; */
 }

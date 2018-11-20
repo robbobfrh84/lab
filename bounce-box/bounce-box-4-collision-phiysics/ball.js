@@ -5,8 +5,6 @@ class BounceBox {
     this.boxWidth = params.boxWidth   || 800
     this.boxHeight = params.boxHeight || 500
     this.pause = params.pause         || false
-    this.gravityOn = params.gravityOn || false
-    this.dragOn = params.dragOn       || true
     this.balls = []
     this.start()
     this.go()
@@ -19,9 +17,9 @@ class BounceBox {
 
   go() {
     if (!this.pause) this.moveObjects()
-    this.balls.map( b => b.draw() )
     this.checkOverlap()
     this.solveCollisions()
+    this.balls.map( b => b.draw() )
     requestAnimationFrame(this.go.bind(this))
   }
 
