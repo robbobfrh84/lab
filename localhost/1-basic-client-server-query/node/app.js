@@ -25,3 +25,7 @@ http.createServer(function (req, res) {
 var handleReq = function(res, query){
   res.end('server recieved query: '+query)
 }
+
+// $ arp -a > lists all ports addresses available good for iphone test.
+// $ lsof -n -i4TCP:8080 // get list of 8080 port and use PID to replace 1303
+// $ kill -9 1303
