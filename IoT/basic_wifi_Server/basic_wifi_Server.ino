@@ -11,7 +11,7 @@ WiFiServer server(80);
 char callback[20] = "arduinoWifiCallback";
 
 int Apin = A5;
-int led = 6;
+int led = 12;
 
 void setup() { 
   Serial.begin(115200);
@@ -22,12 +22,13 @@ void setup() {
   }
   server.begin();
   printWifiStatus();
-  digitalWrite(led, HIGH);
 }
 
 void loop() {
+  digitalWrite(led, HIGH);
   WiFiClient client = server.available();
   if (client) {
+    digitalWrite(led, LOW);
     Serial.println("new client"); // an http request ends with a blank line
     boolean currentLineIsBlank = true;
     while (client.connected()) {
@@ -45,7 +46,6 @@ void loop() {
           client.print("\": ");
           client.print(analogRead(Apin));
           client.println("}");
-          digitalWrite(led, LOW);
           break;
         }
         if (c == '\n') {

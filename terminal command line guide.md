@@ -40,7 +40,8 @@
 - htop				>>> little program i installed that makes navigating top nice
 
 
-# —————————— Other Systems running from Terminal ————————— #
+### Bluetooth
+- $`system_profiler SPBluetoothDataType` lists all paired bluetooth devices.
 
 
 ### MongoDB
