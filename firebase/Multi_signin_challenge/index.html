@@ -1,0 +1,42 @@
+<!DOCTYPE html><html lang="en">
+<title> Bus Derby Sign In </title>
+<head>
+  <meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1 id="title"> Demo - Multi Signin Challenge </h1>
+
+<div id="sign_in_container">
+  <em> * Select user * &nbsp; or... </em> &nbsp;
+  <input id='newPlayer' placeholder="...enter new name here">
+  <button id='select_new_player'> Sign In </button>
+</div>
+
+<div id="active_players_container" style="display: none;">
+  <button id='signOut'> Sign Out </button>
+  <hr>
+  <div id='to_challenge_list'>
+    <h3 class='col1'> Challenge Active Players </h3>
+    <h3 class='col1'> Challenges </h3>
+  </div>
+</div>
+
+<div id="player_button_container">
+  <hr>
+  <div id="availablePlayers" class='col1'></div>
+  <div id="challenging_players_list" class='col2 border1'></div>
+  <div id="unavailablePlayers"><hr>...Online</div>
+</div>
+
+</body>
+<script src='config.js'></script>
+<script src='app.js'></script>
+<script>
+
+
+</script>
+</html>
