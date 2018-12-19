@@ -38,6 +38,7 @@
 - kill -QUIT 10658		>>> 10658 === PID
 
 - htop				>>> little program i installed that makes navigating top nice
+- `ls /dev/tty.*` >>> list devices on port
 
 
 ### Bluetooth
