@@ -10,6 +10,6 @@ window.onload = function(){
 
   all.ontouchmove = function(){
     console.log(this)
-    data.textContent = 'MOVED'
+    data.textContent = 'MOVED'+this
   }
 }
