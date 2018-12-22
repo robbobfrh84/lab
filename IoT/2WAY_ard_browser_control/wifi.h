@@ -4,7 +4,7 @@ const IPAddress server(192,168,1,85);
 const int httpPort = 8080;
 int keyIndex = 0;
 int status = WL_IDLE_STATUS;
-WiFiClient client;
+WiFiClient client; // YO! Look! Error here. may need to toggle what lib your using in other/initial code page...
 
 
 void printWiFiStatus() {
