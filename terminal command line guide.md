@@ -30,6 +30,19 @@
 - kill <PID>			>>> find PID in ^^^. This will kill that program
 
 ----
+# LocalHost/Server/ IP address stuff!
+
+### Iphone hotspot/mac host wireless network. 
+- Connect to hot spot 
+- host on mac `http-server -c-1` OR: `lr-http-server -c-1`
+- `ifconfig` lists some open ports (hard to find, but should be found in the log here..)
+- `Starting up http-server, serving ./
+	Available on:
+  http://127.0.0.1:8080
+  http://172.20.10.3:8080`
+- similar but the last example works on other devices. `http://172.20.10.3:8080`
+- RESOURCE: https://serverfault.com/questions/229441/how-do-i-access-a-local-web-server-on-my-laptop-from-another-computer
+
 ### kill a local port when it freezes/blocks
 - lsof -i :3000
 	- this will check the port that stuck. Will return a few different results.

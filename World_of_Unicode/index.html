@@ -1,25 +1,38 @@
 <!DOCTYPE html><html lang="en">
 <title> World Of Unicode </title>
-<link rel="icon" href="graphics/icon.png">
+<link rel="icon" href="_graphics/icon.png">
 <head>
   <meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="main.css">
-  <script src='12x12Screens.js'></script>
-  <script src='main.js'></script>
+  <link rel="stylesheet" href="screen.css">
 </head>
 <body>
-
-  <div class='top-nav'>
-    <div class="sub-nav header-left">
-      <!-- World Of Unicode! -->
-    </div>
-    <div class="sub-nav header-right">
-
-    </div>
-  </div>
-
-  <div id="gridContainer"></div>
-
+  <div id="screenContainer"></div>
 </body>
+<script src='screens.js'></script>
+<script src='player.js'></script>
+<script src='screens_data.js'></script>
+<script src='onload.js'></script>
 </html>
+
+<!--
+Notes from where I left off....
+- Parent class could be `Phase`
+- Make auto fot all params = this...
+- Creating grid really should be a set of two for loops
+
+
+TO DO
+- Make Navbar Dropdown
+- Make char face direction they're moving.
+  - Alternate dir when up/down.
+- make 3x3 Grid.
+  - TopLeft: Foreest
+  - TopCenter: ForrestMountain.
+  - TopRight: Mountain
+  - Left: RiverForrest
+  - Right: Mountain/Town Entrance.
+  - BottomLeft: River
+  - BottomCenter: ? Dessert/wall ?
+  - BottomRight: town.
+-->
