@@ -1,0 +1,8 @@
+body {
+  background: url("../gfx/bg.png");
+  margin: 0;
+  padding: 0;
+}
+#mainCanvas {
+  background-color: rgba(0,0,0,0.1)
+}
