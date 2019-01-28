@@ -1,13 +1,7 @@
 const PetriDish = function(params){
 
-  Object.assign(this, params)
-
-  this.start = function(){
-    const canvas = document.getElementById(this.canvasId)
-    this.ctx = canvas.getContext("2d")
-    this.ctx.canvas.width = this.width
-    this.ctx.canvas.height = this.height - this.offsetHeight
-    this.animate()
+  this.createCanvas = function(params){
+    this.canvas = new this.Canvas(params)
   }
 
   this.createOrganism = function(params){
@@ -16,8 +10,8 @@ const PetriDish = function(params){
   }
 
   this.animate = function(){
-    this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height )
-    this.organisms.map( o => o.move(this.ctx) )
+    this.canvas.clear()
+    this.organisms.map( o => o.action(this.organisms, this.canvas) )
     requestAnimationFrame( this.animate.bind(this) )
   }
 
