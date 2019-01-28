@@ -1,11 +1,9 @@
 PetriDish.prototype.Canvas = function(params){
   Object.assign(this, params)
 
-  this.build = function(){
-    this.ctx = document.getElementById(this.canvasId).getContext("2d")
-    this.ctx.canvas.width = this.width
-    this.ctx.canvas.height = this.height
-  }
+  this.ctx = document.getElementById(this.canvasId).getContext("2d")
+  this.ctx.canvas.width = this.width
+  this.ctx.canvas.height = this.height
 
   this.clear = function(){
     this.ctx.clearRect(0, 0, this.width, this.height )
@@ -25,5 +23,4 @@ PetriDish.prototype.Canvas = function(params){
     this.ctx.restore()
   }
 
-  this.build()
 }

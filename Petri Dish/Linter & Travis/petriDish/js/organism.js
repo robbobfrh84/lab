@@ -1,15 +1,6 @@
 PetriDish.prototype.Organism = function(params){
   Object.assign(this, params)
 
-  this.build = function(orgs, canvas){
-    this.id = _getId()
-    this.newWonderDirection(this.wonderSpeed, this.wonderSpeed*-1)
-    while (this.checkOrganisms(this.getNext(0), orgs)) {
-      this.x = _random(this.r+1,canvas.width-this.r-1)
-      this.y = _random(this.r+1,canvas.height-this.r-1)
-    }
-  }
-
   this.newWonderDirection = function(){
     this.dx = this.wonderSpeed * (_random(1,10)/10) * (Math.random() < 0.5 ? -1 : 1)
     this.dy = this.wonderSpeed * (_random(1,10)/10) * (Math.random() < 0.5 ? -1 : 1)
@@ -24,7 +15,7 @@ PetriDish.prototype.Organism = function(params){
   this.checkWall = function({ x, y }, w , h) {
     if (x > w || x < 0 || y > h || y < 0) {
       this.newWonderDirection()
-      this.checkWall(w, h)
+      this.checkWall(w, h) // this will continue to recheck until new direction is in bounds.
     }
   }
 
@@ -32,10 +23,9 @@ PetriDish.prototype.Organism = function(params){
     let hasOverlap = false
     for (const o of orgs) {
       if (o.id !== this.id) {
-        const [ a, b ] = [ Math.abs(o.x - x), Math.abs(o.y - y) ]
-        const d = Math.sqrt( (b*b) + (a*a) )
+        const d = _getDist(o.x,x,o.y,y)
         if (d <= (this.r + o.r)) {
-          this.newWonderDirection()
+          if (d < _getDist(o.x,this.x,o.y,this.y)) this.newWonderDirection() // check to see if the org is moving AWAY from the obj it's overlapping
           hasOverlap = true
         }
       }
@@ -43,14 +33,13 @@ PetriDish.prototype.Organism = function(params){
     return hasOverlap
   }
 
-  this.action = function(orgs, canvas){
-    if (!this.id) this.build(orgs, canvas)
-    this.checkWall(this.getNext(this.r+5), canvas.width, canvas.height)
+  this.action = function(orgs){
+    this.checkWall(this.getNext(this.r+5), this.canvas.width, this.canvas.height)
     this.checkOrganisms(this.getNext(0), orgs)
     if (!_random(0,50)) this.newWonderDirection()
     this.x += this.dx
     this.y += this.dy
-    canvas.circle(this)
+    this.canvas.circle(this)
   }
 
 }
