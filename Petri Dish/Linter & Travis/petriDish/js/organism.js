@@ -2,8 +2,8 @@ PetriDish.prototype.Organism = function(params){
   Object.assign(this, params)
 
   this.newWonderDirection = function(){
-    this.dx = this.wonderSpeed * (_random(1,10)/10) * (Math.random() < 0.5 ? -1 : 1)
-    this.dy = this.wonderSpeed * (_random(1,10)/10) * (Math.random() < 0.5 ? -1 : 1)
+    this.dx = this.wonderSpeed * (_random(1,10)/10) * _PN()
+    this.dy = this.wonderSpeed * (_random(1,10)/10) * _PN()
   }
 
   this.getNext = function(pad){
@@ -16,6 +16,7 @@ PetriDish.prototype.Organism = function(params){
     if (x > w || x < 0 || y > h || y < 0) {
       this.newWonderDirection()
       this.checkWall(w, h) // this will continue to recheck until new direction is in bounds.
+      // we should also check if it's already moving away....
     }
   }
 
@@ -33,13 +34,23 @@ PetriDish.prototype.Organism = function(params){
     return hasOverlap
   }
 
-  this.action = function(orgs){
+  this.wondering = function(orgs){
     this.checkWall(this.getNext(this.r+5), this.canvas.width, this.canvas.height)
     this.checkOrganisms(this.getNext(0), orgs)
-    if (!_random(0,50)) this.newWonderDirection()
-    this.x += this.dx
-    this.y += this.dy
-    this.canvas.circle(this)
+    if (!_random(0,100)) this.newWonderDirection()
+    this.x += this.dx + (_random(-3,3)/10)
+    this.y += this.dy + (_random(-3,3)/10)
+    this.canvas.circle(this);
+  }
+
+  this.action = function(orgs){
+    switch (this.state) {
+      case "wondering": this.wondering(orgs); break;
+      case "mitosisReady":
+        this.canvas.circle(this)
+        break;
+    }
+
   }
 
 }

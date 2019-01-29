@@ -7,7 +7,6 @@ const PetriDish = function(params){
   this.createOrganism = function(params){
     if (!this.organisms) this.organisms = []
     const org = new this.Organism(params)
-    org.id = _getId()
     org.createdAt = Date.now()
     org.canvas = this.canvas
     org.newWonderDirection(org.wonderSpeed, org.wonderSpeed*-1)

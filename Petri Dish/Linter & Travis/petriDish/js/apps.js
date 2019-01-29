@@ -11,9 +11,13 @@ function _getDist(x1,x2,y1,y2) {
   return Math.sqrt( (b*b) + (a*a) )
 }
 
+function _PN(){
+  return Math.random() < 0.5 ? -1 : 1
+}
+
 var _getId = (function (){
 	var cnt = 0;
 	return function(){
-		return cnt+=2
+		return cnt+=1
 	}
 })()
