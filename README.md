@@ -1,5 +1,4 @@
-# anime-GFX-Lab
-Experiemtnal Front-end laboratory for graphics and animation projects. Often linked to, created at, or inspired by other developers at codepen.io.
+# Lab
+Here you'll find Bob's messy experimental code lab - unorganized, chaotic, but most ideas start here :-)
 ----
-# Resources
-2d Collisions: https://miskimit.github.io/ballsballsballs/index.html
+
