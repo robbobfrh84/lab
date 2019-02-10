@@ -39,11 +39,20 @@
   var coordinates = document.getElementById('coordinates');
   var map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/mapbox/streets-v9',
-    // style: 'mapbox://styles/mapbox/dark-v9',
+    // style: 'mapbox://styles/mapbox/streets-v9',
+    style: 'mapbox://styles/mapbox/dark-v9',
     center: [-121.4316425272457, 41.095638225895186],
     zoom: 7
   });
+
+  const fishes = [
+    [-122.4316425272457, 41.095638225895186],
+    [-122.8316425272457, 41.595638225895186],
+    [-122.0316425272457, 40.995638225895186]
+  ]
+  // const fishImage = 'https://image.flaticon.com/icons/png/128/135/135677.png'
+  const fishImage = 'bluefish.png'
+
 
   var canvas = map.getCanvasContainer();
 
@@ -76,31 +85,38 @@
 
   map.on('load', function() {
 
-    map.loadImage('https://image.flaticon.com/icons/png/128/135/135677.png', function(error, image) {
+    map.loadImage(fishImage, function(error, image) {
       if (error) throw error;
-      map.addImage('cat', image);
-      map.addLayer({
-        "id": "points",
-        "type": "symbol",
-        "source": {
-          "type": "geojson",
-          "data": {
-            "type": "FeatureCollection",
-            "features": [{
-              "type": "Feature",
-              "geometry": {
-                "type": "Point",
-                "coordinates": [-122.4316425272457, 41.095638225895186]
-              }
-            }]
+      map.addImage('fish', image);
+
+      for (var i = 0; i < fishes.length; i++) {
+        map.addLayer({
+          "id": "fish-"+i,
+          "type": "symbol",
+          "source": {
+            "type": "geojson",
+            "data": {
+              "type": "FeatureCollection",
+              "features": [{
+                "type": "Feature",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": fishes[i]
+                }
+              }]
+            }
+          },
+          "layout": {
+            "icon-image": "fish",
+            "icon-size": 0.25
           }
-        },
-        "layout": {
-          "icon-image": "cat",
-          "icon-size": 0.25
-        }
-      });
+        });
+      }
     });
+
+
+
+
 
     map.addSource('point', {
       "type": "geojson",
