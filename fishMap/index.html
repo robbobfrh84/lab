@@ -50,8 +50,10 @@
     [-122.8316425272457, 41.595638225895186],
     [-122.0316425272457, 40.995638225895186]
   ]
-  // const fishImage = 'https://image.flaticon.com/icons/png/128/135/135677.png'
-  const fishImage = 'bluefish.png'
+  const bluefish = "https://image.flaticon.com/icons/png/128/135/135677.png"
+  const brownFish = "https://raw.githubusercontent.com/robbobfrh84/lab/master/fish-logger/brown.png"
+  const greenFish = "https://raw.githubusercontent.com/robbobfrh84/lab/master/fish-logger/greener.png"
+  const redFish = "https://raw.githubusercontent.com/robbobfrh84/lab/master/fish-logger/bluefish.png"
 
 
   var canvas = map.getCanvasContainer();
@@ -68,27 +70,43 @@
   };
 
   function onMove(e) {
+    console.log('onMove')
     var coords = e.lngLat;
     canvas.style.cursor = 'grabbing';
     geojson.features[0].geometry.coordinates = [coords.lng, coords.lat];
     map.getSource('point').setData(geojson);
+    console.log('coords.lng, coords.lat: ', coords.lng, coords.lat)
   }
 
   function onUp(e) {
+    console.log('onUp')
     var coords = e.lngLat;
     coordinates.style.display = 'block';
     coordinates.innerHTML = 'Longitude: ' + coords.lng + '<br />Latitude: ' + coords.lat;
     canvas.style.cursor = '';
     map.off('mousemove', onMove);
     map.off('touchmove', onMove);
+    console.log('coords.lng, coords.lat: ', coords.lng, coords.lat)
   }
 
   map.on('load', function() {
 
-    map.loadImage(fishImage, function(error, image) {
+
+// * * * ✨ * * * Bob's Start * * * ✨ * * *
+
+    map.on('mousedown', 'point', function(e) {
+      // Prevent the default map drag behavior.
+      console.log('mousedown')
+      e.preventDefault()
+      canvas.style.cursor = 'grab'
+      map.on('mousemove', onMove)
+      map.once('mouseup', onUp)
+    })
+
+
+    map.loadImage(redFish, function(error, image) {
       if (error) throw error;
       map.addImage('fish', image);
-
       for (var i = 0; i < fishes.length; i++) {
         map.addLayer({
           "id": "fish-"+i,
@@ -110,13 +128,20 @@
             "icon-image": "fish",
             "icon-size": 0.25
           }
-        });
+        })
       }
-    });
+    })
 
+    map.on('mousedown', function(e) {
+      // Prevent the default map drag behavior.
+      console.log('mousedown')
+      e.preventDefault()
+      canvas.style.cursor = 'grab'
+      map.on('mousemove', onMove)
+      map.once('mouseup', onUp)
+    })
 
-
-
+// * * * 🚨 * * * Bob's End * * * 🚨 * * *
 
     map.addSource('point', {
       "type": "geojson",
@@ -135,17 +160,20 @@
 
     // When the cursor enters a feature in the point layer, prepare for dragging.
     map.on('mouseenter', 'point', function() {
+      console.log('mouseenter')
       map.setPaintProperty('point', 'circle-color', '#3bb2d0');
       canvas.style.cursor = 'move';
     })
 
     map.on('mouseleave', 'point', function() {
+      console.log('mouseleave')
       map.setPaintProperty('point', 'circle-color', '#3887be');
       canvas.style.cursor = '';
     })
 
     map.on('mousedown', 'point', function(e) {
       // Prevent the default map drag behavior.
+      console.log('mousedown')
       e.preventDefault()
       canvas.style.cursor = 'grab'
       map.on('mousemove', onMove)
@@ -153,6 +181,7 @@
     })
 
     map.on('touchstart', 'point', function(e) {
+      console.log('touchstart')
       if (e.points.length !== 1) return;
       // Prevent the default map drag behavior.
       e.preventDefault();
