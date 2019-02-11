@@ -1,0 +1,86 @@
+* {
+  font-family: monospace;
+  background-color: rgba(0,0,0,0);
+}
+body {
+  margin:0;
+  padding:0;
+}
+#map {
+  position:absolute;
+  top:0;
+  bottom:0;
+  width:100%;
+}
+#navBar {
+  position: absolute;
+  top: 10px; right: 10px;
+  background-color: rgba(255,255,255,0.1);
+  padding: 5px;
+  border-radius: 2px;
+  box-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+}
+#navBar .col {
+  display: inline-block;
+  vertical-align: top;
+}
+#addbtn {
+  height: 40px;
+  width: 40px;
+  font-size: 16px;
+  padding-left: 6px;
+  cursor: pointer;
+  color: rgba(255,255,2550.8);
+  background-color: rgba(150,150,255,0.2);
+  border: none;
+  border-radius: 2px;
+  box-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+  transition: box-shadow .3s, background-color .3s;
+}
+#addbtn:hover {
+  box-shadow: 0px 0px 0px rgba(0,0,0,0.5);
+  box-shadow: inset 2px 2px 2px rgba(0,0,0,0.5);
+  background-color: rgba(150,150,255,0.5);
+  transition: box-shadow .3s, background-color .3s;
+}
+.col2 {
+  background-color: rgba(0,0,0,0.2);
+  box-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+}
+.centerIcon {
+  height: 36px;
+  font-size: 36px;
+  line-height: 45px;
+  padding-left: 7px;
+  color: rgba(255,100,100,0.5);
+}
+.latlon {
+  vertical-align: bottom;
+  height: 40px;
+  width: 200px;
+  display: inline-block;
+  color: rgba(255,255,2550.8);
+}
+#navBarLng {
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+#centerMark {
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  font-size: 36px;
+  color: rgba(255,100,100,0.5);
+  pointer-events: none;
+  margin-top: -18px;
+}
+.mapboxgl-ctrl-bottom-left, .mapbox-improve-map {
+  display: none;
+}
+.mapboxgl-ctrl.mapboxgl-ctrl-attrib {
+  background-color: rgba(0,0,0,0);
+}
+.mapboxgl-ctrl-attrib-inner a {
+  color: rgba(255,255,255,0.5);
+  font-family: sans-serif;
+}
