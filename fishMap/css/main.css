@@ -74,6 +74,16 @@ body {
   pointer-events: none;
   margin-top: -18px;
 }
+#sheetLink {
+  position: absolute;
+  bottom: 0px; left: 0px;
+  padding: 5px;
+  color: cornflowerblue;
+  text-decoration: none;
+}
+#sheetLink:hover {
+  opacity: 0.8;
+}
 .mapboxgl-ctrl-bottom-left, .mapbox-improve-map {
   display: none;
 }

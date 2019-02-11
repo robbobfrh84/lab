@@ -1,11 +1,12 @@
 function _mapGo({set1}){
   const fishes = set1.map(x=>{ x._Id=JSON.parse(x._Id); return x })
+  const center = [-121.4316425272457, 41.095638225895186]
 
   mapboxgl.accessToken = 'pk.eyJ1Ijoicm9iYm9iZnJoODQiLCJhIjoiY2pvamcyNXUzMDFiMDNwcnc2Z2dibm10ZCJ9.y7ll2wHKfb5WIwtAtK9eJA';
   const map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/dark-v9', // 'mapbox://styles/mapbox/streets-v9',
-    center: [-121.4316425272457, 41.095638225895186],
+    center: center,
     zoom: 6
   })
 
@@ -13,7 +14,6 @@ function _mapGo({set1}){
     coords = e.lngLat;
     navBarLng.innerHTML = 'Lng: '+coords.lng
     navBarLat.innerHTML = 'Lat: '+coords.lat
-    console.log(map.getCenter())
   }
 
   addbtn.onclick = function() {
@@ -33,7 +33,7 @@ function _mapGo({set1}){
       sheetName: "set1",
       content: newFish
     }).then( payload => {
-      console.log('do stuff with data!')
+      //
     })
 
   }
@@ -49,6 +49,9 @@ function _mapGo({set1}){
         e.preventDefault()
         onUp(e)
       })
+
+      navBarLng.innerHTML = 'Lng: '+center[0]
+      navBarLat.innerHTML = 'Lat: '+center[1]
 
     })
   }
