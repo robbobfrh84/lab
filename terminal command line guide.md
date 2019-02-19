@@ -59,6 +59,7 @@
 
 
 ### MongoDB
+- KILL mongod mongo mongodb! `mongo --eval "db.getSiblingDB('admin').shutdownServer()"`
 ——————————————————————————————————————————————————
 mongod (or: sudo mongo)		>>> opons the mongoDB service/programe/whatever…
 mongo				>>> opens mongo command line for MongoDB files/database
