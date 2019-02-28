@@ -1,0 +1,101 @@
+<!DOCTYPE html><html lang="en">
+<title> Tic Tac Toe </title> <!-- <link rel="icon" href="link/or/path">  -->
+<head>
+  <meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background-color: #eee;
+    }
+    #title {
+      margin: auto;
+      font-size: 50px;
+      text-align: center;
+    }
+    .board {
+      margin: auto;
+      width: 312px;
+    }
+    .board div {
+      display: inline-block;
+      color: rgba(0,0,0,0);
+      text-align: center;
+      border: 2px solid #444;
+      width: 100px;
+      height: 100px;
+      font-size: 100px;
+      line-height: 100px;
+      margin-left: -4px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="title"> Tic Tac Toe </div>
+
+  <div id="gameBoard" class="board">
+    <div id='box1' onclick="play(1)">-</div>
+    <div id='box2' onclick="play(2)">-</div>
+    <div id='box3' onclick="play(3)">-</div>
+    <div id='box4' onclick="play(4)">-</div>
+    <div id='box5' onclick="play(5)">-</div>
+    <div id='box6' onclick="play(6)">-</div>
+    <div id='box7' onclick="play(7)">-</div>
+    <div id='box8' onclick="play(8)">-</div>
+    <div id='box9' onclick="play(9)">-</div>
+  </div>
+
+</body>
+<script>
+
+var game = ['-','-','-','-','-','-','-','-','-']
+var turn = 'X'
+
+var win = [
+  [1,2,3],
+  [4,5,6],
+  [7,8,9],
+  [1,4,7],
+  [2,5,8],
+  [3,6,9],
+  [1,5,9],
+  [3,5,7]
+]
+
+var play = function(boxNumber){
+
+  var box = document.getElementById("box"+boxNumber)
+
+  if (box.textContent === '-') {
+
+    box.textContent = turn
+    box.style.color = "#444"
+    game[boxNumber] = turn
+
+    for (var i = 0; i < win.length; i++) {
+      const match1 = game[win[i][0]]
+      const match2 = game[win[i][1]]
+      const match3 = game[win[i][2]]
+      if (match1 === turn && match2 === turn && match3 === turn) {
+        var title = document.getElementById("title")
+        var gameBoard = document.getElementById("gameBoard")
+        gameBoard.style.pointerEvents = "none"
+        title.textContent = turn + " WINS!"
+      }
+    }
+
+    if (turn === 'X') {
+      turn = 'O'
+    } else {
+      turn = 'X'
+    }
+
+    console.log(game, turn)
+    
+  }
+
+}
+
+</script>
+</html>
