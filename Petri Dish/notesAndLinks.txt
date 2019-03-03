@@ -1,7 +1,0 @@
-LINKS!!!
-Lots of smoothed out motion maths: http://javascript.info/tutorial/animation#the-generic-animation
-.this links: http://www.phpied.com/3-ways-to-define-a-javascript-class/
-.this with Apply Call & bind: http://javascriptissexy.com/javascript-apply-call-and-bind-methods-are-essential-for-javascript-professionals/
-
-// http://www.w3schools.com/tags/canvas_arc.asp
-// http://billmill.org/static/canvastutorial/finish.html
