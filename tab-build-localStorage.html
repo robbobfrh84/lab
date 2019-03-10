@@ -1,0 +1,67 @@
+<!DOCTYPE html>  <title> replace </title>
+<style>
+td, tr, th { border: 1px solid #444; padding: 5px; font-size: 20px;}
+th { background-color: #ccc; }
+</style>
+<body>
+
+  <table>
+    <tbody id="table-body"><tbody>
+  </table>
+
+  <input placeholder="...column name..." id="colName" autoFocus>
+  <button id="addCol"> Add Column </button> <br> <br>
+  <button id="addRow"> Add Row </button>
+
+</body>
+<script>
+
+window.onload = function(){
+  buildTable()
+}
+
+const table = document.getElementById('table-body')
+const checkTable = JSON.parse(localStorage.seedTable)
+let dataTable = checkTable ? checkTable: [["#"]]
+
+
+function buildTable() {
+
+  table.innerHTML = ""
+
+  // build header Row
+  const tr = document.createElement("tr")
+  for (var i = 0; i < dataTable[0].length; i++) {
+    tr.innerHTML += `
+      <th>${dataTable[0][i]}</th>
+    `
+  }
+  table.appendChild(tr)
+
+  // fill rows with data
+  for (var i = 1; i < dataTable.length; i++) {
+    const tr = document.createElement("tr")
+    for (var j = 0; j < dataTable[0].length; j++) {
+      tr.innerHTML += `
+        <td>${dataTable[i][j]}</td>
+      `
+    }
+    table.appendChild(tr)
+  }
+
+}
+
+addCol.onclick = function(){
+  dataTable[0].push(document.getElementById("colName").value)
+  buildTable()
+  localStorage.seedTable = JSON.stringify(dataTable)
+}
+
+addRow.onclick = function(){
+  dataTable.push(dataTable[0].map(()=>"?"))
+  buildTable()
+  localStorage.seedTable = JSON.stringify(dataTable)
+}
+
+</script>
+</html>
