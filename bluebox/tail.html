@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<head>
+  <style media="screen">
+    body {
+      background-color: #777;
+    }
+    .box {
+      display: inline-block;
+      vertical-align: top;
+      background-color: #888;
+      border: 1px solid #aaa;
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
+      text-align: center;
+      position: relative;
+    }
+  </style>
+</head>
+<body>
+<div id="main"></div>
+</body>
+<script>
+
+function buildGrid(grid, placeMe){
+
+  const main = document.getElementById("main")
+  main.innerHTML = ""
+
+  for (var y = 0; y < grid.y; y++) {
+
+    for (var x = 0; x < grid.x; x++) {
+
+      let style = ""
+
+      for (var k = 0; k < placeMe.length; k++) {
+        if (placeMe[k].x === x && placeMe[k].y === y) {
+          style = 'background-color: '+placeMe[k].color
+        }
+      }
+
+      main.innerHTML += `<div class="box" style="${style}"></div>`
+
+    }
+
+    main.innerHTML += `<br>`
+  }
+
+}
+
+window.onkeydown = (event)=>{
+  const head = snake[0]
+  const tail = snake[snake.length-1]
+  switch (event.key) {
+    case "ArrowUp":
+      if (head.y > 0) {
+        let newSnake = { x: head.x, y: head.y - 1, color: tail.color }
+        snake.unshift(newSnake); snake.pop()
+      }
+      break
+    case "ArrowDown":
+      if (head.y < myGrid.y-1) {
+        let newSnake = { x: head.x, y: head.y + 1, color: tail.color }
+        snake.unshift(newSnake); snake.pop()
+      }
+      break
+    case "ArrowRight":
+      if (head.x < myGrid.x-1) {
+        let newSnake = { x: head.x + 1, y: head.y, color: tail.color }
+        snake.unshift(newSnake); snake.pop()
+      }
+      break
+    case "ArrowLeft":
+      if (head.x > 0) {
+        let newSnake = { x: head.x - 1, y: head.y, color: tail.color }
+        snake.unshift(newSnake); snake.pop()
+      }
+      break
+    default:
+      console.log("unhandled key...", event.key)
+  }
+  buildGrid(myGrid, snake)
+}
+
+const snake = [
+  { x: 3, y: 2, color: "rgba(100,149,237,1)" },
+  { x: 2, y: 2, color: "rgba(100,149,237,0.9)" },
+  { x: 2, y: 3, color: "rgba(100,149,237,0.8)" },
+  { x: 2, y: 4, color: "rgba(100,149,237,0.7)" },
+  { x: 2, y: 5, color: "rgba(100,149,237,0.6)" }
+]
+
+const myGrid = {
+  x: 15,
+  y: 15
+}
+
+buildGrid(myGrid, snake)
+
+</script>
+</html>

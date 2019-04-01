@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<head>
+  <style media="screen">
+    .box {
+      display: inline-block;
+      vertical-align: top;
+      background-color: gray;
+      margin: 1px;
+      width: 50px;
+      height: 50px;
+      line-height: 50px;
+      text-align: center;
+      position: relative;
+    }
+    .blue {
+      background-color: cornflowerblue;
+    }
+  </style>
+</head>
+<body>
+<div id="main"></div>
+</body>
+<script>
+
+function buildGrid(grid, placeMe){
+
+  const main = document.getElementById("main")
+  main.innerHTML = ""
+
+  for (var y = 0; y < grid.y; y++) {
+
+    for (var x = 0; x < grid.x; x++) {
+
+      let classList = "box "
+      if (placeMe.x === x && placeMe.y === y) {
+        classList+=placeMe.color
+      }
+
+      main.innerHTML += `<div class="${classList}"></div>`
+
+    }
+
+    main.innerHTML += `<br>`
+  }
+
+}
+
+window.onkeydown = (event)=>{
+
+  switch (event.key) {
+    case "ArrowUp":
+      if (blue.y > 0) blue.y-=1
+      break
+    case "ArrowDown":
+      if (blue.y < myGrid.y-1) blue.y+=1
+      break
+    case "ArrowRight":
+      if (blue.x < myGrid.x-1) blue.x+=1
+      break
+    case "ArrowLeft":
+      if (blue.x > 0) blue.x-=1
+      break
+    default:
+      console.log("unhandled key...", event.key)
+  }
+  buildGrid(myGrid, blue)
+}
+
+const blue = {
+  x: 3,
+  y: 2,
+  color: "blue"
+}
+
+const myGrid = {
+  x: 10,
+  y: 10
+}
+
+buildGrid(myGrid, blue)
+
+</script>
+</html>

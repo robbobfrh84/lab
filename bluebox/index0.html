@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<head>
+  <style media="screen">
+    .box {
+      display: inline-block;
+      vertical-align: top;
+      background-color: gray;
+      margin: 1px;
+      width: 50px;
+      height: 50px;
+      line-height: 50px;
+      text-align: center;
+      position: relative;
+    }
+  </style>
+</head>
+<body>
+<div id="main"></div>
+</body>
+<script>
+
+function buildGrid(grid){
+
+  const main = document.getElementById("main")
+
+  for (var y = 0; y < grid.length; y++) {
+
+    for (var x = 0; x < grid[y].length; x++) {
+
+      console.log("y: ",y,"x: ",x)
+
+      const content = grid[y][x]
+
+      main.innerHTML += `<div class="box">${content}</div>`
+
+    }
+
+    main.innerHTML += `<br>`
+  }
+
+}
+
+const blue = {
+  x: 3,
+  y: 2,
+  color: "blue"
+}
+
+const myGrid = [  [" "," "," "," "," "," "," "],
+                  [" "," "," "," "," "," "," "],
+                  [" "," "," "," "," "," "," "],
+                  [" "," "," "," "," "," "," "],
+                  [" "," "," "," "," "," "," "],
+                  [" "," "," "," "," "," "," "],  ]
+
+buildGrid(myGrid)
+
+</script>
+</html>
