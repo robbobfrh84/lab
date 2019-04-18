@@ -19,10 +19,14 @@ const Evolve_units = {
     EV.addGene(unitGenome, "red", "complete", "count", 100, 1, 20, 0, 255)
     EV.addGene(unitGenome, "green", "complete", "count", 149, 1, 20, 0, 255)
     EV.addGene(unitGenome, "blue", "complete", "count", 237, 1, 20, 0, 255)
+    EV.addGene(unitGenome, "opacity", "complete", "scale", 1, 1, 0.02, 0, 1)
+
     // Border Color
     EV.addGene(unitGenome, "bred", "complete", "count", 230, 1, 20, 200, 255)
     EV.addGene(unitGenome, "bgreen", "complete", "count", 230, 1, 20, 200, 255)
     EV.addGene(unitGenome, "bblue", "complete", "count", 230, 1, 20, 200, 255)
+    EV.addGene(unitGenome, "bopacity", "complete", "scale", 1, 1, 0.02, 0, 1)
+
     return unitGenome
   },
 
@@ -47,12 +51,14 @@ const Evolve_units = {
     this.color = [
       this.phenotype.redValue,
       this.phenotype.greenValue,
-      this.phenotype.blueValue
+      this.phenotype.blueValue,
+      this.phenotype.opacityValue
     ]
     this.borderColor = [
       this.phenotype.bredValue,
       this.phenotype.bgreenValue,
-      this.phenotype.bblueValue
+      this.phenotype.bblueValue,
+      this.phenotype.bopacityValue
     ]
   },
 
