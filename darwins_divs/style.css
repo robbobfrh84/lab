@@ -1,0 +1,15 @@
+* {
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
+}
+body {
+  background-color: #666;
+}
+.title {
+  margin-bottom: 5px;
+}
+.box {
+  display: inline-block;
+  vertical-align: top;
+  background-color: gray;
+  text-align: center;
+}
