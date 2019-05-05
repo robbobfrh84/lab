@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <style media="screen">
+    * {
+      font-family: 'Noto Sans', sans-serif;
+    }
+
+    body, html {
+      margin: 0;
+    }
+
+    canvas {
+      display: block;
+    }
+
+    #instructions {
+      position: fixed;
+      top: 0;
+      margin-left: 20px;
+    }
+  </style>
+  <body>
+    <canvas id="canvas"></canvas>
+    <h3 id="instructions">
+      Drag the triangle and throw it around!
+      <button id="jump"><b>Jump!</b></button>
+      <button id="intoWall"><b>Into Wall!</b></button>
+    </h3>
+  </body>
+  <script src="app.js"></script>
+</html>

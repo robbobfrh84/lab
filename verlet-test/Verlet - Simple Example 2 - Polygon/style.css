@@ -1,0 +1,23 @@
+* {
+  font-family: sans-serif;
+  font-size: 20px;
+}
+
+html {
+  background-color: #333;
+}
+
+body {
+  background-color: #eee;
+}
+
+#nav {
+  position: absolute;
+  text-align: center;
+  top: 10px; right: 10px; left: 10px;
+  background-color: rgba(0,0,0,0.2);
+}
+
+canvas {
+  display: block;
+}
