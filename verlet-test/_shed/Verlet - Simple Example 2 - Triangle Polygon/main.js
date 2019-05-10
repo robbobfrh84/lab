@@ -29,6 +29,4 @@ animate()
 window.onresize = function(){
   cosmos.h = cosmos.canvas.height = window.innerHeight - 15
   cosmos.w = cosmos.canvas.width = window.innerWidth - 15
-  console.log('resie')
-  console.log(cosmos.lineWidth)
 }
