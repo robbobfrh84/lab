@@ -1,0 +1,288 @@
+<!DOCTYPE html><html lang="en">
+<title> zDog planet </title> <!-- <link rel="icon" href="link/or/path">  -->
+<head>
+  <meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="zdog.js"></script>
+  <style media="screen">
+    body {
+      background-color: #111;
+    }
+    .container {
+      background-color: #222;
+      width: 430;
+    }
+    canvas {
+      /* transform: rotate(-15deg); */
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <canvas class="zdog-canvas" width="430" height="430"></canvas>
+  </div>
+</body>
+<script>
+
+
+// 🌱 CHARACTORISTICS 🌱
+const planet_radius = 125
+const atmosphere_thickness = 5
+const offset = -10
+
+const TAU = Zdog.TAU
+let isSpinning = false
+// isSpinning = true
+
+
+// 🐶 ZDOG ILLUSTRATION 🐶
+const space = new Zdog.Illustration({
+  element: '.zdog-canvas',
+  dragRotate: true,
+  // rotate: { x: -TAU*0.05 },
+  onDragStart: function() {
+    isSpinning = false
+  },
+})
+
+
+// 🌏 PLANET 🌏
+const topHempishere = new Zdog.Hemisphere({
+  addTo: space,
+  diameter: planet_radius * 2,
+  translate: { x: offset, y: offset },
+  color: "cornflowerblue", //backface: "blue",
+  stroke: false,
+})
+
+topHempishere.copy({
+  rotate: { y: Zdog.TAU/2 }, //color: "blue", backface: "cornflowerblue",
+})
+
+
+// 💈 NORTH / SOUTH POLE 💈
+const north_pole = new Zdog.Shape({
+  addTo: space,
+  translate: { x: offset, y: offset },
+  path: [
+    {y: planet_radius * -1},
+    {y: (planet_radius+50) * -1}
+  ],
+  stroke: 5,
+  color: 'firebrick'
+})
+const north_pole_mark = new Zdog.Ellipse({
+  addTo: north_pole,
+  translate: { y: (planet_radius-1) * -1 },
+  rotate: {x: TAU/4 },
+  diameter: 12,
+  stroke: 6,
+  color: "rgba(200,100,100,1)",
+})
+// 🔰 South pole !
+north_pole.copy({
+  path: [
+    {y: planet_radius },
+    {y: planet_radius+50 }
+  ],
+  color: 'blue'
+})
+north_pole_mark.copy({
+  addTo: north_pole,
+  translate: { y: planet_radius-3 },
+  color: "rgba(100,100,255,1)",
+})
+
+
+// // 🇪🇨 ⭕️ Equator ⭕️ 🇪🇨
+set_latitude_marks(0, 400, 3, 0, "rgba(184,134,11,0.5)", "dot")
+// // 🎅 PRIME MARIDIAN 🐧
+set_longitude_marks(0, 200, 3, 0,"rgba(0,110,0,0.3)", "dot")
+
+//
+// 🔺 Isohedron half way marks
+//
+Number.prototype.toRad = function () { return this * Math.PI / 180 }
+Number.prototype.toDeg = function () { return this * (180 / Math.PI) }
+function middlePoint(lat1, lng1, lat2, lng2, step) {
+  const dLng = (lng2 - lng1).toRad()
+  lat1 = lat1.toRad()
+  lat2 = lat2.toRad()
+  lng1 = lng1.toRad()
+  const bX = (Math.cos(lat2) * Math.cos(dLng))
+  const bY = (Math.cos(lat2) * Math.sin(dLng))
+  const lat3 = (Math.atan2(Math.sin(lat1) + Math.sin(lat2),
+    Math.sqrt((Math.cos(lat1) + bX) * (Math.cos(lat1) + bX) + bY * bY)))
+  const lng3 = (lng1 + Math.atan2(bY, Math.cos(lat1) + bX))
+  return {lat: lat3.toDeg() , lng: lng3.toDeg()}
+}
+
+let level = 3
+stroke = 7
+
+let mark1, mark2, mark3, mark4, mark5
+const markTop = { lat: 90, lng: 0 }
+const markBot = { lat: -90, lng: 0 }
+const coordMap = {}
+let totalPoints = 0
+let dups = 0
+
+set_coordinate_mark({lat: markTop.lat, lng: markTop.lng, stroke, shape: "dot",color: "black"})
+set_coordinate_mark({lat: markBot.lat, lng: markBot.lng, stroke, shape: "dot",color: "black"})
+
+for (var i = 0; i <= 4; i++) {
+
+  mark1 = { lat:  26.57,  lng:  (72*i) }
+  mark2 = { lat:  26.57,  lng:  (72*i)+72 }
+  mark3 = { lat:  -26.57, lng:  (72*i)+36 }
+
+  set_coordinate_mark({lat: mark1.lat, lng: mark1.lng, stroke, shape: "dot",color: "black"})
+  set_coordinate_mark({lat: mark2.lat, lng: mark2.lng, stroke, shape: "dot",color: "black"})
+  set_coordinate_mark({lat: mark3.lat, lng: mark3.lng, stroke, shape: "dot",color: "black"})
+
+  markTri(markTop,mark1,mark2,level)
+  markTri(mark1,mark2,mark3,level)
+  if (mark5) {
+    markTri(mark3,mark5,mark4,level)
+    markTri(markBot,mark5,mark3,level)
+  }
+  mark4 = mark2
+  mark5 = mark3
+
+  coordMapper({a:mark1,b:mark2,c:mark3})
+  coordMapper({a:markTop,b:markBot})
+
+}
+
+markTri( markBot, mark5 ,{ lat: -26.57, lng: 36 },level)
+markTri( { lat:  26.57,  lng:  (72*i) }, mark5 ,{ lat: -26.57, lng: 36 },level)
+
+
+function coordMapper(points) {
+  for (const p in points) {
+    const lat = Math.round(points[p].lat) // not actually implimented
+    const lng = Math.round(points[p].lng) // not actually implimented
+
+    if (!(coordMap[points[p].lat] && coordMap[points[p].lng])) {
+
+      if (!coordMap[points[p].lat]) coordMap[points[p].lat] = 0
+      if (!coordMap[points[p].lng]) coordMap[points[p].lng] = 0
+
+      coordMap[points[p].lat]++
+      coordMap[points[p].lng]++
+
+      totalPoints++
+
+    } else {
+      dups++
+    }
+  }
+}
+
+console.log("totalPoints :", totalPoints)
+console.log("dups :", dups)
+console.log("keys:", Object.keys(coordMap).length)
+console.log("coordMap :", coordMap)
+
+
+function markTri(a,b,c,level){
+  let a2 = markHalf( a.lat, a.lng, b.lat, b.lng, "purple")
+  let b2 = markHalf( b.lat, b.lng, c.lat, c.lng, "purple")
+  let c2 = markHalf( c.lat, c.lng, a.lat, a.lng, "purple")
+  coordMapper({a:a2,b:b2,c:c2})
+  level--
+  if (level > 0) {
+    markTri(a2,b2,c2,level)
+    markTri(a,a2,c2,level)
+    markTri(b,b2,a2,level)
+    markTri(c,c2,b2,level)
+  }
+}
+
+function markHalf(slat, slng, elat, elng, color){
+  let {lat,lng} = middlePoint( slat, slng, elat, elng )
+  set_coordinate_mark({lat:  lat, lng:  lng, stroke, shape: "dot", color})
+  return {lat,lng}
+}
+
+
+// 🌐 🛠 LATITUDE & LONGITUDE MARKS & TOOLS 🛠 🌐
+function set_latitude_marks(lat, cnt, stroke, altitude, color, shape){
+  for ( var j=0; j < cnt; j++ ) {
+    set_coordinate_mark({
+      lng: (360 / cnt) * j,
+      lat, stroke, color, altitude, shape
+    })
+  }
+}
+
+function set_longitude_marks(lng, cnt, stroke, altitude, color, shape) {
+  for ( var j=0; j < cnt; j++ ) {
+    set_coordinate_mark({
+      lat: (180 / cnt) * j -90,
+      lng, stroke, color, altitude, shape
+    })
+  }
+}
+
+function set_coordinate_mark(mark){
+  const lat_radians = (TAU/4) - (mark.lat * (Math.PI/180)) * -1
+  const lng_radians = (mark.lng * (Math.PI/180)) * -1
+  var rotor1 = new Zdog.Anchor({
+    addTo: space,
+    translate: { x: offset, y: offset },
+    rotate: { y: lng_radians },
+  })
+  var rotor2 = new Zdog.Anchor({
+    addTo: rotor1,
+    rotate: { x: lat_radians },
+  })
+  if (mark.shape === "dot") {
+    new Zdog.Shape({
+      addTo: rotor2,
+      translate: { y: planet_radius + (mark.altitude || 0) },
+      stroke: mark.stroke,
+      color: mark.color
+    })
+  } else if (mark.shape === "cone") {
+    new Zdog.Cone({
+      addTo: rotor2,
+      translate: { y: planet_radius + (mark.altitude || 0) },
+      rotate: {x: TAU*.75},
+      diameter: mark.diameter,
+      length: mark.length,
+      color: mark.color,
+    })
+  } else if (mark.shape === "poly") {
+    new Zdog.Polygon({
+      addTo: rotor2,
+      sides: mark.sides,
+      radius: mark.radius,
+      translate: { y: planet_radius  + (mark.altitude || 0) },
+      rotate: {x: TAU*.75},
+      stroke: mark.stroke,
+      fill: true,
+      color: mark.color,
+      backface: mark.backface,
+    })
+
+  }
+}
+
+function random(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+
+// 🔥🔥🔥🔥 Animate! 🔥🔥🔥🔥
+// space.rotate.z = 0.1
+function animate() {
+  space.rotate.y += isSpinning ? 0.01 : 0
+  space.updateRenderGraph()
+  requestAnimationFrame( animate )
+}
+
+animate()
+
+</script>
+</html>

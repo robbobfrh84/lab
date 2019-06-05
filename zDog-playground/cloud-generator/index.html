@@ -1,0 +1,227 @@
+<!DOCTYPE html><html lang="en">
+<title> zDog planet </title> <!-- <link rel="icon" href="link/or/path">  -->
+<head>
+  <meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="zdog.js"></script>
+  <style media="screen">
+    body {
+      background-color: #111;
+    }
+    canvas {
+      transform: rotate(15deg);
+    }
+    .container {
+      background-color: black;
+      border-radius: 5px;
+      width: 430px;
+    }
+    #btn {
+      border: none;
+      background-color: #ccc;
+      border-radius: 3px;
+      font-size: 20px;
+      width: 350px;
+      margin-left: 40px;
+      margin-bottom: 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div id="canvasContainer">
+      <canvas id="spaceCanvas" width="430" height="380"></canvas>
+    </div>
+    <button id="btn" onclick="regenerate_world()"> ➰ ☁️ Regenerate ☁️ ➰</button>
+  </div>
+</body>
+<script>
+
+
+// 🌱 CHARACTORISTICS 🌱
+const planet_radius = 125
+const atmosphere_thickness = 5
+const offset = -10
+
+const TAU = Zdog.TAU
+let isSpinning = true
+let regenerate = false
+
+// 🐶 ZDOG ILLUSTRATION 🐶
+let space = new Zdog.Illustration({
+  element: '#spaceCanvas',
+  dragRotate: true,
+  rotate: { x: TAU*0.05 },
+  onDragStart: function() {
+    isSpinning = false
+  },
+})
+
+
+function generate_world(){
+
+  // 🌏 PLANET 🌏
+  const topHempishere = new Zdog.Hemisphere({
+    addTo: space,
+    diameter: planet_radius * 2,
+    translate: { x: offset, y: offset },
+    color: "cornflowerblue", //backface: "blue",
+    stroke: false,
+  })
+  topHempishere.copy({
+    rotate: { y: Zdog.TAU/2 }, //color: "blue", backface: "cornflowerblue",
+  })
+
+
+  // 💈 NORTH / SOUTH POLE 💈
+  const north_pole = new Zdog.Shape({
+    addTo: space,
+    translate: { x: offset, y: offset },
+    path: [
+      {y: planet_radius * -1},
+      {y: (planet_radius+50) * -1}
+    ],
+    stroke: 5,
+    color: 'firebrick'
+  })
+  north_pole.name = "north_pole"
+  const north_pole_mark = new Zdog.Ellipse({
+    addTo: north_pole,
+    translate: { y: (planet_radius-1) * -1 },
+    rotate: {x: TAU/4 },
+    diameter: 12,
+    stroke: 6,
+    color: "rgba(200,100,100,1)",
+  })
+  // 🔰 South pole !
+  north_pole.copy({
+    path: [
+      {y: planet_radius },
+      {y: planet_radius+50 }
+    ],
+    color: 'blue'
+  })
+  north_pole_mark.copy({
+    addTo: north_pole,
+    translate: { y: planet_radius-3 },
+    color: "rgba(100,100,255,1)",
+  })
+
+
+  // 🇪🇨 ⭕️ Equator ⭕️ 🇪🇨
+  set_latitude_marks(0, 400, 3, 0, "rgba(184,134,11,0.5)")
+  // 🎅 PRIME MARIDIAN 🐧
+  set_longitude_marks(0, 200, 3, 0,"rgba(0,110,0,0.3)")
+
+
+  // ☁️☁️☁️ CLOUDS ☁️☁️☁️
+  let cloudCount = 0
+  for (var i = 0; i < 30; i++) {
+    create_cloud_cluster({
+      lat: random(-60,60),
+      long: random(-180,180),
+      altitude: random(2,10),
+      count: random(10,100)
+    })
+  }
+
+  function create_cloud_cluster(cords){
+    for (var i = 0; i < cords.count; i++) {
+      set_cordinate_mark({
+        lat: cords.lat + random(0, cords.count/8),
+        long: cords.long + random(0, cords.count/2),
+        stroke: random(5, 15),
+        color: "rgba(200,200,200,"+(random(0,5)/10)+")",
+        altitude: cords.altitude + random(5, 15)
+      })
+      cloudCount++
+    }
+  }
+  console.log("total Clouds: ", cloudCount)
+
+  function random(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  }
+
+
+  // 🌐 LATITUDE & LONGITUDE MARKS 🌐
+  function set_latitude_marks(lat, cnt, stroke, altitude, color){
+    for ( var j=0; j < cnt; j++ ) {
+      set_cordinate_mark({
+        long: (360 / cnt) * j,
+        lat, stroke, color, altitude
+      })
+    }
+  }
+
+  function set_longitude_marks(long, cnt, stroke, altitude, color) {
+    for ( var j=0; j < cnt; j++ ) {
+      set_cordinate_mark({
+        lat: (180 / cnt) * j -90,
+        long, stroke, color, altitude
+      })
+    }
+  }
+
+  function set_cordinate_mark(mark){
+    const lat_radians = (TAU/4) - (mark.lat * (Math.PI/180)) * -1
+    const long_radians = (mark.long * (Math.PI/180)) * -1
+    const rotor1 = new Zdog.Anchor({
+      addTo: space,
+      translate: { x: offset, y: offset },
+      rotate: { y: long_radians },
+    })
+    const rotor2 = new Zdog.Anchor({
+      addTo: rotor1,
+      rotate: { x: lat_radians },
+    })
+    const cloud = new Zdog.Shape({
+      addTo: rotor2,
+      translate: { y: planet_radius + (mark.altitude) },
+      stroke: mark.stroke,
+      color: mark.color
+    })
+  }
+
+  // 🔥🔥🔥🔥 Animate! 🔥🔥🔥🔥
+  space.rotate.z = 0.2
+  function animate() {
+    if (!regenerate) {
+      space.rotate.y += isSpinning ? 0.01 : 0
+      space.updateRenderGraph()
+      requestAnimationFrame( animate )
+    }
+  }
+  animate()
+
+}
+
+
+// ➰ ☁️ Regenerate ☁️ ➰
+function regenerate_world(){
+  regenerate = true
+  canvasContainer.innerHTML = `
+    <canvas id="spaceCanvas" width="430" height="380"></canvas>
+  `
+  space = false
+  requestAnimationFrame(()=>{
+    space = new Zdog.Illustration({
+      element: '#spaceCanvas',
+      dragRotate: true,
+      rotate: { x: TAU*0.05 },
+      onDragStart: function() {
+        isSpinning = false
+      },
+    })
+    regenerate = false
+    generate_world()
+  })
+}
+
+
+generate_world()
+
+
+</script>
+</html>
