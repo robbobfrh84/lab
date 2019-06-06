@@ -1,40 +1,121 @@
 <!DOCTYPE html><html lang="en">
-<title> 52 Card Pickup </title> <!-- <link rel="icon" href="link/or/path">  -->
+<title> "52 Card Pickup": with unicode cards </title> <!-- <link rel="icon" href="link/or/path">  -->
 <head>
   <meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style media="screen">
+    body {
+      background: url("https://raw.githubusercontent.com/robbobfrh84/lab/master/52-card-pickup/darkGreenGainy.png")
+    }
     #allDeck {
       font-size: 70px;
     }
     .cards {
+      position: absolute;
       display: inline-block;
+      background-color: #ccc;
+      height: 63px; /* MATCH JS */
+      width: 49px; /* MATCH JS */
+      line-height: 54px;
+      border-radius: 3px;
+      box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+      z-index: auto;
+      transform: rotate(0deg);
+      transition: top 0.3s, left 0.3s, transform 0.4s;
+      transition-timing-function: ease-out;
     }
+
     .red {
       color: red;
     }
     .black {
       color: black;
     }
+    #refresh {
+      position: absolute;
+      bottom: 20px;
+      right: 50%;
+      color: #ddd;
+      opacity: 1;
+      padding: 2px;
+      z-index: -1;
+    }
+    #refreshIcon{
+      position: relative;
+      left: 15px;
+      background-color: darkgoldenrod;
+      opacity: 1;
+      font-size: 30px;
+      margin-left: 20px;
+      height: 35px;
+      text-align: center;
+      width: 35px;
+      border-radius: 100%;
+      cursor: pointer;
+    }
+    #refreshIcon:hover{
+      opacity: 0.7;
+    }
   </style>
 </head>
 <body>
 <div id="allDeck"></div>
+  <div id="refresh" >
+    <div id="refreshIcon" onclick="go()"> &#8635;</div>
+</div>
 </body>
 <script>
 
-window.onload = function(){
-  for (const c of deck) {
+const cW = 49
+const cH = 63
+const mL = 20
+
+window.onload = function(){ go() }
+
+function go(){
+
+  allDeck.innerHTML = ""
+  for (var i = 0; i < deck.length; i++) {
+    const saveIndex = i
+    const delay = random(20,60) * i
+
+    // first, place all in order
     allDeck.innerHTML += `
-      <div class="cards ${c.color}">${c.image}</div>
+      <div class="cards ${deck[i].color}" id="card-${i}" style="
+        left: ${(innerWidth/2) - cW/2}px;
+        top: ${(innerHeight) - mL - cH  }px;
+      ">
+      ${backside}</div>
     `
+    // PICK UP!
+    setTimeout(function(){
+      deal(saveIndex)
+    }, delay)
+
   }
+
+}
+
+function deal(i){
+  deck[i].side = random(0,1) === 0
+  deck[i].x = random(20, window.innerWidth-80)
+  deck[i].y = random(20, window.innerHeight-120)
+  deck[i].a = random(0, 359)
+
+  const c = document.getElementById("card-"+i)
+  c.style.left = deck[i].x+"px"
+  c.style.top = deck[i].y+"px"
+  c.style.transform = "rotate("+deck[i].a+"deg)"
+  c.innerHTML = deck[i].side ? deck[i].image : backside
 }
 
 random = (min, max)=>Math.floor(Math.random() * (max - min + 1) + min)
 
+const backside = " &#127136"
+
 const deck = [
 
+  { card:"1h", image: " &#127136", color: "red"},
   { card:"1h", image: " &#127153", color: "red"},
   { card:"2h", image: " &#127154", color: "red"},
   { card:"3h", image: " &#127155", color: "red"},
