@@ -20,6 +20,10 @@
 - rm filename.whatever		>>> removes/deletes file
 - My\ Folder			>>> backslash+space for space if file/dir has spaces
 
+##### Save url file to location
+* $`brew install curl` (if you don't already have `curl`)
+* $`curl -O <url>`
+
 ---
 ### CPUish stuff
 - arp -a 				>>> shows all http server LAN IP addresses
