@@ -117,13 +117,14 @@ function middlePoint(lat1, lng1, lat2, lng2, step) {
   return {lat: lat3.toDeg() , lng: lng3.toDeg()}
 }
 
-let level = 3
+let level = 4
 stroke = 7
 
 let mark1, mark2, mark3, mark4, mark5
 const markTop = { lat: 90, lng: 0 }
 const markBot = { lat: -90, lng: 0 }
 const coordMap = {}
+const ang = Math.atan(.5) * (180/Math.PI)
 let totalPoints = 0
 let dups = 0
 
@@ -132,9 +133,9 @@ set_coordinate_mark({lat: markBot.lat, lng: markBot.lng, stroke, shape: "dot",co
 
 for (var i = 0; i <= 4; i++) {
 
-  mark1 = { lat:  26.57,  lng:  (72*i) }
-  mark2 = { lat:  26.57,  lng:  (72*i)+72 }
-  mark3 = { lat:  -26.57, lng:  (72*i)+36 }
+  mark1 = { lat:  ang,  lng:  (72*i) }
+  mark2 = { lat:  ang,  lng:  (72*i)+72 }
+  mark3 = { lat:  -ang, lng:  (72*i)+36 }
 
   set_coordinate_mark({lat: mark1.lat, lng: mark1.lng, stroke, shape: "dot",color: "black"})
   set_coordinate_mark({lat: mark2.lat, lng: mark2.lng, stroke, shape: "dot",color: "black"})
@@ -154,8 +155,8 @@ for (var i = 0; i <= 4; i++) {
 
 }
 
-markTri( markBot, mark5 ,{ lat: -26.57, lng: 36 },level)
-markTri( { lat:  26.57,  lng:  (72*i) }, mark5 ,{ lat: -26.57, lng: 36 },level)
+markTri( markBot, mark5 ,{ lat: -ang, lng: 36 },level)
+markTri( { lat:  ang,  lng:  (72*i) }, mark5 ,{ lat: -ang, lng: 36 },level)
 
 
 function coordMapper(points) {
