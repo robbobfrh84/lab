@@ -1,0 +1,48 @@
+.bathroom {
+  background-color: rgba(55,27,8,0.1);
+  font-family: Avenir;
+  color: #322;
+}
+
+.title {
+  text-align: center;
+  font-size: 40px;
+  letter-spacing: 10px;
+}
+
+#start {
+  font-size: 30px;
+  background-color: rgba(0,0,0,0.1);
+  padding: 20px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+#start:hover {
+  background-color: rgba(0,0,0,0.3);
+}
+
+.bathroom #toilet, #start {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+}
+
+#toilet {
+  opacity: 0.1;
+  padding-top: 120px;
+  font-size: 500px;
+}
+
+.poopLayer {
+  opacity: 0;
+  transition: opacity 1s;
+}
+
+.poopBox {
+  position: absolute;
+  /* background-color: rgba(0,0,0,0.5); */
+  opacity: 0;
+
+}
