@@ -31,7 +31,7 @@
 
 #toilet {
   opacity: 0.1;
-  padding-top: 120px;
+  /* padding-top: 120px; */
   font-size: 500px;
 }
 
@@ -44,5 +44,9 @@
   position: absolute;
   /* background-color: rgba(0,0,0,0.5); */
   opacity: 0;
+  font-size: 100px;
+  top: 0px;
+  left: 0px;
+  transition: opacity 2s, font-size 1s, top .3s, left .3s;
 
 }

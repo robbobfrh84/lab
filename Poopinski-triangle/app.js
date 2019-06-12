@@ -1,5 +1,6 @@
 const completeLevels = [2,4,8,16,32,64] // [2,4,8,16,32,64]
-const width = window.innerWidth
+let width = window.innerWidth
+let height = window.innerHeight
 let levelsCnt = 0
 
 document.body.onmousedown = function(){
@@ -15,18 +16,13 @@ function loopPoop(){
     setTimeout(function(){
       poopinski_GO(completeLevels[saveI], saveI)
       levelsCnt+=2
-    }, 2000*saveI)
+    }, 3000*saveI)
   }
 }
 
 function poopinski_GO(levels, levelsCount){
-  const fart = document.getElementById("fart"+levelsCount)
-  console.log(fart)
-  fart.play()
 
   let lastPoop = [] // Top "level"
-  let fontSize = (window.innerHeight)/levels
-
 
   stall.innerHTML += /*html*/`
     <div class="poopLayer" id="layer${levels}"></div>
@@ -50,47 +46,69 @@ function poopinski_GO(levels, levelsCount){
       }
 
     }
-
     lastPoop = newPoop
 
-    const layer = document.getElementById("layer"+levels)
+    let paddingTop = 120
+    if (window.innerWidth < window.innerHeight) {
+      height = width
+      paddingTop = 170
+    }
 
-    pushPoop(newPoop, fontSize, levels, level, layer)
-    splatter(newPoop, levels, level)
+    let fontSize = (height)/levels
+    const layer = document.getElementById("layer"+levels)
+    const poopMap = pushPoop(newPoop, fontSize, levels, level, layer, paddingTop)
+
+    splatter(newPoop, levels, level, poopMap)
     flushPoop(levels, layer)
+
+    const fart = document.getElementById("fart"+levelsCount)
+    fart.play()
+    if (levelsCount === 5) {
+      setTimeout(function(){
+        const fart = document.getElementById("fart3")
+        fart.play()
+      },2000)
+    }
 
   }
 }
 
-function pushPoop(newPoop, fontSize, levels, level, layer){
+function pushPoop(newPoop, fontSize, levels, level, layer, paddingTop){
 
   const fh = fontSize*0.7
   const fw = fontSize*0.8
-  // const fh = fontSize
-  // const fw = fontSize
-
   const shift = (((levels-level)*(fw/2)) - (fw/2)) + (width/2) - (levels*fw/2)
-
-  let elms = ""
-  newPoop.map( (poop, i) => {
-    elms += /*html*/`
+  const poopMap = []
+  let elms = newPoop.map( (poop, i) => {
+    poopMap.push({
+      fontSize,
+      fh,
+      top: (fh*level) + paddingTop - levelsCnt,
+      left: (fw*i)+shift - 20 + levelsCnt
+    })
+    return /*html*/`
       <div class="poopBox" id="${levels}-${level}-${i}" style="
-        font-size: ${fontSize}px;
+        font-size: 300px;
         line-height: ${fh}px;
-        top: ${(fh*level) + 120 - levelsCnt}px;
-        left: ${(fw*i)+shift - 20 + levelsCnt}px;
+        top: ${random(-500,height+200)}px;
+        left: ${random(-500,width+200)}px;
       ">${poop}</div>
     `
-  })
+    }).join("")
   layer.innerHTML += elms
+
+  return poopMap
 }
 
-function splatter(newPoop, levels, level){
+function splatter(newPoop, levels, level, poopMap){
   for (let p = 0; p < newPoop.length; p++) {
     const sP = p
     setTimeout(function(){
       const poop = document.getElementById(levels+"-"+level+"-"+sP)
       poop.style.opacity = 1
+      poop.style.fontSize = poopMap[sP].fontSize+"px"
+      poop.style.top = poopMap[sP].top+"px"
+      poop.style.left = poopMap[sP].left+"px"
     },random(0,1000))
   }
 }
