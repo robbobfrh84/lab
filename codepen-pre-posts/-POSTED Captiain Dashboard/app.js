@@ -105,7 +105,7 @@ function setEvents(){
 
   slider.oninput = function(){
     Bg.speed = this.value/1000
-    sliderIcon.style.left = (Bg.speed * 310) - 5
+    sliderIcon.style.left = ((Bg.speed * 310) - 5) + "px"
   }
 
 }

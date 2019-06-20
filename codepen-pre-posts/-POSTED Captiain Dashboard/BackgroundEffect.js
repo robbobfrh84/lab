@@ -136,7 +136,7 @@ class BackgroundEffect {
   setSpeed(speed){
     this.speed = speed
     slider.value = this.speed*1000
-    sliderIcon.style.left = (this.speed * 310) - 5
+    sliderIcon.style.left = ((this.speed * 310) - 5)+"px"
   }
 
   changeEffect(effect) {
