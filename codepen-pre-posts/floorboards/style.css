@@ -1,0 +1,46 @@
+body {
+  background: url('wood_texture.png');
+  margin: 0;
+  overflow: hidden;
+}
+.buttons {
+  position: absolute;
+  top: 10px;
+  left: 12px;
+}
+.button {
+  background-color: rgba(255,255,255,0.2);
+  margin-right: 10px;
+  border-radius: 100%;
+  border: 3px solid rgba(255,255,255,0.2);
+  height: 30px;
+  width: 30px;
+  display: inline-block;
+  cursor: pointer;
+  color: #dcb;
+  text-align: center;
+  line-height: 26px;
+  user-select: none;
+  font-size: 30px;
+  transition: background-color .3s;
+}
+.button:hover {
+  background-color: rgba(255,255,255,0.1);
+  transition: background-color .3s;
+}
+.less {
+  position: relative;
+  top: 2px;
+  line-height: 25px;
+  font-size: 40px;
+}
+#boards {
+  font-size: 0px;
+}
+.board-row {
+  display: inline-block;
+  white-space: nowrap;
+}
+.board {
+  display: inline-block;
+}
