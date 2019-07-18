@@ -1,0 +1,50 @@
+.box {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+  background-color: rgba(0,0,0,0.1)
+}
+
+.top-nav {
+  padding: 5px;
+  margin: 5px;
+  background-color: rgba(0,0,0,0.1)
+}
+
+.search {
+  width: 400px;
+  font-size: 20px;
+}
+
+.main-body {
+  padding: 5px;
+  display: flex;
+  flex: 1;
+  background-color: rgba(0,0,0,0.1)
+}
+
+.left-nav {
+  order: 1;
+  width: 200px;
+  background-color: rgba(0,0,0,0.1);
+  margin-right: 5px;
+}
+
+.scroll {
+  overflow: scroll;
+  height: 100%;
+}
+
+.map-nav {
+  position: relative;
+  flex: 1;
+  order: 2;
+  background-color: rgba(0,0,0,0.1);
+}
+
+.map-svg {
+  position: absolute;
+  top: 50%;
+  transform: translate(0%, -50%);
+  background-color: rgba(0,0,0,0.1);
+}
