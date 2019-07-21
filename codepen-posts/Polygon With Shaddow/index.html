@@ -1,0 +1,98 @@
+<div class='case'>
+  Sides:
+  <div class='btn red' onClick="changeSides(-1)"> - </div>
+  <div class='btn blue' onClick="changeSides(1)"> + </div>
+</div>
+<div class="case2">
+  Shadow:
+  <div class='btn red' onClick="changeShadow(-3)"> - </div>
+  <div class='btn blue' onClick="changeShadow(3)"> + </div>
+</div>
+<canvas></canvas>
+
+<style media="screen">
+
+body {
+  margin: 0;
+  background: url("https://github.com/robbobfrh84/imagehost/blob/master/codepen-background1.png?raw=true");
+  font-family: Avenir;
+  font-size: 30px;
+  user-select: none;
+}
+div {
+  display: inline-block;
+}
+.case {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+.case2 {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+.btn {
+  background-color: rgba(0,0,0,0.2);
+  text-align: center;
+  font-size: 40px;
+  line-height: 40px;
+  width: 40px;
+  cursor: pointer;
+  font-weight: 500;
+}
+.blue {
+  color: rgb(0,0,100);
+}
+.red{color: rgb(100,0,0);}
+
+</style>
+
+
+<script>
+
+let shadow_length = 10
+let sides = 6
+
+function changeSides(adj){
+  sides = sides+adj <= 3 ? 3 : sides+adj
+  polygon()
+}
+
+function changeShadow(adj){
+  shadow_length += adj
+  polygon()
+}
+
+function polygon(){
+
+  const ctx = document.querySelector('canvas').getContext('2d')
+  ctx.canvas.height = h = window.innerHeight
+  ctx.canvas.width = w = window.innerWidth
+
+  let side_length = h < w ? h*.3 : w*.3
+  const x = w/2
+  const y = h/2
+
+  ctx.beginPath()
+  ctx.moveTo(x + side_length * Math.cos(0), y + side_length * Math.sin(0))
+  for (let s = 0; s <= sides; s++) {
+    ctx.lineTo(
+      x + side_length * Math.cos(s * 2 * Math.PI / sides),
+      y + side_length * Math.sin(s * 2 * Math.PI / sides)
+    )
+  }
+
+  ctx.shadowColor = "rgba(0,0,0,1)"
+  ctx.shadowOffsetY = shadow_length
+  ctx.shadowOffsetX = shadow_length
+  ctx.shadowBlur = shadow_length
+  ctx.filter = blur ? 'blur('+blur+'px)' : 'blur(0px)'
+  ctx.fillStyle = "darkgreen"
+  ctx.fill()
+
+}
+
+polygon(0)
+
+</script>
