@@ -1,0 +1,21 @@
+canvas {
+  background-color: rgba(0,0,0,0.1);
+}
+.btn {
+  border: none;
+  background-color: rgba(0,0,0,0);
+  font-size: 18px;
+  margin: 0px;
+  padding: 0px;
+}
+.top-left-nav {
+  position: absolute;
+  top: 10px;
+  left: 12px;
+}
+input.sm {
+  width: 25px;
+}
+#zoomVal {
+  width: 15px;
+}

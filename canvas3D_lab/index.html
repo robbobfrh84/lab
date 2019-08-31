@@ -1,0 +1,46 @@
+<!DOCTYPE html><html lang="en">
+<title> Canvas 3D </title>
+<link rel="icon" href="gfx/favicon.ico">
+
+<head>
+  <meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="top-left-nav">
+    <button id="rotateUp" class="btn">⬆️</button>
+    <button id="rotateLeft" class="btn">⬅️</button>
+    <button id="rotateRight" class="btn">➡️</button>
+    <input id="viewXVal" class="sm"></input>,<input id="viewYVal" class="sm"></input>
+    <button id="goToLoc" class="btn">⏺</button>
+    <br>
+    <button id="rotateDown" class="btn">⬇️</button> <br>
+    <!-- ZOOM
+    <button id="zoomIn" class="btn zoom">➕</button> <br>
+    <input id="zoomVal" class="sm"></input> <br>
+    <button id="zoomOut" class="btn zoom">➖</button>
+  -->
+  </div>
+
+  <canvas id="model1"></canvas>
+  <a href="#pointsAndLines"><button>points and lines</button></a>
+  <a href="#depthMarks"><button>depth marks</button></a>
+  <a href="#cube"><button>cube</button></a>
+  <a href="#map"><button>map</button></a>
+
+</body>
+
+<script src="main.js"></script>
+<script src="ui.js"></script>
+<script src="canvas3D/Canvas3D.js"></script>
+
+<script src="test_groups/cube.js"></script>
+<script src="test_groups/depthMarks.js"></script>
+<script src="test_groups/pointsAndLines.js"></script>
+<script src="test_groups/map.js"></script>
+
+
+</html>
