@@ -72,7 +72,7 @@ class Canvas3D {
       s.order = s.pts.map(x=>x.r3y)
       s.order.sort((a,b)=>{
         if (a == b) return 1
-        return a > b ? 1 : -1
+        return a > b ? -1 : 1
       })
     })
     this.shapes.sort((a,b)=> this.checkEqual(a,b,0) )

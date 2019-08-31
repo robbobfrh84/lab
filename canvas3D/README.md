@@ -7,8 +7,9 @@ This library is not build for performance, but rather simple 3D demonstrations a
 Though applications may vary, this library was inspired by the desire to render .geojson vectors for a map-like perspective of all open-source and publicly available geospatial data. And, not rely on separate/private APIs and services.
 
 ### Future Features
+- Add this.groups and have that be a fixed order. 'Might' solve most your rendering issues.
 - Zoom
-- Sorts groups seperate by z & y
+- modify tilting issue to tilt in relation to rendered location, not OG location.
 
 # Resources
 
