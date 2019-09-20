@@ -1,0 +1,59 @@
+<!DOCTYPE html><html lang="en">
+<title> rand </title> <!-- <link rel="icon" href="link/or/path">  -->
+<head>
+  <meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style media="screen">
+    * {
+      font-size: 20px;
+    }
+    .label {
+      min-width: 100px;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+
+<div class="label">MIN</div>
+<input id="minVal" value="0">
+<br>
+<div class="label">MAX</div>
+<input id="maxVal" value="6">
+<br>
+<br>
+X <input id="timesVal" value="3">
+<br>
+<br>
+<button onclick="roll()">ROLL</button>
+<br><br>
+
+<div id="result"></div>
+<br><br>
+
+<div id="pastVal"></div>
+
+
+</body>
+<script>
+
+let past = ""
+
+const roll = function() {
+  const min = minVal.value
+  const max = maxVal.value
+  const times = timesVal.value
+  pastVal.innerHTML += past
+  result.innerHTML = ""
+  for (var i = 0; i < times; i++) {
+    result.innerHTML += random(min,max)+( (i+1)>=times ? '' : ', ')
+  }
+  past = "<hr>"+result.innerHTML+pastVal.innerHTML
+}
+
+function random(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+</script>
+</html>
