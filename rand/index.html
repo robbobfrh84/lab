@@ -15,24 +15,16 @@
 </head>
 <body>
 
-<div class="label">MIN</div>
-<input id="minVal" value="0">
+<div class="label">MIN</div> <input id="minVal" value="10"> <br>
+<div class="label">MAX</div> <input id="maxVal" value="16"> <br>
 <br>
-<div class="label">MAX</div>
-<input id="maxVal" value="6">
+X <input id="timesVal" value="3"> <br>
 <br>
+<button onclick="roll()">ROLL</button> <br>
 <br>
-X <input id="timesVal" value="3">
+<div id="result"></div> <br>
 <br>
-<br>
-<button onclick="roll()">ROLL</button>
-<br><br>
-
-<div id="result"></div>
-<br><br>
-
 <div id="pastVal"></div>
-
 
 </body>
 <script>
@@ -40,15 +32,22 @@ X <input id="timesVal" value="3">
 let past = ""
 
 const roll = function() {
-  const min = minVal.value
-  const max = maxVal.value
+
+  // Add to history
+  const elm = document.createElement('div')
+  elm.innerHTML = result.innerHTML
+  pastVal.insertBefore(elm, pastVal.childNodes[0])
+
+  // Get
+  const min = parseInt(minVal.value)
+  const max = parseInt(maxVal.value)
   const times = timesVal.value
-  pastVal.innerHTML += past
   result.innerHTML = ""
   for (var i = 0; i < times; i++) {
     result.innerHTML += random(min,max)+( (i+1)>=times ? '' : ', ')
   }
-  past = "<hr>"+result.innerHTML+pastVal.innerHTML
+  // past = "<hr>"+result.innerHTML+past
+
 }
 
 function random(min, max) {
