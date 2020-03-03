@@ -1,0 +1,16 @@
+.hinge {
+  position: absolute;
+  background-color: black;
+  /* animation: rotate1 5s infinite linear; */
+}
+
+.arm {
+  position: absolute;
+  background-color: #444;
+}
+
+/* @keyframes rotate1 {
+  0%   { transform: rotateZ(60deg); }
+  90%  { transform: rotateZ(90deg); }
+  100% { transform: rotateZ(359deg); }
+} */

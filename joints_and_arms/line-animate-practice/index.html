@@ -1,0 +1,192 @@
+<body>
+  <div class="group1">
+    <div id="h1" class="hinge large rot1">
+      <div class="rod large">
+        <div id="h2" class="hinge inset4 medium rot2">
+          <div class="rod medium">
+            <div id="h3" class="hinge inset4 small rot2">
+              <div class="rod small short">
+
+                <div id="h4_1" class="hinge inset4 tiny rot1">
+                  <div id="r4_1" class="rod tiny" style="background-color: red">
+                    <div class="hinge inset1 tinyer rot2">
+                      <div class="rod tinyer short">
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div id="h4_2" class="hinge inset4 tiny rot2">
+                  <div id="r4_2" class="rod tiny" style="background-color: green">
+                    <div class="hinge inset1 tinyer rot2">
+                      <div class="rod tinyer">
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div id="h4_3" class="hinge inset4 tiny rot1">
+                  <div id="r4_3" class="rod tiny" style="background-color: blue">
+                    <div class="hinge inset1 tinyer rot2">
+                      <div class="rod tinyer">
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div id="h4_4" class="hinge inset4 tiny rot2">
+                  <div id="r4_4" class="rod tiny" style="background-color: grey">
+                    <div class="hinge inset1 tinyer rot2">
+                      <div class="rod tinyer">
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="group2"></div>
+</body>
+
+
+<style>
+
+body {
+  background-color: cornflowerblue;
+}
+
+.group1 {
+  position: absolute;
+  top: 200px;
+  left: 250px;
+  transform: scale(1.5);
+}
+.hinge, .rod {
+  position: absolute;
+  background-color: rgba(100,100,100,0.5);
+}
+
+.rod {
+  box-shadow: 0 0 0 4px brown inset;
+  border-radius: 16px;
+}
+  .rod.large        { width: 32px;  height: 128px; }
+  .rod.medium       { width: 24px;  height: 128px; }
+  .rod.small        { width: 16px;  height: 64px; }
+    .rod.small.short  { height: 48px; }
+  .rod.tiny        { width: 8px;  height: 32px;  box-shadow: 0 0 0 2px #80735b inset;}
+  .rod.tinyer      { width: 6px;  height: 24px;  box-shadow: 0 0 0 2px #80735b inset;}
+    .rod.tinyer.short { height: 16px; }
+
+
+.hinge {
+  box-shadow: 0 0 0 4px #333 inset;
+  border-radius: 100%;
+  bottom: 0px;
+  right: 0px;
+}
+  .hinge.inset4 { bottom: 4px; right: 4px; }
+  .hinge.inset1 { bottom: 1px; right: 1px; }
+
+  .hinge.large    { width: 32px;  height: 32px; }
+  .hinge.medium   { width: 24px;  height: 24px; }
+  .hinge.small    { width: 16px;  height: 16px; }
+  .hinge.tiny     { width: 8px;   height: 8px; }
+  .hinge.tinyer   { width: 6px;   height: 6px; }
+
+
+
+#r4_1 {
+  transform: rotate(40deg);
+  transform-origin: 4px 4px;
+}
+#r4_2 {
+  transform: rotate(50deg);
+  transform-origin: 4px 4px;
+}
+#r4_3 {
+  transform: rotate(-10deg);
+  transform-origin: 4px 4px;
+}
+#r4_4 {
+  transform: rotate(0deg);
+  transform-origin: 4px 4px;
+}
+
+.rot1 { animation: rotate1 5s infinite ease-in-out; }
+.rot2 { animation: rotate2 5s infinite ease-in-out; }
+
+@keyframes rotate1 {
+  0%   { transform: rotateZ(300deg); }
+  50%  { transform: rotateZ(400deg); }
+  100% { transform: rotateZ(300deg); }
+}
+@keyframes rotate2 {
+  0%   { transform: rotateZ(280deg); }
+  50%  { transform: rotateZ(340deg); }
+  100% { transform: rotateZ(280deg); }
+}
+
+@keyframes grow {
+  from { width: 32px; }
+  to { width: 128px; }
+}
+
+</style>
+
+
+<script>
+
+
+  // NEXT !!!
+  // 👷‍♂️
+  // copy what you did into a JSON object then build functions to populate!
+  // 👷
+
+  const scene1 = {
+    duration: 10, // seconds
+    groups: {
+      rightArm: {
+        centerX: 400,
+        centerY: 200,
+        hinges: [
+          {
+            size: "lg", // default: "32px"
+            border: "8px" // default: "4px"
+            hinges: [
+
+            ]
+          }
+        ]
+        pips: [
+          {
+            size: "md",
+            rotate: 20, //degree
+            transformOrigin: "4px 4px",
+          }
+        ]
+      }
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
