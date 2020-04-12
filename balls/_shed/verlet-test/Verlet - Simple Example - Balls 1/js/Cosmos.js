@@ -15,7 +15,8 @@ class Cosmos {
     this.balls.forEach(b => {
       let vx = (b.x - b.oldx) * this.friction
       let vy = (b.y - b.oldy) * this.friction
-      b.oldx = b.x; b.oldy = b.y
+      b.oldx = b.x
+      b.oldy = b.y
 
       if (!this.isDragging) { // Ground friction
         if (b.y > this.h - 1) vx *= this.groundFriction
