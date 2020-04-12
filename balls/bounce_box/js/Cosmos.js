@@ -14,10 +14,10 @@ class Cosmos {
 
   // 🏀 Balls Managment 🎾
   updateBallPoints() {
-    this.balls.forEach(b => {
-      // this.ballCollisions(b, b.vx, b.vy)
-      this.wallCollisions(b)
-      b.updateLocation(
+    this.balls.forEach((b1) => {
+      this.ballCollisions(b1)
+      this.wallCollisions(b1)
+      b1.updateLocation(
         this.drag,
         this.xGravity,
         this.yGravity

@@ -8,9 +8,16 @@ html {
 }
 
 body {
-  background-color: #eee;
+  margin-top: 0px;
 }
 
 canvas {
   display: block;
+  background-color: #eee;
+}
+
+.btn {
+  cursor: pointer;
+  background-color: #333;
+  user-select: none;
 }
