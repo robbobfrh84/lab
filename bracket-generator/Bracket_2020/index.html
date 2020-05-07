@@ -1,8 +1,27 @@
+<style media="screen">
+
+textarea {
+  width: 100%;
+  min-height: 30rem;
+  font-family: "Lucida Console", Monaco, monospace;
+  font-size: 0.8rem;
+  line-height: 1.2;
+}
+
+</style>
+
 <body>
 
-  <div id="bracket-container"></div>
+  Total Entries: <input id="entriesInput" value="14">
+  <button onClick="reBuild()">buildFrame</button>
+  <button onClick="addRemove()">◀️</button>
+  <button onClick="addRemove(true)">▶️</button>
 
-  <script src="Bracket.js"></script>
-  <script src="onload.js"></script>
+
+  <div id="bracketContainer"></div>
 
 </body>
+
+
+<script src="Bracket.js"></script>
+<script src="main.js"></script>
