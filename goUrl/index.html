@@ -1,0 +1,39 @@
+<!DOCTYPE html><html lang="en">
+<title id="titleId"> Go URL </title> <!-- <link rel="icon" href="link/or/path">  -->
+<head>
+  <meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+	<h1> Go Url animator 👀☝️</h1>
+  <!-- <hr>
+  <h3> Examples: </h3>
+  <ul>
+    <li><a href="test1">     test1       </a></li>
+  </ul> -->
+</body>
+
+<script>
+
+  let moons = ['🌑','🌒','🌓','🌔','🌕','🌖','🌗','🌘']
+  let faces = ['😀 Hello  🌰','😃 Hello 🌱','🙂 Hello  🌳','🤪 Hello 🍂']
+
+
+  function animate(array, delay, type) {
+    setTimeout(()=>{
+      const frame = array.shift()
+      array.push(frame)
+      if (type === 'url') {
+        window.location.hash = "‣"+frame
+      }
+      if (type === 'title') {
+        titleId.innerHTML = "‣ "+frame
+      }
+      animate(array, delay, type)
+    },delay)
+  }
+
+  animate(moons, 100, 'url')
+  animate(faces, 1000, 'title')
+
+</script>
