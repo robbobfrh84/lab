@@ -9,7 +9,7 @@ Cosmos.prototype.ballCollisions = function(b1) {
       // Get distance between CENTER of balls 🎯<-- ? --> 🎯
       const dist = b1.distance(b2)
       const nextDist = b1.nextDistance(b2)
-      
+
       //
       //
       // ! Just checking for the next move solved on instance of being "caught"
