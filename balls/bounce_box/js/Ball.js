@@ -2,10 +2,11 @@ class Ball {
 
   constructor(params) {
     Object.assign(this, params)
-    this.mass()
+    // this.mass()
+    console.log("this :", this)
   }
 
-  mass() { this.m = Math.sqrt( this.vx * this.vx + this.vy * this.vy) }
+  // mass() { this.m = Math.sqrt( this.vx * this.vx + this.vy * this.vy) }
 
   angle() { return Math.atan2(this.vy, this.vx) }
 

@@ -1,5 +1,5 @@
 window.onload = function(){
-  set1()
+  set2()
 }
 
 /* - - - - - 🌍 Global Vars 🌏- - - - - - - - - - - - - - - - - - - - - - - */

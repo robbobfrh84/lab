@@ -26,8 +26,8 @@ Cosmos.prototype.ballCollisions = function(b1) {
         // ⚔️Get the angle of collition 💥
         const a = Math.atan2(b2.y - b1.y, b2.x - b1.x)
 
-        // 🐖Get the masses of both balls
-        const m = [ b1.m, b2.m ]
+        // 🐖Get the masses of both balls represented as the radius.
+        const m = [ b1.r, b2.r ]
 
         //
         const v = [ b1.velocity(), b2.velocity() ]
