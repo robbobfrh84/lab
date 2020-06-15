@@ -46,15 +46,15 @@ const set1 = function(){
     "darkgoldenrod"
   ]
 
-  for (var i = 0; i < 200; i++) {
+  for (var i = 0; i < 500; i++) {
     cosmos.addBall({
       id: i,
       x: x = random(50, cosmos.w-50),
       y: y = random(50, cosmos.h-50),
       vx: random(-5,5),
       vy: random(-5,5),
-      r: random(5,15),
-      // r: random(3,10),
+      // r: random(5,15),
+      r: random(3,10),
       color: colors[random(0,colors.length-1)]
     })
   }

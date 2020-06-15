@@ -12,6 +12,7 @@ class Cosmos {
     this.updateBallPoints()
     this.ctx.clearRect(0, 0, this.w, this.h)
     this.drawBalls()
+    this.drawStaticObjects()
   }
 
   // 🏀 Balls Managment 🎾

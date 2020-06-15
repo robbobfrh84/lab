@@ -18,18 +18,14 @@ class Ball {
   }
 
   nextDistance(otherBall, drag, xGravity, yGravity) {
-    // const x = (otherBall.x + otherBall.vx) - (this.x + this.vx)
-    // const y = (otherBall.y + otherBall.vy) - (this.y + this.vy)
     const x = (otherBall.x + ((otherBall.vx * drag) + xGravity))
     - (this.x + ((this.vx * drag) + xGravity))
     const y = (otherBall.y + ((otherBall.vy * drag) + yGravity))
     - (this.y + ((this.vy * drag) + yGravity))
-
     return Math.sqrt(x * x + y * y) - this.r - otherBall.r
   }
 
   updateLocation(drag, xGravity, yGravity) {
-
     if (
       this.collisionLog.length <= 1
       && !this.static

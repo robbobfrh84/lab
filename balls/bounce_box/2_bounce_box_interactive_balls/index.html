@@ -17,13 +17,21 @@
       Y: <input id="inputY" value="0"/>
     </span>
     <button onclick="updateGravity()">Update</button>
-    <canvas onmousedown="grab()" id="canvas"></canvas>
+
+    <canvas
+      id="canvas"
+      onmousedown="grab()"
+      onmousemove="move()"
+      onmouseup="drop()"
+    >
+    </canvas>
+
   </body>
   <script src="js/Cosmos.js"></script>
   <script src="js/Ball.js"></script>
   <script src="js/Cosmos_wallCollisions.js"></script>
   <script src="js/Cosmos_ballCollisions.js"></script>
-  <script src="js/Cosmos_findBall.js"></script>
+  <script src="js/Cosmos_interact.js"></script>
   <script src="set1.js"></script>
   <script src="set2.js"></script>
   <script src="main.js"></script>

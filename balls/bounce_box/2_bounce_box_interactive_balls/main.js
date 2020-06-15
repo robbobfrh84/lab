@@ -29,13 +29,29 @@ function toggleNextFrame() {
 }
 
 function updateGravity() {
-  console.log(event.target)
   cosmos.xGravity = parseFloat(inputX.value)
   cosmos.yGravity = parseFloat(inputY.value)
 }
 
+var mousedown = false
+var grabbed = null
+
 function grab() {
-  cosmos.findBall({ x: event.layerX, y: event.layerY})
+  cosmos.findBall({ x: event.layerX, y: event.layerY })
+  window.mousedown = true
+}
+
+function move() {
+  if (mousedown) {
+    cosmos.moveBall({ x: event.layerX, y: event.layerY })
+  }
+}
+
+function drop() {
+  window.mousedown = false
+  if (event.shiftKey) {
+    cosmos.launchBall({ x: event.layerX, y: event.layerY })
+  }
 }
 
 window.onresize = function(){
