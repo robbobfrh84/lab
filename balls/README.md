@@ -5,9 +5,12 @@ I've done a TON of different stabs at this, and I've consolidated all those here
 
 Other folders are current works...
 
-#### bounce_box ( to finish )
-- Wall & ball collition with size and speed calculated
-- Bounce friction, Drag & x/y gravity
+#### bounce_box ( ✅ )
+- add x/y gravity control
+
+#### bounce_box_interactive_balls ( to finish )
+- click: freezes
+- click + hold + drag: moves
 
 #### bounce_circle ( to do )
 - ☝️ but inside a circle
@@ -17,3 +20,5 @@ Other folders are current works...
 
 ### bounce_static_objects ( to do )
 - inside walls.
+
+### RaceTrack! ( to do )

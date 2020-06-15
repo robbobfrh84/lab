@@ -3,12 +3,14 @@ class Cosmos {
   constructor(params) {
     Object.assign(this, params)
     this.ctx = this.canvas.getContext("2d")
+    this.initialXGravity = this.xGravity
+    this.initialYGravity = this.yGravity
     this.balls = []
   }
 
   update() {
-    this.ctx.clearRect(0, 0, this.w, this.h)
     this.updateBallPoints()
+    this.ctx.clearRect(0, 0, this.w, this.h)
     this.drawBalls()
   }
 
@@ -16,7 +18,6 @@ class Cosmos {
   updateBallPoints() {
     this.balls.forEach((b1) => {
       this.ballCollisions(b1)
-      this.wallCollisions(b1)
       b1.updateLocation(
         this.drag,
         this.xGravity,

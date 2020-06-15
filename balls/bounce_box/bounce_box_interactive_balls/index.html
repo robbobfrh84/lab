@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title> Verlet Example </title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <span id="gravityBtn" class="btn" onclick="toggleGravity()">⬇️</span>
+    <span id="pauseBtn" class="btn" onclick="togglePause()">⏸</span>
+    <span id="nextFrameBtn" class="btn" onclick="toggleNextFrame()">⏯</span>
+    <span class="lable">
+      Gravity
+      X: <input id="inputX" value="0"/>
+    </span>
+    <span class="lable">
+      Y: <input id="inputY" value="0"/>
+    </span>
+    <button onclick="updateGravity()">Update</button>
+    <canvas onmousedown="grab()" id="canvas"></canvas>
+  </body>
+  <script src="js/Cosmos.js"></script>
+  <script src="js/Ball.js"></script>
+  <script src="js/Cosmos_wallCollisions.js"></script>
+  <script src="js/Cosmos_ballCollisions.js"></script>
+  <script src="js/Cosmos_findBall.js"></script>
+  <script src="set1.js"></script>
+  <script src="set2.js"></script>
+  <script src="main.js"></script>
+</html>

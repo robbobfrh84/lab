@@ -9,6 +9,14 @@
     <span id="gravityBtn" class="btn" onclick="toggleGravity()">⬇️</span>
     <span id="pauseBtn" class="btn" onclick="togglePause()">⏸</span>
     <span id="nextFrameBtn" class="btn" onclick="toggleNextFrame()">⏯</span>
+    <span class="lable">
+      Gravity
+      X: <input id="inputX" value="0"/>
+    </span>
+    <span class="lable">
+      Y: <input id="inputY" value="0"/>
+    </span>
+    <button onclick="updateGravity()">Update</button>
     <canvas id="canvas"></canvas>
   </body>
   <script src="js/Cosmos.js"></script>

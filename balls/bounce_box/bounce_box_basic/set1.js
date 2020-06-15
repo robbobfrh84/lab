@@ -4,8 +4,8 @@ const set1 = function(){
     canvas: document.getElementById("canvas"),
     h: this.canvas.height = window.innerHeight - 35,  // height: match browser height - margin
     w: this.canvas.width = window.innerWidth - 15,    // width: match browser width
-    yGravity: 0, // 0.1 // pix
-    xGravity: 0, // pix
+    yGravity: 0.1, // 0.1 // pix
+    xGravity: 0.0, // pix
     drag: 0.99, // %
     bounce: 0.9, // %
   })
@@ -23,19 +23,19 @@ const set1 = function(){
   )
 
   cosmos.addBall(
-    { x: 151, y: 321, vx: 13, vy: -6, r: 20, color: "purple" }
+    { x: 151, y: 321, vx: 10, vy: -6, r: 20, color: "purple" }
   )
 
   cosmos.addBall(
-    { x: 151, y: 221, vx: -13, vy: -6, r: 12, color: "green" }
+    { x: 151, y: 221, vx: -10, vy: -6, r: 12, color: "green" }
   )
 
   cosmos.addBall(
-    { x: 151, y: 271, vx: -13, vy: -6, r: 12, color: "green" }
+    { x: 151, y: 271, vx: -10, vy: -6, r: 12, color: "green" }
   )
 
   cosmos.addBall(
-    { x: 151, y: 192, vx: -13, vy: -6, r: 12, color: "green" }
+    { x: 151, y: 192, vx: -10, vy: -3, r: 12, color: "green" }
   )
 
   const colors = [
@@ -46,14 +46,15 @@ const set1 = function(){
     "darkgoldenrod"
   ]
 
-  for (var i = 0; i < 15; i++) {
+  for (var i = 0; i < 200; i++) {
     cosmos.addBall({
       id: i,
       x: x = random(50, cosmos.w-50),
       y: y = random(50, cosmos.h-50),
       vx: random(-5,5),
       vy: random(-5,5),
-      r: random(3,25),
+      r: random(5,15),
+      // r: random(3,10),
       color: colors[random(0,colors.length-1)]
     })
   }
@@ -69,5 +70,7 @@ const set1 = function(){
   }
 
   animate()
+  // togglePause()
+
 
 }

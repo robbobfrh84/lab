@@ -16,8 +16,26 @@ canvas {
   background-color: #eee;
 }
 
+input {
+  width: 40px;
+  position: relative;
+  font-size: 16px;
+  top: -2px;
+}
+
+button {
+  font-size: 16px;
+  position: relative;
+  top: -2px;
+  cursor: pointer;
+}
+
 .btn {
   cursor: pointer;
   background-color: #333;
   user-select: none;
+}
+
+.lable {
+  color: #ccc;
 }

@@ -1,17 +1,21 @@
 window.onload = function(){
-  set2()
+  set1()
+  // set2()
+  inputY.value = parseFloat(cosmos.yGravity).toFixed(1)
+  inputX.value = parseFloat(cosmos.xGravity).toFixed(1)
 }
 
 /* - - - - - 🌍 Global Vars 🌏- - - - - - - - - - - - - - - - - - - - - - - */
+let ballCounter = 0
 let pause = false
 let nextFrame = false
-let yGravity = 0.1
 
 /* - - - - - 💥 EVENTS 💥 - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 function toggleGravity() {
   gravityBtn.innerHTML = gravityBtn.innerHTML == "⬇️" ? "⏏️" : "⬇️"
-  cosmos.yGravity = cosmos.yGravity == 0 ? yGravity : 0
+  cosmos.yGravity = cosmos.yGravity == 0 ? cosmos.initialYGravity : 0
+  cosmos.xGravity = cosmos.xGravity == 0 ? cosmos.initialXGravity : 0
 }
 
 function togglePause() {
@@ -22,6 +26,12 @@ function togglePause() {
 function toggleNextFrame() {
   nextFrame = true
   pauseBtn.innerHTML = "▶️"
+}
+
+function updateGravity() {
+  console.log(event.target)
+  cosmos.xGravity = parseFloat(inputX.value)
+  cosmos.yGravity = parseFloat(inputY.value)
 }
 
 window.onresize = function(){
