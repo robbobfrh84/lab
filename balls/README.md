@@ -1,16 +1,11 @@
 
 # balls
 
-I've done a TON of different stabs at this, and I've consolidated all those here in the `_shed folder`
-
-Other folders are current works...
+- Create collition logic for `Static_line.js`
 
 #### bounce_box ( ✅ )
-- add x/y gravity control
 
-#### bounce_box_interactive_balls ( to finish )
-- click: freezes
-- click + hold + drag: moves
+#### bounce_box_interactive_balls ( in progress... )
 
 #### bounce_circle ( to do )
 - ☝️ but inside a circle

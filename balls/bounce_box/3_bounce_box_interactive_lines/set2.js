@@ -12,11 +12,11 @@ const set2 = function(){
   })
 
   cosmos.addBall(
-    { x: 50, y: 50, vx: 3, vy: 1, r: 12, color: "cornflowerblue" }
+    { x: 150, y: 70, vx: 3, vy: 4, r: 12, color: "cornflowerblue" }
   )
 
   cosmos.addStaticObject(
-    { shape: 'line', sx: 100, sy:200, ex: 500, ey: 400, bounce: 0.9, color: "#222" }
+    { shape: 'line', sx: 100, sy:100, ex: 600, ey: 350, bounce: 0.9, color: "#222" }
   )
 
   function animate() {
@@ -31,6 +31,6 @@ const set2 = function(){
 
   animate()
 
-  // pause = true
+  pause = true
 
 }
