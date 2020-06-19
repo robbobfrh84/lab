@@ -3,9 +3,9 @@
 
 - Create collition logic for `Static_line.js`
 
-#### bounce_box ( ✅ )
+#### bounce_box_basic ( ✅ )
 
-#### bounce_box_interactive_balls ( in progress... )
+#### bounce_box_interactive_balls ( ✅ )
 
 #### bounce_circle ( to do )
 - ☝️ but inside a circle
