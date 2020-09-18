@@ -46,16 +46,3 @@ button {
   margin: 5px;
   position: absolute;
 }
-
-#bidenHead, #trumpHead {
-  position: absolute;
-  height: 60px;
-}
-
-#bidenHead {
-  left: 270px;
-}
-
-#trumpHead {
-  right: 250px;
-}

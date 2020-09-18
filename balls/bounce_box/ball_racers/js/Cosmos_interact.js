@@ -2,7 +2,6 @@ Cosmos.prototype.findBall = function({x,y}) {
 
   // Check every ball! 🏀⚾️🥎
   this.balls.forEach( b => {
-    // console.log("b :", b)
     const xDif = Math.abs(b.x - x)
     const yDif = Math.abs(b.y - y)
 

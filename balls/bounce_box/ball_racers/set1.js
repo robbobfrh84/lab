@@ -39,7 +39,6 @@ const set1 = function(){
       const color = balls[draw]
       balls.splice(draw,1)
       cosmos.addBall(
-        // { x: x, y: y, vx: random(-2,2), vy: random(-2,2), r: 4, color: color }
         { x: x, y: y, vx: random(-2,2), vy: random(-2,2), r: 4, color: colors[random(0,4)] }
       )
     }
