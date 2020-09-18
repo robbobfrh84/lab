@@ -16,7 +16,14 @@ const set2 = function(){
   )
 
   cosmos.addStaticObject(
-    { shape: 'line', sx: 100, sy:100, ex: 600, ey: 350, bounce: 0.9, color: "#222" }
+    {
+      shape: 'line',
+      sx: 100,
+      sy:100,
+      ex: 600,
+      ey: 350,
+      bounce: 0.9,
+      color: "#222" }
   )
 
   function animate() {
