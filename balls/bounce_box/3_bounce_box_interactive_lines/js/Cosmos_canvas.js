@@ -8,25 +8,36 @@ Cosmos.prototype.setupCanvas = function() {
   return ctx;
 }
 
-Cosmos.prototype.drawStaticObjects = function() {
-  this.staticObjects.forEach( o => {
-    if (o.shape === "line") {
-      this.ctx.beginPath()
-      this.ctx.moveTo(o.sx, o.sy)
-      this.ctx.lineTo(o.ex, o.ey)
-      this.ctx.fillStyle = o.color
-      this.ctx.stroke()
-    }
-  })
+Cosmos.prototype.drawBalls = function() {
+  // this.ctx.strokeStyle = this.color
+  // this.ctx.lineWidth = this.lineWidth
+  this.balls.forEach(b => { this.drawCircle(b) })
 }
 
-Cosmos.prototype.drawBalls = function() {
-  this.ctx.strokeStyle = this.color
-  this.ctx.lineWidth = this.lineWidth
-  this.balls.forEach(b => {
+Cosmos.prototype.drawStaticObjects = function() {
+  this.staticObjects.forEach( o => { this.drawShapes(o) } )
+}
+
+Cosmos.prototype.drawGhostObjects = function() {
+  this.ghostObjects.forEach( o => { this.drawShapes(o) } )
+}
+
+Cosmos.prototype.drawShapes = function(shape) {
+  if (shape.shape === "line") {
     this.ctx.beginPath()
-    this.ctx.arc(b.x, b.y, b.r, 0, 2 * Math.PI);
-    this.ctx.fillStyle = b.color
-    this.ctx.fill()
-  })
+    this.ctx.moveTo(shape.sx, shape.sy)
+    this.ctx.lineTo(shape.ex, shape.ey)
+    this.ctx.strokeStyle = shape.color
+    this.ctx.stroke()
+  }
+  if (shape.shape === "circle") {
+    this.drawCircle(shape)
+  }
+}
+
+Cosmos.prototype.drawCircle = function(b) {
+  this.ctx.beginPath()
+  this.ctx.arc(b.x, b.y, b.r, 0, 2 * Math.PI);
+  this.ctx.fillStyle = b.color
+  this.ctx.fill()
 }

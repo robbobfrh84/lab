@@ -4,60 +4,37 @@ const set1 = function(){
     canvas: document.getElementById("canvas"),
     h: this.canvas.height = window.innerHeight - 35,  // height: match browser height - margin
     w: this.canvas.width = window.innerWidth - 15,    // width: match browser width
-    yGravity: 0.1, // 0.1 // pix
+    yGravity: 0.0, // 0.1 // pix
     xGravity: 0.0, // pix
-    drag: 0.99, // %
-    bounce: 0.9, // %
+    drag: 1, // 0.99%
+    bounce: 1, // 0.9%
   })
 
-  cosmos.addBall(
-    { x: 155, y: 100, vx: 3, vy: 1, r: 8, color: "cornflowerblue" }
+  cosmos.addStaticObject( new Static(
+    {
+      shape: 'line',
+      sx: 100,
+      sy: 100,
+      ex: 400,
+      ey: 300,
+      // bounce: 0.9,
+      // stoke: 5,
+      color: "#222"
+    }
+  ))
+
+  // cosmos.addBall({ x: 150, y: 70, vx: 3, vy: 4, r: 10, color: "cornflowerblue" })
+  cosmos.addBall({ x: 200, y: 200, vx: 4, vy: -1, r: 10, color: "green" })
+  // cosmos.addBall({ x: 300, y: 300, vx: -1, vy: -4, r: 10, color: "brown" })
+
+  cosmos.marker = new Ghost(
+    { shape: "circle", x: 100, y: 100, r: 2, color: "red" }
   )
 
-  cosmos.addBall(
-    { x: 351, y: 221, vx: -3, vy: -2, r: 25, color: "firebrick" }
-  )
+  cosmos.addGhostObject(cosmos.marker)
+  cosmos.addGhostObject({shape: 'line', sx: 250, sy: 0, ex: 250, ey: cosmos.h, color: "#fbb" })
+  cosmos.addGhostObject({shape: 'line', sx: 0, sy: 200, ex: cosmos.w, ey: 200, color: "#bbf" })
 
-  cosmos.addBall(
-    { x: 451, y: 321, vx: 10, vy: -6, r: 15, color: "darkgoldenrod" }
-  )
-
-  cosmos.addBall(
-    { x: 151, y: 321, vx: 10, vy: -6, r: 20, color: "purple" }
-  )
-
-  cosmos.addBall(
-    { x: 151, y: 221, vx: -10, vy: -6, r: 12, color: "green" }
-  )
-
-  cosmos.addBall(
-    { x: 151, y: 271, vx: -10, vy: -6, r: 12, color: "green" }
-  )
-
-  cosmos.addBall(
-    { x: 151, y: 192, vx: -10, vy: -3, r: 12, color: "green" }
-  )
-
-  const colors = [
-    "cornflowerblue",
-    "firebrick",
-    "purple",
-    "green",
-    "darkgoldenrod"
-  ]
-
-  for (var i = 0; i < 500; i++) {
-    cosmos.addBall({
-      id: i,
-      x: x = random(50, cosmos.w-50),
-      y: y = random(50, cosmos.h-50),
-      vx: random(-5,5),
-      vy: random(-5,5),
-      // r: random(5,15),
-      r: random(3,10),
-      color: colors[random(0,colors.length-1)]
-    })
-  }
 
   function animate() {
     if (nextFrame) {
@@ -69,8 +46,9 @@ const set1 = function(){
     requestAnimationFrame(animate)
   }
 
-  animate()
-  // togglePause()
+  console.log(cosmos)
 
+  cosmos.update()
+  animate()
 
 }

@@ -1,14 +1,17 @@
 window.onload = function(){
-  //set1()
-  set2()
+  set1()
+  // set2()
   inputY.value = parseFloat(cosmos.yGravity).toFixed(1)
   inputX.value = parseFloat(cosmos.xGravity).toFixed(1)
 }
 
 /* - - - - - 🌍 Global Vars 🌏- - - - - - - - - - - - - - - - - - - - - - - */
 let ballCounter = 0
-let pause = false
+let pause = true
 let nextFrame = false
+
+pauseBtn.innerHTML = pause ? "▶️" : "⏸"
+nextFrameBtn.innerHTML = pause ? "⏯" : ""
 
 /* - - - - - 💥 EVENTS 💥 - - - - - - - - - - - - - - - - - - - - - - - - - */
 
@@ -19,8 +22,9 @@ function toggleGravity() {
 }
 
 function togglePause() {
-  pauseBtn.innerHTML = pauseBtn.innerHTML == "⏸" ? "▶️" : "⏸"
+  pauseBtn.innerHTML = pause ? "⏸" : "▶️"
   pause = !pause
+  nextFrameBtn.innerHTML = pause ? "⏯" : ""
 }
 
 function toggleNextFrame() {

@@ -58,8 +58,6 @@ Cosmos.prototype.ballCollisions = function(b1) {
     }
   })
 
-  this.wallCollisions(b1)
-
 }
 
 Cosmos.prototype.checkOverlap = function(b1,b2) {

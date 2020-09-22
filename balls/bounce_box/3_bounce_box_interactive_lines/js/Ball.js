@@ -1,10 +1,9 @@
 class Ball {
 
-  constructor(params) {
+  constructor(params, ballCounter) {
     Object.assign(this, params)
     this.collisionLog = []
-    this.id = "#" + ballCounter
-    ballCounter++
+    this.id = this.id || "#" + ballCounter
   }
 
   angle() { return Math.atan2(this.vy, this.vx) }
