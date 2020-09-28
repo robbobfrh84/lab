@@ -9,6 +9,8 @@ window.onload = function(){
 let ballCounter = 0
 let pause = true
 let nextFrame = false
+let rA = 180 / Math.PI
+let aR = Math.PI / 180
 
 pauseBtn.innerHTML = pause ? "▶️" : "⏸"
 nextFrameBtn.innerHTML = pause ? "⏯" : ""

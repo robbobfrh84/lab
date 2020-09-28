@@ -15,8 +15,8 @@ const set1 = function(){
       shape: 'line',
       sx: 100,
       sy: 100,
-      ex: 400,
-      ey: 300,
+      ex: 340,
+      ey: 280,
       // bounce: 0.9,
       // stoke: 5,
       color: "#222"
@@ -24,16 +24,22 @@ const set1 = function(){
   ))
 
   // cosmos.addBall({ x: 150, y: 70, vx: 3, vy: 4, r: 10, color: "cornflowerblue" })
-  cosmos.addBall({ x: 200, y: 200, vx: 4, vy: -1, r: 10, color: "green" })
-  // cosmos.addBall({ x: 300, y: 300, vx: -1, vy: -4, r: 10, color: "brown" })
+
+  // cosmos.addBall({ x: 200, y: 200, vx: 4, vy: -1, r: 10, color: "green" })
+  // cosmos.addBall({ x: 220, y: 220, vx: 8, vy: 4, r: 10, color: "green" })
+
+  cosmos.addBall({ x: 300, y: 300, vx: -2, vy: -2, r: 10, color: "brown" })
+
+  // cosmos.addBall({ x: 300, y: 200, vx: -5, vy: 2, r: 10, color: "darkgoldenrod" })
+
 
   cosmos.marker = new Ghost(
     { shape: "circle", x: 100, y: 100, r: 2, color: "red" }
   )
 
   cosmos.addGhostObject(cosmos.marker)
-  cosmos.addGhostObject({shape: 'line', sx: 250, sy: 0, ex: 250, ey: cosmos.h, color: "#fbb" })
-  cosmos.addGhostObject({shape: 'line', sx: 0, sy: 200, ex: cosmos.w, ey: 200, color: "#bbf" })
+  cosmos.addGhostObject({shape: 'line', sx: 220, sy: 0, ex: 220, ey: cosmos.h, color: "#fbb" })
+  cosmos.addGhostObject({shape: 'line', sx: 0, sy: 190, ex: cosmos.w, ey: 190, color: "#bbf" })
 
 
   function animate() {

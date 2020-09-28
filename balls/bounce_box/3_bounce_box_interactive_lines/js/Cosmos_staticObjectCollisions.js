@@ -22,46 +22,76 @@ Cosmos.prototype.staticObjectCollisions = function(b) {
 
         if (dist <= 0) {
           console.log("HIT")
-          const bA = Math.atan(b.vx / b.vy) * (180 / Math.PI)
-          const sA = Math.atan(4 / 3) * (180 / Math.PI)
+
+          const sX = s.ex - s.sx
+          const sY = s.ey - s.sy
+
+          const bA = Math.atan(b.vy / (b.vx*-1)) * rA
+          const sA = Math.atan((sY*-1) / sX) * rA
           const h = Math.sqrt(b.vx * b.vx + b.vy * b.vy)
 
-          let angs = sA-bA // if (b.vx  > 0 && b.vy > 0)
-          // if (b.vx > 0 && b.vy < 0) { angs =  90 - Math.abs(bA+sA) }
-          // else if (b.vx < 0 && b.vy < 0) { angs = 180 }
+          const diff = (bA-sA) * -1
+          let angs = diff+sA
+          // if (b.vy < 0 ) { angs+=180 }
+          // if (b.vx < 0 ) { angs+=180 }
 
-          const testyX = h * Math.cos((angs) * Math.PI/180)
-          const testyY = Math.sqrt( h * h - testyX * testyX )
+          let testyX = h * Math.cos((angs) * aR)
+          let testyY = Math.sqrt( h * h - testyX * testyX )
+
+          if (sA < 0 && b.vx) {
+            console.log('ok')
+          }
 
           console.log("sA, bA:", sA, bA)
+          console.log("diff :", diff)
           console.log("angs :", angs)
           console.log("h :", h)
           console.log("testyX :", testyX)
           console.log("testyY :", testyY)
 
-          cosmos.addGhostObject({
-            shape: 'line',
-            sx: b.x,
-            sy: b.y,
-            ex: b.x - (100 * b.vx),
-            ey: b.y - (100 * b.vy),
-            color: 'purple'
-          })
 
-          b.vx = testyX
-          b.vy = testyY
 
-          cosmos.addGhostObject({
-            shape: 'line',
-            sx: b.x,
-            sy: b.y,
-            ex: b.x + (100 * b.vx),
-            ey: b.y + (100 * b.vy),
-            color: 'green'
-          })
+          if (!b.inLine) {
+            b.inLine = new Ghost({
+              shape: 'line',
+              sx: b.x,
+              sy: b.y,
+              ex: b.x - (100 * b.vx),
+              ey: b.y - (100 * b.vy),
+              color: 'purple'
+            })
+
+            b.vx = testyX
+            b.vy = testyY
+
+            b.outLine = new Ghost({
+              shape: 'line',
+              sx: b.x,
+              sy: b.y,
+              ex: b.x + (100 * b.vx),
+              ey: b.y + (100 * b.vy),
+              color: 'green'
+            })
+            cosmos.addGhostObject(b.inLine)
+            cosmos.addGhostObject(b.outLine)
+          } else {
+            b.inLine.sx = b.x
+            b.inLine.sy = b.y
+            b.inLine.ex = b.x - (100 * b.vx)
+            b.inLine.ey = b.y - (100 * b.vy)
+
+            b.vx = testyX
+            b.vy = testyY
+
+            b.outLine.sx = b.x
+            b.outLine.sy = b.y
+            b.outLine.ex = b.x + (100 * b.vx)
+            b.outLine.ey = b.y + (100 * b.vy)
+          }
 
         }
 
+        // 🚨Don't forget to add bounce! should it be different than wall daping???
         // b.vx *= (this.bounce*-1)
         // b.vy *= (this.bounce*-1)
 
