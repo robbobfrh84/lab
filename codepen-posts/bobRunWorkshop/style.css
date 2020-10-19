@@ -1,8 +1,0 @@
-.inline {
-  display: inline-block;
-}
-#bobAnimate {
-  margin-left: 0px;
-  transition-timing-function: ease-in-out;
-  transition: margin-left 2s;
-}
