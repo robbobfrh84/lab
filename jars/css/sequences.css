@@ -1,0 +1,69 @@
+#sequencesContainer {
+  widows: 100%;
+  margin-top: 30px;
+}
+.sequence-button {
+  display: block;
+  margin: auto;
+  background-color: rgba(255,255,255,0.3);
+  font-size: 20px;
+  width: 300px;
+  opacity: 0.7;
+  cursor: pointer;
+  transition: opacity .3s;
+  text-align: left;
+  padding: 8px;
+  margin-bottom:5px;
+  border: solid #222 2px;
+}
+.sequence-button:hover {
+  opacity: 1;
+  transition: opacity .3s;
+}
+.sequence-button_duration {
+  float: right;
+}
+.icon-image {
+  position: relative;
+  top: 5px;
+  display: inline-block;
+  width: 25px;
+}
+.lock-container {
+  display: none;
+}
+
+/* STATUS */
+#currentStatusContainer {
+  position: relative;
+  height: 30px;
+  cursor: pointer;
+}
+#currentStatus {
+  padding: 4px;
+  color: #ccc;
+  opacity: 1;
+  line-height: 26px;
+  transition: opacity 0.5s;
+}
+#reloadIcon {
+  position: absolute;
+  width: 30px;
+  margin-left: -12px;
+  bottom: 0px;
+  opacity: 0.5;
+  transition: opacity 0.5s;
+}
+.faint-title {
+  font-size: 12px;
+  color: #aaa;
+}
+
+/* CUSTOM  */
+.custom-container {
+  font-size: 20px;
+  text-align: center;
+  padding: 10px;
+  width: 320px;
+  border: solid #25e 3px;
+}

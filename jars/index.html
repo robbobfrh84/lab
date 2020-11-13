@@ -1,0 +1,89 @@
+<!DOCTYPE html><html lang="en">
+<title> Jar Lights </title>
+<link rel="icon" href="images/jar.png">
+<head>
+  <meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=0.8">
+  <link rel="stylesheet" href="css/vars.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/sequences.css">
+  <link rel="stylesheet" href="css/custom.css">
+  <link rel="stylesheet" href="css/toggle.css">
+</head>
+<body>
+
+
+<div id="pageSequences" class="page">
+
+  <div class="title-container">
+    <image src="images/jar_dark.png" class="icon-image"/>
+    <div class="title"> Jar Lights </div>
+    <image src="images/jar_dark.png" class="icon-image"/>
+  </div>
+
+  <div class="body">
+    <div id="sequencesContainer"></div>
+
+    <div id="currentStatusContainer" onClick="reloadCurrentStatus()">
+      <div id="currentStatus"></div>
+      <img id="reloadIcon" src="images/reload.png">
+    </div>
+
+    <hr>
+
+    <button
+      class="sequence-button custom-container"
+      onclick="changePage('pageCustom')">
+      Create your own!
+    </button>
+  </div>
+
+</div>
+
+
+<div id="pageCustom" class="page">
+
+  <div class="title-container">
+    <div class="title custom" onclick="changePage('pageSequences')">
+      &lt;&lt;&lt; Home &lt;&lt;&lt;
+    </div>
+  </div>
+
+  <div id="stripContainer"></div>
+  <div id="jarsContainer"></div>
+  <div id="colorsNavContainer">
+    <div id="colorsContainer"></div>
+  </div>
+
+  <div id="tools-button-container">
+    <div id="fillBtn" onclick="ledSets('fill')" class="tools-button fill">
+      Fill
+    </div>
+    <div onclick="ledSets('clear')" class="tools-button">
+      Clear All
+    </div>
+    <div onclick="ledSets('pallete')" class="tools-button pallet">
+      Pallete
+    </div>
+
+    <label class="toggle-switch">
+      <input id="invertedInput" onclick="invertDirection()" type="checkbox">
+      <span class="toggle-slider toggle-round"></span>
+    </label>
+    <div class="toggle-lable">
+      Inverted
+    </div>
+
+  </div>
+
+
+</div>
+
+
+<script src="js/index.js"></script>
+<script src="js/build.js"></script>
+<script src="js/update.js"></script>
+<script src="js/events.js"></script>
+<script src="js/api.js"></script>
+</body>
+</html>

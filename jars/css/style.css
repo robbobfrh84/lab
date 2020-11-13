@@ -1,0 +1,41 @@
+html  * {
+  font-size: 16px;
+  color: #DDDDDD;
+}
+body {
+  background-color: #eee;
+  font-family: sans-serif;
+  margin: 0px;
+  text-align: center;
+  background: url("../images/gray_grain.png");
+}
+button {
+  cursor: pointer;
+}
+hr {
+  height: 5px;
+  background-color: rgba(235,245,255,0.3);
+  box-shadow: 0px 0px 4px inset rgba(0,0,0,1);
+  border: none;
+}
+.page {
+  display: none;
+  opacity: 0;
+  transition: opacity .5s;
+}
+.title-container {
+  width: 100%;
+  background-color: rgba(255,255,255,0.3);
+  display: block;
+  box-shadow: 2px 2px 2px rgba(0,0,0,0.9);
+}
+.title {
+  margin: 5px;
+  font-size: 25px;
+  font-weight: 300;
+  letter-spacing: 2px;
+  display: inline-block;
+}
+.buildStripContainers, .jarContainer, .stripLedPair, .ledPair, .icon-image {
+  display: inline-block;
+}
