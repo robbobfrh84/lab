@@ -35,8 +35,15 @@ function toggleNextFrame() {
 }
 
 function updateGravity() {
-  cosmos.xGravity = parseFloat(inputX.value)
-  cosmos.yGravity = parseFloat(inputY.value)
+  console.log(event.target)
+  let x = parseFloat(inputX.value)
+  let y = parseFloat(inputY.value)
+  cosmos.xGravity = x >= -1 && x <= 1 ? x : cosmos.xGravity
+  cosmos.yGravity = y >= -1 && y <= 1 ? y : cosmos.yGravity
+  inputX.value = cosmos.xGravity
+  inputY.value = cosmos.yGravity
+  if (x < -1 || x > 1) { alert("Please enter an X value greater than 0.0 and less than 1.0")}
+  if (y < -1 || y > 1) { alert("Please enter an Y value greater than 0.0 and less than 1.0")}
 }
 
 var mousedown = false
