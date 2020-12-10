@@ -1,5 +1,10 @@
 <!DOCTYPE html><html lang="en"><meta charset="UTF-8">
-<style> body { margin: 0; }
+<meta name="viewport" content="width=device-width, initial-scale=0.75">
+<style>
+body {
+  font-family: Tahoma;
+  margin: 0;
+}
 #cosmos{
   box-shadow: 0 0 3vw rgba(0,0,0,0.5) inset;
   width: 100vw; height: 100vh;
@@ -15,14 +20,26 @@
   position: absolute;
   top: 30px;
   left: 30px;
-  font-size: 20px; 
+  font-size: 20px;
 }
+.links a {
+  text-decoration: none;
+  font-size:  45px;
+  background-color: rgba(255,255,255,0.75);
+  padding: 5px 30px 10px;
+  border-radius: 20px;
+  color: #222;
+}
+.links a:hover {
+  background-color: rgba(255,255,255,0.95);
+}
+
 </style>
 <body>
   <svg xmlns="http://www.w3.org/2000/svg" id='universe' width=100vw height=100vh
     onmousemove='mouseTrack(event)'>
   </svg><div id='cosmos'></div>
-  <div class="links">
+  <div class="links" onmousemove='mouseTrack(event)'>
     <a href="jars/index.html">/jars</a>
   </div>
 
