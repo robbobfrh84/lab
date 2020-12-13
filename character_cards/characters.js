@@ -55,4 +55,11 @@ const characters = [
     gender: "Female",
     note: ""
   },
+  {
+    name: "Sara",
+    image: "placeholder.png",
+    age: "17",
+    gender: "Female",
+    note: "She seems really into you."
+  },
 ]
