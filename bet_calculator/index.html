@@ -1,0 +1,73 @@
+<!DOCTYPE html><html lang="en">
+<title> Bet Calculator </title> <!-- <link rel="icon" href="link/or/path">  -->
+<head>
+  <meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style media="screen">
+body {
+  font-family: Avenir;
+}
+input.sm {
+  width: 40px;
+}
+div.key {
+  width: 100px;
+  display: inline-block;
+}
+.key span {
+  float: right;
+}
+.title {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+}
+</style>
+</head>
+<body>
+
+<div class="title"> Bet Calculator </div>
+
+<div id="betsContainer"></div>
+
+<button onclick="addBet()">+</button>
+
+</body>
+<script>
+
+const bets = []
+let betsCnt = 1
+
+window.onload = function() {
+  buildBets()
+}
+
+window.onkeyup = function(event) {
+  console.log("event: ", event)
+  console.log("event.srcElement.value :", event.srcElement.value)
+}
+
+const buildBets = function() {
+  betsContainer.innerHTML = ""
+  for (let i = 0; i < betsCnt; i++) {
+    buildBet(i)
+  }
+}
+
+const buildBet = function(i) {
+  betsContainer.innerHTML += `
+    <div class="key">Name: </div><input> <br>
+    <div class="key">Bet: <span>$</span></div><input value="10"> <br>
+    <div class="key">Straight: </div><input class="sm" value="+155"> <br>
+    <div class="key">Money Line: </div><input class="sm" value="+2.5">
+    <hr>
+  `
+}
+
+const addBet = function() {
+  betsCnt++
+  buildBets()
+}
+
+</script>
+</html>
