@@ -9,6 +9,7 @@ body {
 }
 input.sm {
   width: 40px;
+  padding-left: 0px;
 }
 div.key {
   width: 100px;
@@ -21,6 +22,9 @@ div.key {
   font-size: 18px;
   font-weight: bold;
   text-align: center;
+}
+.return {
+  display: inline-block;
 }
 </style>
 </head>
@@ -55,19 +59,32 @@ const buildBets = function() {
 }
 
 const buildBet = function(i) {
+  console.log(" :", )
   betsContainer.innerHTML += `
-    <div class="key">Name: </div><input> <br>
-    <div class="key">Bet: <span>$</span></div><input value="10"> <br>
-    <div class="key">Straight: </div><input class="sm" value="+155"> <br>
-    <div class="key">Money Line: </div><input class="sm" value="+2.5">
+    <div class="betContainer" id="container{i}">
+      <div class="key">Name: </div><input> <br>
+      <div class="key" id="bet${i}">Bet: <span>$</span></div><input value="10"> <br>
+
+      <div class="key">Straight: </div><input class="sm" value="+155">
+      <div class="return" id="sReturn${i}"></div>
+      <br>
+
+      <div class="key">Money Line: </div><input class="sm" value="+2.5">
+      <div class="return" id="mlReturn${i}"></div>
+    </div>
     <hr>
   `
 }
+
+// const calculate = function() {
+//
+// }
 
 const addBet = function() {
   betsCnt++
   buildBets()
 }
+
 
 </script>
 </html>
