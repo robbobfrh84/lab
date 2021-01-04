@@ -22,6 +22,7 @@ var cx = 250, cy = 377
 var pixelStep = 1
 var step = 0
 var fps = 60
+const playerRadius = 10 // added this years! after, wanted to make players bigger, this was jan 3, 2021
 
 window.onload = ()=>{ animate() }
 
@@ -41,33 +42,34 @@ playerPath = (step)=>{
   if (step <= 60) {
     cx = cx+0.1
     cy = cy-1
-    buildPlayer(cx, cy, 7, teams[0].colors, true)
+    buildPlayer(cx, cy, playerRadius, teams[0].colors, true)
   }
   if (step > 60 & step <= 72) {
     cx = cx-2
     cy = cy-1
-    buildPlayer(cx, cy, 7, teams[0].colors, true)
+    buildPlayer(cx, cy, playerRadius, teams[0].colors, true)
   }
   if (step > 72 & step < 340) {
     cx = cx-0.1
     cy = cy-1.2
-    buildPlayer(cx, cy, 7, teams[0].colors, true)
+    buildPlayer(cx, cy, playerRadius, teams[0].colors, true)
   }
 }
+
 
 set = ()=>{
   vertLine(10, ((h+5)/10)+150, w*1.1, (h/10)+150, 5, 'rgba(184,134,11, 0.15)')
   vertLine(10, ((h+5)/10)+300, w*1.1, (h/10)+300, 5, 'rgba(30,30,150, 0.15)')
 
-  buildPlayer(150, 407, 7, teams[0].colors, true)
-  buildPlayer(30, 377, 7, teams[0].colors, true)
-  buildPlayer(90, 393, 7, teams[0].colors, true)
+  buildPlayer(150, 407, playerRadius, teams[0].colors, true)
+  buildPlayer(30, 377, playerRadius, teams[0].colors, true)
+  buildPlayer(90, 393, playerRadius, teams[0].colors, true)
   // buildPlayer(250, 377, 7, teams[0].colors, true)
 
-  buildPlayer(150, 351, 7, teams[1].colors)
-  buildPlayer(70, 330, 7, teams[1].colors)
-  buildPlayer(90, 250, 7, teams[1].colors)
-  buildPlayer(250, 290, 7, teams[1].colors)
+  buildPlayer(150, 351, playerRadius, teams[1].colors)
+  buildPlayer(70, 330, playerRadius, teams[1].colors)
+  buildPlayer(90, 250, playerRadius, teams[1].colors)
+  buildPlayer(250, 290, playerRadius, teams[1].colors)
 }
 
 </script>
