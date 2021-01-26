@@ -1,0 +1,91 @@
+<!DOCTYPE html><html lang="en">
+<title> ? title ? </title> <!-- <link rel="icon" href="link/or/path">  -->
+<head>
+  <meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style media="screen">
+    .key {
+      display: inline-block;
+      width: 120px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="key"> Initial invest $ </div>
+<input id="starting" value="10,000">
+<br>
+
+<div class="key"> Annual addition $ </div>
+<input id="annual" value="10,000">
+<br>
+<hr>
+
+<div class="key"> Average Annual Interest % </div>
+<input id="interest" value="7">
+<br>
+
+<div class="key"> Years </div>
+<input id="yearsVal" value="10">
+<br>
+
+<button onclick="calculate()">Re-calculate All</button>
+
+<h3 id="result"></h3>
+
+<button onclick="update()">Update yearly additions</button>
+
+<p id="yearsLog"></p>
+
+<script type="text/javascript">
+
+window.onload = ()=>{
+  calculate()
+}
+
+function calculate() {
+  const initial = parseInt(starting.value.split(",").join(''))
+  const added = parseInt(annual.value.split(",").join(''))
+  const percent = parseInt(interest.value)
+  const years = parseInt(yearsVal.value)
+
+  let val = initial
+  val = val*((percent/100)+1)
+  valm = Math.round(val)
+  valm = valm.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  const initialNum = initial.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+
+  yearsLog.innerHTML = `
+    After year 1:
+    +<input id="yearsVal_0" value="${initialNum}">
+    ${valm} <br>
+  `
+
+  for (var i = 1; i < years; i++) {
+    val = val+parseInt(added)
+    val = val*((percent/100)+1)
+    valm = Math.round(val)
+    valm = valm.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    const addedNum = added.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    yearsLog.innerHTML += `
+      After year ${i+1}:
+      +<input id="yearsVal_${i}" value="${addedNum}">
+      ${valm} <br>
+    `
+  }
+  val = Math.round(val)
+  val = val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  result.innerHTML = "$"+val
+}
+
+function update() {
+  const years = parseInt(yearsVal.value)
+  for (var i = 0; i < years; i++) {
+    console.log(window["yearsVal_"+i].value)
+  }
+}
+
+</script>
+</body>
+</html>
