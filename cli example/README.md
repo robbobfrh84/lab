@@ -9,5 +9,5 @@ alias yourName="bash ~/yourBashScript.sh"
 ```
 Note: you will need to restart terminal for it to work!
 
-#Example
+# Example
 See `bob.sh` for an example of a cli script...
