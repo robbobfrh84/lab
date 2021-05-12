@@ -13,7 +13,6 @@ class Build_bracket {
 
 
   match (elm, home, away) {
-    console.log("home, away :",home, away)
     const homeName = home.info && home.info.name || "<em>unknown</em>"
     elm.innerHTML += /*html*/`
 
@@ -37,6 +36,7 @@ class Build_bracket {
   testy () { // TEST⚠️
     console.log('testy')
   }
+
 
 }
 

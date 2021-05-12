@@ -71,11 +71,12 @@ class Bracket_object {
 
     this.entries.forEach( (entry, i) => {
       if (entry.seed) {
-        this.object[this.seedKey[entry.seed - 1].index] = {}
+        this.object[this.seedKey[entry.seed - 1].index] = {...this.seedKey[entry.seed - 1]}
         this.object[this.seedKey[entry.seed - 1].index].info = entry
       }
     })
 
   }
+
 
 }
