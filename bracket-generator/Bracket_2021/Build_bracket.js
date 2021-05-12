@@ -1,12 +1,18 @@
 class Build_bracket {
 
 
-  constructor (bracket) {
-    if (bracket.object) {
+  constructor (params) {
+    Object.assign(this, params)
+    this.bracket = new Bracket_object(_config.entries)
+    if (this.bracket.object) {
       bracketContainer.innerHTML = ""
       bracketContainer.onclick = ()=>{ this.testy() } // TEST⚠️
-      for (var i = 0; i < bracket.object.length; i+=2) {
-        this.match( bracketContainer, bracket.object[i], bracket.object[i+1])
+      for (var i = 0; i < this.bracket.object.length; i+=2) {
+        this.match(
+          bracketContainer,
+          this.bracket.object[i],
+          this.bracket.object[i+1]
+        )
       }
     }
   }
@@ -35,6 +41,10 @@ class Build_bracket {
 
   testy () { // TEST⚠️
     console.log('testy')
+  }
+
+  clear() {
+    delete this.bracket
   }
 
 

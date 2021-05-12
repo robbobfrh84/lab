@@ -4,10 +4,11 @@ window.onload = ()=>{
 }
 
 const buildBracket = function(config) {
-  bracket = new Bracket_object(_config.entries)
-  console.log("bracket :", bracket)
-  build = new Build_bracket(bracket)
-  delete bracket
+  build = new Build_bracket({
+    config: _config
+  })
+  console.log("build :", build)
+  build.clear()
   delete build
 }
 
