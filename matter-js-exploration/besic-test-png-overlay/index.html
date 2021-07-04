@@ -1,0 +1,173 @@
+<!DOCTYPE html><html lang="en">
+<title> basic-test-png-overlay </title>
+<head>
+  <meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="matter.js"></script>
+  <style media="screen">
+    #overlayContainer {
+      position: relative;
+      background-color: #222;
+    }
+    #overlay {
+      position: absolute;
+      top: 0; right: 0; left: 0; bottom: 0;
+    }
+    .avatarContainer, .staticContainer {
+      position: absolute;
+      background-color: #ccc;
+    }
+    .avatarContainer {
+      display: none;
+      border-radius: 100%;
+    }
+    .avatarImg {
+      width: 100%;
+    }
+    #cliff {
+      top: 271px;
+      width: 400px;
+      height: 50px;
+      background-color: #aaa;
+    }
+    #ground {
+      top: 580px;
+      width: 1000px;
+      height: 20px;
+      background-color: #aaa;
+    }
+    #bob_img {
+      width: 95%;
+      margin-left: 7px;
+      margin-top: -1px;
+    }
+    #bob_img2 {
+      width: 100px;
+      height: 100px;
+      border-radius: 100%;
+      background-color: white;
+    }
+    #emily_img {
+      border-radius: 100%;
+    }
+  </style>
+</head>
+<body>
+<h1>basic-test-png-overlay</h1>
+<div id="overlayContainer">
+  <div id="matterJsContainer"></div>
+  <div id="overlay">
+    <div id="bob_overlay" class="avatarContainer">
+      <!-- <img id="bob_img" class="avatarImg" src="images/bob8x8.png"> -->
+      <img id="bob_img2" class="avatarImg" src="images/bobfilter.png">
+    </div>
+    <div id="emily_overlay" class="avatarContainer">
+      <img id="emily_img" class="avatarImg" src="images/emily.jpg">
+    </div>
+    <div id="cliff" class="staticContainer">
+      <!-- Hello Grandma, Grandpa! -->
+    </div>
+    <div id="ground" class="staticContainer"></div>
+  </div>
+</div>
+</body>
+<script>
+
+const avatars = [
+  { name: "bob", x:400, y:150 , s:50 },
+  { name: "emily", x:400, y:80 , s:50 },
+]
+const avatarConfig = {
+  width: 100,
+  height: 100,
+}
+avatarConfig.x = (avatarConfig.width / 2)
+avatarConfig.y = (avatarConfig.height / 2)
+
+window.onload = ()=>{
+  startMatterJS()
+  setOverlays()
+}
+
+function startMatterJS() {
+  var Engine = Matter.Engine,
+      Render = Matter.Render,
+      Runner = Matter.Runner,
+      Bodies = Matter.Bodies,
+      Composite = Matter.Composite
+
+  var engine = Engine.create()
+  var render = Render.create({
+      element: window.matterJsContainer,
+      engine: engine,
+      options: {
+        showAngleIndicator: true,
+        width: 1000
+      }
+  })
+
+  const shapesArr = build(Bodies)
+  Composite.add(engine.world, shapesArr);
+  // 🚨 🤯 it'll still run without rendering, SOOO you don't need this if you've got all your static images covered
+  // Render.run(render);
+  // 🚨 🤯
+
+  var runner = Runner.create();
+  Runner.run(runner, engine);
+}
+
+function build(Bodies) {
+  const avatarBodies = avatars.map((a, i)=>{
+    avatars[i].body = Bodies.circle(a.x, a.y, a.s)
+    return avatars[i].body
+  })
+
+  const ground = Bodies.rectangle(400, 610, 810, 60, { isStatic: true });
+  const wall = Bodies.rectangle(100, 300, 600, 60, { isStatic: true });
+  // const boxA = Bodies.rectangle(400, 200, 80, 80);
+  return [
+    ...avatarBodies,
+    ground,
+    wall,
+    // boxA,
+  ]
+}
+
+function setOverlays() {
+  avatars.forEach(a=>{
+    window[a.name+"_overlay"].style.width = avatarConfig.width + "px"
+    window[a.name+"_overlay"].style.height = avatarConfig.height + "px"
+    window[a.name+"_overlay"].style.display = "block"
+  })
+  trackOverlay()
+}
+
+let cnt = 0
+function trackOverlay() {
+
+  avatars.forEach(a=>{
+    window[a.name+"_overlay"].style.left = a.body.position.x-avatarConfig.x + "px"
+    window[a.name+"_overlay"].style.top = a.body.position.y-avatarConfig.y + "px"
+    const rotate = a.body.angle * (180/Math.PI)
+    window[a.name+"_overlay"].style.transform = "rotate("+rotate+"deg)"
+  })
+  // bob_overlay.style.left = bob.position.x-avatarConfig.x + "px"
+  // bob_overlay.style.top = bob.position.y-avatarConfig.y + "px"
+  // const rotate = bob.angle * (180/Math.PI)
+  // bob_overlay.style.transform = "rotate("+rotate+"deg)"
+  //
+  // emily_overlay.style.left = emily.position.x-avatarConfig.x + "px"
+  // emily_overlay.style.top = emily.position.y-avatarConfig.y + "px"
+  // const rotate2 = emily.angle * (180/Math.PI)
+  // emily_overlay.style.transform = "rotate("+rotate2+"deg)"
+
+  window.requestAnimationFrame(()=>{
+    trackOverlay()
+  })
+  // setTimeout(()=>{
+  //   trackOverlay()
+  // },50)
+}
+
+</script>
+</html>

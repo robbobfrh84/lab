@@ -1,0 +1,95 @@
+<!DOCTYPE html><html lang="en">
+<title> basic-test </title>
+<head>
+  <meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="matter.js"></script>
+</head>
+<body>
+<h1>Bob's matter-js intro: basic-test </h1>
+<div id="matterJsContainer"></div>
+</body>
+<script>
+
+let circleA
+const move = {
+  ArrowUp:()=>circleA.force.y = -0.1,
+  ArrowRight:()=>circleA.force.x = 0.1,
+  ArrowDown:()=>circleA.force.y = 0.1,
+  ArrowLeft:()=>circleA.force.x = -0.1,
+}
+
+document.body.onkeydown = ((e)=>{
+  console.log(e)
+  move[e.code]()
+})
+
+
+function build(Bodies) {
+  circleA = Bodies.circle(450, 50, 50);
+  const boxA = Bodies.rectangle(400, 200, 80, 80);
+  const ground = Bodies.rectangle(400, 610, 810, 60, { isStatic: true });
+  const wall = Bodies.rectangle(100, 300, 600, 60, { isStatic: true });
+
+  return [boxA, circleA ,ground, wall]
+}
+
+window.onload = ()=>{
+  var Engine = Matter.Engine,
+      Render = Matter.Render,
+      Runner = Matter.Runner,
+      Bodies = Matter.Bodies,
+      Composite = Matter.Composite;
+
+  var engine = Engine.create();
+  var render = Render.create({
+      element: window.matterJsContainer,
+      engine: engine,
+      options: {
+        showAngleIndicator: true,
+      }
+  });
+
+
+  const shapesArr = build(Bodies)
+
+
+  Composite.add(engine.world, shapesArr);
+  Render.run(render);
+  var runner = Runner.create();
+  Runner.run(runner, engine);
+}
+</script>
+</html>
+
+<!-- OG code
+
+window.onload = ()=>{
+  // module aliases
+  var Engine = Matter.Engine,
+      Render = Matter.Render,
+      Runner = Matter.Runner,
+      Bodies = Matter.Bodies,
+      Composite = Matter.Composite;
+  // create an engine
+  var engine = Engine.create();
+  // create a renderer
+  var render = Render.create({
+      element: window.matterJsContainer,
+      engine: engine
+  });
+  // create two boxes and a ground
+  var boxA = Bodies.rectangle(400, 200, 80, 80);
+  var boxB = Bodies.rectangle(450, 50, 80, 80);
+  var ground = Bodies.rectangle(400, 610, 810, 60, { isStatic: true });
+  // add all of the bodies to the world
+  Composite.add(engine.world, [boxA, boxB, ground]);
+  // run the renderer
+  Render.run(render);
+  // create runner
+  var runner = Runner.create();
+  // run the engine
+  Runner.run(runner, engine);
+}
+
+ -->
