@@ -16,11 +16,14 @@ body {
   display: block;
   width: 100%;
 }
-.links {
+.text-box {
   position: absolute;
   top: 30px;
   left: 30px;
+}
+.links {
   font-size: 20px;
+  margin-bottom: 30px;
 }
 .links a {
   text-decoration: none;
@@ -33,16 +36,36 @@ body {
 .links a:hover {
   background-color: rgba(255,255,255,0.95);
 }
+.lable {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
 
 </style>
 <body>
   <svg xmlns="http://www.w3.org/2000/svg" id='universe' width=100vw height=100vh
     onmousemove='mouseTrack(event)'>
   </svg><div id='cosmos'></div>
-  <div class="links" onmousemove='mouseTrack(event)'>
-    <a href="jars/index.html">/jars</a>
-  </div>
 
+  <div class="text-box">
+
+    <div class="links" onmousemove='mouseTrack(event)'>
+      <a href="tourdefrance/index.html">/tourdefrance</a>
+    </div>
+
+    <div class="links" onmousemove='mouseTrack(event)'>
+      <a href="balls/bounce_box/2_bounce_box_mass_adjusted_balls/index.html">/ball physics</a>
+    </div>
+
+    <div class="lable">
+      Local Links:
+    </div>
+
+    <div class="links" onmousemove='mouseTrack(event)'>
+      <a href="jars/index.html">/jars</a>
+    </div>
+
+  </div>
 
 <script>
 
