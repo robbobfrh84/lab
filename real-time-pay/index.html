@@ -1,0 +1,36 @@
+<!DOCTYPE html><html lang="en">
+<title> Real Time Pay </title> <!-- <link rel="icon" href="link/or/path">  -->
+<head>
+  <meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+  <h3 id="start">Start: </h3>
+  <hr>
+  <h4 id="realTime"></h4>
+  <h4 id="pay"</h4>
+
+<script type="text/javascript">
+
+const startDate = new Date()
+const startTime = Date.now()
+start.innerHTML = "Start: " + startDate
+
+window.onload = () => animate()
+
+const animate = () => {
+  window.requestAnimationFrame(()=>{
+    const time = new Date()
+    realTime.innerHTML = "Start: " + time
+    const s = ((Date.now() - startTime) / 10)
+    pay.innerHTML = "Pay: $" + Math.round((s * ((55.28/60)/60) ) ) / 100
+    animate()
+  })
+}
+
+
+
+</script>
+</body>
+</html>
