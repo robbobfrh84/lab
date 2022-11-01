@@ -40,11 +40,11 @@ function buildStatic({ engine, render, shapes }) {
   const ledge = Matter.Bodies.trapezoid(500,300,500,100,.9,{isStatic: true});
   Matter.Composite.add(engine.world, [
     ledge,
+    // Walls 👇
     Matter.Bodies.rectangle( 500,0,1000,30,{isStatic:true}), // TOP
-    Matter.Bodies.rectangle( 500,562,1000,30,{isStatic:true}), // Bottom
-
-    Matter.Bodies.rectangle( 0,281,30,562,{isStatic:true}), // Left
     Matter.Bodies.rectangle( 1000,281,30,562,{isStatic:true}), // Right
+    Matter.Bodies.rectangle( 500,562,1000,30,{isStatic:true}), // Bottom
+    Matter.Bodies.rectangle( 0,281,30,562,{isStatic:true}), // Left
   ])
 }
 
