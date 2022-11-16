@@ -1,0 +1,8 @@
+.lable {
+  width: 120px;
+  background-color: #ddd;
+  display: inline-block;
+}
+#canvas {
+  background-color: #ddd;
+}
