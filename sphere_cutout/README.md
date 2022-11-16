@@ -10,4 +10,9 @@ To Do...🟡✅
 - Circles points on both left and right of slice
 
 - Generate printable svg!
-</ul>
+
+# Resources
+
+- Right Triangle Generator: https://www.omnicalculator.com/math/right-triangle-side-angle
+
+- Foam Dome Example: https://www.youtube.com/watch?v=NLRnyhjPWfw&t=841s
