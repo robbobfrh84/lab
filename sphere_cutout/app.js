@@ -13,7 +13,8 @@ generate.onclick = draw
 function draw() {
   innerTextLonSlices.innerText = lon.value
   c.clear()
-  const vd = w // Virtrual diameter in pixels
+  const vd = (h*2)/Math.PI // Virtrual diameter in pixels
+  const r = Number(radius.value)
   const vr = vd / 2 // Virtrual radius in pixels
   const vc = Math.PI * (vr*2) // Virtrual circumference in pixels
   const lonSlice = vc / lon.value
@@ -32,7 +33,7 @@ function draw() {
   for (var i = 0; i < lat.value / 2 + 1; i++) {
     const y = lineGap * i
     const latChunk = (90/(lat.value/2)) * i
-    const lineR = 200 * Math.cos(toRadians(latChunk))
+    const lineR = vr * Math.cos(toRadians(latChunk))
     const lineSlice = (Math.PI * (lineR*2)) / lon.value
 
     const sx = lonSlice / 2
@@ -51,8 +52,11 @@ function draw() {
     padCir(ex,ny,3,'red')
     padCir(nex,ny,3,'red')
 
-    c.text(nex, w-100, y+10, 16, null, 'black')
+    const converted_lineSlice = (r*(lineSlice))/vr
+    console.log("i, converted_lineSlice :", i, converted_lineSlice)
 
+    const round_lable = Math.round((converted_lineSlice/2) * 10000) / 10000
+    c.text(round_lable, lonSlice+(p*2)+15, ey+15, 16, null, 'black')
 
   }
 
