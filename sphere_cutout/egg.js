@@ -1,5 +1,4 @@
 function eggFound() {
-  console.log('egg')
   window.egg.innerText = '💩'
   egg.style.animationName = "none"
   egg.style.left = random(50, (window.innerWidth-100)) + "px"
