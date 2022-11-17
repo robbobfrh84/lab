@@ -1,6 +1,6 @@
 const c = new canvas
 const p = 10  // canvas padding
-const w = 400 // canvas width
+const w = 800 // canvas width
 const h = 800 // canvas height
 
 window.onload = () => {
@@ -11,14 +11,15 @@ window.onload = () => {
 generate.onclick = draw
 
 function draw() {
-  innerTextLonSlices.innerText = lon.value
   c.clear()
   const vd = (h*2)/Math.PI // Virtrual diameter in pixels
   const r = Number(radius.value)
   const vr = vd / 2 // Virtrual radius in pixels
   const vc = Math.PI * (vr*2) // Virtrual circumference in pixels
-  const lonSlice = vc / lon.value
-  const lineGap = (vc/2) / lat.value
+  const lonSlice = vc / Number(lon.value)
+  const lineGap = (vc/2) / Number(lat.value)
+
+  setValues(r,vc,vr,lonSlice)
 
   padLine(0+(lonSlice/2),0,0+(lonSlice/2),(vc/2),'rgba(255,0,0,0.5)',1)
   padLine(0,(vc/4),w,(vc/4),'rgba(0,0,255,0.5)',1)
@@ -30,11 +31,11 @@ function draw() {
   }
 
   // Plot slide widths and points.
-  for (var i = 0; i < lat.value / 2 + 1; i++) {
+  for (var i = 0; i < Number(lat.value) / 2 + 1; i++) {
     const y = lineGap * i
-    const latChunk = (90/(lat.value/2)) * i
+    const latChunk = (90/(Number(lat.value)/2)) * i
     const lineR = vr * Math.cos(toRadians(latChunk))
-    const lineSlice = (Math.PI * (lineR*2)) / lon.value
+    const lineSlice = (Math.PI * (lineR*2)) / Number(lon.value)
 
     const sx = lonSlice / 2
     const sy = (vc/4) - y
@@ -52,14 +53,20 @@ function draw() {
     padCir(ex,ny,3,'red')
     padCir(nex,ny,3,'red')
 
-    const converted_lineSlice = (r*(lineSlice))/vr
-    console.log("i, converted_lineSlice :", i, converted_lineSlice)
-
-    const round_lable = Math.round((converted_lineSlice/2) * 10000) / 10000
-    c.text(round_lable, lonSlice+(p*2)+15, ey+15, 16, null, 'black')
-
+    const converted_lineSlice = (r*lineSlice)/vr
+    const converted_y = (r*y)/vr
+    const round_ylable = Math.round((converted_lineSlice/2) * 10000) / 10000
+    const round_xlable = Math.round((converted_y) * 10000) / 10000
+    c.text(round_xlable+",   "+round_ylable, lonSlice+(p*2)+15, ey+15, 16, null, 'black')
   }
 
+}
+
+function setValues(r,vc,vr,lonSlice) {
+  v_LonSlices.innerText = Number(lon.value)
+  const cir_1_4 = Math.round(( (r*((vc / 4)))/vr) * 10000) / 10000
+  v_cir_1_4.innerText = cir_1_4
+  v_lonSlice.innerText = Math.round(((r*lonSlice)/vr) * 10000) / 10000
 }
 
 function padLine(sx,sy,ex,ey,color,stroke) {

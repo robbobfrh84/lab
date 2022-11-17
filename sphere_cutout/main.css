@@ -1,5 +1,5 @@
 * {
-  font-family: Avenir; 
+  font-family: Avenir;
 }
 .lable {
   width: 120px;
@@ -9,7 +9,7 @@
 #canvas {
   background-color: #ddd;
 }
-#easter-egg {
+#eggButton {
   font-size: 30px;
   background-color: rgba(0,0,255,0.15);
   float: right;
@@ -25,4 +25,21 @@
   background-color: rgba(0,0,255,0.3);
 
   transition: box-shadow .5s, background-color .5s;
+}
+#egg {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  font-size: 100px;
+  opacity: 0;
+  animation-name; drop;
+  animation-duration: 2s;
+  animation-timing-function: ease-in;
+  pointer-events: none;
+}
+
+
+@keyframes drop {
+  0%   {top: -100px; opacity: 1;}
+  100% {top: 110vh; opacity: 1;}
 }

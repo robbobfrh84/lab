@@ -10,9 +10,9 @@
 
 
 <body>
-<!-- <button id='easter-egg'>🪺</button> -->
+<button id="eggButton" onclick='eggFound()'>🪺</button>
 <h1> Bob's ✨Sliced Sphere✨ Playground</h1>
-<div class="lable">Radius:</div><input id="radius" value="4">
+<div class="lable">Radius:</div><input id="radius" value="3.5">
 Unit don't matter! 📏 ...inch, mm, mile, lightyear 👍 don't worry dogg!<br>
 <div class="lable">Lon. Slices:</div><input id="lon" value="8">
 # of slices you want around, 🟠 like orange slices<br>
@@ -21,15 +21,23 @@ Unit don't matter! 📏 ...inch, mm, mile, lightyear 👍 don't worry dogg!<br>
 
 <button id="generate">Re-generate</button>
 <hr>
-So, like, cutout <strong><span id="innerTextLonSlices"></span></strong>
-of those 👇 and stich them together and you got a sphere! 🌐<br>
-&bull; Units measured from red center-line out. Or, 1/2 distance from Dot-to-Dot.
+So, like, cutout <strong><span id="v_LonSlices"></span></strong>
+of those 👇 and stich them together and you got a sphere! 🌐
+<br> • Units measured from red center-line out. Or, 1/2 distance from Dot-to-Dot.
+<br> • 1/4 circumference = <strong><span id="v_cir_1_4"></span></strong> * pole to equator
+<br> • lon. Slice length = <strong><span id="v_lonSlice"></span></strong>
+<br> • plot points: UP, RIGHT (*from center-center, red-blue 0,0) </strong>
+
 <br>
 <canvas id="canvas"></canvas>
+
+<div id="egg"></div>
 
 </body>
 
 
 <script src="canvas.js"></script>
 <script src="app.js"></script>
+<script src="egg.js"></script>
+
 </html>
