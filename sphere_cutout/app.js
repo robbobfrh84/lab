@@ -8,7 +8,7 @@ window.onload = () => {
   draw()
 }
 
-generate.onclick = draw
+document.body.onkeyup = draw
 
 function draw() {
   c.clear()
