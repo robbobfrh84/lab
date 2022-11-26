@@ -1,0 +1,65 @@
+#bodyBorder {
+  width: 100%;
+  /* width: 650px; */
+  height: 366px;
+  margin: auto;
+  background-color: #333;
+  border-radius: 0.5em;
+  position: relative;
+}
+
+#mainBody {
+  position: absolute;
+  top: 0.75em;
+  bottom: 0.75em;
+  left: 0.75em;
+  right: 0.75em;
+  background-color: darkgreen;
+  border-radius: 0.5em;
+  text-align: center;
+}
+
+.scoreboard {
+  padding-top: 0.5em;
+}
+
+.quarter {
+  display: inline-block;
+  padding-right: 0.3em;
+}
+
+.total {
+  border: solid 2px #ccc;
+  padding: 0px;
+}
+.total > div > .score {
+  color: #222;
+  font-weight: bold;
+}
+
+.score-container {
+  position: relative;
+  width: 5em;
+  height: 5em;
+  background-color: rgb(189,183,107,0.5);
+  color: #ccc;
+  margin-bottom: 0.5em;
+}
+
+.score {
+  position: absolute;
+  margin: auto;
+  top: 0.25em;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  font-size: 3em;
+  transition: color .5s, font-size .5s, top .5s;
+}
+
+.update {
+  color: red;
+  font-size: 4em;
+  top: 0.08em;
+  transition: color .5s, font-size .5s, top .5s;
+}
