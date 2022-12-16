@@ -1,0 +1,15 @@
+body {
+  margin: 0;
+  background-color: cornflowerblue;
+}
+.centered-container {
+  position: absolute;
+  font-size: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: green;
+}
+.centered-img {
+  width: 75vw;
+}
