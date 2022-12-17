@@ -1,15 +1,40 @@
+* {
+  font-family: Avenir;
+}
 body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   margin: 0;
   background-color: cornflowerblue;
 }
-.centered-container {
-  position: absolute;
-  font-size: 0;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: green;
+#topNav {
+  text-align: center;
 }
-.centered-img {
-  width: 75vw;
+.content {
+  flex: 1;
+}
+#imgContainer { 
+  position: relative;
+  font-size: 0px;
+  margin: auto;
+}
+@media (orientation:portrait) {
+  #imgContainer {
+    width: 80vw;
+  }
+}
+@media (orientation:landscape) {
+  #imgContainer {
+    width: 80vh;
+  }
+}
+#imgContainer > img {
+  position: absolute;
+  width: 100%;
+}
+footer {
+  text-align: center;
+  margin-top: 20px; 
+  background-color: rgba(0,0,0,0.1);
 }
