@@ -14,11 +14,12 @@
     <div id="topNav">Tap + Drag  *OR*  Hover</div>
     <div id="imgContainer">
       <!-- 🚨 WARNING: order sensative! -->
-      <img src="images/_original.png">
+      <img src="images/_original.png" class="shadow">
       <img src="images/eye_white.png">
       <img id="leftEye" src="images/left_eye.png">
       <img src="images/empty_face.png">
-      <img id="tracker">
+      <!-- We need an element at the same level to track, otherwise weird things happen at the margins -->
+      <img id="tracker"> 
     </div>
 
 
@@ -35,9 +36,9 @@
 
   </div>
 
-  <footer> 
+  <!-- <footer> 
     &bull; Hanna Bliss self-portrait &bull; effects by Bob Main &bull; 
-  </footer>
+  </footer> -->
 
 </body>
 

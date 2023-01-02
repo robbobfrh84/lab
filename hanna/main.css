@@ -32,6 +32,11 @@ body {
 #imgContainer > img {
   position: absolute;
   width: 100%;
+
+}
+.shadow {
+  box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.3);
+  border-radius: 2px;
 }
 footer {
   text-align: center;

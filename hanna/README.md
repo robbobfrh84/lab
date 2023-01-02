@@ -1,4 +1,8 @@
 # To Do ✅ 🟡
-- Add top direction
+- fix placement to be ratio.
+- Test touch match 
 - Create hover and touch effect
-- track with ✨
+~~~
+- dynamic mobile vs desktop
+- fade in all
+- fade in directions.
