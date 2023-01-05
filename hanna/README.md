@@ -12,6 +12,7 @@
   - usually when you open up the tab. can we figure out that event and force scroll to top.
 ~~~
 - dynamic mobile vs desktop guide
+- figureout background
 - wait for images to load. 
 - fade in all
 - fade in directions after image loads.

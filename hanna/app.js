@@ -2,6 +2,16 @@ const hanna = {
   leftEye: {
     rangeX: { min: -0.05, max: 0.02 },
     rangeY: { min: -0.02, max: 0.017 }
+  },
+  rightEye: {
+    rangeX: { min: -0.05, max: 0.02 },
+    rangeY: { min: -0.02, max: 0.017 }
+  },
+  leftBrow: {
+    rangeY: { min: -0.1, max: 0.01 }
+  },
+  rightBrow: {
+    rangeY: { min: -0.1, max: 0.01 }
   }
 }
 let imgX, imgY
@@ -21,10 +31,6 @@ function setVars() {
 
 function resetFace() {
   console.log(' - resetFace()');
-  // leftEye.style.left = "0px"
-  // leftEye.style.top = "0px"
-
-
   if (recenter) { clearInterval(recenter) }
 
   let cnt = ((resetFaceDelay / 1000) * fps)
@@ -36,35 +42,20 @@ function resetFace() {
       window.leftEye.style.left = (parseFloat(window.leftEye.style.left) - chunkX) + "px"
       window.leftEye.style.top = (parseFloat(window.leftEye.style.top) - chunkY) + "px"
     } else {
-      console.log('end recenter')
       window.leftEye.style.left = "0px"
       window.leftEye.style.top = "0px"
       clearInterval(recenter)
     }
     cnt--
   }, 1000 / fps) 
-
-
 }
 
 
-/* * * * *    🖥️ 🐭 USER EVENTS 🐭 🖥️      * * * * */
-
+/* * * * *    🖥️ 🐭 CURSOR USER EVENTS 🐭 🖥️      * * * * */
 tracker.onmouseout = resetFace
 tracker.onmousemove = (e)=>{
-  const oX = e.offsetX
-  const rXmin = (hanna.leftEye.rangeX.min * imgX)
-  const rXmax = (hanna.leftEye.rangeX.max * imgX)
-  const rangeTotX = Math.abs(rXmin) + Math.abs(rXmax)
-  let x = ((rangeTotX*oX) / imgX) + rXmin
-  leftEye.style.left = x+"px"
-
-  const oY = e.offsetY
-  const rYmin = (hanna.leftEye.rangeY.min * imgY)
-  const rYmax = (hanna.leftEye.rangeY.max * imgY)
-  const rangeTotY = Math.abs(rYmin) + Math.abs(rYmax)
-  let y = ((rangeTotY*oY) / imgY) + rYmin
-  leftEye.style.top = y+"px"
+  handleCursorEyes(e)
+  handleCursorBrows(e)
 }
 
 
