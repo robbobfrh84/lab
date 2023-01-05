@@ -1,21 +1,23 @@
 # To Do ✅ 🟡
-- ✅fix placement to be ratio.
-- ✅add Y to touch
-- ✅🟡handle XY max min leaving touch element 'tracker'
-  - OK! I think i've got the left eye set for testing on mobile and destop.
-  - Maybe still has issues. BUT maybe not!!!
-- Add Right Eye 
+- 🟡 Add Right Eye & Set Tracking
+  - Add and refactor for touchmove
+  - include ~rXmin refactor 
 - Add Left Eye Brow
 - Add Right Eye Brow
-- Refactor (MAYBE!!!! This essentially ends and would it help or make it more confusing when picking up later???? I bet less code would be more confusing, BUT up too you....)
+- photoshop and add 4x bees (crop size)
+- place bees in cropped box. 
+- add beese to `hanna` object and place in starting location
+
+~~~
 - mobile keeps getting stuck scrolled down a bit. 
   - usually when you open up the tab. can we figure out that event and force scroll to top.
-~~~
-- dynamic mobile vs desktop guide
-- figureout background
+  - having a hard time reproducing
+  - See chatGPT
+
 - wait for images to load. 
 - fade in all
 - fade in directions after image loads.
+- dynamic mobile vs desktop guide
 
 
 # Resources

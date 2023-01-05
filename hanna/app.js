@@ -5,7 +5,8 @@ const hanna = {
   },
   rightEye: {
     rangeX: { min: -0.05, max: 0.02 },
-    rangeY: { min: -0.02, max: 0.017 }
+    rangeY: { min: -0.02, max: 0.017 },
+    angleY: {}
   },
   leftBrow: {
     rangeY: { min: -0.1, max: 0.01 }
@@ -19,14 +20,26 @@ let recenter
 const resetFaceDelay = 500 // in ms
 const fps = 60
 
+
 window.onload = setVars
 window.onresize = setVars
 
 function setVars() {
-  window.scrollTo(0,0) // mobile does this weird thing where it scrolls down a bit. And, because we lock scrolling for touchmove we need to force it back to fix this. 
   tracker.style.width = (imgX = imgContainer.children[0].offsetWidth) + "px"
   tracker.style.height = (imgY = imgContainer.children[0].offsetHeight) + "px"
+  imgContainer.style.height = imgY + "px"
+  //
+  //
+  ;["left","right"].forEach( side => {
+    hanna[side+"Eye"].rXmin = (hanna[side+"Eye"].rangeX.min * imgX)
+    hanna[side+"Eye"].rXmax = (hanna[side+"Eye"].rangeX.max * imgX)
+    hanna[side+"Eye"].rYmin = (hanna[side+"Eye"].rangeY.min * imgY)
+    hanna[side+"Eye"].rYmax = (hanna[side+"Eye"].rangeY.max * imgY)
+  })
+  //
+  //
   console.log('imgX,imgY:',imgX,imgY);
+  window.scrollTo(0,0) // mobile does this weird thing where it scrolls down a bit. And, because we lock scrolling for touchmove we need to force it back to fix this. 
 }
 
 function resetFace() {
