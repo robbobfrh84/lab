@@ -17,9 +17,7 @@
   - having a hard time reproducing
   - See chatGPT
 - 🤔so tap and hold should be disabled. but should still trigger move...🤔
-- wait for images to load. 
-- fade in all
-- fade in directions after image loads.
+- ✅ 🟡fade in all
 - dynamic mobile vs desktop guide
 - !! after done
   - create code pen 

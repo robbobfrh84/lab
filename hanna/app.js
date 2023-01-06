@@ -1,31 +1,26 @@
-const hanna = {
-  leftEye: {
-    rangeX: { min: -0.04, max: 0.02 }, // min is toward LEFT
-    rangeY: { min: -0.02, max: 0.02 } // min is toward TOP
-  },
-  rightEye: {
-    rangeX: { min: -0.02, max: 0.06 }, // min is toward LEFT
-    rangeY: { min: -0.02, max: 0.03 }, // min is toward TOP
-    angleY: { min: -0.00, max: -0.02 } // min is really just left side, negiive toward top, max is right side.
-  },
-  leftBrow: {
-    rangeY: { min: -0.03, max: 0.03 } // min is toward TOP
-  },
-  rightBrow: {
-    rangeY: { min: -0.03, max: 0.03 } // min is toward TOP
-  }
-}
-
 let imgX, imgY
 let recenter
 const resetFaceDelay = 500 // in ms
 const fps = 60
 
-window.onload = setVars
+window.onload = ()=>{
+  setVars()
+  setTimeout(()=>{
+    document.body.style.opacity = 1
+  },300)
+}
 window.onresize = setVars
 
+
 /* * * * *    🖥️ 🐭 CURSOR USER EVENTS 🐭 🖥️      * * * * */
-tracker.onmouseout = resetFace
+tracker.onmouseout = (e)=>{
+  console.log('e.relatedTarget:',e.relatedTarget)
+  if (e.relatedTarget.classList.contains("holdFace")) {
+    console.log('bee')
+  } else {
+    resetFace()
+  }
+}
 tracker.onmousemove = (e)=>{
   handleCursorEyes(e.offsetX, e.offsetY)
   handleCursorBrows(e)
@@ -40,12 +35,14 @@ document.addEventListener('touchmove', (e)=>{e.preventDefault()}, { passive: fal
 
 /* * * * *    ✨ ⚙️ TRIGGERED EVENTS ⚙️ ✨     * * * * */
 function setVars() {
-  tracker.style.width = (imgX = imgContainer.children[0].offsetWidth) + "px"
-  tracker.style.height = (imgY = imgContainer.children[0].offsetHeight) + "px"
+  imgY = imgContainer.children[0].offsetWidth
+  imgX = imgY = imgContainer.children[0].offsetHeight
   imgContainer.style.height = imgY + "px"
+  tracker.style.width = imgX + "px"
+  tracker.style.height = imgY + "px"
+  setBeeVars()
   setEyeVars()
   window.scrollTo(0,0) // mobile does this weird thing where it scrolls down a bit. And, because we lock scrolling for touchmove we need to force it back to fix this. 
-  console.log('imgX,imgY:',imgX,imgY)
 }
 
 function resetFace() {
