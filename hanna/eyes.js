@@ -17,8 +17,6 @@ function setEyeVars() {
 function handleCursorEyes( oX, oY ) {
   ["left","right"].forEach( side => {
     const eye = hanna[side+"Eye"]
-    // const oX = e.offsetX
-    // const oY = e.offsetY
 
     const rangePointX = (eye.rangeTotX * oX) / imgX
     window[side+"Eye"].style.left = (rangePointX + eye.rXmin) + "px"
@@ -33,4 +31,17 @@ function handleCursorEyes( oX, oY ) {
       window[side+"Eye"].style.top = currentX - (rangePointAngleY + eye.angleYmin) + "px"
     }
   })
+}
+
+function handleTouchEyes(e) {
+  var touch = e.touches[0] || e.changedTouches[0];
+  var realTarget = document.elementFromPoint(touch.clientX, touch.clientY);
+  e.offsetX = Math.round(touch.clientX-realTarget.getBoundingClientRect().x)
+  e.offsetY = Math.round(touch.clientY-realTarget.getBoundingClientRect().y)
+  if (document.elementFromPoint(e.touches[0].clientX, e.touches[0].clientY).id === 'tracker'){
+    handleCursorEyes(e.offsetX, e.offsetY)
+    handleCursorBrows(e)
+  } else {
+    resetFace()
+  }
 }

@@ -13,7 +13,7 @@
   - usually when you open up the tab. can we figure out that event and force scroll to top.
   - having a hard time reproducing
   - See chatGPT
-
+- 🤔so tap and hold should be disabled. but should still trigger move...🤔
 - wait for images to load. 
 - fade in all
 - fade in directions after image loads.

@@ -24,6 +24,21 @@ const fps = 60
 window.onload = setVars
 window.onresize = setVars
 
+/* * * * *    🖥️ 🐭 CURSOR USER EVENTS 🐭 🖥️      * * * * */
+tracker.onmouseout = resetFace
+tracker.onmousemove = (e)=>{
+  handleCursorEyes(e.offsetX, e.offsetY)
+  handleCursorBrows(e)
+}
+
+/* * * * *    📱👇 TOUCH USER EVENTS 👇📱     * * * * */
+tracker.ontouchend = resetFace
+tracker.ontouchstart = handleTouchEyes
+tracker.ontouchmove = handleTouchEyes
+document.addEventListener('touchmove', (e)=>{e.preventDefault()}, { passive: false })
+
+
+/* * * * *    ✨ ⚙️ TRIGGERED EVENTS ⚙️ ✨     * * * * */
 function setVars() {
   tracker.style.width = (imgX = imgContainer.children[0].offsetWidth) + "px"
   tracker.style.height = (imgY = imgContainer.children[0].offsetHeight) + "px"
@@ -67,44 +82,3 @@ function resetFace() {
   }, 1000 / fps) 
 
 }
-
-
-/* * * * *    🖥️ 🐭 CURSOR USER EVENTS 🐭 🖥️      * * * * */
-tracker.onmouseout = resetFace
-tracker.onmousemove = (e)=>{
-  handleCursorEyes(e.offsetX, e.offsetY)
-  handleCursorBrows(e)
-}
-
-
-/* * * * *    📱👇 TOUCH USER EVENTS 👇📱     * * * * */
-tracker.ontouchend = resetFace
-tracker.ontouchmove = (e)=>{ 
-  var touch = e.touches[0] || e.changedTouches[0];
-  var realTarget = document.elementFromPoint(touch.clientX, touch.clientY);
-  e.offsetX = Math.round(touch.clientX-realTarget.getBoundingClientRect().x)
-  e.offsetY = Math.round(touch.clientY-realTarget.getBoundingClientRect().y)
-
-  if (document.elementFromPoint(e.touches[0].clientX, e.touches[0].clientY).id === 'tracker'){
-    handleCursorEyes(e.offsetX, e.offsetY)
-    handleCursorBrows(e)
-    // const oX = e.touches[0].clientX
-    // const rXmin = (hanna.leftEye.rangeX.min * imgX)
-    // const rXmax = (hanna.leftEye.rangeX.max * imgX)
-    // const rangeTotX = Math.abs(rXmin) + Math.abs(rXmax)
-    // let x = ((rangeTotX*oX) / imgX) + rXmin
-    // leftEye.style.left = x+"px"
-  
-    // const oY = e.touches[0].clientY
-    // const rYmin = (hanna.leftEye.rangeY.min * imgY)
-    // const rYmax = (hanna.leftEye.rangeY.max * imgY)
-    // const rangeTotY = Math.abs(rYmin) + Math.abs(rYmax)
-    // let y = ((rangeTotY*oY) / imgY) + rYmin
-    // leftEye.style.top = y+"px"
-  } else {
-    resetFace()
-  }
-
-}
-document.addEventListener('touchmove', (e)=>{e.preventDefault()}, { passive: false })
-
