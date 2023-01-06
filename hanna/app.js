@@ -1,20 +1,21 @@
 const hanna = {
   leftEye: {
-    rangeX: { min: -0.05, max: 0.02 },
-    rangeY: { min: -0.02, max: 0.017 }
+    rangeX: { min: -0.04, max: 0.02 }, // min is toward LEFT
+    rangeY: { min: -0.02, max: 0.02 } // min is toward TOP
   },
   rightEye: {
-    rangeX: { min: -0.02, max: 0.06 },
-    rangeY: { min: -0.02, max: 0.017 },
-    angleY: { min: -0.01, max: 0.01 }
+    rangeX: { min: -0.02, max: 0.06 }, // min is toward LEFT
+    rangeY: { min: -0.02, max: 0.03 }, // min is toward TOP
+    angleY: { min: -0.00, max: -0.02 } // min is really just left side, negiive toward top, max is right side.
   },
   leftBrow: {
-    rangeY: { min: -0.03, max: 0.03 }
+    rangeY: { min: -0.03, max: 0.03 } // min is toward TOP
   },
   rightBrow: {
-    rangeY: { min: -0.03, max: 0.03 }
+    rangeY: { min: -0.03, max: 0.03 } // min is toward TOP
   }
 }
+
 let imgX, imgY
 let recenter
 const resetFaceDelay = 500 // in ms
@@ -27,56 +28,56 @@ function setVars() {
   tracker.style.width = (imgX = imgContainer.children[0].offsetWidth) + "px"
   tracker.style.height = (imgY = imgContainer.children[0].offsetHeight) + "px"
   imgContainer.style.height = imgY + "px"
-  ;["left","right"].forEach( side => {
-    const eye = hanna[side+"Eye"]
-    hanna[side+"Eye"].rXmin = (eye.rangeX.min * imgX)
-    hanna[side+"Eye"].rXmax = (eye.rangeX.max * imgX)
-    hanna[side+"Eye"].rangeTotX = Math.abs(eye.rXmin) + Math.abs(eye.rXmax)
-    hanna[side+"Eye"].rYmin = (eye.rangeY.min * imgY)
-    hanna[side+"Eye"].rYmax = (eye.rangeY.max * imgY)
-    hanna[side+"Eye"].rangeTotY = Math.abs(eye.rYmin) + Math.abs(eye.rYmax)
-
-    if (eye.angleY) {
-      hanna[side+"Eye"].angleYmin = (eye.angleY.min * imgY)
-      hanna[side+"Eye"].angleYmax = (eye.angleY.max * imgY)
-    }
-  })
+  setEyeVars()
   window.scrollTo(0,0) // mobile does this weird thing where it scrolls down a bit. And, because we lock scrolling for touchmove we need to force it back to fix this. 
-  console.log('imgX,imgY:',imgX,imgY);
+  console.log('imgX,imgY:',imgX,imgY)
 }
 
 function resetFace() {
-  console.log(' - resetFace()');
   if (recenter) { clearInterval(recenter) }
 
   let cnt = ((resetFaceDelay / 1000) * fps)
-  const chunkX = parseFloat(window.leftEye.style.left) / cnt
-  const chunkY = parseFloat(window.leftEye.style.top) / cnt
+  const lChunkX = parseFloat(window.leftEye.style.left) / cnt
+  const lChunkY = parseFloat(window.leftEye.style.top) / cnt
+  const rChunkX = parseFloat(window.rightEye.style.left) / cnt
+  const rChunkY = parseFloat(window.rightEye.style.top) / cnt
+
+  const lBChunk = parseFloat(window.leftBrow.style.top) / cnt
+  const rBChunk = parseFloat(window.rightBrow.style.top) / cnt
 
   recenter = setInterval(()=>{ 
     if (cnt > 0) {
-      window.leftEye.style.left = (parseFloat(window.leftEye.style.left) - chunkX) + "px"
-      window.leftEye.style.top = (parseFloat(window.leftEye.style.top) - chunkY) + "px"
+      window.leftEye.style.left = (parseFloat(window.leftEye.style.left) - lChunkX) + "px"
+      window.leftEye.style.top = (parseFloat(window.leftEye.style.top) - lChunkY) + "px"
+      window.rightEye.style.left = (parseFloat(window.rightEye.style.left) - rChunkX) + "px"
+      window.rightEye.style.top = (parseFloat(window.rightEye.style.top) - rChunkY) + "px"
+
+      window.leftBrow.style.top = (parseFloat(window.leftBrow.style.top) - lBChunk) + "px"
+      window.rightBrow.style.top = (parseFloat(window.rightBrow.style.top) - rBChunk) + "px"
     } else {
       window.leftEye.style.left = "0px"
       window.leftEye.style.top = "0px"
+      window.rightEye.style.left = "0px"
+      window.rightEye.style.top = "0px"
+      window.leftBrow.style.top = "0px"
+      window.rightBrow.style.top = "0px"
       clearInterval(recenter)
     }
     cnt--
   }, 1000 / fps) 
+
 }
 
 
 /* * * * *    🖥️ 🐭 CURSOR USER EVENTS 🐭 🖥️      * * * * */
 tracker.onmouseout = resetFace
 tracker.onmousemove = (e)=>{
-  handleCursorEyes(e)
+  handleCursorEyes(e.offsetX, e.offsetY)
   handleCursorBrows(e)
 }
 
 
 /* * * * *    📱👇 TOUCH USER EVENTS 👇📱     * * * * */
-
 tracker.ontouchend = resetFace
 tracker.ontouchmove = (e)=>{ 
   var touch = e.touches[0] || e.changedTouches[0];
@@ -85,19 +86,21 @@ tracker.ontouchmove = (e)=>{
   e.offsetY = Math.round(touch.clientY-realTarget.getBoundingClientRect().y)
 
   if (document.elementFromPoint(e.touches[0].clientX, e.touches[0].clientY).id === 'tracker'){
-    const oX = e.touches[0].clientX
-    const rXmin = (hanna.leftEye.rangeX.min * imgX)
-    const rXmax = (hanna.leftEye.rangeX.max * imgX)
-    const rangeTotX = Math.abs(rXmin) + Math.abs(rXmax)
-    let x = ((rangeTotX*oX) / imgX) + rXmin
-    leftEye.style.left = x+"px"
+    handleCursorEyes(e.offsetX, e.offsetY)
+    handleCursorBrows(e)
+    // const oX = e.touches[0].clientX
+    // const rXmin = (hanna.leftEye.rangeX.min * imgX)
+    // const rXmax = (hanna.leftEye.rangeX.max * imgX)
+    // const rangeTotX = Math.abs(rXmin) + Math.abs(rXmax)
+    // let x = ((rangeTotX*oX) / imgX) + rXmin
+    // leftEye.style.left = x+"px"
   
-    const oY = e.touches[0].clientY
-    const rYmin = (hanna.leftEye.rangeY.min * imgY)
-    const rYmax = (hanna.leftEye.rangeY.max * imgY)
-    const rangeTotY = Math.abs(rYmin) + Math.abs(rYmax)
-    let y = ((rangeTotY*oY) / imgY) + rYmin
-    leftEye.style.top = y+"px"
+    // const oY = e.touches[0].clientY
+    // const rYmin = (hanna.leftEye.rangeY.min * imgY)
+    // const rYmax = (hanna.leftEye.rangeY.max * imgY)
+    // const rangeTotY = Math.abs(rYmin) + Math.abs(rYmax)
+    // let y = ((rangeTotY*oY) / imgY) + rYmin
+    // leftEye.style.top = y+"px"
   } else {
     resetFace()
   }
