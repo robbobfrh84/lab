@@ -1,12 +1,15 @@
 # To Do ✅ 🟡
-- 🟡 Add Right Eye & Set Tracking
-  - Add and refactor for touchmove
-  - include ~rXmin refactor 
-- Add Left Eye Brow
-- Add Right Eye Brow
-- photoshop and add 4x bees (crop size)
-- place bees in cropped box. 
+- 🟡 photoshop and add 4x bees (crop size)
 - add beese to `hanna` object and place in starting location
+- add css "bounce"
+- add hover -> speed up "bounce"
+- add click -> fly away (static point in `hanna` fine. )
+- wait 3-5 sec. all return. 
+- add sound effect
+  - 4x individual resting bee sounds
+  - struggling (hover) bee sound
+  - hanna sigh sound.
+  - hanna 'oh' when return. 
 
 ~~~
 - mobile keeps getting stuck scrolled down a bit. 
@@ -18,6 +21,11 @@
 - fade in all
 - fade in directions after image loads.
 - dynamic mobile vs desktop guide
+- !! after done
+  - create code pen 
+  - send to hanna (ask if i can posts a gif / video)
+  - twitter post with live and codepen link 
+    - follow up with IG link in replies (message - 'i'm here now too')
 
 
 # Resources
