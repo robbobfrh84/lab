@@ -18,6 +18,14 @@ function setBeeVars() {
 
 document.querySelectorAll(".beeImg").forEach( bee => {
   bee.onclick = ()=> {
-    console.log('bee: ', bee)
+    console.log('click: ', bee.id)
+  }
+  bee.onmouseover = ()=>{
+    console.log('over: ', bee.id)
+    playGrabbed()
+  }
+  bee.onmouseout = ()=>{
+    console.log('out: ', bee.id)
+    stopGrabbed()
   }
 })

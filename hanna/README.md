@@ -12,10 +12,7 @@
   - hanna 'oh' when return. 
 
 ~~~
-- mobile keeps getting stuck scrolled down a bit. 
-  - usually when you open up the tab. can we figure out that event and force scroll to top.
-  - having a hard time reproducing
-  - See chatGPT
+- ✅ 🟡mobile keeps getting stuck scrolled down a bit. 
 - 🤔so tap and hold should be disabled. but should still trigger move...🤔
 - ✅ 🟡fade in all
 - dynamic mobile vs desktop guide

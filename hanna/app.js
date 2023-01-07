@@ -7,7 +7,7 @@ window.onload = ()=>{
   setVars()
   setTimeout(()=>{
     document.body.style.opacity = 1
-  },300)
+  },300) 
 }
 window.onresize = setVars
 
