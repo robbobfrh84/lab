@@ -18,5 +18,8 @@ const hanna = {
   // 🐝 Bees 🐝 
   leftTopBee: {
     start:  { x: 0.08, y: 0.05, w: 0.2, h: 0.115 },
+  },
+  rightTopBee: {
+    start:  { x: 0.75, y: 0.01, w: 0.2, h: 0.115 },
   }
 }

@@ -14,10 +14,7 @@ window.onresize = setVars
 
 /* * * * *    🖥️ 🐭 CURSOR USER EVENTS 🐭 🖥️      * * * * */
 tracker.onmouseout = (e)=>{
-  console.log('e.relatedTarget:',e.relatedTarget)
-  if (e.relatedTarget.classList.contains("holdFace")) {
-    console.log('bee')
-  } else {
+  if (!e.relatedTarget.classList.contains("holdFace")) {
     resetFace()
   }
 }
