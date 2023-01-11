@@ -1,15 +1,33 @@
-# To Do ✅ 🟡
-- 🟡 photoshop and add 4x bees (crop size)
-- add beese to `hanna` object and place in starting location
-- add css "bounce"
-- add hover -> speed up "bounce"
+# To Do ✅ 
+- ✅ photoshop and add 4x bees (crop size)
+- ✅ add beese to `hanna` object and place in starting location
+- 🟡 Fix bounce to not hover on/off on/off fucks with everything
+  - 🟡 fix sizes
+  - offset hover
 - add click -> fly away (static point in `hanna` fine. )
-- wait 3-5 sec. all return. 
+- all 4 gone? wait 2-5 sec. all fly back. 
+
+Starting sequence
+- Make "Click/Tap to enter dynamic
+- Add fade-in / out effect
+- Let's stack "Click/Top to" as smaller font above "enter" with dividing line.
+
+audio
+- Trim audios
+- start by having all bees out of screen.
+- then fly in one by one with sound.  
 - add sound effect
   - 4x individual resting bee sounds
   - struggling (hover) bee sound
   - hanna sigh sound.
   - hanna 'oh' when return. 
+
+Info Page
+- Start by writing it out in "Starting Sequence"
+- Then, you can opacity 0 it. and cross fade like on start but then fade the info in...
+
+Finalize
+- test on mobile
 
 ~~~
 - ✅ 🟡mobile keeps getting stuck scrolled down a bit. 

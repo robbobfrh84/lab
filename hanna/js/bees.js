@@ -1,31 +1,21 @@
 function setBeeVars() {
-  ["leftTopBee","rightTopBee"].forEach( bee => {
-    window[bee].style.left = (hanna[bee].start.x * 100) + "%"
-    window[bee].style.top = (hanna[bee].start.y * 100) + "%"
-    window[bee].style.width = (hanna[bee].start.w * 100) + "%"
+  document.querySelectorAll(".beeBox").forEach( bee => {
+    window[bee.id].style.left = (hanna[bee.id].start.x * 100) + "%"
+    window[bee.id].style.top = (hanna[bee.id].start.y * 100) + "%"
+    window[bee.id].style.width = (hanna[bee.id].start.w * 100) + "%"
+
+    // const beeImg = bee.querySelector(".beeImg")
+    // beeImg.onclick = () => {
+    //   console.log('click: ', beeImg.id)
+    // }
+    // beeImg.onmouseover = ()=>{
+    //   console.log('over: ', this.id)
+    //   // playGrabbed()
+    // }
+    // beeImg.onmouseout = ()=>{
+    //   console.log('out: ', this.id)
+    //   // stopGrabbed()
+    // }
   })
-
-  // leftTopBee.style.height = (hanna.leftTopBee.start.h * 100) + "%"
-  // leftTopBee.children[0].style.width = (hanna.leftTopBee.start.w * 100) + "%"
-
 }
 
-// testy.onclick = ()=> {
-//   // 🔥 Bob, lets try to create a mouseou event for all bees to fix QUICK move bug. 
-//   // ORRRRRRR not a big deal
-//   console.log('p')
-// }
-
-document.querySelectorAll(".beeImg").forEach( bee => {
-  bee.onclick = ()=> {
-    console.log('click: ', bee.id)
-  }
-  bee.onmouseover = ()=>{
-    console.log('over: ', bee.id)
-    playGrabbed()
-  }
-  bee.onmouseout = ()=>{
-    console.log('out: ', bee.id)
-    stopGrabbed()
-  }
-})

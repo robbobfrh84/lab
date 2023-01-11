@@ -8,29 +8,38 @@
 </head>
 
 <body>
-  <div id="imgContainer">
-    <!-- 🚨 WARNING: order sensative! -->
-    <img src="images/original.png"                    class="hannaImg shadow">
-    <img src="images/left_eye_white.png"              class="hannaImg">
-    <img src="images/right_eye_white.png"             class="hannaImg">
-    <img id="leftEye" src="images/left_eye.png"       class="hannaImg">
-    <img id="rightEye" src="images/right_eye.png"     class="hannaImg">
-    <img src="images/empty_face.png"                  class="hannaImg">
-    <img id="leftBrow" src="images/left_brow.png"     class="hannaImg">
-    <img id="rightBrow" src="images/right_brow.png"   class="hannaImg">
-
-    <!-- We need an element at the same level to track, otherwise weird things happen at the margins -->
-    <img id="tracker"> 
-    <!-- 🐝 Bees 🐝 -->
-    <div id="leftTopBee" class="beeBox holdFace">
-      <img id="leftTopBeeImg" src="images/bee1.png" class="beeImg holdFace">
+  <div id="clickToEnter"> Click to Enter </div>
+  <div id="divBody"> 
+    <div id="imgContainer">
+      <!-- 🚨 WARNING: order sensative! -->
+      <img src="images/original.png"                    class="hannaImg shadow">
+      <img src="images/left_eye_white.png"              class="hannaImg">
+      <img src="images/right_eye_white.png"             class="hannaImg">
+      <img id="leftEye" src="images/left_eye.png"       class="hannaImg">
+      <img id="rightEye" src="images/right_eye.png"     class="hannaImg">
+      <img src="images/empty_face.png"                  class="hannaImg">
+      <img id="leftBrow" src="images/left_brow.png"     class="hannaImg">
+      <img id="rightBrow" src="images/right_brow.png"   class="hannaImg">
+  
+      <!-- We need an element at the same level to track, otherwise weird things happen at the margins -->
+      <img id="tracker"> 
+      <!-- 🐝 Bees 🐝 -->
+      <div id="leftTopBee" class="beeBox holdFace">
+        <img id="leftTopBeeImg" src="images/bee1.png" class="beeImg holdFace">
+      </div>
+      <div id="rightTopBee" class="beeBox holdFace">
+        <img id="rightTopBeeImg" src="images/bee2.png" class="beeImg holdFace">
+      </div>
+      <div id="leftBottomBee" class="beeBox holdFace">
+        <img id="leftBottomBeeImg" src="images/bee3.png" class="beeImg holdFace">
+      </div>
+      <div id="rightBottomBee" class="beeBox holdFace">
+        <img id="rightBottomBeeImg" src="images/bee4.png" class="beeImg holdFace">
+      </div>
     </div>
-    <div id="rightTopBee" class="beeBox holdFace">
-      <img id="rightTopBeeImg" src="images/bee2.png" class="beeImg holdFace">
-    </div>
+    <div id="info" >&nbsp;i</div>
   </div>
-  <div id="info" >&nbsp;i</div>
-  <button onclick="playBuzzes()">&nbsp;🔇👂</button>
+
 </body>
 
 <script src='js/hanna.js'></script>

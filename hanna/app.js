@@ -5,16 +5,24 @@ const fps = 60
 
 window.onload = ()=>{
   setVars()
-  setTimeout(()=>{
-    document.body.style.opacity = 1
-  },300) 
 }
 window.onresize = setVars
+window.onclick = () => {
+  clickToEnter.style.display = 'none'
+  // playBuzzes()
+  setTimeout(()=>{
+    divBody.style.opacity = 1
+  },300) 
+}
 
 
 /* * * * *    🖥️ 🐭 CURSOR USER EVENTS 🐭 🖥️      * * * * */
 tracker.onmouseout = (e)=>{
-  if (!e.relatedTarget.classList.contains("holdFace")) {
+  try {
+    if (!e.relatedTarget.classList.contains("holdFace")) {
+      resetFace()
+    }
+  } catch (error) { // This try/catch is for when your mouse leaves quickly, or by toggle another tab/app on your OS.
     resetFace()
   }
 }
@@ -74,5 +82,4 @@ function resetFace() {
     }
     cnt--
   }, 1000 / fps) 
-
 }
