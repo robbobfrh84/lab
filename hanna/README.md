@@ -1,11 +1,14 @@
-# To Do ✅ 
-- ✅ photoshop and add 4x bees (crop size)
-- ✅ add beese to `hanna` object and place in starting location
-- 🟡 Fix bounce to not hover on/off on/off fucks with everything
-  - 🟡 fix sizes
-  - offset hover
-- add click -> fly away (static point in `hanna` fine. )
+# To Do ✅ 🌕
+- 🌕 Add right bee location and 
+  - lower left, 
+  - lower right, 
+  - lower center,
+  - top center,
+
+Click Fly & Return
+- 🌕add click -> fly away (static point in `hanna` fine. )
 - all 4 gone? wait 2-5 sec. all fly back. 
+- Mobile (test)
 
 Starting sequence
 - Make "Click/Tap to enter dynamic
@@ -29,16 +32,15 @@ Info Page
 Finalize
 - test on mobile
 
+After done
+- Create code pen 
+- Send to hanna (ask if i can posts a gif / video)
+- IG Post (GIF and live link & credit hanna (link to both images) )
+- twitter post with live and codepen link 
+  - follow up with IG link in replies (message - 'i'm here now too')
+
 ~~~
-- ✅ 🟡mobile keeps getting stuck scrolled down a bit. 
-- 🤔so tap and hold should be disabled. but should still trigger move...🤔
-- ✅ 🟡fade in all
-- dynamic mobile vs desktop guide
-- !! after done
-  - create code pen 
-  - send to hanna (ask if i can posts a gif / video)
-  - twitter post with live and codepen link 
-    - follow up with IG link in replies (message - 'i'm here now too')
+- ...
 
 
 # Resources

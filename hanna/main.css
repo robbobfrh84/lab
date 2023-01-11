@@ -74,6 +74,7 @@ html, body {
   position: absolute;
   /* background-color: rgba(0,0,0,0.2); */
   cursor: grab;
+  transition: top 1s, left 1s, width 1s;
 }
 .beeImg {
   width: 100%;
@@ -99,3 +100,9 @@ html, body {
 #leftRightBeeImg { animation-delay: -0.6s; }
 #leftBottomBeeImg { animation-delay: -0.9s; }
 #rightBottomBeeImg { animation-delay: -1.2s; }
+
+.hideleftTopBee { top: -25% !important; left: -25% !important; width: 1% !important;}
+.hiderightTopBee { top: -25% !important; left: 125% !important; width: 1% !important;}
+.hideleftBottomBee { top: 135% !important; left: -50% !important; width: 100% !important;}
+.hiderightBottomBee { top: -25% !important; left: 150% !important; width: 100% !important;}
+.hideleftBee { top: 50% !important; left: -50% !important; }

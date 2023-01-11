@@ -33,17 +33,18 @@ function playGrabbed() {
 }
 
 function stopGrabbed() {
-  grabbedAudio.pause()
-  grabbedAudio.currentTime = 0
+  fadeOut(grabbedAudio, 1000)
+  // grabbedAudio.pause()
+  // grabbedAudio.currentTime = 0
   notGrabbed = true
 }
 
 function fadeOut(audio) {
   const fadeAudio = setInterval(function () {
     if (audio.volume > 0) {
-      audio.volume = Math.round((audio.volume - 0.05) * 100) / 100
+      audio.volume = Math.round((audio.volume - 0.02) * 100) / 100
     } else {
       clearInterval(fadeAudio)
     }
-  }, 50)
+  }, 10)
 }
