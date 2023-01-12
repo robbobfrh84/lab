@@ -25,7 +25,6 @@ function playBuzzes() {
 
 function playGrabbed() {
   if (notGrabbed) {
-    console.log('playGrabbed')
     grabbedAudio = new Audio('audio/grabbed1.m4a')
     grabbedAudio.play()
   }

@@ -18,7 +18,7 @@ html, body {
 #clickToEnter {
   position: absolute;
   top: 0px; right: 0px; bottom: 0px; left: 0px;
-  z-index: 10;
+  z-index: 1;
   width: 100%;
   text-align: center;
   color: #ccc;
@@ -74,6 +74,7 @@ html, body {
   position: absolute;
   /* background-color: rgba(0,0,0,0.2); */
   cursor: grab;
+  user-select: none;
   transition: top 1s, left 1s, width 1s;
 }
 .beeImg {
@@ -101,8 +102,14 @@ html, body {
 #leftBottomBeeImg { animation-delay: -0.9s; }
 #rightBottomBeeImg { animation-delay: -1.2s; }
 
-.hideleftTopBee { top: -25% !important; left: -25% !important; width: 1% !important;}
-.hiderightTopBee { top: -25% !important; left: 125% !important; width: 1% !important;}
-.hideleftBottomBee { top: 135% !important; left: -50% !important; width: 100% !important;}
-.hiderightBottomBee { top: -25% !important; left: 150% !important; width: 100% !important;}
-.hideleftBee { top: 50% !important; left: -50% !important; }
+.hide_LeftTop { top: -25vh !important; left: -25vw !important; width: 1% !important;}
+.hide_RightTop { top: -25vh !important; left: 125vw !important; width: 1% !important;}
+
+.hide_Left { top: 50vh !important; left: -50vw !important; }
+.hide_Right { top: 50vh !important; left: 150vw !important; }
+
+.middle1 { top: 30% !important; left: 50% !important }
+.middle2 { top: 50% !important; left: 55% !important }
+
+.hide_LeftBottom { top: 135vh !important; left: -50vw !important; width: 100% !important;}
+.hide_RightBottom { top: 135vh !important; left: 150vw !important; width: 100% !important;}
