@@ -1,14 +1,14 @@
-# To Do ✅ 🌕
-- 🌕 Add right bee location and 
-  - lower left, 
-  - lower right, 
-  - lower center,
-  - top center,
+# Where It's At
+- desktop seems to be fine, but mobile 
+  - Had weird thing where the bees weren't going all the way out. 
+  - NEED eyes to track when clicking bees. 
 
-Click Fly & Return
+# To Do ✅ 🌕
+
+🌕Click Fly & Return
 - 🌕add click -> fly away (static point in `hanna` fine. )
-- all 4 gone? wait 2-5 sec. all fly back. 
-- Mobile (test)
+- 🌕all 4 gone? wait 2-5 sec. all fly back. 
+- 🌕Mobile (test)
 
 Starting sequence
 - Make "Click/Tap to enter dynamic
