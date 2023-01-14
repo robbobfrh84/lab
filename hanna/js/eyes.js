@@ -40,7 +40,7 @@ function handleTouchEyes(e) {
   e.offsetY = Math.round(touch.clientY-realTarget.getBoundingClientRect().y)
   if (document.elementFromPoint(e.touches[0].clientX, e.touches[0].clientY).id === 'tracker'){
     handleCursorEyes(e.offsetX, e.offsetY)
-    handleCursorBrows(e)
+    handleCursorBrows(e.offsetX, e.offsetY)
   } else {
     resetFace()
   }

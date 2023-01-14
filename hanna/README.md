@@ -1,21 +1,21 @@
 # Where It's At
-- desktop seems to be fine, but mobile 
-  - Had weird thing where the bees weren't going all the way out. 
-  - NEED eyes to track when clicking bees. 
+- Mobile ~~~~ FIGURE OUT PLAN
+  - 
+
+# Next 3 ✅ 🌕... 
+- finish trimming tracks
+- Photoshop sparkles. 
 
 # To Do ✅ 🌕
 
-🌕Click Fly & Return
-- 🌕add click -> fly away (static point in `hanna` fine. )
-- 🌕all 4 gone? wait 2-5 sec. all fly back. 
-- 🌕Mobile (test)
-
-Starting sequence
-- Make "Click/Tap to enter dynamic
-- Add fade-in / out effect
-- Let's stack "Click/Top to" as smaller font above "enter" with dividing line.
+🌕Mobile Fly & Return(test)
+  - NEED TO figure out tap drag and click, because you're a CAT CHASING IT"S TAIL
+  - Ideas...
+    - I kinda like a swipe, that would be the hardest. 
+    - OR double tap with like .5 sec required delay. 
 
 audio
+- Add hanna "oooooOOOOoooo" sound effect for sparkles
 - Trim audios
 - start by having all bees out of screen.
 - then fly in one by one with sound.  
@@ -24,6 +24,17 @@ audio
   - struggling (hover) bee sound
   - hanna sigh sound.
   - hanna 'oh' when return. 
+
+Sparkles
+- photoshop 
+- make hanna "ooooOOOOoooo" sound effect 
+- Randomly place over image (minus 5-10%), add 1 every like .2s fadin/out over 1s for like 3-4s. fade all out? bees come back!
+- End with "oh" sound effect. 
+
+Starting sequence
+- Make "Click/Tap to enter dynamic
+- Add fade-in / out effect
+- Let's stack "Click/Top to" as smaller font above "enter" with dividing line.
 
 Info Page
 - Start by writing it out in "Starting Sequence"

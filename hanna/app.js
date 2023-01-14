@@ -9,26 +9,21 @@ window.onload = ()=>{
 window.onresize = setVars
 window.onclick = () => {
   clickToEnter.style.display = 'none'
-  // playBuzzes()
   setTimeout(()=>{
     divBody.style.opacity = 1
+    // playBuzzes()
   },300) 
 }
 
 
 /* * * * *    🖥️ 🐭 CURSOR USER EVENTS 🐭 🖥️      * * * * */
 tracker.onmouseout = (e)=>{
-  try {
-    if (!e.relatedTarget.classList.contains("holdFace")) {
-      resetFace()
-    }
-  } catch (error) { // This try/catch is for when your mouse leaves quickly, or by toggle another tab/app on your OS.
-    resetFace()
-  }
+  try { if (!e.relatedTarget.classList.contains("holdFace")) { resetFace() }
+  } catch (error) { resetFace() } // This try/catch is for when your mouse leaves quickly, or by toggle another tab/app on your OS.
 }
 tracker.onmousemove = (e)=>{
   handleCursorEyes(e.offsetX, e.offsetY)
-  handleCursorBrows(e)
+  handleCursorBrows(e.offsetX, e.offsetY)
 }
 
 /* * * * *    📱👇 TOUCH USER EVENTS 👇📱     * * * * */
