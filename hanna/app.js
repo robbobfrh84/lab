@@ -31,3 +31,7 @@ tracker.ontouchend = resetFace
 tracker.ontouchstart = handleTouchEyes
 tracker.ontouchmove = handleTouchEyes
 document.addEventListener('touchmove', (e)=>{e.preventDefault()}, { passive: false })
+
+document.body.addEventListener('contextmenu', (event) => {
+  event.preventDefault();
+})

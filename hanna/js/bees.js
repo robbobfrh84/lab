@@ -49,9 +49,13 @@ function setBeeVars() {
 
     bee.ontouchstart = ()=>{
       // playGrabbed()
+      console.log('touchstart')
     }
     bee.ontouchmove = ()=>{
       console.log('touchmove')
+    }
+    bee.ontouchend = ()=>{
+      console.log('touchend')
     }
 
   })
