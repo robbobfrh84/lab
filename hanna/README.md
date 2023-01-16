@@ -1,18 +1,26 @@
 # Where It's At
-- Mobile ~~~~ FIGURE OUT PLAN
-  - 
+- 🤔 I finished realizing the touch even should probaby just be the entire document. 
+  - 🤔 Then, just solve for elements with specific classes or ids 
+  - ✅ So that's what I've done, 
+    - 🌕 but in app.js there still the old code needed to be removed❌ 
+
 
 # Next 3 ✅ 🌕... 
+- 🌕 Mobile
+  - ✅ 🌕 Tap starts hover effect 
+  - ✅ 🌕 make hover over bees fire (use offset)
+    - ✅ 🌕 make starting with tap + drag on a bee work
+  - ✅ 🌕make first hover on body, THEN hover over image work. 
+  - Ok... 2x ways to move
+    - Tap(`ontouchstart`) + Tap(`ontouchstart`)
+    - Swipe! `ontouchstart` > `ontouchmove` > `ontouchend`
+    - AND, either works and first or second option with `bee.isHover`
 - finish trimming tracks
 - Photoshop sparkles. 
 
 # To Do ✅ 🌕
 
-🌕Mobile Fly & Return(test)
-  - NEED TO figure out tap drag and click, because you're a CAT CHASING IT"S TAIL
-  - Ideas...
-    - I kinda like a swipe, that would be the hardest. 
-    - OR double tap with like .5 sec required delay. 
+🌕 Mobile ~~~
 
 audio
 - Add hanna "oooooOOOOoooo" sound effect for sparkles

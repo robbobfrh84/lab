@@ -1,3 +1,8 @@
+function eyeTrack(x,y) {
+  handleCursorEyes(x,y)
+  handleCursorBrows(x,y)
+}
+
 function setEyeVars() {
   ["left","right"].forEach( side => {
     const eye = hanna[side+"Eye"]
@@ -33,15 +38,21 @@ function handleCursorEyes( oX, oY ) {
   })
 }
 
-function handleTouchEyes(e) {
-  var touch = e.touches[0] || e.changedTouches[0];
-  var realTarget = document.elementFromPoint(touch.clientX, touch.clientY);
-  e.offsetX = Math.round(touch.clientX-realTarget.getBoundingClientRect().x)
-  e.offsetY = Math.round(touch.clientY-realTarget.getBoundingClientRect().y)
-  if (document.elementFromPoint(e.touches[0].clientX, e.touches[0].clientY).id === 'tracker'){
-    handleCursorEyes(e.offsetX, e.offsetY)
-    handleCursorBrows(e.offsetX, e.offsetY)
-  } else {
-    resetFace()
-  }
+function handleCursorBrows(x,y) {
+  ;["left","right"].forEach( side => {
+    let oX = x
+    let oY = y
+    if (side === "left" && (imgX/2) < oX) {
+      oY = imgY - y
+    }
+    if (side === "right" && (imgX/2) > oX) {
+      oY = imgY - y
+    }
+    const rYmin = (hanna[side+"Brow"].rangeY.min * imgY)
+    const rYmax = (hanna[side+"Brow"].rangeY.max * imgY)
+    const rangeTotY = Math.abs(rYmin) + Math.abs(rYmax)
+    const yLoc = ((rangeTotY*oY) / imgY) + rYmin
+    const centerAdjust = Math.abs((imgX/2) - oX) / (imgX/2)
+    window[side+"Brow"].style.top = (yLoc*centerAdjust)+"px"
+  })
 }

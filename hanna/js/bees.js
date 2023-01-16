@@ -19,53 +19,60 @@ function setBeeVars() {
 
     bee.addEventListener("transitionend", ()=>{checkAllBeesHidden(bee)})
     bee.onclick = () => {
-      // * these steps make sure we're not getting DOUBLE go to locations. Which causes weired things to happen. like nesting of some sort.
-      clearTimeout(hanna.bees[bee.id].timer)
-      ogLocations.forEach( location => {
-        if (bee.classList.contains(location)) {
-          flyBackOverFace(bee, location)
-          locations = locations.filter(l => l !== location)
-        }
-      })
+      if (isTouch) {
+        console.log('bee:',hanna.bees[bee.id])
+      } else {
+        // * these steps make sure we're not getting DOUBLE go to locations. Which causes weired things to happen. like nesting of some sort.
+        clearTimeout(hanna.bees[bee.id].timer)
+        ogLocations.forEach( location => {
+          if (bee.classList.contains(location)) {
+            flyBackOverFace(bee, location)
+            locations = locations.filter(l => l !== location)
+          }
+        })
 
-      const location = locations[ 0, random(0,locations.length - 1) ]
-      locations = locations.filter(l => l !== location)
-      bee.classList.add(location)
-      hanna.bees[bee.id].timer = setTimeout(() => {
-        flyBackOverFace(bee, location)
-      }, returnToFaceDelay);
+        const location = locations[ 0, random(0,locations.length - 1) ]
+        locations = locations.filter(l => l !== location)
+        bee.classList.add(location)
+        hanna.bees[bee.id].timer = setTimeout(() => {
+          flyBackOverFace(bee, location)
+        }, returnToFaceDelay);
+      }
+
     }
 
     bee.onmousemove = (e)=>{
-      offSetBeeHover(bee, e)
+      offSetBeeHover(bee, e.offsetX, e.offsetY)
     }
     bee.onmouseover = (e)=>{
-      offSetBeeHover(bee, e)
+      offSetBeeHover(bee, e.offsetX, e.offsetY)
       // playGrabbed()
     }
     bee.onmouseout = ()=>{
       // stopGrabbed()
     }
 
-    bee.ontouchstart = ()=>{
-      // playGrabbed()
-      console.log('touchstart')
-    }
-    bee.ontouchmove = ()=>{
-      console.log('touchmove')
-    }
-    bee.ontouchend = ()=>{
-      console.log('touchend')
-    }
+
+    //
+    //
+    // bee.ontouchstart = ()=>{
+    //   // playGrabbed()
+    //   console.log('touchstart')
+    // }
+    // bee.ontouchmove = ()=>{
+    //   console.log('touchmove')
+    // }
+    // bee.ontouchend = ()=>{
+    //   console.log('touchend')
+    // }
 
   })
 }
 
-function offSetBeeHover(bee, e) {
-  const oX = parseInt(window.getComputedStyle(bee, null).getPropertyValue("left")) + e.offsetX
-  const oY = parseInt(window.getComputedStyle(bee, null).getPropertyValue("top")) + e.offsetY
-  handleCursorEyes(oX, oY)
-  handleCursorBrows(oX, oY)
+function offSetBeeHover(bee, x, y) {
+  const oX = parseInt(window.getComputedStyle(bee, null).getPropertyValue("left")) + x
+  const oY = parseInt(window.getComputedStyle(bee, null).getPropertyValue("top")) + y
+  eyeTrack(oX, oY)
 }
 
 function checkAllBeesHidden(bee) {
