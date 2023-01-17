@@ -84,9 +84,14 @@ html, body {
   transition-timing-function: ease-in;  
   pointer-events: none;
 }
-.beeBox:hover .beeImg {
-  animation: bounce2 0.2s infinite;
+@media (hover: hover) {
+  .beeBox:hover .beeImg {
+    animation-duration: 0.2s;
+  }
 }
+.beeBoxTouchHover {
+  animation-duration: 0.2s;
+} 
 @keyframes bounce1 {
   0%   { top: -1rem;}
   50%  { top: 1rem;}

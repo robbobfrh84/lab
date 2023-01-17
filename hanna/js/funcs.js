@@ -1,4 +1,21 @@
 /* * * * *    ✨ ⚙️ TRIGGERED EVENTS ⚙️ ✨     * * * * */
+function handleOnload() {
+  clickToEnter.innerHTML = (isTouch ? "Tap" : "Click") + " to Enter"
+  setVars()
+}
+
+function handleWindowClick(e) {
+  checkForTouchedBees(e)
+  if (firstClick) { 
+    clickToEnter.style.display = 'none'
+    setTimeout(()=>{
+      divBody.style.opacity = 1
+      playBuzzes()
+    },300) 
+    firstClick = false
+  } 
+}
+
 function setVars() {
   imgY = imgContainer.children[0].offsetWidth
   imgX = imgY = imgContainer.children[0].offsetHeight
@@ -42,6 +59,17 @@ function resetFace() {
     }
     cnt--
   }, 1000 / fps) 
+}
+
+function checkForTouchedBees(e) {
+  if (e && e.target.id !== 'tracker' && !e.target.classList.contains('beeBox')) {
+    document.querySelectorAll(".beeBox").forEach( bee => {
+      const beeImg = bee.querySelector(".beeImg")
+      if (beeImg.classList.contains('beeBoxTouchHover')) {
+        handleTouchBee(bee)
+      }
+    })
+  }
 }
 
 

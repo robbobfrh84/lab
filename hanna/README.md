@@ -1,20 +1,14 @@
 # Where It's At
-- 🤔 I finished realizing the touch even should probaby just be the entire document. 
-  - 🤔 Then, just solve for elements with specific classes or ids 
-  - ✅ So that's what I've done, 
-    - 🌕 but in app.js there still the old code needed to be removed❌ 
-
+- ... I want swipe to work
 
 # Next 3 ✅ 🌕... 
 - 🌕 Mobile
-  - ✅ 🌕 Tap starts hover effect 
-  - ✅ 🌕 make hover over bees fire (use offset)
-    - ✅ 🌕 make starting with tap + drag on a bee work
-  - ✅ 🌕make first hover on body, THEN hover over image work. 
+  - Start by setting up logs for... 👇s
   - Ok... 2x ways to move
-    - Tap(`ontouchstart`) + Tap(`ontouchstart`)
+    - ✅ 🌕 Tap(`onclick`) + Tap(`onclick`), bees fly away
     - Swipe! `ontouchstart` > `ontouchmove` > `ontouchend`
     - AND, either works and first or second option with `bee.isHover`
+
 - finish trimming tracks
 - Photoshop sparkles. 
 

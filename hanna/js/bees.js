@@ -19,54 +19,68 @@ function setBeeVars() {
 
     bee.addEventListener("transitionend", ()=>{checkAllBeesHidden(bee)})
     bee.onclick = () => {
-      if (isTouch) {
-        console.log('bee:',hanna.bees[bee.id])
-      } else {
-        // * these steps make sure we're not getting DOUBLE go to locations. Which causes weired things to happen. like nesting of some sort.
-        clearTimeout(hanna.bees[bee.id].timer)
-        ogLocations.forEach( location => {
-          if (bee.classList.contains(location)) {
-            flyBackOverFace(bee, location)
-            locations = locations.filter(l => l !== location)
-          }
-        })
-
-        const location = locations[ 0, random(0,locations.length - 1) ]
-        locations = locations.filter(l => l !== location)
-        bee.classList.add(location)
-        hanna.bees[bee.id].timer = setTimeout(() => {
-          flyBackOverFace(bee, location)
-        }, returnToFaceDelay);
-      }
-
+      if (!isTouch) { moveBee(bee) }
     }
 
-    bee.onmousemove = (e)=>{
+    bee.onmousemove = e => {
       offSetBeeHover(bee, e.offsetX, e.offsetY)
     }
-    bee.onmouseover = (e)=>{
+    bee.onmouseover = e => {
       offSetBeeHover(bee, e.offsetX, e.offsetY)
       // playGrabbed()
     }
-    bee.onmouseout = ()=>{
-      // stopGrabbed()
+
+    /* 📱👇 TOUCH USER EVENTS 👇📱  */
+    bee.ontouchstart = ()=>{
+      console.log('\ntouchstart')
+      // playGrabbed()
+      if (handleTouchBee(bee)) { moveBee(bee) }
+    }
+    bee.ontouchmove = ()=>{
+      console.log('touchmove')
+      hanna.bees[bee.id].swipe = true
+    }
+    bee.ontouchend = ()=>{
+      console.log('touchend')
+      if (hanna.bees[bee.id].swipe) {
+         if (handleTouchBee(bee)) { // MUST BE seperate if statment, becuase it will run if combined with the first if
+          moveBee(bee) 
+        }
+      }
     }
 
-
-    //
-    //
-    // bee.ontouchstart = ()=>{
-    //   // playGrabbed()
-    //   console.log('touchstart')
-    // }
-    // bee.ontouchmove = ()=>{
-    //   console.log('touchmove')
-    // }
-    // bee.ontouchend = ()=>{
-    //   console.log('touchend')
-    // }
-
   })
+}
+
+function handleTouchBee(bee) {
+  let move = hanna.bees[bee.id].tapped
+  hanna.bees[bee.id].tapped = !hanna.bees[bee.id].tapped
+  const beeImg = bee.querySelector(".beeImg")
+  if (beeImg.classList.contains('beeBoxTouchHover')) {
+    beeImg.classList.remove('beeBoxTouchHover')
+  } else {
+    beeImg.classList.add('beeBoxTouchHover')
+  }
+  hanna.bees[bee.id].swipe = false
+  return move
+} 
+
+function moveBee(bee) {
+  // * these steps make sure we're not getting DOUBLE go to locations. Which causes weired things to happen. like nesting of some sort.
+  clearTimeout(hanna.bees[bee.id].timer)
+  ogLocations.forEach( location => {
+    if (bee.classList.contains(location)) {
+      flyBackOverFace(bee, location)
+      locations = locations.filter(l => l !== location)
+    }
+  })
+
+  const location = locations[ 0, random(0,locations.length - 1) ]
+  locations = locations.filter(l => l !== location)
+  bee.classList.add(location)
+  hanna.bees[bee.id].timer = setTimeout(() => {
+    flyBackOverFace(bee, location)
+  }, returnToFaceDelay);
 }
 
 function offSetBeeHover(bee, x, y) {
