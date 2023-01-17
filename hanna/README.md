@@ -2,21 +2,17 @@
 - ... I want swipe to work
 
 # Next 3 ✅ 🌕... 
-- 🌕 Mobile
-  - Start by setting up logs for... 👇s
-  - Ok... 2x ways to move
+- ✅ 🌕 Mobile
+  - ✅ 🌕Ok... 2x ways to move
     - ✅ 🌕 Tap(`onclick`) + Tap(`onclick`), bees fly away
-    - Swipe! `ontouchstart` > `ontouchmove` > `ontouchend`
-    - AND, either works and first or second option with `bee.isHover`
+    - ✅ 🌕 Swipe! `ontouchstart` > `ontouchmove` > `ontouchend`
 
 - finish trimming tracks
 - Photoshop sparkles. 
 
 # To Do ✅ 🌕
 
-🌕 Mobile ~~~
-
-audio
+Desktop - audio
 - Add hanna "oooooOOOOoooo" sound effect for sparkles
 - Trim audios
 - start by having all bees out of screen.
@@ -26,6 +22,9 @@ audio
   - struggling (hover) bee sound
   - hanna sigh sound.
   - hanna 'oh' when return. 
+
+MOBILE - audio
+- ...
 
 Sparkles
 - photoshop 
