@@ -19,6 +19,7 @@ function setBeeVars() {
 
     bee.addEventListener("transitionend", ()=>{checkAllBeesHidden(bee)})
     bee.onclick = () => {
+      console.log('click')
       if (!isTouch) { moveBee(bee) }
     }
 
@@ -33,8 +34,10 @@ function setBeeVars() {
     /* 📱👇 TOUCH USER EVENTS 👇📱  */
     bee.ontouchstart = ()=>{
       console.log('\ntouchstart')
-      // playGrabbed()
-      if (handleTouchBee(bee)) { moveBee(bee) }
+       // playGrabbed()
+      if (hanna.bees[bee.id].tapped) { moveBee(bee) } 
+      handleTouchBee(bee)
+
     }
     bee.ontouchmove = ()=>{
       console.log('touchmove')
@@ -42,18 +45,28 @@ function setBeeVars() {
     }
     bee.ontouchend = ()=>{
       console.log('touchend')
-      if (hanna.bees[bee.id].swipe) {
-         if (handleTouchBee(bee)) { // MUST BE seperate if statment, becuase it will run if combined with the first if
-          moveBee(bee) 
-        }
-      }
+      if (hanna.bees[bee.id].swipe && hanna.bees[bee.id].tapped) {
+         handleTouchBee(bee)
+         moveBee(bee) 
+       }
     }
 
   })
 }
 
+function checkForTouchedBees(e) {
+  if (e && e.target.id !== 'tracker' && !e.target.classList.contains('beeBox')) {
+    document.querySelectorAll(".beeBox").forEach( bee => {
+      const beeImg = bee.querySelector(".beeImg")
+      if (beeImg.classList.contains('beeBoxTouchHover')) {
+        handleTouchBee(bee)
+      }
+    })
+  }
+}
+
 function handleTouchBee(bee) {
-  let move = hanna.bees[bee.id].tapped
+  console.log('-', hanna.bees[bee.id].tapped)
   hanna.bees[bee.id].tapped = !hanna.bees[bee.id].tapped
   const beeImg = bee.querySelector(".beeImg")
   if (beeImg.classList.contains('beeBoxTouchHover')) {
@@ -62,7 +75,6 @@ function handleTouchBee(bee) {
     beeImg.classList.add('beeBoxTouchHover')
   }
   hanna.bees[bee.id].swipe = false
-  return move
 } 
 
 function moveBee(bee) {

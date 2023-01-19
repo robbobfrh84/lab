@@ -22,7 +22,7 @@ tracker.onmousemove = e => {
 document.body.addEventListener('contextmenu', e => { e.preventDefault() })
 
 document.ontouchstart = handleTouch
-document.ontouchend = resetFace
+document.ontouchend = ()=>{ delayResetFace(500) }
 document.addEventListener('touchmove', e =>{
   e.preventDefault()
   handleTouch(e)
@@ -31,16 +31,16 @@ document.addEventListener('touchmove', e =>{
 function handleTouch(e) {
   var touch = e.touches[0] || e.changedTouches[0];
   var realTarget = document.elementFromPoint(touch.clientX, touch.clientY);
-  const oX = Math.round(touch.clientX-realTarget?.getBoundingClientRect().x)
-  const oY = Math.round(touch.clientY-realTarget.getBoundingClientRect().y)
-  const elm = document.elementFromPoint(e.touches[0].clientX, e.touches[0].clientY)
-  
-  if (elm.id === 'tracker'){
-    eyeTrack(oX, oY)
-  } else if ( elm.classList.contains('beeBox') ) {
-    // console.log('beeBox')
-    offSetBeeHover(elm, oX, oY)
-  } else { 
-    resetFace()
-  }
+  try {
+    const oX = Math.round(touch.clientX-realTarget?.getBoundingClientRect().x)
+    const oY = Math.round(touch.clientY-realTarget.getBoundingClientRect().y)
+    const elm = document.elementFromPoint(e.touches[0].clientX, e.touches[0].clientY)
+    if (elm.id === 'tracker'){
+      eyeTrack(oX, oY)
+    } else if ( elm.classList.contains('beeBox') ) {
+      offSetBeeHover(elm, oX, oY)
+    } else { 
+      delayResetFace(500)
+    }
+  } catch(error) {}
 }

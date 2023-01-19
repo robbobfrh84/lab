@@ -27,6 +27,12 @@ function setVars() {
   window.scrollTo(0,0) // mobile does this weird thing where it scrolls down a bit. And, because we lock scrolling for touchmove we need to force it back to fix this. 
 }
 
+function delayResetFace(delay) {
+  setTimeout(()=>{ 
+    resetFace() 
+  },500)
+}
+
 function resetFace() {
   if (recenter) { clearInterval(recenter) }
 
@@ -59,17 +65,6 @@ function resetFace() {
     }
     cnt--
   }, 1000 / fps) 
-}
-
-function checkForTouchedBees(e) {
-  if (e && e.target.id !== 'tracker' && !e.target.classList.contains('beeBox')) {
-    document.querySelectorAll(".beeBox").forEach( bee => {
-      const beeImg = bee.querySelector(".beeImg")
-      if (beeImg.classList.contains('beeBoxTouchHover')) {
-        handleTouchBee(bee)
-      }
-    })
-  }
 }
 
 
