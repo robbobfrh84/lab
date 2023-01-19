@@ -27,6 +27,7 @@ function setBeeVars() {
       offSetBeeHover(bee, e.offsetX, e.offsetY)
     }
     bee.onmouseover = e => {
+      console.log('mouseover')
       offSetBeeHover(bee, e.offsetX, e.offsetY)
       // playGrabbed()
     }

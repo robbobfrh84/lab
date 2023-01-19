@@ -13,7 +13,7 @@
 Desktop - audio
 - Add hanna "oooooOOOOoooo" sound effect for sparkles
 - Trim audios
-- start by having all bees out of screen.
+- start by having 3 bees out of screen, 1 starts.
 - then fly in one by one with sound.  
 - add sound effect
   - 4x individual resting bee sounds

@@ -1,24 +1,28 @@
-let grabbed = false
-let grabbedAudio;
-
 function playBuzzes() {
-  const audio = new Audio('audio/buzz1.mp3')
-  audio.play()
-  audio.volume = 0.5
+
+  const audio = [new Audio('audio/buzz1.mp3')]
+  audio.onloadedmetadata = function() { // need this so that values show up
+    
+    audio.play()
+    audio.volume = 0.5
+    console.log('audio.duration:',audio.duration)
+    console.log('audio.currentTime:',audio.currentTime)
+    console.dir(audio)
+  };
 
 
   // setTimeout(()=>{
   //   fadeOut(audio)
   // },500)
 
-  const audio2 = new Audio('audio/buzz2.m4a')
-  setTimeout(()=>{audio2.play()},500)
+  // const audio2 = new Audio('audio/buzz2.m4a')
+  // setTimeout(()=>{audio2.play()},500)
 
-  const audio3 = new Audio('audio/buzz3.m4a')
-  setTimeout(()=>{audio3.play()},1000)
+  // const audio3 = new Audio('audio/buzz3.m4a')
+  // setTimeout(()=>{audio3.play()},1000)
 
-  const audio4 = new Audio('audio/buzz4.m4a')
-  setTimeout(()=>{audio4.play()},2000)
+  // const audio4 = new Audio('audio/buzz4.m4a')
+  // setTimeout(()=>{audio4.play()},2000)
 
   // const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
   // const gainNode1 = audioCtx.createGain();

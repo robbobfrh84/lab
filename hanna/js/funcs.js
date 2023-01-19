@@ -10,7 +10,7 @@ function handleWindowClick(e) {
     clickToEnter.style.display = 'none'
     setTimeout(()=>{
       divBody.style.opacity = 1
-      // playBuzzes()
+      playBuzzes()
     },300) 
     firstClick = false
   } 

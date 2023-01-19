@@ -4,6 +4,8 @@ const resetFaceDelay = 500 // in ms
 const fps = 60
 const isTouch = isTouchDevice()
 let firstClick = true
+let grabbed = false
+let grabbedAudio
 
 window.onload = handleOnload 
 window.onresize = setVars
