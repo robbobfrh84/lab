@@ -1,14 +1,12 @@
 # Where It's At
-- ... I want swipe to work
+- ... with a bit of testing the click tap touch events and "game" seem to be working pretty well....
+- ... moveing onto the dirty work of photoshopping / audio trimming. 
 
 # Next 3 ✅ 🌕... 
-- ✅ 🌕 Mobile
-  - ✅ 🌕Ok... 2x ways to move
-    - ✅ 🌕 Tap(`onclick`) + Tap(`onclick`), bees fly away
-    - ✅ 🌕 Swipe! `ontouchstart` > `ontouchmove` > `ontouchend`
-
 - finish trimming tracks
 - Photoshop sparkles. 
+- Static bee loop
+  - 
 
 # To Do ✅ 🌕
 
