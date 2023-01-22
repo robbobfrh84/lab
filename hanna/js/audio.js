@@ -1,76 +1,92 @@
 function playBuzzes() {
 
-  const audio = [new Audio('audio/buzz1.mp3')]
+  const audio = new Audio('audio/buzz1.mp3')
   audio.onloadedmetadata = function() { // need this so that values show up
-    
+    audio.volume = 0.25
     audio.play()
-    audio.volume = 0.5
-    console.log('audio.duration:',audio.duration)
-    console.log('audio.currentTime:',audio.currentTime)
-    console.dir(audio)
-  };
+    loopBuzz(audio)   
+  }
+
+  // const audio2 = new Audio('audio/buzz1.mp3')
+  // audio2.onloadedmetadata = function() { // need this so that values show up
+  //   audio2.volume = 0.25
+  //   audio2.play()
+  //   loopBuzz(audio2)   
+  // }
+
+  for (let i = 0; i < Object.keys(hanna.bees).length; i++) {
+    console.log('i:',i)
+  }
+  
 
 
-  // setTimeout(()=>{
-  //   fadeOut(audio)
-  // },500)
 
-  // const audio2 = new Audio('audio/buzz2.m4a')
-  // setTimeout(()=>{audio2.play()},500)
-
-  // const audio3 = new Audio('audio/buzz3.m4a')
-  // setTimeout(()=>{audio3.play()},1000)
-
-  // const audio4 = new Audio('audio/buzz4.m4a')
-  // setTimeout(()=>{audio4.play()},2000)
-
-  // const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  // const gainNode1 = audioCtx.createGain();
-  // console.dir(audioCtx)
 }
 
-function playDisappointment() {
-  const audio = new Audio('audio/oh1.m4a')
-  audio.play()
-  audio.volume = 1
+function loopBuzz(audio) {
 
+    audio.onended = (event) => {
+      audio.removeAttribute('src') // empty source
+      audio.load()
+    }
+
+    const endTrimLength = 2.0 + (r01()*1.5)
+    const playFor = audio.duration - endTrimLength - audio.currentTime
+    const audioTimer = setTimeout(()=>{
+      const audioNext = new Audio('audio/buzz1.mp3')
+     
+      audioNext.onloadedmetadata = function() {
+        audioNext.currentTime = 1.0
+        audioNext.volume = 0
+        audioNext.play()
+        fadeOut(audio, 0.01, 25)
+        setTimeout(()=>{ 
+          const randomMaxVolume = 0.10 + (r01()/3)
+          fadeIn(audioNext, randomMaxVolume, 0.01, 25)
+        },0)
+        loopBuzz(audioNext)
+      }
+    }, playFor * 1000)
 }
 
 function playGrabbed() {
+  console.log('play grabbed')
   if (!grabbed) {
     grabbed = true
     grabbedAudio = new Audio('audio/grabbed1.mp3')
-    grabbedAudio.play()
-    grabbedAudio.volume = 0
-    fadeIn(grabbedAudio, 1)
-    // grabbedAudio.currentTime = 0
+    grabbedAudio.onloadedmetadata = function() { // need this so that values show up
+      grabbedAudio.currentTime = 0
+      grabbedAudio.volume = 1
+      grabbedAudio.play()
+      if (grabbed) { fadeIn(grabbedAudio, 1, 0.02, 10) }
+    }
   }
 }
 
 function stopGrabbed() {
-  fadeOut(grabbedAudio)
+  fadeOut(grabbedAudio, 0.02, 10)
   grabbed = false
 }
 
-function fadeOut(audio) {
+function fadeIn(audio, max, step, delay) {
   const fadeAudio = setInterval(function () {
-    if (audio.volume > 0) {
-      audio.volume = Math.round((audio.volume - 0.02) * 100) / 100
+    if (audio.volume < max) {
+      audio.volume = Math.round((audio.volume + step) * 100) / 100
     } else {
       clearInterval(fadeAudio)
     }
-  }, 10)
-}
-
-function fadeIn(audio, max) {
-  if (grabbed) {
-    const fadeAudio = setInterval(function () {
-      if (audio.volume < max) {
-        audio.volume = Math.round((audio.volume + 0.02) * 100) / 100
-      } else {
-        clearInterval(fadeAudio)
-      }
-    }, 10)
-  }
+  }, delay)
 
 }
+
+function fadeOut(audio, step, delay) {
+  const fadeAudio = setInterval(function () {
+    if (audio.volume > 0) {
+      const vol = audio.volume - step
+      audio.volume = Math.round((vol < 0 ? 0 : vol) * 100) / 100
+    } else {
+      clearInterval(fadeAudio)
+    }
+  }, delay)
+}
+

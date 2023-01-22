@@ -6,6 +6,7 @@ const isTouch = isTouchDevice()
 let firstClick = true
 let grabbed = false
 let grabbedAudio
+let mute = false
 
 window.onload = handleOnload 
 window.onresize = setVars

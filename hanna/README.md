@@ -1,8 +1,8 @@
 # Where It's At
-- ... with a bit of testing the click tap touch events and "game" seem to be working pretty well....
-- ... moveing onto the dirty work of photoshopping / audio trimming. 
+- ... Do NOT fuck with fade in and out becuase you got the constant buzz workin gpretty well. make sure all vars are passed!
 
 # Next 3 ✅ 🌕... 
+- make hanna "oooooOOOOOoooo" sparkle sound effect. 
 - finish trimming tracks
 - Photoshop sparkles. 
 - Static bee loop
@@ -13,6 +13,7 @@
 Desktop - audio
 - Add hanna "oooooOOOOoooo" sound effect for sparkles
 - Trim audios
+- figureout pause... 
 - start by having 3 bees out of screen, 1 starts.
 - then fly in one by one with sound.  
 - add sound effect

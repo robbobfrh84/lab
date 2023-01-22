@@ -69,8 +69,12 @@ function resetFace() {
 
 
 /* * * * *    🛠️ Toolkit 🛠️     * * * * */
-const random = function(min, max) {
+function random(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+function r01() {
+  return random(0,100) / 100
 }
 
 function isTouchDevice() {

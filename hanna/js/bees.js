@@ -19,7 +19,6 @@ function setBeeVars() {
 
     bee.addEventListener("transitionend", ()=>{checkAllBeesHidden(bee)})
     bee.onclick = () => {
-      console.log('click')
       if (!isTouch) { moveBee(bee) }
     }
 
@@ -27,25 +26,24 @@ function setBeeVars() {
       offSetBeeHover(bee, e.offsetX, e.offsetY)
     }
     bee.onmouseover = e => {
-      console.log('mouseover')
       offSetBeeHover(bee, e.offsetX, e.offsetY)
-      // playGrabbed()
+      playGrabbed()
+    }
+    bee.onmouseleave = e => {
+      stopGrabbed()
     }
 
     /* 📱👇 TOUCH USER EVENTS 👇📱  */
     bee.ontouchstart = ()=>{
-      console.log('\ntouchstart')
        // playGrabbed()
       if (hanna.bees[bee.id].tapped) { moveBee(bee) } 
       handleTouchBee(bee)
 
     }
     bee.ontouchmove = ()=>{
-      console.log('touchmove')
       hanna.bees[bee.id].swipe = true
     }
     bee.ontouchend = ()=>{
-      console.log('touchend')
       if (hanna.bees[bee.id].swipe && hanna.bees[bee.id].tapped) {
          handleTouchBee(bee)
          moveBee(bee) 
