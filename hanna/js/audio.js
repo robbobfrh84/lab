@@ -14,12 +14,14 @@ function playBuzzes() {
   //   loopBuzz(audio2)   
   // }
 
-  for (let i = 0; i < Object.keys(hanna.bees).length; i++) {
-    console.log('i:',i)
-  }
-  
-
-
+  // for (let i = 0; i < Object.keys(hanna.bees).length; i++) {
+  //   const audio = new Audio('audio/buzz1.mp3')
+  //   audio.onloadedmetadata = function() { // need this so that values show up
+  //     audio.volume = 0.25
+  //     audio.play()
+  //     loopBuzz(audio)   
+  //   }
+  // }
 
 }
 
