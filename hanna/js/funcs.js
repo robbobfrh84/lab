@@ -1,19 +1,31 @@
 /* * * * *    ✨ ⚙️ TRIGGERED EVENTS ⚙️ ✨     * * * * */
 function handleOnload() {
-  clickToEnter.innerHTML = (isTouch ? "Tap" : "Click") + " to Enter"
+  toText.innerHTML = (isTouch ? "Tap" : "Click") + " to"
+  if (isTouch) {
+    clickToEnter.innerHTML = 'Please visit website on a laptop or desktop computer. <br> <br>This website is not compatible with touchscreen devices'
+    clickToEnter.style.fontSize = '30px'
+  }
+  setTimeout(() => { clickToEnter.style.opacity = 1 }, 300);
   setVars()
 }
 
 function handleWindowClick(e) {
   checkForTouchedBees(e)
-  if (firstClick) { 
-    clickToEnter.style.display = 'none'
-    setTimeout(()=>{
-      divBody.style.opacity = 1
-      playBuzzes()
-    },300) 
-    firstClick = false
-  } 
+  if (firstClick) { doStartingScene() } 
+}
+
+function doStartingScene() {
+  clickToEnter.style.display = 'none'
+  leftTopBee.classList.add('hide_LeftTop')
+  setTimeout(()=>{
+    window.divBody.style.opacity = 1
+    setTimeout(()=>{ leftTopBee.classList.remove('hide_LeftTop')    },1000)
+    setTimeout(()=>{ playWizz()                                     },1200)  
+    setTimeout(()=>{ setFace(0,0,300)                               },1400) 
+    setTimeout(()=>{ resetFace(2000)                                },3000) 
+    playBuzzes()
+  },300) 
+  firstClick = false
 }
 
 function setVars() {
@@ -33,10 +45,11 @@ function delayResetFace(delay) {
   },500)
 }
 
-function resetFace() {
+function resetFace(delay) {
   if (recenter) { clearInterval(recenter) }
 
-  let cnt = ((resetFaceDelay / 1000) * fps)
+  delay = delay || resetFaceDelay
+  let cnt = ((delay / 1000) * fps)
   const lChunkX = parseFloat(window.leftEye.style.left) / cnt
   const lChunkY = parseFloat(window.leftEye.style.top) / cnt
   const rChunkX = parseFloat(window.rightEye.style.left) / cnt
@@ -61,6 +74,28 @@ function resetFace() {
       window.rightEye.style.top = "0px"
       window.leftBrow.style.top = "0px"
       window.rightBrow.style.top = "0px"
+      clearInterval(recenter)
+    }
+    cnt--
+  }, 1000 / fps) 
+}
+
+function setFace(x,y,delay) { // * example: setFace(0,0,500)
+  if (recenter) { clearInterval(recenter) }
+
+  let cnt = ((delay / 1000) * fps)
+  let locX = (imgX/2)
+  let locY = (imgY/2) 
+  const xChunk = Math.round((x-locX) / cnt)
+  const yChunk = Math.round((y-locX) / cnt)
+
+  recenter = setInterval(()=>{ 
+    if (cnt > 0) {
+      locX += xChunk
+      locY += yChunk
+      eyeTrack(locX,locY,true)
+    } else {
+      eyeTrack(x,y)
       clearInterval(recenter)
     }
     cnt--

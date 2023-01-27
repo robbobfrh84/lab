@@ -8,7 +8,10 @@
 </head>
 
 <body>
-  <div id="clickToEnter">Click to Enter</div>
+  <div id="clickToEnter">
+    <div id="toText">Click to</div> 
+    <div id="enterText">Enter</div>
+  </div>
   <div id="divBody">
     <div id="imgContainer">
       <!-- 🚨 WARNING: order sensative! -->
@@ -37,9 +40,12 @@
         <img id="rightBottomBeeImg" src="images/bee4.png" class="beeImg holdFace">
       </div>
     </div>
-    <div id="info" >&nbsp;i</div>
-  </div>
+    <div id="buttonContainer">
+      <div id="reset" class="button" onclick="location.reload()">reset</div> <br>
+      <!-- <div id="info" class="button">&nbsp;i</div> -->
+    </div>
 
+  </div>
 </body>
 
 <script src='js/hanna.js'></script>

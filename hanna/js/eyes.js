@@ -1,5 +1,5 @@
-function eyeTrack(x,y) {
-  clearInterval(recenter)
+function eyeTrack(x,y,allowInterval) {
+  if (!allowInterval) { clearInterval(recenter) }
   handleCursorEyes(x,y)
   handleCursorBrows(x,y)
 }
