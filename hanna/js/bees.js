@@ -106,36 +106,50 @@ function offSetBeeHover(bee, x, y) {
 
 function checkAllBeesHidden(bee) {
   let reset = false // * Yes this may seem redundant, but the return will fire 4x time rather than 1, making the audio go crazy. BUT, you don't notice anything wrong with just visuals.
-  ogLocations.forEach( location => {
-    if (bee.classList.contains(location) && location.split("hide_").length > 1) {
-      hanna.bees[bee.id].hidden = true
-      let allHidden = true
-      Object.keys(hanna.bees).forEach( bee => {
-        if (!hanna.bees[bee].hidden) { allHidden = false }
-      })
-      if (allHidden) { reset = true }
-    }
-  })
-  if (reset) { resetBees() }
+  if (!victory) {
+    ogLocations.forEach( location => {
+      if (bee.classList.contains(location) && location.split("hide_").length > 1) {
+        hanna.bees[bee.id].hidden = true
+        let allHidden = true
+        Object.keys(hanna.bees).forEach( bee => {
+          if (!hanna.bees[bee].hidden) { allHidden = false }
+        })
+        if (allHidden) { reset = true }
+      }
+    })
+  }
+  if (reset) { 
+    //
+    //
+    victory = true
+    console.log('VICTORY')
+    doSparkles()
+    //
+    //
+    // resetBees() 
+  }
 }
 
 function flyBackOverFace(bee, location, blockSound, blockLook) {
-  bee.classList.remove(location)
-  locations.push(location)
-  hanna.bees[bee.id].hidden = false
-  if (!blockSound) { 
-    setTimeout(()=>{ playWizz() },200)
-    if (!blockLook) {
-      const lookLocations = {
-        "leftTopBee": { x: 0, y: 0},
-        "rightTopBee": { x: imgX, y: 0},
-        "leftBottomBee": { x: 0, y: imgY },
-        "rightBottomBee": { x: imgX, y: imgY }
-      }
-      const look = lookLocations[bee.id]
-      setTimeout(()=>{ setFace(look.x,look.y,150) },550)
-    } 
+  if (!victory) {
+    bee.classList.remove(location)
+    locations.push(location)
+    hanna.bees[bee.id].hidden = false
+    if (!blockSound) { 
+      setTimeout(()=>{ playWizz() },200)
+      if (!blockLook) {
+        const lookLocations = {
+          "leftTopBee": { x: 0, y: 0},
+          "rightTopBee": { x: imgX, y: 0},
+          "leftBottomBee": { x: 0, y: imgY },
+          "rightBottomBee": { x: imgX, y: imgY }
+        }
+        const look = lookLocations[bee.id]
+        setTimeout(()=>{ setFace(look.x,look.y,150) },550)
+      } 
+    }
   }
+
 }
 
 function resetBees() {

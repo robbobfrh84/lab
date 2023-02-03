@@ -143,3 +143,23 @@ html, body {
 
 .hide_LeftBottom { top: 135vh !important; left: -50vw !important; width: 100% !important;}
 .hide_RightBottom { top: 135vh !important; left: 150vw !important; width: 100% !important;}
+
+
+/* ✨ Sparkles ✨ */
+.sparkleBox {
+  position: absolute;
+  user-select: none;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  top: 0;
+  left: 0;
+  /* background-color: rgba(255,0,0,0.1); */
+}
+.sparkle {
+  position: absolute;
+  /* background-color: rgba(0,0,0,0.1); */
+  width: 0;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  transition: width 2s, left 2s, top 2s, opacity 1s;
+}

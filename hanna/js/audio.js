@@ -1,6 +1,14 @@
 let grabbed = false
 let grabbedAudio
 
+function playAudio(file, volume) {
+  const audio = new Audio(file)
+  audio.onloadedmetadata = function() { // need this so that values show up
+    audio.volume = volume || 1
+    audio.play()
+  }
+}
+
 function playBuzzes() {
   const audio = new Audio('audio/buzz1.mp3')
   audio.onloadedmetadata = function() { // need this so that values show up
@@ -35,7 +43,6 @@ function loopBuzz(audio) {
 
 function playWizz() {
   const audio = new Audio('audio/wizz'+random(1,2)+'.mp3')
-  
   audio.onloadedmetadata = function() { // need this so that values show up
     audio.volume = 0.5
     audio.currentTime = 0.4
@@ -68,6 +75,7 @@ function stopGrabbed() {
 }
 
 function fadeIn(audio, max, step, delay) {
+  if (max > maxBuzzVolume) { max = maxBuzzVolume }
   const fadeAudio = setInterval(function () {
     if (audio.volume < max) {
       try {

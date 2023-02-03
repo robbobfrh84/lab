@@ -1,5 +1,5 @@
 # Where It's At
-- 
+- left off starting to add and test the sparkles in funcs.js
 
 # Next 3 ✅ 🌕... 
 - 🌕 Open setter sequence

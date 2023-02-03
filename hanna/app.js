@@ -4,6 +4,8 @@ const resetFaceDelay = 500 // in ms
 const fps = 60
 const isTouch = isTouchDevice()
 let firstClick = true
+let maxBuzzVolume = 1
+let victory = false
 
 window.onload = handleOnload 
 window.onresize = setVars

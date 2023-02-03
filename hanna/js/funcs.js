@@ -10,7 +10,7 @@ function handleOnload() {
 }
 
 function handleWindowClick(e) {
-  checkForTouchedBees(e)
+  // checkForTouchedBees(e) // 🔥? do i need this, it's only called here? NO? remove function.
   if (firstClick) { doStartingScene() } 
 }
 
@@ -26,6 +26,15 @@ function doStartingScene() {
     playBuzzes()
   },300) 
   firstClick = false
+  //
+  //
+  // 🔥 DEV TEST 
+  //   - SET IN resetBees() 
+  // playBuzzes()
+  // setTimeout(()=>{ maxBuzzVolume = 0.05 }, 1000 )
+  // setTimeout(()=>{ doSparkles() }, 3000 )
+  //
+  //
 }
 
 function setVars() {
