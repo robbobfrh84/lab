@@ -5,12 +5,14 @@ const returnDelay = 1500
 
 function doSparkles() {
   if (sparkles.length < 1) { buildSparkles() }
-  
-          // setTimeout(()=>{ maxBuzzVolume = 0.05 }, 1000 )
-          // setTimeout(()=>{ doSparkles() }, 3000 )
   maxBuzzVolume = 0.05
   setTimeout(()=>{ playAudio('audio/chimes.mp3', 0.25) }, 500)
-  setTimeout(()=>{ playAudio('audio/oooOOOooo.mp3', 0.25) }, 4000)
+
+  setTimeout(()=>{ resetFace(300) }, 0)
+  setTimeout(()=>{ setFace(0,0,2000) }, 500)
+  setTimeout(()=>{ resetFace(2000) }, 3500)
+
+  setTimeout(()=>{ playAudio('audio/oooOOOooo.mp3', 0.5) }, 4000)
   sparklesAnimate(()=>{
     console.log('callback')
     maxBuzzVolume = 1

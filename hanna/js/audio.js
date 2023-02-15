@@ -1,5 +1,9 @@
 let grabbed = false
 let grabbedAudio
+const audios = { // 🚨Not yet used...
+  buzzes: { ref: 'audio/buzzes.mp3' },
+
+}
 
 function playAudio(file, volume) {
   const audio = new Audio(file)
@@ -10,35 +14,50 @@ function playAudio(file, volume) {
 }
 
 function playBuzzes() {
-  const audio = new Audio('audio/buzz1.mp3')
+  const audio = new Audio('audio/buzzes.mp3')
   audio.onloadedmetadata = function() { // need this so that values show up
     audio.volume = 0.25
     audio.play()
-    loopBuzz(audio)   
+    loopBuzz(audio)  
   }
 }
 
 function loopBuzz(audio) {
-  audio.onended = () => {
-    audio.removeAttribute('src') // empty source
-    audio.load()
-  }
-  const endTrimLength = 2.0 + (r01()*1.5)
-  const playFor = audio.duration - endTrimLength - audio.currentTime
-  setTimeout(()=>{
-    const audioNext = new Audio('audio/buzz1.mp3')
-    audioNext.onloadedmetadata = function() {
-      audioNext.currentTime = 1.0
-      audioNext.volume = 0
-      audioNext.play()
-      fadeOut(audio, 0.01, 25)
-      setTimeout(()=>{ 
-        const randomMaxVolume = 0.10 + (r01()/3)
-        fadeIn(audioNext, randomMaxVolume, 0.01, 25)
-      },300)
-      loopBuzz(audioNext)
-    }
-  }, playFor * 1000)
+
+    //
+    // 
+    const playFor = audio.duration
+    console.log('playfor:',playFor)
+    setTimeout(()=>{
+      console.log('loop')
+      audio.currentTime = 0
+      loopBuzz(audio)
+    }, playFor * 1000)
+    //
+    //
+
+
+
+//   audio.onended = () => {
+//     audio.removeAttribute('src') // empty source
+//     audio.load()
+//   }
+//   const endTrimLength = 2.0 + (r01()*1.5)
+//   const playFor = audio.duration - endTrimLength - audio.currentTime
+//   setTimeout(()=>{
+//     const audioNext = new Audio('audio/buzz1.mp3')
+//     audioNext.onloadedmetadata = function() {
+//       audioNext.currentTime = 1.0
+//       audioNext.volume = 0
+//       audioNext.play()
+//       fadeOut(audio, 0.01, 25)
+//       setTimeout(()=>{ 
+//         const randomMaxVolume = 0.10 + (r01()/3)
+//         fadeIn(audioNext, randomMaxVolume, 0.01, 25)
+//       },300)
+//       loopBuzz(audioNext)
+//     }
+//   }, playFor * 1000)
 }
 
 function playWizz() {
