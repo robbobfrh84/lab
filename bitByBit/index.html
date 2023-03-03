@@ -53,22 +53,7 @@
   let pause = true
   let columnCount = 0
 
-  for (var r = 0; r <= rows; r++) {
-    for (var c = 0; c <= columns; c++) {
-      const pixel = document.createElement("div")
-      pixel.id="bit-"+r+"-"+c
-      pixel.classList = "bit"
-      pixel.style.top = (r * pSize)+"px"
-      pixel.style.left = (c * pSize)+"px"
-      pixel.style.width = pSize+"px"
-      pixel.style.height = pSize+"px"
-      document.body.appendChild(pixel)
-      grayPixels.push({
-        row: r,
-        column: c
-      })
-    }
-  }
+
 
   function doPause() {
     pauseBtn.innerHTML = !pause ? " <strong> ▶︎ </strong> " : " <strong>| |</strong> "
@@ -103,7 +88,27 @@
     }
   }
 
-  setInterval(learn, learnDelay)
-  setInterval(forget, forgetDelay)
+  window.onload = ()=> {
+    for (var r = 0; r <= rows; r++) {
+      for (var c = 0; c <= columns; c++) {
+        const pixel = document.createElement("div")
+        pixel.id="bit-"+r+"-"+c
+        pixel.classList = "bit"
+        pixel.style.top = (r * pSize)+"px"
+        pixel.style.left = (c * pSize)+"px"
+        pixel.style.width = pSize+"px"
+        pixel.style.height = pSize+"px"
+        document.body.appendChild(pixel)
+        grayPixels.push({
+          row: r,
+          column: c
+        })
+      }
+    }
+    setInterval(learn, learnDelay)
+    setInterval(forget, forgetDelay)
+  }
+
+
 
 </script>
