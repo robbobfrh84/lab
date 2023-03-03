@@ -6,30 +6,32 @@ body {
   margin: 0;
 }
 #cosmos{
-  box-shadow: 0 0 3vw rgba(0,0,0,0.5) inset;
-  width: 100vw; height: 100vh;
-  position: absolute; top: 0px; left: 0px;
+  width: 100vw; 
   pointer-events: none;
 }
 #universe {
   background-color: rgb(230,230,230);
   display: block;
   width: 100%;
+  height: 100%;
 }
-.text-box {
+#textBox {
+  box-shadow: 0 0 3vw rgba(0,0,0,0.5) inset;
   position: absolute;
-  top: 30px;
-  left: 30px;
+  top: 0px;
+  right: 0px;
+  left: 0px;
 }
 .links {
   font-size: 20px;
   margin-bottom: 30px;
+  padding-left: 30px;
 }
 .links a {
   text-decoration: none;
-  font-size:  45px;
+  font-size: 25px;
   background-color: rgba(255,255,255,0.75);
-  padding: 5px 30px 10px;
+  padding: 5px 20px 10px;
   border-radius: 20px;
   color: #222;
 }
@@ -37,8 +39,9 @@ body {
   background-color: rgba(255,255,255,0.95);
 }
 .lable {
-  font-size: 20px;
+  font-size: 40px;
   margin-bottom: 20px;
+  padding-left: 15px;
 }
 .sm.lable {
   font-size: 16px;
@@ -49,53 +52,69 @@ body {
 
 </style>
 <body>
-  <svg xmlns="http://www.w3.org/2000/svg" id='universe' width=100vw height=100vh
-    onmousemove='mouseTrack(event)'>
-  </svg><div id='cosmos'></div>
+  <svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    id='universe' 
+    width=100vw 
+  ></svg>
 
-  <div class="text-box">
+  <div id='cosmos'></div>
 
-    <div class="links" onmousemove='mouseTrack(event)'>
+  <div id="textBox">
+
+    <div class="lable"> bob.farm pages: </div>
+
+    <div class="links">
       <a href="hanna/index.html">/hanna</a>
     </div>
 
-    <div class="links" onmousemove='mouseTrack(event)'>
+    <div class="links">
       <a href="tourdefrance/index.html">/tourdefrance</a>
     </div>
 
-    <div class="links" onmousemove='mouseTrack(event)'>
+    <div class="links">
       <a href="bit_by_bit/index.html">/bit_by_bit</a> 📱 ? 
     </div>
 
-    <div class="links" onmousemove='mouseTrack(event)'>
+    <div class="links">
       <a href="darwins_divs/index.html">/darwins_divs</a> 📱 ? 
     </div>
 
-    <div class="links" onmousemove='mouseTrack(event)'>
+    <div class="links">
       <a href="emoji_earth_sun_moon/index.html">/emoji_earth_sun_moon</a> 📱 ? 
     </div>
 
-    <div class="links" onmousemove='mouseTrack(event)'>
+    <div class="links">
       <a href="erosion/index.html">/erosion</a> 📱 ? 
     </div>
 
-    <div class="lable">
-      Local Links:
+    <div class="links">
+      <a href="greg/index.html">/greg</a> 📱
     </div>
 
-    <div class="links" onmousemove='mouseTrack(event)'>
+    <div class="links">
+      <a href="rand/index.html">/rand</a> 📱
+    </div>
+
+
+    <br>
+    <div class="lable"> Local links: </div>
+
+    <div class="links">
       <a href="jars/index.html">/jars</a>
     </div>
 
-    <!-- <br>
+
     <br>
-    <div class="sm lable">
-      * Other Links:
+    <div class="lable"> *Other apps by Bob: </div>
+
+    <div class="links">
+      <a href="https://tobob.earth">tobob.earth: Bob's Portfolio Website</a>
     </div>
 
-    <div class="sm links" onmousemove='mouseTrack(event)'>
-      <a href="work/index.html">/work</a>
-    </div> -->
+    <div class="links">
+      <a href="https://robbobfrh84.github.io/allcolors">allcolors: Bob's Portfolio Website</a>
+    </div>
 
   </div>
 
@@ -138,8 +157,11 @@ Line.prototype.bend = function(isX,max,m,n,a,a2,arr,arr2){
   this.atts({ 'd' : pathArr })
 }
 
-var buildLines; (buildLines = function(){
-  var uX = window.innerWidth, uY = window.innerHeight;
+var buildLines = function(){
+  const pageHeight = textBox.scrollHeight
+  document.getElementById('universe').setAttribute("height", pageHeight+"px");
+  var uX = window.innerWidth 
+  var uY = pageHeight
   for (var i = 0; i < window.innerWidth/Gap+1; i++){
     linesX[i] = new Line(), x = i*Gap, x1 = x-mass, x2 = x-mass*2;
     linesX[i].atts({
@@ -156,23 +178,29 @@ var buildLines; (buildLines = function(){
       stroke : color, 'stroke-width' : width, fill : 'none'
     });
   }
-})();
+}
 
-var mouseTrack; (mouseTrack = function(e){
+var mouseTrack = function(e){
   e ? (x = e.clientX, y = e.clientY) : (x = null, y = null);
+  y = y + window.pageYOffset 
   linesX.forEach(function(index){
     index.bend(true,mass,x,y,1,8,[[11,14,16,19,21],bX],[5,7,10,12,15,17,20,22,25,27]);
   })
   linesY.forEach(function(index){
     index.bend(false,mass,y,x,2,9,[[12,15,17,20,22],bY],[4,6,9,11,14,16,19,21,24,26]);
   })
-})();
+}
 
-document.onmouseleave = function(e) { mouseTrack(false); }
+document.onmousemove = function(e) { mouseTrack(e); }
 window.onresize = function(event) {
     while(universe.firstChild){ universe.removeChild(universe.firstChild); }
-    buildLines(); mouseTrack(false);
+    buildLines(); 
 };
+
+window.onload = function() {
+  buildLines()
+  mouseTrack()
+}
 
   </script>
 </body>

@@ -21,8 +21,10 @@ window.onload = function(){
 }
 
 const table = document.getElementById('table-body')
-const checkTable = JSON.parse(localStorage.seedTable)
+const checkTable = localStorage.seedTable ? JSON.parse(localStorage.seedTable) : [["#"]]
 let dataTable = checkTable ? checkTable: [["#"]]
+
+console.log('dataTable:',dataTable)
 
 
 function buildTable() {
