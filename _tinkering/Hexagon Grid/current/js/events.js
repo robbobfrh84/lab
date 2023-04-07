@@ -3,7 +3,6 @@ menuIcon.onclick = (e) => {
   menuModal.style.display = menuModal.style.display === "block" ? "none" : "block"
 }
 
-
 // hexGridCanvas.onmousemove = (e)=>{
 //   hexGrid.drawCanvas(hexGrid.canvases)
 //   const { x, y, match } = hexGrid.getMap(e.offsetX, e.offsetY)

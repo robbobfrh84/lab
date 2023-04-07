@@ -6,28 +6,21 @@ class HexGrid {
   }
 
   buildCanvas() {
-    // this.canvas = this.elm
     this.ctx = this.canvas.getContext('2d')
-    // this.size = this.fillWidth / this.columns 
     this.fillWidth = this.canvas.offsetWidth
     this.size = this.setOriention("size")
 
-    // REALLY THO. this var is needed ??? save like 2 char... I"D SAY GUT IT!
-    // this.half = (this.size/2) / Math.sin(60*(Math.PI/180)) // 🚨 roll math
+    // this.half = (this.size/2) / a60) // 🚨 roll math
     this.half = (this.size/2) // 🚨 roll math
     
     this.otherSize = Math.sqrt( (this.size * this.size) - (this.half * this.half) ) 
-
-    // 🔥 👇 That's why it's 27 // Or was, this is for dynamic grid and can remove once get's fixed
-    // const paddingHeight = (this.otherSize/2) + this.offsetHeight + this.half
-    // this.columns = Math.round(
-    //   (window.innerHeight-(paddingHeight)) / this.otherSize
-    // )
     
-    this.canvas.width = this.fillWidth * 2
-    this.canvas.height = ((this.otherSize * this.rows) + (this.half/2)) * 2 // 🔥 this is inacurate
-    this.canvas.style.width = this.canvas.width/2+"px"
-    this.canvas.style.height = this.canvas.height/2+"px"
+    this.canvas.width = (this.fillWidth * 2) + (this.otherSize + 3) // 👀 the "+3" is needed to render the line on the edge. otherwisse it wnont show. JUST A WEIRD RENDER QUERK!
+    this.canvas.height = ((this.otherSize * this.rows) * 2) - (this.otherSize)// 👀 Odd rows    
+    if (this.rows % 2) { this.canvas.height = this.canvas.height-(this.otherSize/4) } // 👀 Even rows
+
+    // this.canvas.style.width = this.canvas.width/2+"px" 
+    // this.canvas.style.height = this.canvas.height/2+"px"
     this.canvas.getContext('2d').scale(2,2)
   }
 
@@ -105,23 +98,25 @@ class HexGrid {
 
   setOriention(option) {
     const o = this.orientation
-    switch (option) {
-      case "size":
-        return o === "v" ? (
-          //
-          //
-          // ( ( (this.fillWidth) / Math.sin(60*(Math.PI/180) )) / this.columns ) 
-          ( ( (this.fillWidth - 1) / Math.sin(60*(Math.PI/180) )) / this.columns ) // 👀 the "-1" is needed to render the line on the edge. otherwisse it wnont show. JUST A WEIRD RENDER QUERK!
-
-          // this.fillWidth / this.columns
-        ) : (
-          this.fillWidth / this.columns
-        )
+    switch (this.orientation + " " +option) {
+      case "v size": return (this.fillWidth / a60 ) / this.columns;
+      case "h size": return this.fillWidth / this.columns;
       case "testy":
         return "was test"
       default: 
         console.log("No orientation set for this value")
     }
+  }
+
+  buildEvents = function() {
+
+    rotateBtn.onclick = ()=>{
+      this.orientation = this.orientation === "v" ? "h" : "v"
+      this.buildCanvas()
+      this.buildHexGrid()
+      this.drawCanvas(this.layers)
+    }
+
   }
 
   getMap(ex,ey) { // 🔥 Remove when switched to SVG?

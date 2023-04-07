@@ -4,8 +4,8 @@ const config = {
   // fillElm: window["canvasContainer"], // hexGridCanvas.innerWidth // 800, // window.innerWidth,
   // margin: 10, // this should just be dynamic, get the values from 
   orientation: "v", // "v" or "h" (Verticle or horozontal pointing points)
-  columns: 10, // 30,
-  rows: 6,
+  columns: 13, // 30,
+  rows: 7,
   offsetHeight: 30, // squeezes the math that calculates how many rows to build.
   mark: { size: 2, color: "rgba(255,255,255,0.4)" },
   mouse: { size: 12, color: "rgba(255,255,255,0.5)" },
@@ -19,6 +19,7 @@ window.onload = ()=>{
   const hexGrid = new HexGrid(config)
   hexGrid.buildCanvas()
   hexGrid.buildHexGrid()
+  hexGrid.buildEvents()
   hexGrid.drawCanvas(hexGrid.layers)
 }
 
