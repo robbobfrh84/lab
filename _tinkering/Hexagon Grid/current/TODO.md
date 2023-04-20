@@ -1,4 +1,11 @@
 # Where I Left Off 
+- OK! 4/19/23: Of course, it's mid-way into a refactor. 
+- BUT, i did make it work with svg, which I prefered. 
+- Thing i the "orientation" of the layout makes in complicated.
+- I THINK This needs a more thourough MVP and POA...
+- ... Bob, just review and jump back into the refactor!
+
+SVG Path links that I was most recently using...
 - https://stackoverflow.com/questions/52172067/create-svg-hexagon-points-with-only-only-a-length
 - https://stackoverflow.com/questions/45773273/draw-svg-polygon-from-array-of-points-in-javascript
 - https://stackoverflow.com/questions/42443730/using-svg-filter-to-create-an-inside-stroke
