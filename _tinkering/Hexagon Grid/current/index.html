@@ -16,18 +16,26 @@
       <button class="menuBtn" id="saveBtn">SAVE</button>
       <div class="horizontal-divider"></div>
       <button class="menuBtn" id="openBtn">OPEN</button>
-      <div class="horizontal-divider"></div>
-      <button class="menuBtn" id="rotateBtn">Rotate</button>
     </nav>
 
   </div>
 
-  <div id="canvasContainer">
-    <canvas id='hexGridCanvas'></canvas>
+  <div id="svgContainer">
+    <!-- <canvas id='hexGridCanvas'></canvas> -->
+    <svg id="svgHexMap"></svg>
   </div>
 
+  <!-- ⚙️ 🧱 🏗️ -->
+  <div style="position: absolute; left: 3px; top: 3px; padding: 5px; background-color: rgba(0,0,0,0.1);">
+    <div style="display: inline; background-color: rgba(0,0,0,0.2);">
+      ⚙️ Dev UI 
+    </div> &nbsp;
+    <button id="rotateBtn">Rotate</button>
+  </div>
+  <!-- ⚙️ 🧱 🏗️ -->
+
   <script src="js/toolkit.js"></script>
-  <script src="js/HexGrid.js"></script>
+  <script src="js/HexMap.js"></script>
   <script src="js/events.js"></script>
   <script src="onload.js"></script>
 

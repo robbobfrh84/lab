@@ -1,27 +1,23 @@
 # Where I Left Off 
-- You'd fixed the 2d array layout of columns and rows. it was all confused
-- THEN, realized there are TWO hexagon orientations to display
-  - When an edge points UP and DOWN and when they point LEFT & RIGHT
-- SO... NEED. TO. FINISH. adding the "Rotate" button in the menu toggled the layout with
-  - ...a new var: this.orientation = "left-right" / "up-down"
+- https://stackoverflow.com/questions/52172067/create-svg-hexagon-points-with-only-only-a-length
+- https://stackoverflow.com/questions/45773273/draw-svg-polygon-from-array-of-points-in-javascript
+- https://stackoverflow.com/questions/42443730/using-svg-filter-to-create-an-inside-stroke
 
-- NOTE: I turned OFF **HOVER** ! in events.js it was messing with row/column flip work. 
-- need to fixe canvas size, it's all off
 
 # To Do
-- 🟡 Setting the grid, 
-  - ✅ Set the grid static (Keep size dynamic?)
-  - Keep same grid numbers but expand individual sizes to fill available space. 
-  - need to fix canvas size, it's all off & center grid...
-  - Consider mobile. So square? - 32x32 ? 
-  - IDK... 😭the grid as a Hexagon is what i really want.
-- OK... Should we flip to SVG? hover will be WAY easier. AND, we can save data AS SVG files, which I kinda like. 
-- background color? white or black / grain ? (See _shed: i kinda liked darker better...)
+- 🟡 Add orientation swap when Rotate button is pressed. 
+  - Move back to menu: if the hex isn't empty. Alert "Create new hexMap?"
+- Fix Stroke. decide on "empty" fill and stroke color
+- Add actual elevation changes and update hexMapObj (Shift+Click to lower elevation) 
+- SAVE > saves to localstorage array (make one if none). Just appends (can edit later)
+- OPEN > opens page with "lists" "SAVE 1", "SAVE 2"
+  - Add Edit to rename and delete buttons
+  - Also checks in "/saved" folder for hard-coded ones. 
+- Add UI directions for "Shift+Click". (?) button with info page?
 
 # MVP 
 - Add elevation colors when clicking, start at 0
   - Shift + Click lowers elevation.
-  - ? Add a key: it shows all levels & when you hover it highlight the current elevation.
 - Easy "placeholder' for back end while in early development...
   - SAVE to local storage: `localStorage.HexigonGrids = [{name: 'bla', data: ''}]`
   - OPEN from Storage. DONE!
