@@ -1,0 +1,14 @@
+button {
+  display: block;
+  width: 150px;
+  margin-top: 5px;
+}
+.svg-outline {
+  border: 8px solid rgba(0,0,0,0.075);
+}
+.colorPicker-container {
+  margin-left: 20px;
+}
+#colorPicker {
+  border: 3px solid rgba(0,0,0,0.1);
+}

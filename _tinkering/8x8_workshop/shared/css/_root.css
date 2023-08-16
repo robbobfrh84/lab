@@ -1,0 +1,12 @@
+h1 {
+  margin: 5px;
+}
+a {
+  line-height: 25px;
+}
+.inline {
+  display: inline-block;
+}
+.pointer > svg {
+  cursor: pointer;
+}

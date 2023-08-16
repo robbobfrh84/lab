@@ -1,0 +1,52 @@
+<body>
+
+  <h1>8x8_builder</h1>
+  
+<hr> <!-- -------------------------------------------- -->
+  
+  <div> Creator Canvas </div>
+  <div class="inline"> 
+    <div id="8x8_view_creatorOverlay" class="svg-container svg-outline pointer creator-canvas"></div>
+  </div>
+
+  <div class="inline colorPicker-container"> 
+    <div> Color Picker </div>
+    <div id="colorPicker" class="svg-container pointer"></div>
+    <button onClick="eraseButton()" >Erase</button>
+  </div>
+  <div class="inline"> 
+    <button id="fillButton" onClick="fillColor()">Fill</button>
+  </div>
+
+<hr> <!-- -------------------------------------------- -->
+
+  <div class="inline"> 
+    <div id="8x8_view" class="svg-container svg-outline"></div>
+  </div>
+
+  <div class="inline">
+    <button onclick="downloadSVG('svg-8x8_view')">Download SVG</button>
+    <button onclick="downloadObject()">Download object.js</button>
+  </div>
+
+<hr> <!-- -------------------------------------------- -->
+
+</body>
+
+<!-- shared -->
+<link rel="stylesheet" href="../../shared/css/_root.css">
+
+<script src="../../shared/js/buildFrame.js"></script>
+<script src="../../shared/js/setPixels.js"></script>
+<script src="../../shared/js/download.js"></script>
+<script src="../../shared/8x8s/robot/robot_TDB.js"></script>
+<script src="../../shared/8x8s/robot/tbd.js"></script>
+<script src="../../shared/8x8s/robot/object_tbd.js"></script>
+<script src="../../shared/8x8s/robot/robot1.js"></script>
+<script src="../../shared/colors/original16.js"></script>
+<script src="../../shared/colors/basicPicker.js"></script>
+
+
+<!-- Local Files -->
+<link rel="stylesheet" href="style.css">
+<script  src="app.js"></script>

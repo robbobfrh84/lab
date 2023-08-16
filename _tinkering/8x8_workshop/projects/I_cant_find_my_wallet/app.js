@@ -1,15 +1,15 @@
 window.onload = ()=>{
   // right
-  buildFrame("bob_right", 100, bob_right)
-  buildFrame("bob_right_walk1", 100, bob_right_walk1)
-  buildFrame("bob_right_walk2", 100, bob_right_walk2)
-  buildFrame("bob_right_blink", 100, bob_right_blink)
+  buildFrame({elmId: "bob_right", frame: bob_right, pixWidth: 100, grid: {x:8,y:8}})
+  buildFrame({elmId: "bob_right_walk1", frame: bob_right_walk1, pixWidth: 100, grid: {x:8,y:8}})
+  buildFrame({elmId: "bob_right_walk2", frame: bob_right_walk2, pixWidth: 100, grid: {x:8,y:8}})
+  buildFrame({elmId: "bob_right_blink", frame: bob_right_blink, pixWidth: 100, grid: {x:8,y:8}})
   // left
-  buildFrame("bob_left", 100, bob_left)
-  buildFrame("bob_left_walk1", 100, bob_left_walk1)
-  buildFrame("bob_left_walk2", 100, bob_left_walk2)
-  buildFrame("bob_left_blink", 100, bob_left_blink)
-  buildFrame("bob_left_angry", 100, bob_left_angry)
+  buildFrame({elmId: "bob_left", frame: bob_left, pixWidth: 100, grid: {x:8,y:8}})
+  buildFrame({elmId: "bob_left_walk1", frame: bob_left_walk1, pixWidth: 100, grid: {x:8,y:8}})
+  buildFrame({elmId: "bob_left_walk2", frame: bob_left_walk2, pixWidth: 100, grid: {x:8,y:8}})
+  buildFrame({elmId: "bob_left_blink", frame: bob_left_blink, pixWidth: 100, grid: {x:8,y:8}})
+  buildFrame({elmId: "bob_left_angry", frame: bob_left_angry, pixWidth: 100, grid: {x:8,y:8}})
 
   animate()
 }
@@ -81,61 +81,24 @@ function animate() {
   ])
 }
 
-function buildFrame(elmId, frameWidth, frame) {
-  const pW = frameWidth/8
-  const elm = document.getElementById(elmId)
-  elm.innerHTML = `
-    <svg xmlns="http://www.w3.org/2000/svg"
-      width="${frameWidth}px"
-      height="${frameWidth}px"
-      style="background-color: ${frame.bg};"
-      viewBox="0 0 522 522">
-      <defs>
-        <filter id="f1" height="130%" width="130%">
-          <feGaussianBlur in="SourceAlpha" stdDeviation="5"></feGaussianBlur>
-          <feOffset dx="5" dy="5" result="offsetblur"></feOffset>
-          <feComponentTransfer>
-            <feFuncA type="linear" slope="0.5"></feFuncA>
-          </feComponentTransfer>
-          <feMerge>
-            <feMergeNode></feMergeNode>
-            <feMergeNode in="SourceGraphic"></feMergeNode>
-          </feMerge>
-        </filter>
-      </defs>
-      <g filter="url(#f1)" id="g-${elmId}"></g>
-    </svg>
-  `
-  setPixels(elmId, frame)
-}
-
-function setPixels(elmId, frame) {
-  const g = document.getElementById("g-"+elmId)
-  g.innerHTML = ""
-  frame.pixels.map( p => {
-    g.innerHTML += /*html*/`
-      <path fill-rule="evenodd"
-        fill="${p.color}"
-        opacity="${p.opacity || 1}"
-        d=" M${p.x*64} ${p.y*64}
-            L${(p.x*64) + 64} ${p.y*64}
-            L${(p.x*64) + 64} ${(p.y*64) + 64}
-            L${(p.x*64)} ${(p.y*64) + 64} Z">
-      </path>
-    `
-  })
-}
-
+let testy = 0
 function animateFrame(elmId, size, anime){
 
-  buildFrame("bobAnimate", size, anime[0].frames[0])
+  const grid = {x:8, y:8}
+  buildFrame({
+    elmId: "bobAnimate", 
+    frame: anime[0].frames[0], 
+    pixWidth: size, 
+    grid: grid
+  })
+
   anime[0].frames.push(anime[0].frames[0])
   anime[0].frames.shift()
+  const blockSize = size / (grid.x + 1)
 
   const g = document.getElementById("g-"+elmId)
 
   function animate(anime) {
-
     const int = setInterval(function(){
       if (anime[0].limitFrames === 0) {
         clearInterval(int)
@@ -145,13 +108,12 @@ function animateFrame(elmId, size, anime){
           animate(anime)
         }
       } else {
-        setPixels(elmId, anime[0].frames[0])
+        setPixels({ elmId, frame: anime[0].frames[0], blockSize })
         anime[0].frames.push(anime[0].frames[0])
         anime[0].frames.shift()
         anime[0].limitFrames--
       }
     }, anime[0].delay)
-
   }
 
   if (anime[0].move) anime[0].move()
