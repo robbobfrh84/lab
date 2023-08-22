@@ -4,7 +4,6 @@ const pages = [
   },
   { folder: 'mouse_line_warp', route: 'website/pages/' },
   { folder: 'darwins_divs', route: 'website/pages/', mobile: true, },
-  { folder: 'erosion', route: 'website/pages/', mobile: true, },
   { folder: 'greg', route: 'website/pages/', mobile: true, },
   { folder: 'erosion', route: 'website/pages/', mobile: true, },
   { folder: 'rand', route: 'website/pages/', mobile: true, },
