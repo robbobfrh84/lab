@@ -3,11 +3,13 @@ body {
   background-color: rgb(230,230,230);
   box-shadow: 0 0 3vw rgba(0,0,0,0.5) inset;
   margin: 0;
+  width: 100%;
 }
 .link-container {
   font-size: 20px; /* this is actually font size of none 'btn' icons */
   margin-bottom: 15px;
   padding-left: 15px;
+  line-height: 40px;
 }
 .link {
   font-size: 20px;
