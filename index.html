@@ -1,59 +1,26 @@
 <!DOCTYPE html><html lang="en"><meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=0.75">
-<style>
-body {
-  font-family: Tahoma;
-  background-color: rgb(230,230,230);
-  margin: 0;
-}
-#textBox {
-  box-shadow: 0 0 3vw rgba(0,0,0,0.5) inset;
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  left: 0px;
-}
-.links {
-  font-size: 20px;
-  margin-bottom: 30px;
-  padding-left: 30px;
-}
-.links a {
-  text-decoration: none;
-  font-size: 25px;
-  background-color: rgba(255,255,255,0.75);
-  padding: 5px 20px 10px;
-  border-radius: 20px;
-  color: #222;
-}
-.links a:hover {
-  background-color: rgba(255,255,255,0.95);
-}
-.lable {
-  font-size: 40px;
-  margin-bottom: 20px;
-  padding-left: 15px;
-}
-.sm.lable {
-  font-size: 16px;
-}
-.sm.links a {
-  font-size: 16px;
-}
-
-</style>
+<meta name="viewport" content="width=device-width, initial-scale=0.5">
+<link rel="stylesheet" href="_website/style.css">
 <body>
+
+  <div class="lable"> <code>bob.farm</code> pages:</div>
+  <div id="pagesContainer"></div>
+  
+  <div id="otherContainer"></div>
+  <div id="localContainer"></div>
 
   <div id="textBox">
 
-    <div class="lable"> bob.farm pages: </div>
+<!-- bob.farm pages: -->
+
+    <div class="lable"> <code>bob.farm</code> pages:</div>
+
+    <!-- <div class="links">
+      <a href="_website/more/mouse_line_warp/index.html">/mouse_line_warp</a>
+    </div> -->
 
     <div class="links">
-      <a href="hanna/index.html">/hanna</a>
-    </div>
-
-    <div class="links">
-      <a href="tourdefrance/index.html">/tourdefrance</a>
+      <a href="tour_de_france/index.html">/tour_de_france</a>
     </div>
 
     <div class="links">
@@ -81,20 +48,17 @@ body {
     </div>
 
     <div class="links">
-      <a href="bitByBit/index.html">/bitByBit</a>
+      <a href="bit_by_bit/index.html">/bit_by_bit</a>
     </div>
-
-
-    <br>
-    <div class="lable"> Local links: </div>
 
     <div class="links">
-      <a href="jars/index.html">/jars</a>
+      <a href="hanna/index.html">/hanna</a>
     </div>
 
+<!-- - -->
 
     <br>
-    <div class="lable"> Bob's *other stuff: </div>
+    <div class="lable"> Bob's Other Stuff: </div>
 
     <div class="links">
       <a href="https://tobob.earth">tobob.earth: Bob's Portfolio Website</a> 📱
@@ -116,7 +80,20 @@ body {
       <a href="https://robbobfrh84.github.io/palm-ai-app/">Color A.I.</a> 📱
     </div>
     
+
+  <!-- Local links: -->
+
+  <br>
+  <div class="lable"> Local Re-route links: </div>
+
+  <div class="links">
+    <a href="jars/index.html">/jars</a>
+  </div>
+
   </div>
 
 </body>
+
+<script src="_website/links.js"></script>
+<script src="_website/app.js"></script>
 </html>

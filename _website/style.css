@@ -1,0 +1,38 @@
+body {
+  font-family: Tahoma;
+  background-color: rgb(230,230,230);
+  box-shadow: 0 0 3vw rgba(0,0,0,0.5) inset;
+  margin: 0;
+}
+.link-container {
+  font-size: 20px; /* this is actually font size of none 'btn' icons */
+  margin-bottom: 15px;
+  padding-left: 15px;
+}
+.link {
+  font-size: 20px;
+  background-color: rgba(255,255,255,0.75);
+  padding: 5px 10px 5px;
+  border-radius: 20px;
+}
+.link.btn {
+  font-size: 25px;
+  text-decoration: none;
+  padding: 0px 7px 5px 4px;
+  border-radius: 50%;
+}
+.link.btn.sm {
+  font-size: 20px;
+  padding: 5px 8px 5px 8px;
+}
+
+.link:hover {
+  background-color: rgba(255,255,255,0.25);
+}
+.lable {
+  font-size: 40px;
+  margin-bottom: 20px;
+  padding-left: 15px;
+}
+
+
