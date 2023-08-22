@@ -12,13 +12,19 @@ window.onload = ()=>{
 
 
     const tweet = page.tweet ? /*html*/`
-      <a class='link btn tweet' href='${page.tweet}'>🐦</a>
+      <a class='link btn' href='${page.tweet}'>🐦</a>
     ` : "";
     const medium = page.medium ? /*html*/`
-      <a class='link btn sm' href='${page.medium}'>Ⓜ️</a>
+      <a class='link btn' href='${page.medium}'>Ⓜ</a>
     ` : "";
-    const mobile = page.mobile ? "📱" : ""
+    const youtube = page.youtube ? /*html*/`
+      <a class='link btn' href='${page.youtube}'>📺</a>
+    ` : "";    
+    const threads = page.medium ? /*html*/`
+      <a class='link btn' href='${page.threads}'>🧵</a>
+    ` : "";
 
+    const mobile = page.mobile ? "📱" : ""
 
     pagesContainer.innerHTML += /*html*/`
       <div class="link-container">
@@ -26,6 +32,8 @@ window.onload = ()=>{
         <a class="link btn sm" target="_blank" href="${page.route+page.folder}">↗️</a>
         ${tweet}
         ${medium}
+        ${youtube}
+        ${threads}
         ${mobile}
       </div>
     `
