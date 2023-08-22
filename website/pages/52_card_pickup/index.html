@@ -1,0 +1,181 @@
+<!DOCTYPE html><html lang="en">
+<title> "52 Card Pickup": with unicode cards </title>
+<!-- <link rel="icon" href="link/or/path">  -->
+<head>
+  <meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style media="screen">
+    body {
+      background: url("darkGreenGainy.png")
+    }
+    #allDeck {
+      font-size: 70px;
+    }
+    .cards {
+      position: absolute;
+      display: inline-block;
+      background-color: #ccc;
+      height: 63px; /* MATCH JS */
+      width: 49px; /* MATCH JS */
+      line-height: 54px;
+      border-radius: 3px;
+      box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+      z-index: auto;
+      transform: rotate(0deg);
+      transition: top 0.3s, left 0.3s, transform 0.4s;
+      transition-timing-function: ease-out;
+    }
+
+    .red {
+      color: red;
+    }
+    .black {
+      color: black;
+    }
+    #refresh {
+      position: absolute;
+      bottom: 20px;
+      right: 50%;
+      color: #ddd;
+      opacity: 1;
+      padding: 2px;
+      z-index: -1;
+    }
+    #refreshIcon{
+      position: relative;
+      left: 15px;
+      background-color: darkgoldenrod;
+      opacity: 1;
+      font-size: 30px;
+      margin-left: 20px;
+      height: 35px;
+      text-align: center;
+      width: 35px;
+      border-radius: 100%;
+      cursor: pointer;
+    }
+    #refreshIcon:hover{
+      opacity: 0.7;
+    }
+  </style>
+</head>
+<body>
+<div id="allDeck"></div>
+  <div id="refresh" >
+    <div id="refreshIcon" onclick="go()"> &#8635;</div>
+</div>
+</body>
+<script>
+
+const cW = 49
+const cH = 63
+const mL = 20
+
+window.onload = function(){ go() }
+
+function go(){
+
+  allDeck.innerHTML = ""
+  for (var i = 0; i < deck.length; i++) {
+    const saveIndex = i
+    const delay = random(20,60) * i
+
+    // first, place all in order
+    allDeck.innerHTML += `
+      <div class="cards ${deck[i].color}" id="card-${i}" style="
+        left: ${(innerWidth/2) - cW/2}px;
+        top: ${(innerHeight) - mL - cH  }px;
+      ">
+      ${backside}</div>
+    `
+    // PICK UP!
+    setTimeout(function(){
+      deal(saveIndex)
+    }, delay)
+
+  }
+
+}
+
+function deal(i){
+  deck[i].side = random(0,1) === 0
+  deck[i].x = random(20, window.innerWidth-80)
+  deck[i].y = random(20, window.innerHeight-120)
+  deck[i].a = random(0, 359)
+
+  const c = document.getElementById("card-"+i)
+  c.style.left = deck[i].x+"px"
+  c.style.top = deck[i].y+"px"
+  c.style.transform = "rotate("+deck[i].a+"deg)"
+  c.innerHTML = deck[i].side ? deck[i].image : backside
+}
+
+random = (min, max)=>Math.floor(Math.random() * (max - min + 1) + min)
+
+const backside = " &#127136"
+
+const deck = [
+
+  { card:"1h", image: " &#127136", color: "red"},
+  { card:"1h", image: " &#127153", color: "red"},
+  { card:"2h", image: " &#127154", color: "red"},
+  { card:"3h", image: " &#127155", color: "red"},
+  { card:"4h", image: " &#127156", color: "red"},
+  { card:"5h", image: " &#127157", color: "red"},
+  { card:"6h", image: " &#127158", color: "red"},
+  { card:"7h", image: " &#127159", color: "red"},
+  { card:"8h", image: " &#127160", color: "red"},
+  { card:"9h", image: " &#127161", color: "red"},
+  { card:"10h", image: " &#127162", color: "red"},
+  { card:"11h", image: " &#127163", color: "red"},
+  { card:"12h", image: " &#127165", color: "red"},
+  { card:"13h", image: " &#127166", color: "red"},
+
+  { card:"1d", image: " &#127169", color: "red"},
+  { card:"2d", image: " &#127170", color: "red"},
+  { card:"3d", image: " &#127171", color: "red"},
+  { card:"4d", image: " &#127172", color: "red"},
+  { card:"5d", image: " &#127173", color: "red"},
+  { card:"6d", image: " &#127174", color: "red"},
+  { card:"7d", image: " &#127175", color: "red"},
+  { card:"8d", image: " &#127176", color: "red"},
+  { card:"9d", image: " &#127177", color: "red"},
+  { card:"10d", image: " &#127178", color: "red"},
+  { card:"11d", image: " &#127179", color: "red"},
+  { card:"12d", image: " &#127181", color: "red"},
+  { card:"13d", image: " &#127182", color: "red"},
+
+  { card:"1c", image: " &#127185", color: "black"},
+  { card:"2c", image: " &#127186", color: "black"},
+  { card:"3c", image: " &#127187", color: "black"},
+  { card:"4c", image: " &#127188", color: "black"},
+  { card:"5c", image: " &#127189", color: "black"},
+  { card:"6c", image: " &#127190", color: "black"},
+  { card:"7c", image: " &#127191", color: "black"},
+  { card:"8c", image: " &#127192", color: "black"},
+  { card:"9c", image: " &#127193", color: "black"},
+  { card:"10c", image: " &#127194", color: "black"},
+  { card:"11c", image: " &#127195", color: "black"},
+  { card:"12c", image: " &#127197", color: "black"},
+  { card:"13c", image: " &#127198", color: "black"},
+
+  { card:"1s", image: " &#127137", color: "black"},
+  { card:"2s", image: " &#127138", color: "black"},
+  { card:"3s", image: " &#127139", color: "black"},
+  { card:"4s", image: " &#127140", color: "black"},
+  { card:"5s", image: " &#127141", color: "black"},
+  { card:"6s", image: " &#127142", color: "black"},
+  { card:"7s", image: " &#127143", color: "black"},
+  { card:"8s", image: " &#127144", color: "black"},
+  { card:"9s", image: " &#127145", color: "black"},
+  { card:"10s", image: " &#127146", color: "black"},
+  { card:"11s", image: " &#127147", color: "black"},
+  { card:"12s", image: " &#127149", color: "black"},
+  { card:"14s", image: " &#127150", color: "black"},
+
+]
+
+
+
+</script>
+</html>

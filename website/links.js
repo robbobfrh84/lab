@@ -2,6 +2,7 @@ const pages = [
   { folder: 'tour_de_france', route: 'website/pages/', mobile: true,
     tweet: 'https://twitter.com/BobMain49/status/1428839915484221442',
   },
+  { folder: '52_card_pickup', route: 'website/pages/' },
   { folder: 'mouse_line_warp', route: 'website/pages/' },
   { folder: 'darwins_divs', route: 'website/pages/', mobile: true, },
   { folder: 'greg', route: 'website/pages/', mobile: true, },
