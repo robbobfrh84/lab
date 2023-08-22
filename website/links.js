@@ -12,6 +12,8 @@ const pages = [
   { folder: 'emoji_earth_sun_moon', route: 'website/pages/' },
   { folder: 'hanna', route: 'website/pages/', mobile: true, },
   { folder: 'the_thing_that_fell', route: 'website/pages/', mobile: true, },
+  { folder: 'poopinski_triangle', route: 'website/pages/', mobile: true, },
+
   // { folder: 'test_for_a_longer_link', route: 'website/pages/', mobile: true,
   //   tweet: 'https://twitter.com',
   //   medium: 'https://medium.com',
