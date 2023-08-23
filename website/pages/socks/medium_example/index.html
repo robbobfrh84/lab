@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sock Matching Odds Calculator</title>
+<body>
+
+  <div class="container">
+
+    <h1>Sock Matching Odds Calculator</h1>
+  
+    <table style="margin-bottom: 0px;">
+      <tr> 
+        <td style="width: 48%">Number of Sock Pairs</td>
+        <td style="width: 4%"></td>
+        <td style="width: 48%">Percentage of Inside Out Socks</td>
+      </tr>
+      <tr>
+        <td style="width: 48%"> <input type="number" id="pairsInput" min="1" required> </td>
+        <td style="width: 4%"></td>
+        <td style="width: 48%"> <input type="number" id="insideOutInput" min="0" max="100" required> </td>
+      </tr>
+    </table>
+
+    <table>
+      <tr> 
+        <td style="width: 30%"><button onclick="calculateOdds()">Calculate odds</button></td>
+        <td style="width: 70%"> <div id="result"></div> </td>
+      </tr>
+    </table>
+
+  </div>
+
+</body>
+
+<script>
+
+  function calculateOdds() {
+    var socks = (parseInt(document.getElementById("pairsInput").value) * 2) - 1;
+    var insideOutPercentage = parseInt(document.getElementById("insideOutInput").value);
+
+    var notInsideOutProbability = (1 - (insideOutPercentage / 100)) * (1 - (insideOutPercentage / 100));
+    var matchingProbability = 1 / socks;
+
+    var odds = (notInsideOutProbability * matchingProbability);
+    var oddsPercent = odds * 100
+
+    document.getElementById("result").innerHTML = `
+      Matching socks odds: <strong>${Number(oddsPercent.toFixed(2))}%</strong>
+    `
+  }
+
+</script>
+</html>

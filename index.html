@@ -2,25 +2,34 @@
 <meta name="viewport" content="width=device-width, initial-scale=0.85">
 <link rel="stylesheet" href="website/style.css">
 <body>
+<script>
 
-  <div class="lable"><code>bob.farm</code> Pages:</div>
-  <div id="pagesContainer" class="sectionContainer"></div>
-  <br>
+const sections = [
+  { name: `<code>bob.farm</code> Pages:`,links: 'pages' },
+  { name: "Bob's Other Stuff:", links: 'other' },
+  { name: "Local Redirect Links:", links: 'local' },
+  { name: "More Pages:", links: 'more' },
+]
 
-  <div class="lable">Bob's Other Stuff:</div>
-  <div id="otherContainer" class="sectionContainer"></div>
-  <br>
+window.onload = ()=>{  
+  sections.forEach( section => {
+    document.body.innerHTML += /*html*/`
+      <div class="lable">${section.name}</div>
+        <div id="${section.links}Container"></div>
+      <br>
+    `
+  })
+  sections.forEach( s => { buildLists(window[s.links+'Container'], window[s.links]) })
+}
 
-  <div class="lable">Local Redirect links:</div>
-  <div id="localContainer" class="sectionContainer"></div>
-  <br>
+function checkHash(page) {
+  if ("#"+page.folder === window.location.hash) {
+    window.location.href = "/"+page.route+page.folder
+  }
+}
 
-  <div class="lable">More Pages:</div>
-  <div id="moreContainer" class="sectionContainer"></div>
-  <br>
-
+</script>
 </body>
-
 <script src="website/links.js"></script>
 <script src="website/app.js"></script>
 </html>

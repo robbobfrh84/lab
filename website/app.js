@@ -1,11 +1,3 @@
-window.onload = ()=>{  
-
-  
-  buildLists(pagesContainer, pages)
-  buildLists(otherContainer, other)
-  buildLists(localContainer, local)
-}
-
 function checkHash(page) {
   if ("#"+page.folder === window.location.hash) {
     window.location.href = "/"+page.route+page.folder
@@ -13,7 +5,6 @@ function checkHash(page) {
 }
 
 function buildLists(elm, list) {
-
   elm.innerHTML = ""
   list.forEach( link => {
     checkHash(link)

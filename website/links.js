@@ -1,4 +1,4 @@
-const pages = [
+var pages = [ // * MUST be var, need to access it via window[...]
   { folder: 'tour_de_france', route: 'website/pages/', mobile: true, 
     tweet: 'https://twitter.com/BobMain49/status/1428839915484221442',},
   { folder: '52_card_pickup', route: 'website/pages/' },
@@ -16,11 +16,17 @@ const pages = [
     tweet: 'https://twitter.com/BobMain49/status/1433213560079925251' },
   { folder: 'disco_onion', route: 'website/pages/', mobile: true,
     tweet: 'https://twitter.com/BobMain49/status/1458980412244381696'},
+  { folder: 'buy_me_a_coffee', route: 'website/pages/', mobile: true, },
+  { folder: 'polygon_with_shadow', route: 'website/pages/', mobile: true,
+    tweet: 'https://twitter.com/BobMain49/status/1138926040074588160'},
+  { folder: 'habitable_planet_generator', route: 'website/pages/' },
+
+
 
   // { folder: '', route: 'website/pages/' },
 ]
 
-const other = [
+var other = [ // * MUST be var, need to access it via window[...]
   { name: "tobob.earth: Bob's Portfolio Website", route: "https://tobob.earth", mobile: true, },
   { name: "Color A.I.", route: "https://colorai.farm", mobile: true, },
   { name: "Kiss the Sky", route: "https://matthewmain.github.io/kiss_the_sky/", mobile: true, },
@@ -28,8 +34,13 @@ const other = [
   { name: "All Colors Websites", route: "https://robbobfrh84.github.io/allcolors", mobile: true, },
 ]
 
-const local = [
+var local = [ // * MUST be var, need to access it via window[...]
   { name: "Jar Lights", route: 'http://10.0.0.161/', mobile: true, },
+]
+
+var more = [ // * MUST be var, need to access it via window[...]
+  { folder: 'floorboards', route: 'website/pages/',
+    tweet: 'https://twitter.com/BobMain49/status/1146893975829340166'},
 ]
 
 /* ....Example with ALL Links so far.... */

@@ -1,0 +1,45 @@
+<!DOCTYPE html><html lang='en'>
+<title>Sock Matching Odds Calculator</title>
+<link rel='icon' href='images/icon.png'>
+<head>
+  <meta name='viewport' content='width=device-width, initial-scale=0.6'>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="container">
+
+    <h1>Sock Matching Odds Calculator</h1>
+  
+    <table style="margin-bottom: 0px;">
+      <tr> 
+        <td style="width: 48%">Number of Sock Pairs</td>
+        <td style="width: 4%"></td>
+        <td style="width: 48%">% of Inside-out Socks</td>
+      </tr>
+      <tr>
+        <td style="width: 48%"> <input id="pairsInput" min="1" required> </td>
+        <td style="width: 4%"></td>
+        <td style="width: 48%"> <input id="insideOutInput" min="0" max="100" required> %</td>
+      </tr>
+    </table>
+
+    <table>
+      <tr> 
+        <td style="width: 30%"><button onclick="calculateOdds()">Calculate odds</button></td>
+        <td style="width: 70%"> <div id="result"></div> </td>
+      </tr>
+    </table>
+
+    <div class="divider"></div>
+
+    <button id="tryOnSocks" onclick="putOnSocks()">Try on socks</button>
+    <div id="socksImage" class="sock-image-container"></div>
+
+  </div>
+
+</body>
+
+<script src="app.js"></script>
+</html>
