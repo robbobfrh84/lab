@@ -1,0 +1,32 @@
+body {
+  background: url("light_grain.png")
+}
+.bobAnimate-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  width: 375px;
+}
+.inline {
+  display: inline-block;
+}
+#bobAnimate {
+  margin-left: 5px;
+  transition-timing-function: ease-in-out;
+  transition: margin-left 2s;
+}
+#titleContainer {
+  font-family: avenir; 
+  position: absolute; 
+  right: 20px; 
+  bottom: 20px;
+  text-align: right;
+}
+#titleFull {
+  font-size: 40px;
+}
+#titleCredit {
+  font-size: 20px;
+  padding-right: 30px;
+}

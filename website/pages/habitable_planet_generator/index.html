@@ -9,23 +9,16 @@
       padding-top: 25px;
       background-color: rgba(19,20,23);
       margin: 0;
-      /* margin: auto; */
-      /* text-align: center; */
-      /* width: 100%; */
     }
     .container {
       background-color: rgba(19,20,23);
       border-radius: 5px;
-      /* width: 500px; */
       margin: auto;
     }
     #canvasContainer {
       width: 100%;
       text-align: center;
     }
-    /* canvas {
-      transform: rotate(15deg);
-    } */
     #buttonContainer {
       text-align: center;
     }
@@ -35,29 +28,13 @@
       border-radius: 3px;
       font-size: 20px;
       width: 350px;
-      /* margin-left: 40px; */
-      /* margin-bottom: 10px; */
       cursor: pointer;
-    }
-    @media only screen and (max-width: 430px) {
-      .container {
-        /* width: 100%; */
-        /* width: 430px; */
-        /* margin: auto; */
-        /* text-align: center; */
-      }
-      #btn {
-        /* width: 90%; */
-        /* margin: auto; */
-      }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <div id="canvasContainer">
-      <!-- <canvas id="spaceCanvas" width="430" height="380"></canvas> -->
-    </div>
+    <div id="canvasContainer"></div>
     <div id="buttonContainer">
       <button id="btn" onclick="regenerate_world()"> ➰ ☁️ Regenerate ☁️ ➰</button>
     </div>
@@ -78,10 +55,7 @@ let width = maxWidth
 let height = 380
 
 window.onload = ()=>{
-
-
   width = window.innerWidth < maxWidth ? window.innerWidth : maxWidth
-  console.log('width:',width)
   canvasContainer.innerHTML = /*html*/` 
     <canvas id="spaceCanvas" width="${width}" height="${height}"></canvas>
   `
@@ -97,11 +71,7 @@ window.onload = ()=>{
   })
 
   generate_world(space)
-
 }
-
-
-
 
 function generate_world(space, randomMass){
 

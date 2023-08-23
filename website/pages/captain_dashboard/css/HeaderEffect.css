@@ -1,0 +1,22 @@
+#headerCanvas {
+  position: absolute;
+  top: 0; left: 0;
+  z-index: -2;
+}
+#captainName {
+  position: absolute;
+  top: 11px;
+  left: 7px;
+  text-align: left;
+  color: rgba(0,0,0,0);
+  transition: background-color 0.5s, color 2s;
+}
+.letters {
+  display: inline-block;
+  position: relative;
+  text-align: center;
+  letter-spacing: 0px;
+  padding: 0px;
+  margin: 0px;
+  transition: background-color 0.5s, color 2s;
+}
