@@ -21,6 +21,12 @@ var pages = [ // * MUST be var, need to access it via window[...]
     tweet: 'https://twitter.com/BobMain49/status/1138926040074588160'},
   { folder: 'habitable_planet_generator', route: 'website/pages/' },
 
+  // 🔥Add tweet and medium to socks. 
+  { folder: 'socks', route: 'website/pages/', mobile: true, 
+    tweet: '',
+    medium: ''},
+
+
 
 
   // { folder: '', route: 'website/pages/' },

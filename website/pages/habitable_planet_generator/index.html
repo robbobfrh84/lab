@@ -6,17 +6,28 @@
   <script src="zDog.js"></script>
   <style media="screen">
     body {
-      padding-top: 5%;
+      padding-top: 25px;
       background-color: rgba(19,20,23);
-    }
-    canvas {
-      transform: rotate(15deg);
+      margin: 0;
+      /* margin: auto; */
+      /* text-align: center; */
+      /* width: 100%; */
     }
     .container {
       background-color: rgba(19,20,23);
       border-radius: 5px;
-      width: 430px;
+      /* width: 500px; */
       margin: auto;
+    }
+    #canvasContainer {
+      width: 100%;
+      text-align: center;
+    }
+    /* canvas {
+      transform: rotate(15deg);
+    } */
+    #buttonContainer {
+      text-align: center;
     }
     #btn {
       border: none;
@@ -24,18 +35,32 @@
       border-radius: 3px;
       font-size: 20px;
       width: 350px;
-      margin-left: 40px;
-      margin-bottom: 10px;
+      /* margin-left: 40px; */
+      /* margin-bottom: 10px; */
       cursor: pointer;
+    }
+    @media only screen and (max-width: 430px) {
+      .container {
+        /* width: 100%; */
+        /* width: 430px; */
+        /* margin: auto; */
+        /* text-align: center; */
+      }
+      #btn {
+        /* width: 90%; */
+        /* margin: auto; */
+      }
     }
   </style>
 </head>
 <body>
   <div class="container">
     <div id="canvasContainer">
-      <canvas id="spaceCanvas" width="430" height="380"></canvas>
+      <!-- <canvas id="spaceCanvas" width="430" height="380"></canvas> -->
     </div>
-    <button id="btn" onclick="regenerate_world()"> ➰ ☁️ Regenerate ☁️ ➰</button>
+    <div id="buttonContainer">
+      <button id="btn" onclick="regenerate_world()"> ➰ ☁️ Regenerate ☁️ ➰</button>
+    </div>
   </div>
 </body>
 <script>
@@ -48,17 +73,33 @@ const offset = -10
 const TAU = Zdog.TAU
 let isSpinning = true
 let regenerate = false
+let width = 430
+
+window.onload = ()=>{
 
 
-// 🐶 ZDOG ILLUSTRATION 🐶
-let space = new Zdog.Illustration({
-  element: '#spaceCanvas',
-  dragRotate: true,
-  rotate: { x: -TAU*0.05 },
-  onDragStart: function() {
-    isSpinning = false
-  },
-})
+  width = window.innerWidth < 430 ? window.innerWidth : 430
+  console.log('width:',width)
+  canvasContainer.innerHTML = /*html*/` 
+    <canvas id="spaceCanvas" width="${width}" height="380"></canvas>
+  `
+
+  // 🐶 ZDOG ILLUSTRATION 🐶
+  let space = new Zdog.Illustration({
+    element: '#spaceCanvas',
+    dragRotate: true,
+    rotate: { x: -TAU*0.05 },
+    onDragStart: function() {
+      isSpinning = false
+    },
+  })
+
+  generate_world(space)
+
+}
+
+
+
 
 function generate_world(space, randomMass){
 
@@ -339,7 +380,7 @@ function generate_world(space, randomMass){
 function regenerate_world(){
   regenerate = true
   canvasContainer.innerHTML = `
-    <canvas id="spaceCanvas" width="430" height="380"></canvas>
+    <canvas id="spaceCanvas" width="${width}" height="380"></canvas>
   `
   space = false
   requestAnimationFrame(()=>{
@@ -355,8 +396,6 @@ function regenerate_world(){
     generate_world(space, true)
   })
 }
-
-generate_world(space)
 
 </script>
 </html>
