@@ -1,7 +1,6 @@
 const pages = [
-  { folder: 'tour_de_france', route: 'website/pages/', mobile: true,
-    tweet: 'https://twitter.com/BobMain49/status/1428839915484221442',
-  },
+  { folder: 'tour_de_france', route: 'website/pages/', mobile: true, 
+    tweet: 'https://twitter.com/BobMain49/status/1428839915484221442',},
   { folder: '52_card_pickup', route: 'website/pages/' },
   { folder: 'mouse_line_warp', route: 'website/pages/' },
   { folder: 'darwins_divs', route: 'website/pages/', mobile: true, },
@@ -10,16 +9,15 @@ const pages = [
   { folder: 'rand', route: 'website/pages/', mobile: true, },
   { folder: 'black_dot', route: 'website/pages/', mobile: true, },
   { folder: 'emoji_earth_sun_moon', route: 'website/pages/' },
-  { folder: 'hanna', route: 'website/pages/', mobile: true, },
+  { folder: 'hanna', route: 'website/pages/' },
   { folder: 'the_thing_that_fell', route: 'website/pages/', mobile: true, },
-  { folder: 'poopinski_triangle', route: 'website/pages/', mobile: true, },
+  { folder: 'poopinski_triangle', route: 'website/pages/' },
+  { folder: 'animated_layer_themes', route: 'website/pages/', 
+    tweet: 'https://twitter.com/BobMain49/status/1433213560079925251' },
+  { folder: 'disco_onion', route: 'website/pages/', mobile: true,
+    tweet: 'https://twitter.com/BobMain49/status/1458980412244381696'},
 
-  // { folder: 'test_for_a_longer_link', route: 'website/pages/', mobile: true,
-  //   tweet: 'https://twitter.com',
-  //   medium: 'https://medium.com',
-  //   youtube: 'https://youtube.com',
-  //   threads: 'https://www.threads.net/',
-  // },
+  // { folder: '', route: 'website/pages/' },
 ]
 
 const other = [
@@ -33,4 +31,15 @@ const other = [
 const local = [
   { name: "Jar Lights", route: 'http://10.0.0.161/', mobile: true, },
 ]
+
+/* ....Example with ALL Links so far.... */
+// { 
+//   folder: 'test_for_a_longer_link', 
+//   route: 'website/pages/', 
+//   mobile: true,
+//   tweet: 'https://twitter.com',
+//   medium: 'https://medium.com',
+//   youtube: 'https://youtube.com',
+//   threads: 'https://www.threads.net/',
+// },
 

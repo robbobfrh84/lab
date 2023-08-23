@@ -1,0 +1,28 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+.border-layer {
+  position: absolute;
+}
+#centered_title {
+  position: absolute;
+  top: 0px; right: 0px; bottom: 0px; left: 0px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 100px;
+  padding-right: 100px;
+  font-family: 'Varela Round', sans-serif;
+  font-weight: bolder;
+  font-size: 70px;
+}
+#centered_title > div {
+  position: relative;
+}
+.title-layer {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
