@@ -73,15 +73,17 @@ const offset = -10
 const TAU = Zdog.TAU
 let isSpinning = true
 let regenerate = false
-let width = 430
+const maxWidth = 500
+let width = maxWidth
+let height = 380
 
 window.onload = ()=>{
 
 
-  width = window.innerWidth < 430 ? window.innerWidth : 430
+  width = window.innerWidth < maxWidth ? window.innerWidth : maxWidth
   console.log('width:',width)
   canvasContainer.innerHTML = /*html*/` 
-    <canvas id="spaceCanvas" width="${width}" height="380"></canvas>
+    <canvas id="spaceCanvas" width="${width}" height="${height}"></canvas>
   `
 
   // 🐶 ZDOG ILLUSTRATION 🐶

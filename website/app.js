@@ -20,7 +20,7 @@ function buildLists(elm, list) {
     const youtube = link.youtube ? /*html*/`
       <a class='link btn' href='${link.youtube}'>📺</a>
     ` : "";    
-    const threads = link.medium ? /*html*/`
+    const threads = link.threads ? /*html*/`
       <a class='link btn' href='${link.threads}'>🧵</a>
     ` : "";
 

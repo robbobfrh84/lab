@@ -23,8 +23,7 @@ var pages = [ // * MUST be var, need to access it via window[...]
 
   // 🔥Add tweet and medium to socks. 
   { folder: 'socks', route: 'website/pages/', mobile: true, 
-    tweet: '',
-    medium: ''},
+    medium: 'https://medium.com/me/stats/post/215beaf83c6b'},
 
 
 
