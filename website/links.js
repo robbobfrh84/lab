@@ -37,7 +37,6 @@ var other = [ // * MUST be var, need to access it via window[...]
   { name: "tobob.earth: Bob's Portfolio Website", route: "https://tobob.earth", mobile: true, },
   { name: "Color A.I.", route: "https://colorai.farm", mobile: true, },
   { name: "Kiss the Sky", route: "https://matthewmain.github.io/kiss_the_sky/", mobile: true, },
-  { name: "Bob's Self Portriat", route: "https://tobob.earth/2/icantfindmywallet/", mobile: true, },
   { name: "All Colors Websites", route: "https://robbobfrh84.github.io/allcolors", mobile: true, },
 ]
 
