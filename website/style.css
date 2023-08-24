@@ -4,6 +4,8 @@ body {
   box-shadow: 0 0 3vw rgba(0,0,0,0.5) inset;
   margin: 0;
   padding-bottom: 30px;
+  opacity: 0;
+  transition: opacity .25s;
 }
 .link-container {
   font-size: 20px; /* this is actually font size of none 'btn' icons */

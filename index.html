@@ -4,6 +4,7 @@
 <body>
 <script>
 
+const redirect = false
 const sections = [
   { name: `<code>bob.farm</code> Pages:`,links: 'pages' },
   { name: "Bob's Other Stuff:", links: 'other' },
@@ -12,20 +13,29 @@ const sections = [
 ]
 
 window.onload = ()=>{  
-  sections.forEach( section => {
-    document.body.innerHTML += /*html*/`
-      <div class="lable">${section.name}</div>
-        <div id="${section.links}Container"></div>
-      <br>
-    `
-  })
-  sections.forEach( s => { buildLists(window[s.links+'Container'], window[s.links]) })
-}
 
-function checkHash(page) {
-  if ("#"+page.folder === window.location.hash) {
-    window.location.href = "/"+page.route+page.folder
+  /*    🚕 Check for # hash redirects...    */
+  sections.forEach( section => {
+    window[section.links].forEach( link => {
+      if ("#"+link.folder === window.location.hash) {
+        window.location.href = "/"+link.route+link.folder
+        redirect = true
+      }
+    })
+  })
+
+  if (!redirect) {
+    sections.forEach( section => {
+      document.body.innerHTML += /*html*/`
+        <div class="lable">${section.name}</div>
+          <div id="${section.links}Container"></div>
+        <br>
+      `
+    })
+    sections.forEach( s => { buildLists(window[s.links+'Container'], window[s.links]) })
+    document.body.style.opacity = 1
   }
+
 }
 
 </script>

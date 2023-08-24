@@ -1,7 +1,6 @@
 function buildLists(elm, list) {
   elm.innerHTML = ""
   list.forEach( link => {
-    checkHash(link)
     const name = link.name || "#"+link.folder
     const href = link.folder ? link.route+link.folder : link.route
 
