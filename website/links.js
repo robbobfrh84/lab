@@ -29,15 +29,14 @@ var pages = [ // * MUST be var, need to access it via window[...]
   { folder: 'purple_rain', route: 'website/pages/', mobile: true, 
     tweet: 'https://twitter.com/BobMain49/status/723672564816445441' },
 
-
   // { folder: '', route: 'website/pages/' },
 ]
 
 var other = [ // * MUST be var, need to access it via window[...]
-  { name: "tobob.earth: Bob's Portfolio Website", route: "https://tobob.earth", mobile: true, },
-  { name: "Color A.I.", route: "https://colorai.farm", mobile: true, },
+  { name: "tobob.earth", route: "https://tobob.earth", mobile: true, },
+  { name: "colorai.farm", route: "https://colorai.farm", mobile: true, },
   { name: "Kiss the Sky", route: "https://matthewmain.github.io/kiss_the_sky/", mobile: true, },
-  { name: "All Colors Websites", route: "https://robbobfrh84.github.io/allcolors", mobile: true, },
+  { name: "All Colors: Color Picker / editor", route: "https://robbobfrh84.github.io/allcolors", mobile: true, },
 ]
 
 var local = [ // * MUST be var, need to access it via window[...]
