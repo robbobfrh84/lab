@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <title>Ayte-by8</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
+  <link rel="ayte icon" href="ayteFlower.png"/>
+  <link rel="stylesheet" href="ayte.css"/>
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-default">
+    <div class="navbar-fixed-top">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only active" id="hamburger">Toggle navigation</span>
+          <span class="icon-bar" id='linez' style='background-color: firebrick;'></span>
+          <span class="icon-bar" id='linez'style='background-color: darkgoldenrod;'></span>
+          <span class="icon-bar" id='linez'style='background-color: green;'></span>
+        </button>
+        <a class="navbar-brand" id='title'>Ayte-by8</a>
+        <a class="navbar-brand" href="#" id='titleLive'>* Live!</a>
+      </div>
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right" data-toggle="collapse" data-target=".in" >
+          <!-- <li><a href="#1" id="font-color" >{LOG IN} / {Sign UP}</a></li> -->
+          <li><a href="#" id="liveBtn" onclick='liveStatus()'>*Pixel Chat*</a></li>
+          <li><a href="#" id="galBtn" onclick='swapToGal()'>{Gallery}</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div id='ayteFrame' class='frame1'></div>
+
+  <div id='paletteFrame' onmousedown='brushSwap(15);'>
+    <div id='swatchContainer'></div>
+    <div id='fillBtn' onmousedown="fill(brush)" class='button1'>Fill</div>
+    <div id='saveBtn' class='button1' onclick='saveAyte()'>Share</div>
+  </div>
+  <p id='galName'>{Gallery: public, room: 1}</p>
+  <div id='gal1Frame' class='frame1'></div>
+  <!-- <a download="your_Ayte.ino" id="downloadlink" style="padding-bottom: 30px;"> -Download- &nbsp;</a> -->
+  <script src="http://cdn.pubnub.com/pubnub-3.7.15.min.js"></script>
+  <script src="http://cdn.rawgit.com/scalabl3/pubnub-flex-history/v1.05/pubnub-flex-history-min.js"></script>
+  <script src='ayte.js'></script>
+  <script src='gal.js'></script>
+</body>
+</html>

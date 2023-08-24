@@ -1,9 +1,3 @@
-function checkHash(page) {
-  if ("#"+page.folder === window.location.hash) {
-    window.location.href = "/"+page.route+page.folder
-  }
-}
-
 function buildLists(elm, list) {
   elm.innerHTML = ""
   list.forEach( link => {

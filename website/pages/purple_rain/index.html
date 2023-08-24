@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Purple Rain</title>
+  <link rel="rain drop" href="purplerain.png"/>
+  <style>
+
+    body, html{ background-color: #666;
+      min-width: 1344px; margin: 0;
+      text-align: center; font-size: 0;
+    }
+
+    #ayteHouse{ min-width: 1344px;
+      margin: 0; padding: 0; width: 100%; height: 100%;
+    }
+
+    .grid { display: inline-block;
+      width: 12px; height: 12px; margin: 1px; border-radius: 1px;
+      box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.2);
+    }
+
+  </style>
+</head>
+  <body id="body" >
+      <div id='ayteHouse' style='margin-bottom: 15px;'></div>
+      <script>
+
+var rows = 96; var blkClass = 'grid';
+var bgColor = '#222';
+  for (var i = 0; i < rows*rows; i++){
+    if (i % rows === 0){ ayteHouse.innerHTML += '<br>';}
+    var blk = document.createElement('div');
+    blk.className = blkClass; blk.id = 'blk'+i;
+    blk.style.backgroundColor = bgColor;
+    blk.setAttribute('onmousemove', 'newDrop(100,'+i+')');
+    ayteHouse.appendChild(blk);
+  }
+
+var purpleRainGo = false; var rain;
+function purpleRain(){
+  if (purpleRainGo) { purpleRainGo = false; clearInterval(rain);
+  } else { purpleRainGo = true;
+  rain = setInterval(function(){ newDrop(random(20,300)); }, 200);
+  }
+}
+
+function newDrop(speed, hover){
+  var loc = [0,-1,-2,-3,-4];
+  var col = Math.floor(Math.random()*rows);
+  if(hover){
+    col = hover%rows; row = (hover-col)/rows;
+    loc = [row, row-1, row-2, row-3, row-4];
+  }
+  var drop = setInterval(function(){
+    loc = updateDrop(col, loc);
+    if (loc[2] >= rows+1){ clearInterval(drop);}
+  }, speed);
+}
+
+function updateDrop(col, loc){
+  var hexR = Math.floor(Math.random()*150)+100;
+  var hexG = 20; hexB = 200;
+  var drpR = Math.ceil(hexR/6);
+  var drpB = Math.ceil(hexB/6);
+  var hex = '#'+hexR.toString(16)+hexG+hexB.toString(16);
+  for (var i = 0; i < 5; i++){
+    var hRB = moveDrop(i,col,loc[i],hexR,hexG,hexB,drpR,drpB); hexR = hRB[0]; hexB = hRB[1];
+  }
+  loc[0] += 1; loc[1] += 1; loc[2] += 1; loc[3] += 1; loc[4] += 1; return loc;
+}
+
+function moveDrop(size,col,loc,hexR,hexG,hexB,drpR,drpB){
+  hexR -= drpR;
+  hexB -= drpB;
+  var hex = '#'+hexR.toString(16)+hexG+hexB.toString(16);
+  if(loc >= 0 && loc <= rows-1){
+    var blk = document.getElementById('blk'+(col+(rows*loc)));
+    blk.style.backgroundColor = hex;
+  }
+  return [hexR,hexB];
+}
+
+function random(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
+purpleRain();
+      </script>
+  </body>
+</html>

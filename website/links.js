@@ -26,8 +26,8 @@ var pages = [ // * MUST be var, need to access it via window[...]
     tweet: 'https://twitter.com/BobMain49/status/1141725648471375874'},
   { folder: 'i_cant_find_my_wallet', route: 'website/pages/', mobile: true, 
     tweet: 'https://twitter.com/BobMain49/status/1153319949101928449' },
-
-
+  { folder: 'purple_rain', route: 'website/pages/', mobile: true, 
+    tweet: 'https://twitter.com/BobMain49/status/723672564816445441' },
 
 
   // { folder: '', route: 'website/pages/' },
