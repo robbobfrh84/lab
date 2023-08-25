@@ -1,0 +1,79 @@
+<!DOCTYPE html><html lang='en'>
+<title> Eclipse Toggle </title>
+<head>
+  <meta charset='UTF-8'><meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <style>
+:root {
+  --light_radio_button_size: 50px; 
+  --dark_radio_button_size: 45px;
+}
+
+body {
+  margin: 0;
+  background-color: #eee;
+  background: url("light_grain.png");
+  transition: background 1s;
+}
+
+#light_dark_radio_button_container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(var(--light_radio_button_size)*3 );
+  padding-left:1px;
+  cursor: pointer;
+}
+
+.light_dark_radio_button {
+  position: relative;
+  border-radius: 100%;
+  top: 2px;
+  box-shadow: 0px 0px 2px 1px black;
+  width: var(--light_radio_button_size); 
+  height: var(--light_radio_button_size);
+  display: inline-block
+}
+
+#light_radio_button {
+  width: var(--light_radio_button_size); 
+  background: url("gold_grain.png");
+}
+
+#dark_radio_button {
+  background-color: #111;
+  top: 0px;
+  left: 0px;
+  width: var(--dark_radio_button_size); 
+  height: var(--dark_radio_button_size); 
+  z-index: 1;
+  opacity: 0;
+  transition: opacity .7s, left .7s;
+}
+</style>
+</head>
+
+<body>
+  <div id="light_dark_radio_button_container" class='centered-container'>
+    <div id="dark_radio_button" class="light_dark_radio_button"></div>
+    <div id="light_radio_button" class="light_dark_radio_button"></div>
+  </div>
+</body>
+
+<script>
+light_dark_radio_button_container.onclick = ()=>{
+  dark_radio_button.state = !dark_radio_button.state
+  let size = getComputedStyle(document.body).getPropertyValue('--light_radio_button_size').split("px")[0]
+  if (dark_radio_button.state) {
+    dark_radio_button.style.opacity = "0.9"
+    dark_radio_button.style.left =(size*.95)+"px"
+    document.body.style.background = 'url("dark_grain.png")';
+  } else {
+    dark_radio_button.style.opacity = "0"
+    dark_radio_button.style.left = "0px"
+    document.body.style.background = 'url("light_grain.png")';
+  }
+}
+</script>
+</html>

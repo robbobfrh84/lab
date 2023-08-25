@@ -28,15 +28,29 @@ var pages = [ // * MUST be var, need to access it via window[...]
     tweet: 'https://twitter.com/BobMain49/status/1153319949101928449' },
   { folder: 'purple_rain', route: 'website/pages/', mobile: true, 
     tweet: 'https://twitter.com/BobMain49/status/723672564816445441' },
+  { folder: 'eclipse_toggle', route: 'website/pages/', mobile: true, 
+    tweet: 'https://twitter.com/BobMain49/status/1432748775207063554' },
+  { folder: 'eclipse_toggle_emoji', route: 'website/pages/', mobile: true, 
+    tweet: '' },
 
   // { folder: '', route: 'website/pages/' },
 ]
 
 var other = [ // * MUST be var, need to access it via window[...]
-  { name: "tobob.earth", route: "https://tobob.earth", mobile: true, },
-  { name: "colorai.farm", route: "https://colorai.farm", mobile: true, },
-  { name: "Kiss the Sky", route: "https://matthewmain.github.io/kiss_the_sky/", mobile: true, },
-  { name: "All Colors: Color Picker / editor", route: "https://robbobfrh84.github.io/allcolors", mobile: true, },
+  { name: "tobob.earth: Bob's Portfolio Website", route: "https://tobob.earth", mobile: true, 
+    sheet: "https://docs.google.com/spreadsheets/d/1h7AQcnPrSPL9kwPwcBwkRRHB_VIdJ-NszRY1eYJHf24/edit#gid=1906007068",
+    github: "https://github.com/robbobfrh84/portfolio"},
+  { name: "colorai.farm: Color A.I Generator", route: "https://colorai.farm", mobile: true, 
+    github: "https://github.com/robbobfrh84/palm-ai-app/tree/gh-pages" },
+  { name: "Kiss the Sky: Evolution Game", route: "https://matthewmain.github.io/kiss_the_sky/", mobile: true, 
+    github: "https://github.com/matthewmain/kiss_the_sky"},
+  { name: "All Colors: Color Picker / editor", route: "https://robbobfrh84.github.io/allcolors", mobile: true,
+    github: "https://github.com/robbobfrh84/allcolors"},
+  { name: "Top 5: Gas Up Example App", route: " https://robbobfrh84.github.io/gas-up/examples/top5/#movies", mobile: true, 
+    sheet: "https://docs.google.com/spreadsheets/d/1KrabEzohbEZwELTIqE7cRjLIQaGJFS95I2qR5mw4FpU/edit#gid=685369503",
+    github: "https://github.com/robbobfrh84/gas-up/tree/master/examples/top5"},
+  { name: "bob.farm: Repository (lab)", route: "https://github.com/robbobfrh84/lab", mobile: true, }
+
 ]
 
 var local = [ // * MUST be var, need to access it via window[...]
@@ -54,8 +68,10 @@ var more = [ // * MUST be var, need to access it via window[...]
 //   route: 'website/pages/', 
 //   mobile: true,
 //   tweet: 'https://twitter.com',
-//   medium: 'https://medium.com',
 //   youtube: 'https://youtube.com',
 //   threads: 'https://www.threads.net/',
+//   sheet: 'https://sheets.google.com'
+//   github: "https://github.com,
+//   medium: 'https://medium.com',
 // },
 

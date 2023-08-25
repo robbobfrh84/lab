@@ -16,6 +16,12 @@ function buildLists(elm, list) {
     const threads = link.threads ? /*html*/`
       <a class='link btn' href='${link.threads}'>🧵</a>
     ` : "";
+    const sheet = link.sheet ? /*html*/`
+      <a class='link btn' href='${link.sheet}'>🎼</a>
+    ` : "";
+    const github = link.github ? /*html*/`
+      <a class='link btn' href='${link.github}'>🐙</a>
+    ` : "";
 
     const mobile = link.mobile ? "📱" : ""
 
@@ -27,6 +33,8 @@ function buildLists(elm, list) {
         ${medium}
         ${youtube}
         ${threads}
+        ${sheet}
+        ${github}
         ${mobile}
       </div>
     `
