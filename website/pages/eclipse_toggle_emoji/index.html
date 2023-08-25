@@ -19,25 +19,11 @@
 }
 
 body {
-  position: relative;
   background: rgba(0,0,0,0);
   width: 100%;
-  height: 100vh;
   margin: 0px;
-}
-.bgs {
-  position: absolute;
-  top: 0; bottom: 0; left: 0; right: 0;
-}
-#dayBg {
-  opacity: 1;
-  z-index: -1;
   background: url("light.png");
   transition: opacity var(--bg-delay), background var(--bg-delay);
-}
-#nightBg {
-  background: url("dark.png");
-  z-index: -2;
 }
 #dayNight {
   display: inline-block;
@@ -87,8 +73,6 @@ body {
       <img alt="moon" class='toggle-images' src="moon.png"  id="moonImage">
     </div>
   </div>
-  <div class="bgs" id="dayBg"></div>
-  <div class="bgs" id="nightBg"></div>
 </body>
 
 <script>
@@ -99,8 +83,7 @@ const height = getComputedStyle(document.documentElement).getPropertyValue('--he
 function changeDayNight() {
   if (this.setting === "day") {
     setting = "night"
-    dayBg.style.opacity = 0
-    dayBg.style.background = 'url("dark.png")';
+    document.body.style.background = 'url("dark.png")';
     dayNight.style.backgroundColor = "rgba(120,139,227,0.25)"
     dayNight.style.boxShadow = "inset 0px 0px 0px rgba(0,0,0,0.0)"
 
@@ -112,8 +95,7 @@ function changeDayNight() {
     moon.style.opacity = '0.8'
   } else {
     setting = "day"
-    dayBg.style.opacity = 1
-    dayBg.style.background = 'url("light.png")';
+    document.body.style.background = 'url("light.png")';
     dayNight.style.backgroundColor = "rgba(0,0,0,0.2)"
     dayNight.style.boxShadow = "inset 5px 5px 5px rgba(0,0,0,0.3)"
 
