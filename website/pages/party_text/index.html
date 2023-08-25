@@ -1,0 +1,72 @@
+<!DOCTYPE html><html lang='en'>
+<title> Party Text </title>
+<!-- <link rel='icon' href='link/or/path'> -->
+<head>
+  <meta charset='UTF-8'><meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+<style>
+html{
+  margin-top: 15vh;
+}
+
+body {
+  text-align: center;
+  width: 100%;
+  background-color: #bbb;
+}
+span {
+  text-shadow: 3px 3px 3px #555;
+  font-size:75px;
+  color: rgba(5,5,5,0);
+  transition: font-size 1s, color 1s;
+}
+</style>
+</head>
+<body>
+  <h1>Hello World!</h1>
+</body>
+<script>
+var minChar = 10;
+var maxChar = 18;
+
+var heading = document.getElementsByTagName('h1')[0];
+var arr = heading.innerHTML.split('');
+heading.innerHTML = null;
+
+var c = [];
+
+for (var i = 0; i < arr.length; i++){
+  var elm = document.createElement('span');
+  elm.innerHTML = arr[i];
+  heading.appendChild(c[i] = elm);
+
+  c[i].addEventListener("transitionend", function(e) {
+    var el = e.srcElement;
+    if (e.propertyName === 'font-size'){
+      var oldsize = parseInt(el.style.fontSize);
+      el.style.fontSize = random(minChar,maxChar)+'vw';
+      if (oldsize === parseInt(el.style.fontSize)){
+        el.style.fontSize = oldsize+1+'vw';
+      }
+      el.style.color = rgbR();
+      var s = random(200,800)/1000;
+      el.style.transition = 'font-size '+s+'s, color 1s';
+    }
+  });
+}
+
+setTimeout(function(){ //debouce and fire all letters.
+  for (var i = 0; i < c.length; i++){
+    c[i].style.color = rgbR();
+    c[i].style.fontSize = random(minChar,maxChar)+'vw';
+  }
+}, 100);
+
+function random(max, min){
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
+function rgbR(){
+  return 'rgb('+random(0,255)+', '+random(0,255)+', '+random(0,255)+')';
+}
+</script>
+</html>

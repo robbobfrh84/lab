@@ -1,0 +1,52 @@
+<!DOCTYPE html><html lang='en'>
+<title> Pop </title>
+<!-- <link rel='icon' href='link/or/path'> -->
+<head>
+  <meta charset='UTF-8'><meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+<style>
+body {
+  background: url("blue-texture.png");
+}
+
+/* 🎈 */
+.balloon-container * {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  font-size: 200px;
+  cursor: pointer;
+  transition: opacity .2s;
+}
+
+/* 💥 */
+#blast {
+  opacity: 0;
+  pointer-events: none;
+}
+
+</style>
+</head>
+<body>
+  <div class="balloon-container">
+
+    <div id="blast">💥</div>
+    <div id="balloon">🎈</div>
+  
+  </div>
+</body>
+<script>
+balloon.addEventListener('click', function(){
+
+balloon.style.opacity = 0
+blast.style.opacity = 1
+
+setTimeout(function(){
+  blast.style.opacity = 0
+}, 200)
+
+})
+
+</script>
+</html>

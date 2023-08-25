@@ -1,0 +1,281 @@
+<!DOCTYPE html><html lang='en'>
+<title> zDog Topo </title>
+<!-- <link rel='icon' href='link/or/path'> -->
+<head>
+  <meta charset='UTF-8'><meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <script src="zDog.js"></script>
+
+<style>
+body {
+  text-align: center;
+}
+.zdog-canvas {
+  background: #FDB;
+  cursor: move;
+}
+</style>
+</head>
+<body>
+  <canvas class="zdog-canvas" width="700" height="700"></canvas>
+</body>
+
+<script>
+// Made with Zdog
+
+let isSpinning = true
+
+let illo = new Zdog.Illustration({
+  element: '.zdog-canvas',
+  rotate: { x: Zdog.TAU/6 },
+  dragRotate: true,
+})
+
+// Foliage
+new Zdog.Rect({
+  addTo: illo,
+  width: 400,
+  height: 400,
+  stroke: 12,
+  color:  '#006400',
+  fill: true,
+})
+
+// Dirt
+new Zdog.Rect({
+  addTo: illo,
+  translate: { z: -12 },
+  width: 400,
+  height: 400,
+  stroke: 12,
+  color: '#8b4513',
+  fill: true,
+})
+
+// Bedrock
+new Zdog.Rect({
+  addTo: illo,
+  translate: { z: -24 },
+  width: 400,
+  height: 400,
+  stroke: 12,
+  color: ' #696969',
+  fill: true,
+})
+
+// Elevation 1
+
+// group 1
+let group = new Zdog.Group({
+  addTo: illo,
+  translate: { z: 10 },
+})
+const contour = new Zdog.Shape({
+  addTo: group,
+  translate: { x: -200,  y: -200 },
+  path: [
+    { x: 0, y: 0 },
+    { x: 200, y: 0 },
+    { x: 180, y: 110 },
+    { x: 40, y:  180 },
+    { x:  0, y:  310 },
+  ],
+  stroke: 10,
+  color:  '#00A000',
+  fill: true,
+})
+contour.copy({
+  translate: { x: 200, y: 200 },
+  path: [
+    { x: 0, y: 0 },
+    { x: -200, y: 0 },
+    { x: -180, y: -110 },
+    { x: -40, y:  -180 },
+    { x:  0, y:  -310 },
+  ],
+  visible: false
+})
+
+// group 2
+let group2 = new Zdog.Group({
+  addTo: illo,
+  translate: { z: 10 },
+})
+const contour2 = new Zdog.Shape({
+  addTo: group2,
+  translate: { x: 200,  y: 200 },
+  path: [
+    { x: 0, y: 0 },
+    { x: -200, y: 0 },
+    { x: -180, y: -110 },
+    { x: -40, y:  -180 },
+    { x:  0, y:  -310 },
+  ],
+  stroke: 10,
+  color:  '#00A000',
+  fill: true,
+})
+contour2.copy({
+  translate: { x: -200, y: -200 },
+  path: [
+    { x: 0, y: 0 },
+    { x: 200, y: 0 },
+    { x: 180, y: 110 },
+    { x: 40, y:  180 },
+    { x:  0, y:  310 },
+  ],
+  visible: false
+})
+
+// group 3
+let group3 = new Zdog.Group({
+  addTo: illo,
+  translate: { z: 10 },
+})
+const contour3 = new Zdog.Shape({
+  addTo: group3,
+  translate: { x: -200,  y: -200 },
+  path: [ { x: 300, y: 50 }, { x: 340, y: 50 }, { x: 350, y: 100 } ],
+  stroke: 10,
+  color:  '#00A000',
+  fill: true,
+})
+contour3.copy({
+  translate: { x: 200, y: 200 },
+  path: [ { x: -300, y: -50 }, { x: -340, y: -50 }, { x: -350, y: -100 } ],
+  visible: false
+})
+
+
+
+// Elevation 2
+
+// group 2.1
+let group4 = new Zdog.Group({
+  addTo: illo,
+  translate: { z: 20 },
+})
+const contour4 = new Zdog.Shape({
+  addTo: group4,
+  translate: { x: -200,  y: -200 },
+  path: [
+    { x: 0, y: 0 },
+    { x: 190, y: 0 },
+    { x: 170, y: 100 },
+    { x: 30, y:  170 },
+    { x:  0, y:  250 },
+  ],
+  stroke: 10,
+  color:  '#96cc2e',
+  fill: true,
+})
+contour4.copy({
+  translate: { x: 200, y: 200 },
+  path: [
+    { x: 0, y: 0 },
+    { x: -190, y: 0 },
+    { x: -170, y: -100 },
+    { x: -30, y:  -170 },
+    { x:  0, y:  -250 },
+  ],
+  visible: false
+})
+
+// group 2.2
+let group5 = new Zdog.Group({
+  addTo: illo,
+  translate: { z: 20 },
+})
+const contour5 = new Zdog.Shape({
+  addTo: group5,
+  translate: { x: 200,  y: 200 },
+  path: [ { x: -10, y: -20 }, { x: -90, y: 0 }, { x: -70, y: -100 }, { x: -30, y:  -70 }, { x:  -20, y:  -50 }, ],
+  stroke: 10,
+  color:  '#96cc2e',
+  fill: true,
+})
+contour5.copy({
+  translate: { x: -200, y: -200 },
+  path: [ { x: 10, y: 20 }, { x: 90, y: 0 }, { x: 70, y: 100 }, { x: 30, y:  70 }, { x:  20, y:  50 }, ],
+  visible: false
+})
+
+// Elevation 2
+
+// group 3.1
+let group6 = new Zdog.Group({
+  addTo: illo,
+  translate: { z: 30 },
+})
+const contour6 = new Zdog.Shape({
+  addTo: group6,
+  translate: { x: -200,  y: -200 },
+  path: [
+    { x: 0, y: 0 },
+    { x: 180, y: 0 },
+    { x: 160, y: 80 },
+    { x: 25, y:  150 },
+    { x:  0, y:  190 },
+  ],
+  stroke: 10,
+  color:  '#b9bc32',
+  fill: true,
+})
+contour6.copy({
+  translate: { x: 200, y: 200 },
+  path: [
+    { x: 0, y: 0 },
+    { x: -180, y: 0 },
+    { x: -160, y: -80 },
+    { x: -25, y:  -150 },
+    { x:  0, y:  -190 },
+  ],
+  visible: false
+})
+
+// Elevation 2
+
+// group 3.1
+let group7 = new Zdog.Group({
+  addTo: illo,
+  translate: { z: 40 },
+})
+const contour7 = new Zdog.Shape({
+  addTo: group7,
+  translate: { x: -200,  y: -200 },
+  path: [
+    { x: 0, y: 0 },
+    { x: 150, y: 0 },
+    { x: 130, y: 80 },
+    { x: 25, y:  120 },
+    { x:  0, y:  110 },
+  ],
+  stroke: 10,
+  color:  '#c69328',
+  fill: true,
+})
+contour7.copy({
+  translate: { x: 200, y: 200 },
+  path: [
+    { x: 0, y: 0 },
+    { x: -150, y: 0 },
+    { x: -130, y: -80 },
+    { x: -25, y:  -120 },
+    { x:  0, y:  -110 },
+  ],
+  visible: false
+})
+
+
+
+// 🔥Animate 🔥
+function animate() {
+  illo.rotate.z += isSpinning ? 0.005 : 0
+  illo.updateRenderGraph();
+  requestAnimationFrame( animate );
+}
+
+animate();
+
+</script>
+</html>

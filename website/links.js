@@ -30,9 +30,15 @@ var pages = [ // * MUST be var, need to access it via window[...]
     tweet: 'https://twitter.com/BobMain49/status/723672564816445441' },
   { folder: 'eclipse_toggle', route: 'website/pages/', mobile: true, 
     tweet: 'https://twitter.com/BobMain49/status/1432748775207063554' },
-  { folder: 'eclipse_toggle_emoji', route: 'website/pages/', mobile: true, 
-    tweet: '' },
-
+  { folder: 'eclipse_toggle_emoji', route: 'website/pages/', mobile: true, },
+  { folder: 'petri_dish', route: 'website/pages/', mobile: true, },
+  { folder: 'honeycomb_color_picker', route: 'website/pages/', mobile: true, },
+  { folder: 'greg', route: 'website/pages/', mobile: true, },
+  { folder: 'border_radius', route: 'website/pages/', mobile: true, },
+  { folder: 'pop', route: 'website/pages/', mobile: true, },
+  { folder: 'zDog_topo', route: 'website/pages/', },
+  { folder: 'party_text', route: 'website/pages/', mobile: true, },
+  { folder: 'sierpinski_triangle', route: 'website/pages/', mobile: true, },
   // { folder: '', route: 'website/pages/' },
 ]
 

@@ -1,0 +1,251 @@
+<!DOCTYPE html><html lang='en'>
+<title> Petri Dish </title>
+<!-- <link rel='icon' href='link/or/path'>  -->
+<head>
+  <meta charset='UTF-8'><meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <style>
+html * {
+  padding: 0;
+  margin: 0;
+}
+body {
+  background: url('desktopBG2.png');
+}
+#log, #population {
+  position: absolute;
+  width: 100%;
+  background-color: rgba(0,0,0,0);
+  text-align: center;
+  font-family: courier;
+  height: 20px;
+  max-height: 20px;
+  pointer-events: none;
+}
+#population {
+  bottom: 0px;
+  text-align: left;
+  left: 5px;
+}
+
+#myCanvas {
+  position: absolute;
+  background-color: rgba(0,0,0,0)
+}
+  </style>
+</head>
+<body>
+<div id="log"> Petri Dish </div>
+<div id="population"> Population: 9 </div>
+<canvas id="myCanvas"></canvas>
+<!-- DNA.js -->
+<script src="https://cdn.jsdelivr.net/gh/matthewmain/DNA@v1.0/dna.js"></script>  
+</body>
+<script>
+
+
+//------------------------------------------------------------------//
+//     A DNA.js POC Implementation with Bob Main's "Petri Dish"     //
+//------------------------------------------------------------------//
+
+// DNA.js Library: https://github.com/matthewmain/DNA
+// DNA.js CDN Location: https://cdn.jsdelivr.net/gh/matthewmain/DNA@latest/dna.js
+// Original "Petri Dish" pen: https://codepen.io/robbobfrh84/pen/ozgvzx 
+// (All changes marked as "+ DNA.js")
+
+
+
+
+var canvas = document.getElementsByTagName("canvas")[0];
+var ctx = canvas.getContext("2d");
+var cW = window.innerWidth;
+var cH = window.innerHeight;
+ctx.canvas.width = cW;
+ctx.canvas.height = cH;
+var radius = cW*0.01; //cell size
+var shell_size = 1.5; // Scale of shell
+var grn = ['rgba(0,100,0,0.6)','rgba(50,150,20,0.5)'];
+var prp = ['rgba(150,0,150,0.6)','rgba(150,0,150,0.5)'];
+var blu = ['rgba(0,70,200,0.6)','rgba(0,70,200,0.5)'];
+var red = ['rgba(150,0,0,0.6)','rgba(150,0,0,0.5)'];
+var gld = ['rgba(255,215,0,0.6)','rgba(255,215,0,0.6)'];
+var colors = [[blu[0],blu[1]],[prp[0],prp[1]],[grn[0],grn[1]],[red[0],red[1]],[gld[0],gld[1]]];
+var cellCnt = 0;
+var maxCells = 100;
+var startTime = Math.floor(Date.now() / 1500); //time
+
+
+
+/******************************************************
+                        DNA.JS
+*******************************************************/
+
+DNA.addGenome( "Amoeba" );  // adds an "Amoeba" species genome <------------------------------------------ + DNA.js
+DNA.addGene( "Amoeba", "color", 2, "complete", 5, 0, 4 );  // adds a "color" gene <----------------------- + DNA.js
+DNA.addGene( "Amoeba", "radius", radius, "partial", radius*2, 1, null );  // adds a "radius" gene <------- + DNA.js
+DNA.mutationRate = 5;  // sets the mutation rate to once in five meiosis events <------------------------- + DNA.js
+
+
+
+/******************************************************
+                    CELL PROTOTYPE
+*******************************************************/
+
+function Cell(x,y,r,col,shell,gen,genotype){  // adds a "genotype" parameter <---------------------------- + DNA.js
+  this.genotype = genotype;  // assigns a genotype to the instance <-------------------------------------- + DNA.js
+  this.phenotype = DNA.generatePhenotype( this.genotype );  // assigns a phenotype to the instance <------ + DNA.js
+  this.x = x;
+  this.y = y;
+  //this.r = r;
+  this.r = this.phenotype.radiusValue;  // assigns a radius trait value to an instance variable <--------- + DNA.js
+  this.nx = x;
+  this.ny = y;
+  this.ys = 1; // x/y step increament.
+  this.xs = 1;
+  this.rp = 0.5; //speed arc control
+  this.rpMax = 0.2;
+  this.maxR = r;//largest size.
+  //this.col = col;
+  this.col = colors[this.phenotype.colorValue];  // assigns a color trait value to an instance variable <- + DNA.js
+  this.gen = gen;
+  this.born = Math.floor(Date.now() / 1000);
+  this.underMitosis = false;
+  this.id = cellCnt
+  cellCnt++;
+  this.reDraw();
+}
+
+Cell.prototype.reDraw = function(){
+  ctx.beginPath();
+  ctx.fillStyle = this.col;
+  ctx.arc(this.x, this.y, this.r, 0*Math.PI, 2*Math.PI, true);
+  ctx.fill();
+  ctx.arc(this.x, this.y, this.r*shell_size, 0*Math.PI, 2*Math.PI, true); 
+  ctx.fill();
+};
+
+Cell.prototype.move = function(){
+  var dx = Math.abs(this.x-this.nx);
+  if (dx > this.xs*this.rp){
+    this.nx-this.x > 0 ? this.x+=this.xs*this.rp : this.x-=this.xs*this.rp;
+    this.ny-this.y > 0 ? this.y+=this.ys*this.rp : this.y-=this.ys*this.rp;
+    var dy = Math.abs(this.y-this.ny);
+    var d = Math.sqrt((dx * dx) + (dy * dy));
+    if (d-(radius*2) > 0){
+      this.rp >= this.rpMax ? this.rp = this.rpMax : this.rp *= 1.05 ;
+    } else {
+      this.rp >= 0.5 ? this.rp *= 0.9 : this.rp = 0.5;
+    }
+  } else {
+    if (!this.underMitosis){
+      set(this,random(0,cW),random(0,cH)); 
+    }
+  }
+  this.reDraw();
+};
+
+Cell.prototype.reproduce = function(){ 
+  var childGenotype = DNA.meiosis( DNA.Species.Amoeba, this.genotype );  // performs asexual meiosis <---- + DNA.js
+  this.rp = 0.5;
+  c.push(new Cell(this.x,this.y,this.r,colors[this.gen+1],false, this.gen+1, childGenotype )) // <-- + DNA.js
+  set(this,(this.x-this.r),this.y);
+  set(c[c.length-1],(this.x+this.r),this.y);
+};
+
+
+
+/******************************************************
+                      FUNCTIONS
+*******************************************************/
+
+function set(cell,nx,ny){ //Not in class cuz it's diff. for shell
+  cell.rp = 0.5;
+  cell.nx = nx; cell.ny = ny;
+  var dx = Math.abs(cell.x-cell.nx); var dy = Math.abs(cell.y-cell.ny);
+  cell.xs = dx/Math.max(dx, dy); cell.ys = dy/Math.max(dx, dy);
+} 
+
+function babyBoom(){
+  var l = c.length
+  for (var i = 0; i < l; i++){
+    c[i].reproduce()
+  }
+}
+
+function random(max, min){
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+
+/******************************************************
+                   INITIATE & TIME
+*******************************************************/
+
+var c = [];
+var amoebaGenotype = DNA.newGenotype(DNA.Species.Amoeba);  // creates an amoe
+c[cellCnt] = new Cell(cW/2, cH/2, radius, colors[0], false, 0, amoebaGenotype ); // <- + DNA.js
+cellCnt++
+c[cellCnt] = new Cell(cW/4, cH/4, radius-3, colors[3], false, 0, amoebaGenotype ); // <- + DNA.js
+cellCnt++
+c[cellCnt] = new Cell(cW*.7, cH*.65, radius-3, colors[3], false, 0, amoebaGenotype ); // <- + DNA.js
+cellCnt++
+c[cellCnt] = new Cell(cW*.75, cH/4, radius-3, colors[3], false, 0, amoebaGenotype ); // <- + DNA.js
+cellCnt++
+c[cellCnt] = new Cell(cW/4, cH*.85, radius-3, colors[3], false, 0, amoebaGenotype ); // <- + DNA.js
+
+// 👇This will cause ALL organisms to undergo mitosis every ...
+// var generation = setInterval(()=>{ 
+//   if (c.length <= maxCells) {
+//     babyBoom();
+//   } else {
+//     console.log(' > max cells', maxCells)
+//   }
+// }, 10000); // ... 👈 /1000 seconds. 
+
+// 👇This will cause ONE RANDOM organisms to undergo mitosis every ...
+var setReproduce = setInterval(()=>{ 
+  if (c.length < maxCells) {
+    c[random(0, (c.length -1) )].reproduce()
+  } else {
+    log.innerHTML = "Petri Dish (*max Population)"
+  }
+  population.innerHTML = 'Population: '+c.length
+}, 1000); // ... 👈 /1000 seconds. 
+
+function time(){
+  ctx.clearRect(0,0,cW,cH);
+  c.forEach(function(cell){ cell.move(); });
+  requestAnimationFrame(time);
+}
+
+requestAnimationFrame(time);
+
+let noMove = setTimeout(()=>{
+  log.innerHTML = "Petri Dish"
+},3000)
+ 
+myCanvas.onmousemove = function() {
+  const [x,y,s] = [event.offsetX,event.offsetY,shell_size*2]
+  log.innerHTML = "x: " + x + " / y:" + y
+  c.map((o,i)=>{
+    if ((Math.abs(o.x-x) <= (o.r+s)) && (Math.abs(o.y-y) <= (o.r+s))) {
+      log.innerHTML = "Cell#"+o.id+ "    💥 [Click] to Remove 💥 "
+    }
+  })
+  clearTimeout(noMove)
+  noMove = setTimeout(()=>{
+    log.innerHTML = "Petri Dish"
+  },3000)
+}
+
+myCanvas.onclick = function() {
+  const [x,y,s] = [event.offsetX,event.offsetY,shell_size*2]
+  log.innerHTML = "x: " + x + " / y:" + y
+  c.map((o,i)=>{
+    if ((Math.abs(o.x-x) <= (o.r+s)) && (Math.abs(o.y-y) <= (o.r+s))) {
+      c = c.filter((o,j)=>i!==j)
+    }
+  })
+}
+</script>
+</html>

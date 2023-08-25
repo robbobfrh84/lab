@@ -1,0 +1,95 @@
+<!DOCTYPE html><html lang='en'>
+<title> Sierpinski Triangle </title>
+<!-- <link rel='icon' href='link/or/path'> -->
+<head>
+  <meta charset='UTF-8'><meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+<style>
+html, body{
+    overflow: hidden;
+    background-color: burlywood;
+}
+</style>
+</head>
+<body>
+  <canvas id='universe'></canvas>
+</body>
+<script>
+var ctx = universe.getContext("2d");
+var cW = Math.round(window.innerWidth);
+var cH = Math.round(window.innerHeight);
+ctx.canvas.width = cW;
+ctx.canvas.height = cH;
+var frame = cW * 0.9;
+var rows = 0;
+var pix = 4;
+var p = frame/rows;
+var h = p/2;
+var w = cW/2;
+var oldRow = [1];
+
+function spt(arr,row){
+  ctx.fillStyle='black';
+  ctx.fillRect(w-(row*h)-h, p*row, p, p );
+  ctx.fillStyle='burlywood';
+  ctx.fillText("1",w-(row*h)-(h*.5), p*row+(p*.85));
+  var newRow = [1];
+	for (var i = 0; i < arr.length-1; i++){
+		if (arr[i] === arr[i+1]){
+			newRow[i+1] = 0;
+      ctx.fillStyle='burlywood';
+      ctx.fillRect(w-(row*h)+(i*p)+h, p*row, p, p );
+      ctx.fillStyle='black';
+      ctx.fillText("0",w-(row*h)+(i*p)+(p*.76), p*row+(p*.85));
+		} else {
+			newRow[i+1] = 1;
+      ctx.fillStyle='black';
+      ctx.fillRect(w-(row*h)+(i*p)+h, p*row, p, p );
+      ctx.fillStyle='burlywood';
+      ctx.fillText("1",w-(row*h)+(i*p)+(p*.73), p*row+(p*.85));
+		}
+	}
+  ctx.fillStyle='black'; 
+  ctx.fillRect( w+(row*h)-h, p*row, p, p );
+  ctx.fillStyle='burlywood';
+  ctx.fillText("1",w-(row*h)+(i*p)+(p*.73), p*row+(p*.85));
+	newRow.push(1)
+	oldRow = newRow;
+}
+var t = 1000;
+function timer(){ 
+  ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+  rows++;
+  p = frame/rows;
+  h = p/2;
+  oldRow = [1];
+  ctx.font=p+"px curier";
+  ctx.fillStyle='black';
+  ctx.fillRect( (cW/2)-h,0, p, p);
+  ctx.fillStyle='burlywood';
+  ctx.fillText("1",(cW/2)-(h/2),p/1.2);
+  for (var i = 0; i < rows-1; i++){
+    spt(oldRow,i+1);
+  }
+  if (!pause){
+    if (rows < frame/pix){
+       timeout = setTimeout(timer, t*=.9); 
+    } else {
+      rows = 0;
+      t = 1000;
+      timeout = setTimeout(timer, 2000); 
+    }
+  } 
+}
+var timeout = setTimeout(timer, 1000);
+
+var pause = false;
+function pauseFlip(){
+  pause = !pause;
+  if (!pause){
+    timeout = setTimeout(timer, 0); 
+  }
+}
+
+</script>
+</html>
