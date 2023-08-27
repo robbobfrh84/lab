@@ -1,0 +1,62 @@
+html {
+  height: 100%;
+  background-image: linear-gradient(cornflowerblue, white);
+}
+.sun {
+  right: 10px;
+  font-size: 80px;
+}
+
+/* ☁️ FIXED / STATIC / "content" CLOUDS ☁️ */
+.small-fixed-cloud {
+  font-size: 40px;
+  right: 100px;
+  top: 200px;
+}
+.medium-fixed-cloud {
+  font-size: 80px;
+  left: 300px;
+  top: 300px;
+}
+.large-fixed-cloud{
+  font-size: 120px;
+  left: 100px;
+  top: 100px;
+}
+
+/* 🐡 ☁️ MOVING-CLOUDS ☁️ 🐡 */
+.small-moving-cloud {
+  font-size: 50px;
+  top: 40%;
+  left: 40%;
+  animation: var(--small-cloud-animation);
+  animation-delay: -10s;
+}
+.medium-moving-cloud, .medium-moving-cloud2 {
+  font-size: 70px;
+  top: 7%;
+  animation: slide 20s linear infinite;
+  animation-delay: -15s;
+}
+.medium-moving-cloud2 {
+  top: 50%;
+  animation: slide 15s linear infinite;
+  animation-delay: -5s;
+}
+.large-moving-cloud {
+  /* ⚠️ Make sure font-size matches "left" for @keyframe slide */
+  font-size: 130px;
+  top: 60%;
+  animation: slide 30s linear infinite;
+}
+
+/* @keyframes small-slide {
+  0%   { left: 50%; }
+  50% { left: 100%; }
+  100% { left: -40px; }
+} */
+@keyframes slide {
+  /* ⚠️ Make sure "left" matches font-size for .large-moving-cloud */
+  0%   { left: -130px; }
+  100% { left: 100%; }
+}

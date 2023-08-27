@@ -1,0 +1,9 @@
+.balloon-container {
+  cursor: crosshair;
+  bottom: -150px;
+  font-size: 100px;
+  transition: bottom 6s;
+}
+.balloon {
+  width: 100px;
+}

@@ -1,0 +1,8 @@
+:root {
+  --small-cloud-animation: slide 15s linear infinite;
+  --medium-cloud-animation: slide 15s linear infinite;
+  --large-cloud-animation: slide 15s linear infinite;
+}
+.absolute {
+  position: absolute;
+}

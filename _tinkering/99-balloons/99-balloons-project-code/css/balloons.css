@@ -1,0 +1,12 @@
+.balloon {
+  cursor: pointer;
+  bottom: -100px;
+  width: 100px;
+  transition: bottom 5s, opacity 0.2s;
+  transition-timing-function: linear;
+}
+.blast {
+  font-size: 100px;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}

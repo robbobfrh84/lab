@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<title>
+                Balloon Pop
+</title>
+
+<link rel="icon" href="assets/favicon.ico" width="100%">
+
+<head>
+
+  <!-- ⚙️ BROWSER INFO / SETTINGS ⚙️ -->
+  <meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- ⚙️ BROWSER INFO / SETTINGS ⚙️ -->
+
+
+  <!-- 🦋 CSS 🦋-->
+  <link href="https://fonts.googleapis.com/css?family=Mali&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/index.css">
+  <link rel="stylesheet" href="css/screens.css">
+  <link rel="stylesheet" href="css/background.css">
+  <link rel="stylesheet" href="css/balloons.css">
+  <!-- 🦋 CSS 🦋-->
+
+</head>
+
+<body>
+
+  <div class="background">
+
+    <div class=" sun absolute ">☀️</div>
+
+    <div class=" small-fixed-cloud      absolute ">☁️</div>
+    <div class=" medium-fixed-cloud     absolute ">☁️</div>
+    <div class=" large-fixed-cloud      absolute ">☁️</div>
+
+    <div class=" small-moving-cloud     absolute ">☁️</div>
+    <div class=" medium-moving-cloud    absolute ">☁️</div>
+    <div class=" medium-moving-cloud2   absolute ">☁️</div>
+    <div class=" large-moving-cloud     absolute ">☁️</div>
+
+    <div id="score">0</div>
+    <div id="released">/0</div>
+
+  </div>
+
+  <div id="start-screen">
+    <!-- change to id='start-screen', class='screen' -->
+
+    <div id="main-title" class="title">
+      🎈??🎈 Balloons
+    </div>
+
+    <button onclick="start()" class="start-button">
+      Let's GO
+    </button>
+
+  </div>
+
+  <div id="game-over-screen"></div>
+
+  <audio id='pop1'><source src="assets/pop1.wav" type="audio/wav"></audio>
+  <audio id='pop2'><source src="assets/pop2.wav" type="audio/wav"></audio>
+  <audio id='song'><source src="assets/song.wav" type="audio/wav"></audio>
+
+
+</body>
+
+<!-- 🧶 JavaScript 🧶 -->
+<script src="js/index.js"></script>
+<script src="js/toolkit.js"></script>
+<script src="js/start.js"></script>
+<!-- 🧶 JavaScript 🧶 -->
+
+<script>
+
+</script>
+</html>
+
+<!-- TO DO
+
+NEXT 3
+- fix double score! if you click where a poped balloon is you still get it.
+- BUILD GAME OVER SCREEN AND play again btn.
+  - should we just reuse the start screen
+- Set high score localstorage (add to end screen OR bottom left/right?)
+- disable screen scrools.
+- set min width/height. (ok for cheaters to set to that min width hight.)
+
+Code Review
+- css naming
+- js naming
+
+
+-->

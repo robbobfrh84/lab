@@ -1,0 +1,52 @@
+#start-screen, #game-over-screen {
+  /* change to shared class =  title */
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -40%);
+  opacity: 1;
+  text-align: center;
+  transition: opacity .5s;
+}
+.title, #game-over-screen {
+  /* change to shared class =  title */
+  font-size: 80px;
+  width: 500px;
+  color: midnightblue;
+  line-height: 100%;
+  font-family: 'Mali', cursive;
+}
+.start-button {
+  width: 75%;
+  margin-top: 30px;
+  background-color: rgba(0,0,0,0.6);
+  border: none;
+  border-radius: 50px;
+  border: 5px solid rgba(255,255,255,0.5);
+  font-size: 40px;
+  color: #E0D0D0;
+  box-shadow: 0px 0px 15px gold;
+  font-family: 'Mali', cursive;
+  cursor: pointer;
+  opacity: 1;
+  transition: background-color .5s, box-shadow 1s, margin-top .3s, font-size .3s;
+}
+.start-button:hover {
+  background-color: rgba(0,0,0,0.5);
+  font-size: 42px;
+  margin-top: 28px;
+  box-shadow: 0px 0px 125px gold;
+  transition: background-color .5s, box-shadow .5s, margin-top .3s, font-size .3s;
+}
+.start-button:focus {
+  outline: none;
+}
+#game-over-screen {
+  font-size: 50px;
+  width: 100%;
+  display: none;
+}
+.popped_ballons {
+  margin: 30px;
+  font-size: 100px;
+}
