@@ -1,0 +1,117 @@
+#page-list #fighters-list-table {
+  width: 100%;
+  max-width: 1000px;
+  border-collapse: collapse;
+  margin: auto;
+}
+#page-list .col-name-th {
+  text-align: left;
+  font-size: 20px;
+  padding: 0px;
+  height: 45px;
+}
+#page-list .col-gender, .col-age, .col-rating,
+.col-wins, .col-losses, .col-winP {
+  text-align: center;
+}
+#page-list .cnt {
+  background-color: rgba(0,0,0,0);
+  width: 20px;
+}
+#page-list .fighter-i {
+  background-color: rgba(200,0,0,0.05);
+}
+#page-list .fighter-i > td {
+  padding-left: 5px;
+  border: 2px solid rgba(255,255,255,0.3);
+}
+#page-list .fighter-i > .cnt-i {
+  background-color: rgba(0,0,200,0.2);
+  padding-left: 0px;
+  text-align: center;
+}
+#page-list .fighter-i:hover {
+  background-color: rgba(0,0,0,0.2);
+}
+#page-list .fighter-row-skills {
+  padding: 2px;
+}
+#page-list .zero-100 {
+  width: 45px;
+}
+.#page-list div1 {
+  display: inline-block;
+  width: 80px;
+}
+#page-list #topCol {
+  background-color: rgba(50,0,0,0.2);
+  height: 30px;
+  text-align: center;
+  padding: 2px;
+  border: 2px solid rgba(255,255,255,0.3);
+}
+#page-list .col {
+  background-color: rgba(0,0,0,0.1);
+  cursor: pointer;
+  border: 2px solid rgba(255,255,255,0.5);
+}
+#page-list .col:hover {
+  background-color: rgba(0,0,0,0.2);
+}
+#page-list .fighters-list-table-column-name {
+  padding: 5px;
+}
+#page-list .activeColumn {
+  background-color: rgba(0,0,0,0.3);
+}
+#page-list .activeColumn:hover {
+  background-color: rgba(0,0,0,0.2);
+}
+#page-list .arrow-up-activeColumn-true {
+  width: 0;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-bottom: 5px solid rgba(0,0,200,0.5);
+  pointer-events: none;
+  margin: auto;
+}
+#page-list .arrow-down-activeColumn-false {
+  width: 0;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-top: 5px solid rgba(0,0,200,0.5);
+  pointer-events: none;
+  margin: auto;
+}
+/* COLUMN COLORS */
+#page-list .col-skills-speed {
+  background-color: rgba(110,21,21,0.4);
+}
+#page-list .col-skills-strangth {
+  background-color: rgba(0,45,82,0.4);
+}
+#page-list .col-skills-experience {
+  background-color: rgba(40,0,69,0.4);
+}
+#page-list .col-skills-intelligence {
+  background-color:rgba(0,42,0,0.4);
+}
+#page-list .col-skills-willPower {
+  background-color: rgba(88,65,5,0.4);
+}
+/* CELLS COLORS */
+#page-list .col-skills-cell-speed {
+  background-color: rgba(110,21,21,0.2);
+}
+#page-list .col-skills-cell-strangth {
+  background-color: rgba(0,45,82,0.2);
+}
+#page-list .col-skills-cell-experience {
+  background-color: rgba(40,0,69,0.2);
+}
+#page-list .col-skills-cell-intelligence {
+  background-color:rgba(0,42,0,0.2);
+}
+#page-list .col-skills-cell-willPower {
+  background-color: rgba(88,65,5,0.2);
+}
