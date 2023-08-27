@@ -1,0 +1,43 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title> T.O.C. </title>
+  <link rel="shortcut icon" href="gfx/tournament.png"/>
+  <script src='gas_crud_v0.0.js'></script>
+  <!-- STYLE SHEETS -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/page_list.css">
+  <link rel="stylesheet" href="css/page_spar.css">
+  <link rel="stylesheet" href="css/page_tourney.css">
+</head>
+
+<body>
+  <button class='home_menu' onclick='_page("home")'>
+    T.O.C.
+  </button>
+  <div class='float-right'>
+    <button class='home_menu' onclick='_page("list")'>List</button>
+    <button class='home_menu' onclick='_page("spar")'>Spar</button>
+    <button class='home_menu' onclick='_page("tourney")'>Tourney</button>
+  </div>
+  <hr>
+  <div id='page-home' style='display: block'></div>
+  <div id='page-list' style='display: none'></div>
+  <div id='page-spar' style='display: none'></div>
+  <div id='page-tourney' style='display: none'></div>
+</body>
+
+</html>
+<!-- JAVASCRIPT -->
+<script src='js/curate.js'></script>
+<script src='js/Sheet.js'></script>
+<script src='js/pages.js'></script>
+<script src='js/funcs.js'></script>
+<script src='js/Fighter.js'></script>
+<script src='main.js'></script>
+<!-- PAGES -->
+<script src='pages/page_home.js'></script>
+<script src='pages/page_list.js'></script>
+<script src='pages/page_spar.js'></script>
+<script src='pages/page_tourney.js'></script>
+<!-- DEVELOPMENT / TESTING -->

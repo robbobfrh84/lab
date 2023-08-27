@@ -1,0 +1,43 @@
+body {
+  background: url('../gfx/bg.png');
+}
+hr {
+  border-color: rgba(0,0,0,0.2);
+}
+button {
+  font-size: 20px;
+  cursor: pointer;
+}
+.float-right {
+  float: right;
+}
+.align-right {
+  text-align: right;
+}
+
+.d6s, .d6m {
+  font-size: 30px;
+  line-height: 19px;
+  display: inline-block;
+}
+.d6m {
+  position: relative;
+  bottom: -5px;
+  font-size: 40px;
+  line-height: 19px;
+}
+.die-speed {
+  color: rgba(110,21,21,1);
+}
+.die-strangth {
+  color: rgba(0,45,82,0.8);
+}
+.die-experience {
+  color: rgba(40,0,69,0.8);
+}
+.die-intelligence {
+  color:rgba(0,42,0,1);
+}
+.die-willPower {
+  bcolor: rgba(88,65,5,1);
+}

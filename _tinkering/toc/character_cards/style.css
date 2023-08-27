@@ -1,0 +1,65 @@
+body {
+  background: url("images/light-sand-bg.png");
+  font-family: Avenir;
+}
+h1 {
+  font-weight: lighter;
+  letter-spacing: 2px;
+  margin: 0px;
+  margin-bottom: 10px;
+  padding: 0px;
+  text-align: center;
+}
+hr {
+  margin: 2px;
+}
+
+.card {
+  background-color: rgba(97,48,13,0.65);
+  width: 420px;
+  border-radius: 5px;
+  box-shadow: 4px 4px 4px rgba(0,0,0,0.7);
+  border: 4px solid rgba(0,0,0,0.6);
+  display: inline-block;
+  margin-bottom: 10px;
+}
+.images-container {
+  width: 174px;
+  height: 174px;
+  margin-top: 12px;
+  margin-left: 12px;
+  background-color: #fff;
+  border: solid 3px #222;
+  display: inline-block;
+}
+.card-image {
+  width: 174px;
+  padding-top: 30px;
+}
+.stats-container {
+  background-color: rgba(255,255,255,0.75);
+  padding: 3px;
+  display: inline-block;
+  vertical-align: top;
+  margin: 10px;
+  height: 177px;
+  width: 197px;
+  border-radius: 2px;
+  font-size: 1px;
+}
+.stat-name {
+  font-size: 16px;
+}
+.stat-attribute {
+  font-size: 10px;
+}
+.stat-note {
+  font-size: 14px;
+}
+.inline-block {
+  display: inline-block;
+}
+.float-right {
+  float: right;
+  padding-right: 10px;
+}
