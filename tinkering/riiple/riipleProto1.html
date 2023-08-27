@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="riipleProto1.css"/>
+  </body>
+    <img class="image" src="riipleTextDark.png" alt="riiple title"/>
+    <svg height="440" width="500" id="mainSVG">
+<!-- SVG OBJECT EFFECTS -->
+      <defs>
+        <radialGradient id="innerShadow" cx="51%" cy="51%" r="55%" fx="50%" fy="50%">
+          <stop offset="88%" style="stop-color:rgba(215,215,215,1)" />
+          <stop offset="100%" style="stop-color:rgba(50,50,50,1)" />
+        </radialGradient>
+      </defs>
+      <filter id="blur1"x="-50%" y="-50%"width=200% height=200%>
+        <feGaussianBlur stdDeviation="3" /></filter>
+      <defs>
+        <radialGradient id="grad1" cx="65%" cy="65%" r="80%" fx="50%" fy="50%">
+          <stop offset="40%" style="stop-color:gold;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:rgb(0,0,0);stop-opacity:1" /></radialGradient>
+        <radialGradient id="grad2" cx="65%" cy="65%" r="80%" fx="50%" fy="50%">
+          <stop offset="40%" style="stop-color:orange;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:rgb(0,0,0);stop-opacity:1" /></radialGradient>
+        <radialGradient id="grad3" cx="65%" cy="65%" r="80%" fx="50%" fy="50%">
+          <stop offset="40%" style="stop-color:powderblue;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:rgb(0,0,0);stop-opacity:1" /></radialGradient>
+        <radialGradient id="grad4" cx="65%" cy="65%" r="80%" fx="50%" fy="50%">
+          <stop offset="40%" style="stop-color:tomato;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:rgb(0,0,0);stop-opacity:1" /></radialGradient>
+        <radialGradient id="grad5" cx="65%" cy="65%" r="80%" fx="50%" fy="50%">
+          <stop offset="40%" style="stop-color:plum;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:rgb(0,0,0);stop-opacity:1" /></radialGradient>
+        <radialGradient id="grad6" cx="65%" cy="65%" r="80%" fx="50%" fy="50%">
+          <stop offset="40%" style="stop-color:peru;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:rgb(0,0,0);stop-opacity:1" /></radialGradient>
+        <radialGradient id="grad7" cx="65%" cy="65%" r="80%" fx="50%" fy="50%">
+          <stop offset="40%" style="stop-color:grey;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:rgb(0,0,0);stop-opacity:1" /></radialGradient>
+      </defs>
+<!-- STARTUP SVG OBJECTS -->
+      <circle cx="253" cy="223" r="200" fill="rgba(0,0,0,0.3)" filter="url(#blur1)"/>
+      <circle cx="250" cy="220" r="200" fill="darkcyan"/>
+      <circle cx="250" cy="220" r="124" onclick="newGame()" fill="url(#innerShadow)"/>
+    </svg>
+    <button onclick="newGame()" class="buttons">PLAY (click here or Inner Circle)</button>
+    <div id="gameNotes">X</div>
+  </body>
+  <script src="riipleProto1.js"></script>
+</html>

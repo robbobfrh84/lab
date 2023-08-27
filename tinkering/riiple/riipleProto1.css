@@ -1,0 +1,16 @@
+body {
+  font-family: sans-serif;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.image {
+  width: 420px;
+  display: block;
+  margin: auto;
+  opacity: 0.6;
+}
+.buttons {
+  display: block;
+  margin: auto;
+}

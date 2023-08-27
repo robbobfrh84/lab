@@ -1,0 +1,131 @@
+html {
+  background-image: url("sand-texture.jpg");
+  box-shadow: 0 0 25px black inset;
+  background-repeat: no-repeat;
+
+}
+
+body {
+  font-family: fantasy;
+  text-align: center;
+  min-width: 320px; max-width: 650px;
+  margin: auto;
+}
+
+h1 {
+  font-size: 2.5em;
+  text-shadow: 2px 4px 3px rgba(0,0,0,0.3);
+  color: firebrick;
+  margin: auto;
+  margin-top: 2%;
+}
+
+button {
+  color: black; font-size: 1.5em; font-family: fantasy;
+  box-shadow: 0 0 3px black inset, 0 0 10px black;
+  padding: 5px 5px 0px 5px;
+  background-color: linen;
+  border: none;
+  margin: 0 2%;
+  border-radius: 5px;
+}
+
+.topDivClass {
+  width: 400px; height: 50px;
+  margin: auto;
+  display: none;
+
+}
+
+.newGameButton {
+  font-size: 1em;
+  float: left;
+  margin-top: 15px;
+  margin-left: -5px;
+}
+
+.timer {
+  margin-top: 0px;
+  float: right;
+}
+
+
+.buttonPanel {
+  background-color: firebrick;
+  margin: auto;
+  padding: 2% 0;
+  border-bottom: 7px solid #384047;
+  border-radius: 5px;
+  box-shadow: 0 0 2px black;
+}
+
+.blockTable {
+  background-color: rgba(135,38,34, 0.25);
+  border-radius: 5px;
+  margin: auto;
+  min-width: 400px; max-width: 515px;
+  margin-top: 5px;
+}
+
+.blockHolder{
+  width: 400px;
+  margin: auto;
+}
+
+.blocks {
+  color: rgba(0,0,0,0.60); font-size: 2em;
+  box-shadow: 1px 1px rgba(0, 0, 0, .5);
+  text-shadow: rgba(255,255,255,0.5) 0px 3px 3px;
+  background-color: cornflowerblue;
+  width: 40px; height: 40px;
+  display: inline-block;
+  margin: 2px;
+}
+
+.announcement{
+  color: rgba(0,0,0,0.60); font-size: 2em;
+  text-shadow: rgba(255,255,255,0.5) 0px 3px 3px;
+  margin-top: 10px;
+  margin-bottom: -20px;
+}
+
+.timerz{
+  color: gold;
+  text-shadow: rgba(0,0,0,1) 0px 0px 20px;
+}
+
+#sFooter{
+  font-size: 1em;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.pa {
+  display: none;
+}
+
+/* Notes on CSS practice
+
+- fix the blankbuild issues of being able to type a bunch in each blocks
+  - ... by doing contentedit false n just putting a ' ' space in.
+
+- create darken hover effect on buttons
+- swap to mobile first by setting origial max width to 400 then changing on likr 500+...
+- open text file for games.
+- add a fancy italic "start new game... " in left courner
+  - OR: put "select level to start new game in the actual sudoku text!"
+-- record errors!
+-- create notes: entry during play
+-- onclick grey, no effect/curser left/delete keycode deletes.
+-- create a popup animation of buttons.
+-- create a start menu that just says "Play", after that blank drops down
+  - and difficulty levels popout.
+-- write a second javascript file that checks answers.... or same file...
+-- create block hover ocupency fade.
+-- play with cursor effects (hide when you click. fade current entry: stuff like that)
+-- create circle timer
+-- remove red wrong, signal error in board.
+--- add sign in.
+--- Change name to Planet Sudoku
+Fixed - when changed to auto the margins cut off at a smaller width.
+*/

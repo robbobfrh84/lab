@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>SUDOKU</title>
+  <link rel="tab sukoku icon" href="sudoku_icon.png"/>
+  <link rel="backsand" href="sand-texture.jpg"/>
+  <link rel="stylesheet" href="sudoku.css"/>
+</head>
+<body id="mainBody">
+  <h1 id="mainTitle">Sudoku</h1>
+  <div class="topDivClass" id="topDiv">
+    <button class="newGameButton" onclick = "menuSwapBack()">Start a New Game</button>
+  </div>
+  <div class="buttonPanel" id="bp">
+    <button onclick="easyButton()">Easy</button>
+    <button onclick="mediumButton()">Medium</button>
+    <button onclick="hardButton()">Hard</button>
+    <button onclick="xHardButton()">X-Hard</button>
+  </div>
+  <div class="blockTable" id="blkT">
+    <div class="blockHolder" id="blkH"></div>
+  </div>
+
+</body>
+<footer class="announcement" id="sFooter">
+  - created by Bob Main -
+</footer>
+<script src="sudoku.js"></script>
+<script src="allG.js"></script>
+</html>

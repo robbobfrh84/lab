@@ -1,0 +1,144 @@
+
+
+body {
+  font-family: Lato, sans-serif;
+  text-align: center;
+  margin-bottom: 200px;
+}
+
+#game-title {
+  display: block;
+  margin: 50px auto 30px;
+  width: 320px;
+  padding: 15px 15px 0;
+}
+
+#game-title h1 {
+  margin: 0;
+  font-size: 35px;
+  letter-spacing: 1.8px;
+  font-weight: 200;
+  color: lightgray;
+}
+
+#parentheses1 {
+  display: inline-block;
+/*  font-size: 10px;*/
+  color: #f0f0f0;
+/*  vertical-align: 75%;*/
+}
+
+#parentheses2 {
+  display: inline-block;
+/*  font-size: 20px;*/
+  color: #f0f0f0;
+/*  vertical-align: 22.75%;*/
+}
+
+#parentheses3 {
+  display: inline-block;
+/*  font-size: 25px;*/
+  color: #f0f0f0;
+/*  vertical-align: 15%;*/
+}
+
+#parentheses4 {
+  display: inline-block;
+/*  font-size: 30px;*/
+  color: #f0f0f0;
+/*  vertical-align: 7%;*/
+}
+
+#parentheses5 {
+  display: inline-block;
+/*  font-size: 38px;*/
+  color: #f0f0f0;
+/*  vertical-align: 1.5%;*/
+}
+
+#II {
+  display: inline-block;
+  letter-spacing: 5px;
+  text-align: center;
+  padding: 0 10px;
+}
+
+.container {
+  display: block;
+  width: 320px;
+  margin: 0 auto 0;
+  background: lightgray;
+  padding: 15px;
+}
+
+h3 {
+  color: #333;
+  font-weight: 400;
+  font-size: 15px;
+  padding: 15px 0 15px;
+  margin: 0;
+  letter-spacing: .1em;
+}
+
+#first-prompt {
+  padding: 20px 0 15px;
+  border-top: 2px solid #333;
+  word-spacing: 5px;
+}
+
+#middle-prompt {
+  word-spacing: 3px;
+}
+
+#last-prompt {
+  padding: 15px 0 20px;
+  border-bottom: 2px solid #333;
+  word-spacing: 3px;
+}
+
+p {
+  text-align: center;
+  color: #316b6b;
+}
+
+p.numbers {
+  font-size: 20px;
+  letter-spacing: .75em;
+}
+
+button {
+  display: block;
+  background: #fff200;
+  border: none;
+  border-radius: 5px;
+  color: #888;
+  font-size: .8em;
+  width: 115px;
+  margin: 25px auto 35px;
+}
+button:hover {
+  color: #333;
+  box-shadow: 0 0 15px #ffffff;
+}
+button:focus {
+  outline : 0;
+}
+
+#solution-commentary {
+  letter-spacing: 2px;
+  font-size: 15px;
+  margin-bottom: 13px;
+  color: #333;
+  font-weight: 300;
+}
+#solcount {
+  color: #333;
+}
+
+#solution-equations {
+  font-size: 18px;
+  letter-spacing: .15em;
+  line-height: 2.1em;
+  margin: 10px 0 100px;
+  color: #316b6b;
+}
