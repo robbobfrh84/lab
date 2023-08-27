@@ -1,0 +1,48 @@
+body {
+  background: url("../gfx/bg.png");
+  margin: 0;
+  padding: 0;
+}
+#mainCanvas {
+  background-color: rgba(0,0,0,0.1);
+}
+button {
+  pointer-events: auto;
+  cursor: pointer;
+}
+#pause {
+  position: absolute;
+  bottom: 5px;
+  right: 15px;
+  cursor: pointer;
+  opacity: 0.6;
+  font-size: 20px;
+}
+#navBar {
+  position: absolute;
+  top: 0px;
+  width: 100%;
+  font-family: Courier;
+  color: rgba(0,0,0,0.8);
+  font-size: 25px;
+  text-align: center;
+}
+#rightNavBar {
+  position: absolute;
+  right: 0px;
+  top: 5px;
+  right: 5px;
+  font-size: 15px;
+}
+#infoBar {
+  position: absolute;
+  top: 25%;
+  bottom: 0px;
+  overflow: scroll;
+}
+#obj {
+  padding-top: 20px;
+}
+#offbtn {
+  position: fixed;
+}
