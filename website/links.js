@@ -53,7 +53,6 @@ var pages = [ // * MUST be var, need to access it via window[...]
     tweet: "https://twitter.com/BobMain49/status/775727232035663872"},
   { folder: 'sierpinski_triangle', route: 'website/pages/', mobile: true, },
   { folder: 'sudoku', route: 'website/pages/', mobile: true, },
-
   // { folder: '', route: 'website/pages/' },
 ]
 
