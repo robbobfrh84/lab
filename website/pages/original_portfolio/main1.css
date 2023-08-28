@@ -1,0 +1,442 @@
+body, html{
+  background-color: rgb(195,195,195);
+  margin: 0;
+  padding: 0;
+  font-size: 0;
+  margin: auto;
+}
+body {
+  background-color: rgb(220,220,220);
+  margin: auto;
+  height: 100%;
+  max-width: 1156px;
+  min-width: 768px;
+  text-align: center;
+  font-family: verdana;
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/*------------------mainSVG---------------------------------------------------*/
+#mainSVG {
+  background-color: rgba(220,220,220,1);
+  /*background-color: rgba(100,100,100,1); Dark background phun!!!!*/
+  box-shadow: 0 0 3vw rgb(100,149,237,0) inset;
+}
+
+#bobMain, #bobMainS{
+  font-size: 40px;
+  opacity: 0;
+}
+
+#allskills {
+  opacity: 0;
+}
+
+.projBody{
+  /*Differnet opacities... careful!!!*/
+  opacity: 0;
+}
+
+/*----------------------------------------------------------------------------*/
+/*----------          HTML elements & Bootstrap Carousel        --------------*/
+/*----------------------------------------------------------------------------*/
+
+#myCarousel {
+  opacity: 0;
+  height: 37.5vw;
+  max-height: 434px;
+  min-height: 288px
+}
+
+/*#caroBrace{
+  margin-top: -87.6%;
+  float: left;
+  display: inline-block;
+  font-size: 20px;
+  height: 37.5%;
+  min-height: 37.5;
+  min-width: 5px;
+  background-color: red;
+}*/
+
+.container-fixed {
+  margin-top: -87.6%;
+  /*min-height: 37.5vw;*/
+}
+
+.carousel-inner > .item > .pic, img, video
+.carousel-inner > .item > a > .pic, img, video {
+    width: 45%;
+    height: 37.5%;
+    margin: auto;
+    margin-top: 3.15%;
+    margin-bottom: 4.5%;
+    border-radius: 0.4%;
+    display: block;
+}
+
+.pic, video {
+  box-shadow: 0 0 2px 2px rgba(0,0,0,0.2);
+  height: 37.5%;
+}
+
+.squarePic {
+  height: 30%;
+  width: 30%;
+  /*max-height: 347px;
+  min-height: 230px;
+  max-width: 347px;
+  min-width: 230px;*/
+  box-shadow: 0 0 2px 2px rgba(0,0,0,0.2);
+}
+
+.customPng {
+  width: 48.5%;
+  margin-top: 2%;
+  margin-bottom: 3.35%;
+  background-color: rgba(255,255,255,0.3);
+  box-shadow: 0 0 2px 2px rgba(0,0,0,0.2);
+}
+
+.fullpic {
+  opacity: 0.8;
+  width: 100%;
+  height: 37.6%;
+  /*max-width: 1156px;
+  max-height: 435px;
+  min-width: 1156px;
+  min-height: 289px;*/
+  margin-top: 0%;
+  margin-bottom: 0%;
+}
+
+.customPngFull {
+  width: 60%;
+  height: 35%;
+  /*max-width: 694px;
+  max-height: 405px;
+  min-width: 461px;
+  min-height: 269px;*/
+  margin-top: 1.5%;
+  margin-bottom: 0.1%;
+}
+
+.customPngFull2 {
+  width: 75%;
+  /*height: 37%;*/
+  /*max-width: 694px;
+  max-height: 370px;
+  min-width: 461px;
+  min-height: 245px;
+  opacity: 0.75;*/
+  margin-top: 2.6%;
+  margin-bottom: 2.8%;
+}
+
+.svg{
+  width: 30%;
+}
+
+video {
+  opacity: 0.7;
+  object-fit: cover;
+}
+
+.wideVid, .wideVidDark {
+  opacity: 0.7;
+  color: black;
+  width: 53.3%;
+  max-height: 347px;
+  min-height: 230px;
+  max-width: 616px;
+  min-width: 399px;
+  object-fit: cover;
+}
+
+.wideVidDark {
+  opacity: 0.9;
+}
+
+.fullVid{
+  opacity: 0.5;
+  width: 100%;
+  /*height: 37.6%;*/
+  /*max-width: 1156px;
+  max-height: 435px;
+  min-width: 1156px;
+  min-height: 289px;*/
+  margin-top: 0.25%;
+  /*padding-bottom: 15%;*/
+  margin-bottom: -18.8%;
+  object-fit: cover;
+}
+
+.fullVidDark{ opacity: 0.8;
+  width: 100%;
+  margin-top: 0.25%;
+  margin-bottom: -18.8%;
+}
+
+.noBoxShaddow {
+  box-shadow: 0 0 20px 20px rgba(0,200,0,0.9);
+}
+.opacity75 {
+  opacity: 0.75;
+}
+
+ /* -----------------       info text styles    ------------------------------*/
+
+.wideVidGraph {
+  margin-bottom: -20%;
+}
+
+#infoText {
+  color: rgba(255,255,255,0.9);
+  /*background-color: rgba(0,0,0,0.3);*/
+  max-height: 350px;
+  min-height: 215px;
+  max-width: 532px;
+  min-width: 353px;
+  height: 29vw;
+  width: 46vw;
+  margin-top: 0%;
+  text-align: left;
+}
+
+.carousel-indicators li {
+    display: inline-block;
+    width: 1.2vw;
+    height: 1.2vw;
+    min-width: 9px;
+    min-height: 9px;
+    margin: 3%;
+    margin-bottom: -2.5%;
+    text-indent: 0;
+    cursor: pointer;
+    border: none;
+    background-color: rgba(0,0,255,0.3);
+    box-shadow: inset 1px 1px 1px 1px rgba(0,0,0,0.3);
+}
+.carousel-indicators .active {
+    width: 1.5vw;
+    height: 1.5vw;
+    margin: 3%;
+    margin-bottom: -2.5%;
+    background-color: rgba(25,25,200,0.8);
+    box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.3);
+}
+
+.mediaGraph {
+  max-width: 485px; max-height: 75px;
+  min-width: 322px; min-height: 42px;
+  font-size: 14px;
+  width: 70%;
+  height: 10%;
+  margin: auto;
+  margin-bottom: -7%;
+  padding: 0.5%;
+  border-radius: 1%;
+  box-shadow: 0 0 2px 2px rgba(0,0,0,0.2);
+  background: rgba(0,0,0,0.5);
+  overflow: auto;
+}
+.mediaGraph::-webkit-scrollbar { -webkit-appearance: none; width: 7px; }
+.mediaGraph::-webkit-scrollbar-thumb { border-radius: 4px;
+  background-color: rgba(0,0,0,.5); -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5); }
+
+.carousel-control.left, .carousel-control.right {
+  background-image: none;
+  margin-top: 3%;
+  padding-bottom: 0.5%;
+  /*height: 80%;*/
+  width: 25%;
+}
+
+#prevA, #nextA{
+  position: relative;
+  width: 90%;
+  height: 90%;
+  margin-left: 2.9%;
+  opacity: 0.4;
+
+}
+#nextA {
+  margin-left: -3.5%;
+}
+
+#projBar {
+  position: relative;
+  width: 95%;
+  height: 4.5%;
+  margin: auto;
+  margin-right: 3.5%;
+  margin-top: 0.5%;
+  opacity: 0;
+}
+
+.projs {
+  font-size: 17px;
+  color: rgba(0,0,0,0.65);
+  /*background-color: rgba(255,255,255,0.1);*/
+  background: linear-gradient(0deg, rgba(0,0,0,0.5), rgba(0,0,0,0.3) 10%
+    ,rgba(150,150,150,0.5) 10%, rgba(255,255,255,0.3) 80%);
+  /*background-color: #F07575; fallback color if gradients are not supported
+  background-image: -webkit-linear-gradient(top, hsl(0, 80%, 70%), #bada55); For Chrome 25 and Safari 6, iOS 6.1, Android 4.3
+  background-image:    -moz-linear-gradient(top, hsl(0, 80%, 70%), #bada55);  For Firefox (3.6 to 15)
+  background-image:      -o-linear-gradient(top, hsl(0, 80%, 70%), #bada55); For old Opera (11.1 to 12.0)
+  background-image:         linear-gradient(to bottom, hsl(0, 80%, 70%), #bada55); Standard syntax; must be last */
+  width: 16%;
+  height: 2.8vw;
+  max-height: 52px;
+  min-height: 30px;
+  display: inline-block;
+  margin-left: 1%;
+  margin-right: 1%;
+  vertical-align: text-top;
+  vertical-align: text-bottom;
+  border-radius: 0.1vw;
+  transition: background-color .5s ease-in-out;
+}
+
+.projBlank{
+  min-height: 35px;
+  pointer-events: none;
+  height: 4.5vw; width: 0;
+}
+
+#proj0:hover, #proj1:hover, #proj2:hover, #proj3:hover, #proj4:hover{
+  background-color: white;
+  transition: background-color .5s ease-in-out;
+}
+
+/*----------------------------------------------------------------------------*/
+/*----------          TOP LAYER SVGs          --------------------------------*/
+/*----------------------------------------------------------------------------*/
+#allSkills {
+  width: 0;height: 0; opacity: 0;
+}
+
+#bobIcon {
+  float: left;
+  width: 35%;
+  margin-top: -77.1%;
+  margin-right: 65%;
+  opacity: 0.8;
+  visibility: hidden;
+
+}
+#aboutMeText{ position: relative;
+  max-width: 694px; max-height: 370px; min-width: 461px; min-height: 246px;
+  color: rgba(50,50,50,0.7);
+  width: 60%;
+  height: 32vw;
+  margin-top: -40.2%;
+  margin-left: 38%;
+  text-align: left;
+  visibility: hidden;
+  overflow: auto;
+}
+
+.morse {
+  position: relative;
+  float: right;
+  width: 35%;
+  margin-top: -58.3%;
+  opacity: 0;
+}
+
+#contactMeText{ position: relative; visibility: hidden; overflow: auto;
+  max-width: 520px; max-height: 370px; min-width: 345px; min-height: 246px;
+  width: 45%; height: 32vw; margin-top: -32%; margin-left: 2.8%; text-align: left;
+}
+
+#contactData { position: relative; visibility: hidden;
+  max-width: 555px; max-height: 370px; min-width: 369px; min-height: 246px;
+  font-size: 22px; color: rgba(50,50,50,0.7);
+  width: 48%; margin-top: -29.5%; margin-left: 51%; text-align: left;
+}
+
+/*#hiddenInfoHolder{ display: none; }*/
+
+#projInfo{
+  opacity: 0;
+}
+
+#linkIcon {
+  float: right;
+  width: 4%;
+  margin-right: 11.5%;
+  margin-top: -34%;
+  opacity: 0.7;
+  transition: margin-right .15s ease-in-out, margin-top .15s ease-in-out
+    ,opacity .15s ease-in-out, width .15s ease-in-out;
+}
+
+#linkIcon:hover{
+  width: 5%;
+  margin-right: 11%;
+  margin-top: -34.5%;
+  opacity: 0.99;
+  transition: margin-right .15s ease-in-out, margin-top .15s ease-in-out
+    ,opacity .15s ease-in-out, width .15s ease-in-out;
+}
+
+#toolsIcon { position: relative; float: left; opacity: 0;
+  width: 25%; margin-top: 7.5%; margin-left: 37.5%;
+}
+
+
+/*----------------------------------------------------------------------------*/
+/*----------         COMMONLY USED CLASSES          --------------------------*/
+/*----------------------------------------------------------------------------*/
+.noMouse { pointer-events: none; }
+.canSelectText{ -moz-user-select: -moz-text; -khtml-user-select: text; -webkit-user-select: text;
+  -ms-user-select: text; user-select: text; }
+
+.scrollVisable::-webkit-scrollbar { -webkit-appearance: none; width: 7px; }
+.scrollVisable::-webkit-scrollbar-thumb { border-radius: 4px;
+  background-color: rgba(0,0,0,.5); -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5); }
+
+.title{ font-size: 25px; color: rgba(50,50,50,0.7);}
+.title1{ font-size: 20px; color: rgba(50,50,50,0.8);
+  text-shadow:0 0 8px grey; text-align: center;}
+.txt0{ font-size: 18px; color: rgba(50,50,50,0.8);}
+.txt1 { fill: rgba(0,0,0,0.7); font-size: 17px;letter-spacing: 0.05vw;
+  text-shadow:0 0 8px white, 0 0 8px white; }
+.txt2{ font-size: 16px; color: rgba(50,50,50,0.8);}
+
+
+.info {
+  max-height: 405px; min-height: 269px;
+  color: rgba(50,50,50,0.7);
+  border-radius: 0.5vw;
+  background: linear-gradient(90deg, rgba(0,0,0,0.1) 0%
+    ,rgba(255,255,255,0.1) 10%, rgba(255,255,255,0.1) 90%, rgba(0,0,0,0.1) 100%);
+  height: 35vw;
+  text-align: left;
+  position: relative;
+  float: left;
+  width: 90%;
+  margin-top: -34.55%;
+  margin-left: 5%;
+  padding: 11%;
+  padding-top: 1%;
+  overflow: auto;
+}
+
+.writeUps{
+  position: absolute;
+  visibility: hidden;
+}
+
+/*----------------------------NOTES---------------------------------------------
+- to make the lines sharp pixels not anti-alus...
+line {
+  stroke: rgb(100,149,237);
+  /*shape-rendering: crispEdges;
+}
+*/
