@@ -15,7 +15,6 @@ window.onload = ()=>{
   buildStatic(control)
   buildPolygons(control)
   render(control)
-  alert("USE arrowkeys to move and and < > to rotate")
 }
 
 function startMatterJS(control) {

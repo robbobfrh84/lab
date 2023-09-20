@@ -1,15 +1,15 @@
 let polyA
 
 const move = {
-  // ArrowUp:({ym})    => polyA.force.y = ym > control.maxMove ? 0: -0.005,
-  // ArrowDown:({ym})  => polyA.force.y = ym > control.maxMove ? 0: 0.005,
-  // ArrowLeft:({xm})  => polyA.force.x = xm > control.maxMove ? 0: -0.005,
-  // ArrowRight:({xm}) => polyA.force.x = xm > control.maxMove ? 0: 0.005,
+  ArrowUp:({ym})    => polyA.force.y = ym > control.maxMove ? 0: -0.005,
+  ArrowDown:({ym})  => polyA.force.y = ym > control.maxMove ? 0: 0.005,
+  ArrowLeft:({xm})  => polyA.force.x = xm > control.maxMove ? 0: -0.005,
+  ArrowRight:({xm}) => polyA.force.x = xm > control.maxMove ? 0: 0.005,
 
-  ArrowUp:({ym})    => polyA.force.y = -0.01,
-  ArrowDown:({ym})  => polyA.force.y = 0.01,
-  ArrowLeft:({xm})  => polyA.force.x = -0.01,
-  ArrowRight:({xm}) => polyA.force.x = 0.01,
+  // ArrowUp:({ym})    => polyA.force.y = -0.01,
+  // ArrowDown:({ym})  => polyA.force.y = 0.01,
+  // ArrowLeft:({xm})  => polyA.force.x = -0.01,
+  // ArrowRight:({xm}) => polyA.force.x = 0.01,
 }
 
 document.body.onkeydown = (( e )=>{
