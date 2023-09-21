@@ -1,33 +1,25 @@
-let polyA
-
 const move = {
-  ArrowUp:({ym})    => polyA.force.y = ym > control.maxMove ? 0: -0.005,
-  ArrowDown:({ym})  => polyA.force.y = ym > control.maxMove ? 0: 0.005,
-  ArrowLeft:({xm})  => polyA.force.x = xm > control.maxMove ? 0: -0.005,
-  ArrowRight:({xm}) => polyA.force.x = xm > control.maxMove ? 0: 0.005,
-
-  // ArrowUp:({ym})    => polyA.force.y = -0.01,
-  // ArrowDown:({ym})  => polyA.force.y = 0.01,
-  // ArrowLeft:({xm})  => polyA.force.x = -0.01,
-  // ArrowRight:({xm}) => polyA.force.x = 0.01,
+  ArrowUp:({ym})    => _config.polyA.force.y = ym > _config.polyA.maxMove ? 0: -0.005,
+  ArrowDown:({ym})  => _config.polyA.force.y = ym > _config.polyA.maxMove ? 0: 0.005,
+  ArrowLeft:({xm})  => _config.polyA.force.x = xm > _config.polyA.maxMove ? 0: -0.005,
+  ArrowRight:({xm}) => _config.polyA.force.x = xm > _config.polyA.maxMove ? 0: 0.005,
 }
 
 document.body.onkeydown = (( e )=>{
-  console.log("e.code :", e.code)
   if (e.code == "Comma") {
-    Matter.Body.rotate(polyA, -Math.PI/4)
+    Matter.Body.rotate(_config.polyA, -Math.PI/(90/_config.rotateDegs))
   } else if (e.code == "Period") {
-    Matter.Body.rotate(polyA, Math.PI/4)
+    Matter.Body.rotate(_config.polyA, Math.PI/(90/_config.rotateDegs))
   }
 
-  if (control.dKeyPressed[e.code]) {
-    control.dKeyPressed[e.code] = "down"
-    // console.log("control.dKeyPressed :", control.dKeyPressed)
-    for (const key in control.dKeyPressed) {
-      if (control.dKeyPressed[key] == "down") {
+  if (_config.dKeyPressed[e.code]) {
+    _config.dKeyPressed[e.code] = "down"
+    for (const key in _config.dKeyPressed) {
+      if (_config.dKeyPressed[key] == "down") {
+        console.log('_config.polyA:',_config.polyA)
         move[key]({
-          xm: Math.abs(polyA.position.x-polyA.positionPrev.x),
-          ym: Math.abs(polyA.position.y-polyA.positionPrev.y)
+          xm: Math.abs(_config.polyA.position.x-_config.polyA.positionPrev.x),
+          ym: Math.abs(_config.polyA.position.y-_config.polyA.positionPrev.y)
         })
       }
     }
@@ -35,7 +27,7 @@ document.body.onkeydown = (( e )=>{
 })
 
 document.body.onkeyup = ((e)=>{
-  if (control.dKeyPressed[e.code]) {
-    control.dKeyPressed[e.code] = "up"
+  if (_config.dKeyPressed[e.code]) {
+    _config.dKeyPressed[e.code] = "up"
   }
 })

@@ -1,4 +1,6 @@
-const control = { // 🚨 Move to window.onload in production
+const _config = { // 🚨 Move to window.onload in production to protect global vars
+  w: window.innerWidth * 0.9, // * 512, 768 * No height needed, because this has to be a square.
+  rotateDegs: 5, 
   gravity: { x: 0, y: 0, scale: 0.001 }, // Default { x: 0, y: 1, scale: 0.001 }
   speed: 1,
   maxMove: 10, // in pixels
@@ -7,49 +9,49 @@ const control = { // 🚨 Move to window.onload in production
     ArrowDown: "up",
     ArrowLeft: "up",
     ArrowRight: "up"
-  }
+  },
+  polyA: null
 }
+
 
 window.onload = ()=>{
-  startMatterJS(control)
-  buildStatic(control)
-  buildPolygons(control)
-  render(control)
+  startMatterJS(_config)
+  buildStatic(_config)
+  buildPolygons(_config)
+  render(_config)
 }
 
-function startMatterJS(control) {
-  control.engine = Matter.Engine.create()
-  control.engine.timing.timeScale = control.speed;
-  control.engine.gravity = control.gravity
-  control.render = Matter.Render.create({
+function startMatterJS() {
+  _config.engine = Matter.Engine.create()
+  _config.engine.timing.timeScale = _config.speed;
+  _config.engine.gravity = _config.gravity
+  _config.render = Matter.Render.create({
       element: window.matterJsContainer,
-      engine: control.engine,
+      engine: _config.engine,
       options: {
-        width: 1000,
-        height: 562,
+        width: _config.w,
+        height: _config.w,
         showAngleIndicator: true,
         // wireframes: false,
-        // background: 'blue'// 'transparent'
       }
   })
 
 }
 
 function buildStatic({ engine, render, shapes }) {
-  const ledge = Matter.Bodies.trapezoid(500,300,500,100,.9,{isStatic: true});
+  const ledge = Matter.Bodies.trapezoid(p(50),p(50),p(50),p(15),0.9,{isStatic: true});
   Matter.Composite.add(engine.world, [
-    ledge,
-    // Walls 👇
-    Matter.Bodies.rectangle( 500,0,1000,30,{isStatic:true}), // TOP
-    Matter.Bodies.rectangle( 1000,281,30,562,{isStatic:true}), // Right
-    Matter.Bodies.rectangle( 500,562,1000,30,{isStatic:true}), // Bottom
-    Matter.Bodies.rectangle( 0,281,30,562,{isStatic:true}), // Left
+    ledge, // Walls 👇
+    Matter.Bodies.rectangle( p(50),p(1.25),p(100),p(2.5),{isStatic:true}), // TOP
+    Matter.Bodies.rectangle( p(50),p(98.75),p(100),p(2.5),{isStatic:true}), // BOTTOM
+    Matter.Bodies.rectangle( p(1.25),p(50),p(2.5),p(100),{isStatic:true}), // LEFT
+    Matter.Bodies.rectangle( p(98.75),p(50),p(2.5),p(100),{isStatic:true}), // RIGHT
   ])
 }
 
 function buildPolygons({ engine, shapes }) {
-  polyA = Matter.Bodies.polygon(700,100,5,25)
-  Matter.Composite.add( engine.world, polyA )
+  _config.polyA = Matter.Bodies.polygon(p(75),p(25),6,25)
+  Matter.Composite.add( engine.world, _config.polyA )
 }
 
 
@@ -57,4 +59,8 @@ function render({ render, engine, shapes }) {
   Matter.Render.run(render);
   var runner = Matter.Runner.create();
   Matter.Runner.run(runner, engine);
+}
+
+function p(n) { // * FOR SQUARE ONLY! Convert from percent to real size. 
+  return ((n *_config.w) / 100)
 }
