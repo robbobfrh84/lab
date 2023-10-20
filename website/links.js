@@ -7,7 +7,7 @@ var pages = [ // * MUST be var, need to access it via window[...]
   { folder: 'eclipse_toggle_emoji', route: 'website/pages/', mobile: true, tweet: "https://twitter.com/BobMain49/status/1140794971445964800"},
   { folder: 'petri_dish', route: 'website/pages/', mobile: true, },
   { folder: 'honeycomb_color_picker', route: 'website/pages/', mobile: true, tweet: "https://twitter.com/BobMain49/status/1155541132702552065"},
-  { folder: 'party_text', route: 'website/pages/', mobile: true, tweet: "https://twitter.com/BobMain49/status/775727232035663872"},
+  { folder: 'party_text', route: 'website/pages/', mobile: true, tweet: "https://twitter.com/BobMain49/status/775727232035663872", threads: "https://www.threads.net/@earth_to_bob_/post/CyojtOFuamt"},
   // { folder: '', route: 'website/pages/' },
 ]
 
