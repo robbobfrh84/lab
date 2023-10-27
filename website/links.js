@@ -1,6 +1,6 @@
 var pages = [ // * MUST be var, need to access it via window[...]
   { folder: 'i_cant_find_my_wallet', route: 'website/pages/', mobile: true, tweet: 'https://twitter.com/BobMain49/status/1153319949101928449', threads: "https://www.threads.net/@earth_to_bob_/post/Cy4YCxyOPHz" },
-  { folder: '52_card_pickup', route: 'website/pages/', tweet: "https://twitter.com/BobMain49/status/1136708246427885570" },
+  { folder: '52_card_pickup', route: 'website/pages/', tweet: "https://twitter.com/BobMain49/status/1136708246427885570", threads: "https://www.threads.net/@earth_to_bob_/post/Cy6c2abu5L4" },
   { folder: 'captain_dashboard', route: 'website/pages/', mobile: true, tweet: 'https://twitter.com/BobMain49/status/1141725648471375874'},
   { folder: 'habitable_planet_generator', route: 'website/pages/', tweet: "https://twitter.com/BobMain49/status/1136990919557861382" },
   { folder: 'animated_layer_themes', route: 'website/pages/', tweet: 'https://twitter.com/BobMain49/status/1433213560079925251' },
