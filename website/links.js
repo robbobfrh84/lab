@@ -47,7 +47,7 @@ var more = [ // * MUST be var, need to access it via window[...]
   { folder: 'moon_phase', route: 'website/pages/', mobile: true, tweet: "https://twitter.com/BobMain49/status/1131158383778762753"},
   { folder: 'emoji_earth_sun_moon', route: 'website/pages/', tweet: "https://twitter.com/BobMain49/status/1512505894910709769"},
   { folder: 'hanna', route: 'website/pages/' },
-  { folder: 'the_thing_that_fell', route: 'website/pages/', mobile: true, },
+  { folder: 'the_thing_that_fell', route: 'website/pages/', threads: "https://www.threads.net/@earth_to_bob_/post/CzMkqLrPp0U", mobile: true, },
   { folder: 'poopinski_triangle', route: 'website/pages/', tweet: "https://twitter.com/BobMain49/status/1138456968656510978" },
   { folder: 'disco_onion', route: 'website/pages/', mobile: true,tweet: 'https://twitter.com/BobMain49/status/1458980412244381696'},
   { folder: 'buy_me_a_coffee', route: 'website/pages/', mobile: true, },
