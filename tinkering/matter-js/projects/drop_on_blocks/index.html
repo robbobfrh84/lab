@@ -1,0 +1,143 @@
+<!DOCTYPE html><html lang='en'>
+<title> Drop on Blocks </title>
+<!-- <link rel='icon' href='link/or/path'>  -->
+<head>
+  <meta charset='UTF-8'><meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <script src="matter.js"></script>
+<style>
+* {
+  font-family: Avenir;
+  font-weight: 200;
+}
+body {
+  text-align: center;
+}
+</style>
+</head>
+<body>
+  <h1>Drop on Blocks</h1>
+<script>
+
+const config = {
+  w: 800, h: 600
+}
+
+const bodies = [
+  // { shape: 'circle', x: 300, y: 100, rSize: 20, image: "images/ball.png", imageSize: { x: 92, y: 92 } },
+  { shape: 'circle', x: 400, y: 50, rSize: 50, image: "images/bob.png", imageSize: { x: 200, y: 200 } },
+  { shape: 'rect', x: 355, y: 410, w: 70, h: 70, image: "images/box.png", imageSize: { x: 64, y: 64 } },
+  { shape: 'rect', x: 355, y: 480, w: 70, h: 70, image: "images/box.png", imageSize: { x: 64, y: 64 } },
+  { shape: 'rect', x: 355, y: 550, w: 70, h: 70, image: "images/box.png", imageSize: { x: 64, y: 64 } },
+]
+
+window.onload = () => {
+  buildMatterJS()
+}
+
+const add_bodies = function(Bodies) {
+  const bodies_Array = []
+
+  bodies.forEach( b => {
+    if (b.shape === "circle") {
+      const circle = Bodies.circle(b.x, b.y, b.rSize, {
+        density: 0.0007,
+        frictionAir: 0.02,
+        restitution: 0.3,
+        friction: 0.01,
+        render: {
+          sprite: { 
+            texture: b.image, 
+            xScale: (b.rSize * 2) / b.imageSize.x,
+            yScale: (b.rSize * 2) / b.imageSize.y,
+          }
+        }
+      })
+      bodies_Array.push(circle)
+    }
+    else if (b.shape === "rect") {
+      const rect = Bodies.rectangle(b.x, b.y, b.w, b.h, {
+        render: {
+          strokeStyle: '#ffffff',
+          sprite: {
+            texture: b.image,
+            xScale: (b.w) / b.imageSize.x,
+            yScale: (b.h) / b.imageSize.y,
+          }
+        }
+      })
+      bodies_Array.push(rect)
+    }
+  })
+
+  return bodies_Array
+}
+
+const build_walls = function(Composite, Bodies, world) {
+  const offset = 10
+  const options = { isStatic: true }
+  Composite.add(world, [ 
+    Bodies.rectangle(config.w/2, -offset, config.w+2.5 * offset, 50.5, options),
+    Bodies.rectangle(config.w/2, config.h + offset, config.w+2.5 * offset, 50.5, options),
+    Bodies.rectangle(config.w + offset, config.h/2, 50.5, config.h+2.5 * offset, options),
+    Bodies.rectangle(-offset, config.h/2, 50.5, config.h+2.5 * offset, options)
+  ]);
+}
+
+const buildMatterJS = function() {
+  const Engine = Matter.Engine,
+    Render = Matter.Render,
+    Runner = Matter.Runner,
+    Composites = Matter.Composites,
+    Common = Matter.Common,
+    MouseConstraint = Matter.MouseConstraint,
+    Mouse = Matter.Mouse,
+    Composite = Matter.Composite,
+    Bodies = Matter.Bodies
+
+  const engine = Engine.create(),
+    world = engine.world
+
+  const render = Render.create({
+    element: document.body,
+    engine: engine,
+    options: {
+      width: config.w,
+      height: config.h,
+      showAngleIndicator: false,
+      wireframes: false
+    }
+  })
+
+  Render.run(render);
+  const runner = Runner.create();
+  Runner.run(runner, engine);
+
+  world.bodies = []
+
+  build_walls(Composite, Bodies, world)
+  const newBodies = add_bodies(Bodies)
+  Composite.add(world, newBodies);
+
+  const mouse = Mouse.create(render.canvas), // add mouse control
+    mouseConstraint = MouseConstraint.create(engine, {
+      mouse: mouse,
+      constraint: {
+        stiffness: 0.2,
+        render: { visible: false }
+      }
+    });
+
+  Composite.add(world, mouseConstraint);
+
+  render.mouse = mouse // keep the mouse in sync with rendering
+
+  Render.lookAt(render, { // fit the render viewport to the scene
+    min: { x: 0, y: 0 },
+    max: { x: config.w, y: config.h }
+  })
+}
+
+</script>
+</body>
+</html>
