@@ -20,18 +20,21 @@ body {
 <script>
 
 const config = {
-  w: 800, h: 600
+  w: 800, h: 600,
+  avatar: "images/earth_to_bob_.png"
 }
 
 const bodies = [
   { shape: 'circle', x: 480, y: -1500, rSize: 20, image: "images/ball.png", imageSize: { x: 92, y: 92 } },
-  { shape: 'circle', x: 400, y: 50, rSize: 50, image: "images/bob.png", imageSize: { x: 200, y: 200 } },
+  { shape: 'circle', x: 400, y: 50, rSize: 50, image: "avatar", imageSize: { x: 200, y: 200 } },
   { shape: 'rect', x: 355, y: 410, w: 70, h: 70, image: "images/box.png", imageSize: { x: 64, y: 64 } },
   { shape: 'rect', x: 355, y: 480, w: 70, h: 70, image: "images/box.png", imageSize: { x: 64, y: 64 } },
   { shape: 'rect', x: 355, y: 550, w: 70, h: 70, image: "images/box.png", imageSize: { x: 64, y: 64 } },
 ]
 
 window.onload = () => {
+  const hash =  window.location.hash.split('#')[1]
+  config.avatar = hash ? "images/"+hash+".png" : config.avatar
   buildMatterJS()
 }
 
@@ -50,6 +53,7 @@ const add_bodies = function(Bodies) {
   const bodies_Array = []
 
   bodies.forEach( b => {
+    if (b.image === "avatar") b.image = config.avatar
     if (b.shape === "circle") {
       const circle = Bodies.circle(b.x, b.y, b.rSize, {
         density: 0.0007,
