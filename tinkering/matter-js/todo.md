@@ -8,10 +8,8 @@
 # To Do ✅ 🟡
 "Drop on Blocks"
 - ✅ Get Sprites working
-- 🟡 Build and post "Drop on Block"
-- Create a new folder to host 
-  - ? `bob.farm/posts/drop_on_block#earth_to_bob_`
-  - ? `tobob.earth/drop_on_block#earth_to_bob_`
+- ✅ Build and post "Drop on Block"
+- ✅ Create a new folder to host: `bob.farm/posts/drop_on_block#earth_to_bob_`
 - Post Thread. 
   - Follow up post with you playing with it more
   - HERE's A CRAZY idea, create a short youtube vid... maybe adding another person and playing with it....????
