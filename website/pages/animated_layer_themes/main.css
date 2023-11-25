@@ -79,6 +79,7 @@ body {
   font-family: 'Varela Round', sans-serif;
   font-weight: bolder;
   font-size: 70px;
+  text-align: center;
 }
 .title-anchor {
   opacity: 1;
@@ -143,4 +144,10 @@ body {
   z-index: 1;
   opacity: 0;
   transition: opacity .7s, left .7s;
+}
+
+@media (max-width: 500px) {
+  .title-anchor, .titles  {
+    font-size: 50px;
+  }
 }

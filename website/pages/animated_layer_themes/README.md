@@ -1,8 +1,6 @@
-# To DO
+# Animated Layer Themes
 
-- remove interval some aren't getting remove.
-- add light dark mode
-
-Twitter POST, 👇 Then
-
-- add twitter & BMC icon on bottom
+- Make font size smaller for mobile. Add media query in css < 500 ? test
+- take photo > 1200,627
+- test with testing link. 
+- take gif. > test with testing link. 

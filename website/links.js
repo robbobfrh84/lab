@@ -3,7 +3,7 @@ var pages = [ // * MUST be var, need to access it via window[...]
   { folder: '52_card_pickup', route: 'website/pages/', tweet: "https://twitter.com/BobMain49/status/1136708246427885570", threads: "https://www.threads.net/@earth_to_bob_/post/Cy6c2abu5L4" },
   { folder: 'captain_dashboard', route: 'website/pages/', mobile: true, tweet: 'https://twitter.com/BobMain49/status/1141725648471375874'},
   { folder: 'habitable_planet_generator', route: 'website/pages/', tweet: "https://twitter.com/BobMain49/status/1136990919557861382" },
-  { folder: 'animated_layer_themes', route: 'website/pages/', tweet: 'https://twitter.com/BobMain49/status/1433213560079925251' },
+  { folder: 'animated_layer_themes', route: 'website/pages/', mobile: true, tweet: 'https://twitter.com/BobMain49/status/1433213560079925251' },
   { folder: 'eclipse_toggle_emoji', route: 'website/pages/', mobile: true, tweet: "https://twitter.com/BobMain49/status/1140794971445964800", threads: "https://www.threads.net/@earth_to_bob_/post/Cy4U4_oO3yu"},
   { folder: 'petri_dish', route: 'website/pages/', mobile: true, },
   { folder: 'honeycomb_color_picker', route: 'website/pages/', mobile: true, tweet: "https://twitter.com/BobMain49/status/1155541132702552065"},

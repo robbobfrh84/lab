@@ -1,8 +1,6 @@
-const sm = window.innerWidth < 500 ? true : false
-
 const color_scheme = {
   greens: {
-    name: sm ? "&nbsp;Forest Greens" : " Forest&nbsp;Greens",
+    name: "Forest Greens",
     primary: "#1E5631",
     colors: [
       { c:"#1E5631" },
@@ -13,7 +11,7 @@ const color_scheme = {
     ]
   },
   bubbleGum: {
-    name: sm ? "Bubble &nbsp;&nbsp;Gum" : "Bubble&nbsp;Gum",
+    name: "Bubble Gum",
     primary: "#297F87",
     colors: [
       { c:"#297F87" }, // double color
@@ -35,7 +33,7 @@ const color_scheme = {
     ]
   },
   river: {
-    name: sm ? "&nbsp;A&nbsp;River &nbsp;&nbsp&nbsp;Runs Through &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;It" : "A&nbsp;River&nbsp;Runs &nbsp;&nbsp;Through&nbsp;It",
+    name: "A River Runs Through It",
     primary: "#1E2791",
     colors: [
       { c:"#1E2791" },
@@ -78,7 +76,6 @@ window.onload = function() {
 }
 
 window.onclick = function(e) {
-  console.log('e:',e)
   if (e.target.id == "lightDarkMode") {
     lightDarkChange()
   }
