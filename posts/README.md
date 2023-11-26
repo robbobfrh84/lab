@@ -1,9 +1,16 @@
 # To Do ✅🟡
 - ✅ Move typscript explore to Tutorials_Examples...
-- Make font size smaller for mobile. Add media query in css < 500 ? test
+- ✅ Make font size smaller for mobile. Add media query in css < 500 ? test
 - take photo > 1200,627
 - test with testing link. 
 - take gif. > test with testing link. 
+- Finish Docs in README.md in lab/posts folder...
+
+# How to make Create images for Social media posts
+- Set window you want to capture to 1200x627 
+  - 🚨 NOTE: The window chrome plugin has preset for 1200x711 - BUT is correct (includes bar)
+- USe Shift Command + FIVE, here you can set to 1200x627 and then grab and move before capture
+
 
 # Testing
 
