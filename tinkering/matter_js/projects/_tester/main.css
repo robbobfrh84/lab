@@ -1,7 +1,9 @@
 * {
   font-family: Avenir;
+  color: #222222;
   font-weight: 200;
 }
 body {
   text-align: center;
+  background: url('images/bg_light_grain.png');
 }

@@ -11,20 +11,24 @@ class Matter_Helper {
   }
 
   build_walls(Composite, Bodies, world) {
-    const offset = 10
+    const offset = C.matter_walls.w
     const options = { isStatic: true }
-    Composite.add(world, [ 
-      // Bodies.rectangle(config.w/2, -offset, config.w+2.5 * offset, 50.5, options),
-      Bodies.rectangle(this.C.w/2, this.C.h + offset, this.C.w+2.5 * offset, 50.5, options),
-      Bodies.rectangle(this.C.w + offset, this.C.h/2, 50.5, this.C.h+2.5 * offset, options),
-      Bodies.rectangle(-offset, this.C.h/2, 50.5, this.C.h+2.5 * offset, options)
-    ]);
+    const walls = []
+    if (C.matter_walls.show[0]) { walls.push(
+      Bodies.rectangle(this.C.w/2, -offset, this.C.w+2.5 * offset, 50.5, options))}
+    if (C.matter_walls.show[1]) { walls.push(
+      Bodies.rectangle(this.C.w + offset, this.C.h/2, 50.5, this.C.h+2.5 * offset, options))}
+    if (C.matter_walls.show[2]) { walls.push(
+      Bodies.rectangle(this.C.w/2, this.C.h + offset, this.C.w+2.5 * offset, 50.5, options))}
+    if (C.matter_walls.show[3]) { walls.push(
+      Bodies.rectangle(-offset, this.C.h/2, 50.5, this.C.h+2.5 * offset, options))}
+    Composite.add(world, walls)
   }
 
-  add_bodies(Bodies) {
+  add_bodies(Bodies) { // 🔥 Rough Copy/Paste from `drop_on_blocks`
     const bodies_Array = []
   
-    this.C.matter_static_bodies.forEach( b => {
+    this.C.matter_live_bodies.forEach( b => {
       if (b.image === "avatar") b.image = this.C.default_user_image
       if (b.shape === "circle") {
         const circle = Bodies.circle(b.x, b.y, b.rSize, {
@@ -60,7 +64,7 @@ class Matter_Helper {
     return bodies_Array
   }
 
-  build_matter = function() {
+  build_matter = function() { // 🔥 Rough Copy/Paste from `drop_on_blocks`
     const Engine = Matter.Engine,
       Render = Matter.Render,
       Runner = Matter.Runner,
