@@ -1,3 +1,7 @@
+* {
+  font-family: sand-serif;
+}
+
 #bodyBorder {
   width: 100%;
   /* width: 650px; */
@@ -37,7 +41,7 @@
   font-weight: bold;
 }
 
-.score-container {
+.score-container, .team-container {
   position: relative;
   width: 5em;
   height: 5em;
@@ -46,7 +50,12 @@
   margin-bottom: 0.5em;
 }
 
-.score {
+.team-container {
+  background-color: rgba(0,0,0,0);
+  width: 8em;
+}
+
+.score, .team {
   position: absolute;
   margin: auto;
   top: 0.25em;
