@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.3">
+<title>Unit Converter</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+  .container { max-width: 600px; margin: 20px auto; padding: 20px; border: 1px solid #ccc; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .input-group { display: flex; flex-direction: column; justify-content: center; align-items: start; }
+  .multi-input-group { display: flex; justify-content: space-between; }
+  label { margin-bottom: 5px; }
+  input { width: 100%; padding: 8px; box-sizing: border-box; }
+  h3 { margin: 0px; text-align: center;}
+  .small-input { width: 48%; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="input-group">
+    <label style="background-color: aquamarine;">Minutes per Kilometer:</label>
+    <div class="multi-input-group">
+      <input value="4" type="number" id="minPerKm" class="small-input" oninput="convertFromMinPerKm()">
+      <input value="45" type="number" id="secPerKm" class="small-input" oninput="convertFromMinPerKm()" placeholder="Seconds">
+    </div>
+  </div>
+  <div class="input-group">
+    <label>Minutes per Mile:</label>
+    <div class="multi-input-group">
+      <input type="number" id="minPerMile" class="small-input" oninput="convertFromMinPerMile()">
+      <input type="number" id="secPerMile" class="small-input" oninput="convertFromMinPerMile()" placeholder="Seconds">
+    </div>
+  </div>
+  <div class="input-group">
+    <label for="kmPerHour" style="background-color: aquamarine;">Kilometers Per Hour:</label>
+    <input type="number" id="kmPerHour" oninput="convertFromKmPerHour()">
+  </div>
+  <div class="input-group">
+    <label for="milesPerHour">Miles per Hour:</label>
+    <input type="number" id="milesPerHour" oninput="convertFromMilesPerHour()">
+  </div>
+
+  <div class="input-group">
+    <label for="kilometers" style="background-color: aquamarine;">Kilometers:</label>
+    <input type="number" id="kilometers" value="1" oninput="convertKmToMiles()">
+  </div>
+  <div class="input-group">
+    <label for="miles">Miles:</label>
+    <input type="number" id="miles" oninput="convertMilesToKm()">
+  </div>
+</div>
+
+<h3> 1 km = 0.62 miles </h3>
+<h3> 2 km = 1.24 miles </h3>
+<h3> 3 km = 1.86 miles </h3>
+<h3> 4 km = 2.49 miles </h3>
+<h3> 5 km = 3.11 miles </h3>
+<h3> 6 km = 3.73 miles </h3> 
+<h3> 7 km = 4.35 miles </h3>
+<h3> 8 km = 4.97 miles </h3>
+<h3> 9 km = 5.59 miles </h3>
+<h3> 10 km = 6.21 miles </h3>
+
+<script>
+  const kmPerMile = 1.60934; // constant to convert between kilometers and miles
+
+  function convertFromMinPerKm() {
+    const min = parseFloat(document.getElementById('minPerKm').value) || 0;
+    const sec = parseFloat(document.getElementById('secPerKm').value) || 0;
+    const totalMinPerKm = min + sec / 60;
+    const kmPerHour = 60 / totalMinPerKm;
+    document.getElementById('kmPerHour').value = kmPerHour.toFixed(2);
+
+    const milesPerHour = kmPerHour / kmPerMile;
+    document.getElementById('milesPerHour').value = milesPerHour.toFixed(2);
+
+    const minPerMile = totalMinPerKm * kmPerMile;
+    const minPart = Math.floor(minPerMile);
+    const secPart = Math.round((minPerMile - minPart) * 60);
+    document.getElementById('minPerMile').value = minPart;
+    document.getElementById('secPerMile').value = secPart;
+  }
+
+  function convertFromKmPerHour() {
+    const kmPerHour = parseFloat(document.getElementById('kmPerHour').value);
+    const minPerKm = 60 / kmPerHour;
+    const minKmPart = Math.floor(minPerKm);
+    const secKmPart = Math.round((minPerKm - minKmPart) * 60);
+    document.getElementById('minPerKm').value = minKmPart;
+    document.getElementById('secPerKm').value = secKmPart;
+
+    const milesPerHour = kmPerHour / kmPerMile;
+    document.getElementById('milesPerHour').value = milesPerHour.toFixed(2);
+
+    const minPerMile = minPerKm * kmPerMile;
+    const minMilePart = Math.floor(minPerMile);
+    const secMilePart = Math.round((minPerMile - minMilePart) * 60);
+    document.getElementById('minPerMile').value = minMilePart;
+    document.getElementById('secPerMile').value = secMilePart;
+  }
+
+  function convertFromMinPerMile() {
+    const min = parseFloat(document.getElementById('minPerMile').value) || 0;
+    const sec = parseFloat(document.getElementById('secPerMile').value) || 0;
+    const totalMinPerMile = min + sec / 60;
+    const milesPerHour = 60 / totalMinPerMile;
+    document.getElementById('milesPerHour').value = milesPerHour.toFixed(2);
+
+    const kmPerHour = milesPerHour * kmPerMile;
+    document.getElementById('kmPerHour').value = kmPerHour.toFixed(2);
+
+    const minPerKm = totalMinPerMile / kmPerMile;
+    const minKmPart = Math.floor(minPerKm);
+    const secKmPart = Math.round((minPerKm - minKmPart) * 60);
+    document.getElementById('minPerKm').value = minKmPart;
+    document.getElementById('secPerKm').value = secKmPart;
+  }
+
+  function convertFromMilesPerHour() {
+    const milesPerHour = parseFloat(document.getElementById('milesPerHour').value);
+    const minPerMile = 60 / milesPerHour;
+    const minPart = Math.floor(minPerMile);
+    const secPart = Math.round((minPerMile - minPart) * 60);
+    document.getElementById('minPerMile').value = minPart;
+    document.getElementById('secPerMile').value = secPart;
+
+    const kmPerHour = milesPerHour * kmPerMile;
+    document.getElementById('kmPerHour').value = kmPerHour.toFixed(2);
+
+    const minPerKm = 60 / kmPerHour;
+    const minKmPart = Math.floor(minPerKm);
+    const secKmPart = Math.round((minPerKm - minKmPart) * 60);
+    document.getElementById('minPerKm').value = minKmPart;
+    document.getElementById('secPerKm').value = secKmPart;
+  }
+
+  function convertKmToMiles() {
+    const kilometers = parseFloat(document.getElementById('kilometers').value);
+    const miles = kilometers / kmPerMile;
+    document.getElementById('miles').value = miles.toFixed(2);
+  }
+
+  function convertMilesToKm() {
+    const miles = parseFloat(document.getElementById('miles').value);
+    const kilometers = miles * kmPerMile;
+    document.getElementById('kilometers').value = kilometers.toFixed(2);
+  }
+
+  convertFromMinPerKm()
+  convertKmToMiles()
+
+</script>
+</body>
+</html>
