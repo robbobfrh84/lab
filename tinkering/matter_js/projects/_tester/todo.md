@@ -1,8 +1,11 @@
 ### TO DO ✅ 🟡
 - Don't you just wanna make it a square? like, think about it. Why not just hardcode the width / hight or, set a max. idk... i'm chashing my tail on this. 
+  - I was also thinking if it'd be nice to give it w&h as a %. So it's easy to place at 25% etc. And it'd be nice if that was the center.
 
 ### Tester MVP
 - ✅ Just get it working from `drop_on_blocks`
+- walls `w` dosn't make since. changing it dosn't seem to match...
+  - Should also handle 0 or 1 for width for a wall that is effectivly the visual wall.
 - Build mask... Make embed option
   - maybe `maskImage`, or `embedImage` Option...?
 

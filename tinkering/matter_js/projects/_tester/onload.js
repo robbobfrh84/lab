@@ -11,9 +11,10 @@ const C = { // Config
   ],
 
   matter_live_bodies: [
-    { shape: 'circle', x: 480, y: -1500, rSize: 20, image: "images/ball.png", imageSize: { x: 92, y: 92 } },
+    { shape: 'circle', x: 75, y: 50, rSize: 50, image: "images/ball.png", imageSize: { x: 92, y: 92 } },
     { shape: 'circle', x: 400, y: 50, rSize: 50, image: "avatar", imageSize: { x: 200, y: 200 } },
     { shape: 'rect', x: 355, y: 410, w: 70, h: 70, image: "images/box.png", imageSize: { x: 64, y: 64 } },
+    { shape: 'circle', x: 480, y: -1500, rSize: 20, image: "images/ball.png", imageSize: { x: 92, y: 92 } },
   ],
 
 }
