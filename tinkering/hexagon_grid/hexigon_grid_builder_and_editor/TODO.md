@@ -17,14 +17,11 @@
 - ✅ Refactor:  `buildHexMap`(replace `buildPolygons`?)
 - ✅ Impliment svgConfig svgWidth for both "%" & "px" should drop drop into css as str..
 - ✅ Set for default empty hexgrid that get's build onload, BUT the `obj` needs to be pushed through `buildHexGrid` the same as any. This should also use a new `hexMap.viewDegree`.
-- STOP! Let's get the unpunished `current` folder from GitHub website > download and add to set with date change. `/before_08_2024_refactor`
 - Color changeing are getting off, add a color change, click rotate, see it went 1 one elevation. Need to fix that. 
-- Top Color oes back to bottom. But make reverse (Shiftclick) go from bottom to top.
+- Top Color goes back to bottom. But make reverse (Shiftclick) go from bottom to top.
 - 🙋🚨: Do we want the obj to be a 2d array. Or, rather just a single array with row/column directions? what makes more since for data storage? As long as it's a simple data parse. 
 - Fix Stroke. make inset(make individual to polygon)
--  🙋🚨: How do we handle angle. Can we just use rotate (and then re-visualize 3d perspective from new bottom up?)
 - Create "/hexMaps" folder with "/tests" & "/templates" put `const HexMaptemplate` in.
-- ⭐️ Impliment rotate (Break down tasks...)
 - SAVE > saves to localstorage array (make one if none). Just appends (can edit later)
 - OPEN > opens page with "lists" "SAVE 1", "SAVE 2"
   - Add Edit to rename and delete buttons
