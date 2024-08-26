@@ -1,0 +1,68 @@
+* {
+  font-family: Avenir;
+  font-weight: 100;
+}
+body {
+  background: url('../images/light_grain2.png');
+  margin: 0;
+}
+#svgContainer {
+  margin: auto;
+  margin-top: 45px;
+  padding: 10px;
+  box-sizing: border-box; 
+  background-color: rgba(255,255,255,0.2);
+}
+#svgHexMap {
+  width: 100%;
+  background-color: rgba(255,255,255,0.2);
+}
+
+/* 🔖 MENU 🔖 */
+.menuContainer {
+  position: absolute;
+  top: 10px; right: 10px;
+  text-align: right;
+}
+#menuIcon {
+  background: none;
+  border: none;
+  color: #aaa;
+  font-size: 30px;
+  letter-spacing: -3px;
+  padding-left: 5px;
+  padding-right: 8px;
+  padding-top: 3px;
+  line-height: 20px;
+  border-radius: 10px;
+  background-color: rgba(255,255,255,0.3);
+  cursor: pointer;
+  transition: color .3s, background-color .3s;
+}
+#menuIcon:hover {
+  color: #eee;
+  background-color: rgba(255,255,255,0.10);
+  transition: color .3s, background-color .3s;
+}
+#menuModal {
+  margin-top: 5px;
+  padding: 15px;
+  background-color: rgba(0,0,0,0.5);
+  display: none;
+}
+.horizontal-divider {
+  height: 2px;
+  background-color: rgba(255,255,255,0.5);
+  border-radius: 1px;
+  margin: 10px 0px;
+}
+.menuBtn {
+  display: block;
+  border: none;
+  color: #ccc;
+  background: none;
+  border: none;
+  font-size: 25px;
+  letter-spacing: 3px;
+  cursor: pointer;
+}

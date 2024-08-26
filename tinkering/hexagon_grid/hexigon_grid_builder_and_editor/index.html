@@ -1,0 +1,40 @@
+<!DOCTYPE html><html lang="en">
+<title> Hexagon Grid </title> 
+<link rel="icon" href="images/hexagon.png"> 
+<head>
+  <meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+  <div class="menuContainer">
+    <button id="menuIcon">&bull; &bull; &bull;</button>
+    <nav id="menuModal">
+      <button class="menuBtn" id="saveBtn">SAVE</button>
+      <div class="horizontal-divider"></div>
+      <button class="menuBtn" id="openBtn">OPEN</button>
+    </nav>
+  </div>
+
+  <div id="svgContainer">
+    <svg id="svgHexMap"></svg>
+  </div>
+
+  <!-- ⚙️ 🧱 🏗️ (inline CSS > because we don't wanna muck up our CSS with dev code.)-->
+  <div style="position: absolute; left: 3px; top: 3px; padding: 5px; background-color: rgba(0,0,0,0.1);">
+    <div style="display: inline; background-color: rgba(0,0,0,0.2);">&nbsp;🛠️</div> &nbsp;
+    <button id="rotateBtn" style="cursor: pointer;">Rotate</button>
+    Deg: <span id="viewDegree">0</span>
+  </div>
+  <!-- ⚙️ 🧱 🏗️ -->
+
+  <script src="js/toolkit.js"></script>
+  <script src="js/vars.js"></script>
+  <script src="js/HexMap.js"></script>
+  <script src="js/HexMapUI.js"></script>
+  <script src="js/events.js"></script>
+  <script src="onload.js"></script>
+
+</body>
+</html>
