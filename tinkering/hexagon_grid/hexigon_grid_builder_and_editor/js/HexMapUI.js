@@ -17,6 +17,7 @@ class HexMapUI {
   }
 
   buildPolygons() {
+    console.log('this.hexMap.polygons:',this.hexMap.polygons)
     this.hexMap.polygons.map((row)=>{
       row.forEach(polygon => {
         const staggerColumn = this.side * polygon.staggerColumn
@@ -65,16 +66,15 @@ class HexMapUI {
       }
       let column = parseInt(polygon.getAttribute("column"))
       let row = parseInt(polygon.getAttribute("row"))
-      hexMap.polygons[row][column].elevation = 2
       let elv = parseInt(polygon.getAttribute("elevation")) + elvDir
       let elvColor = elavations.find(e => e.elevation == elv)?.color
       if (!elvColor) {
-        elv = elavations[0].elevation
+        elv = elvDir == 1 ? elavations[elavations.length-1].elevation : elavations[0].elevation 
         elvColor = elavations.find(e => e.elevation == elv)?.color
       } 
       polygon.setAttribute("elevation", elv)
       polygon.style.fill = elvColor
-      console.log('hexMap:',hexMap)
+      hexMap.polygons[row][column].elevation = elv
     }
     polygon.onmouseover = function() {
       polygon.style.opacity = 0.9;
@@ -84,15 +84,22 @@ class HexMapUI {
     }
   }
 
-  createUIEvents(hexMapUI) {  
+  createUIEvents() {  
     rotateBtn.onclick = () => { 
-      this.hexMap.viewDegree = this.hexMap.viewDegree + 60 >= 360 ? 0 : this.hexMap.viewDegree + 60
+      this.hexMap.viewDegree = this.hexMap.viewDegree + 30 >= 360 ? 0 : this.hexMap.viewDegree + 30
       this.deg.innerText = this.hexMap.viewDegree
       this.hexMap.alignPointUp = !this.hexMap.alignPointUp
       emptyElement(this.svg)
+      this.rotatePolygons()
       this.buildPolygons()
     }
   }
+
+  rotatePolygons() { 
+    console.log('this.hexMap.viewDegree:',this.hexMap.viewDegree)
+
+  }   
+ 
 
   orient = {  // 🔥 Shouldn't this be moved to toolkit and return .side & .radius / value
     radiusSide: ()=>{

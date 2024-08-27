@@ -18,6 +18,3 @@ window.onload = () => {
   const hexMap = new HexMap(newHexMaptemplate).create()
   hexMapUI.build(hexMap)
 }
-
-
-

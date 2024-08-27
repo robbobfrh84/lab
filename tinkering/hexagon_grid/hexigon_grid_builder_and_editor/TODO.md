@@ -1,24 +1,13 @@
 # Where I Left Off 
 - Rotate isn't really what you've implimented. Notice how 3x4 dosn't match when rotated, it's aligned properly, but is still 3x4, when it shold be 4x3. 
-- BUT, we're also rotating 60 deg. our current example handles it as 90... 
+- BUT, we're also rotating 30 deg. our current example handles it as 90... 
 - THIS could be pretty complicated, and margins will need to be handled, as well as code to calculate new sizes potentially 
-- I also think there's actually 12 views if we're handling flat edge and point edge.
 - we "could" just use an svg rotate. BUT, if we wanna move to 3d, we'll need to plot it out knowing our true view angle.
 
 # To Do
-- ✅ Reviewed where I left off
-- ✅ Add Readme and Dissolve resoure links. 
-- ✅ Quick review of this file. 
-- ✅ Finished github copilot tutorial (add to vs code guide or keep as own file?)
-- ✅ Cleanup Dev UI > 🛠️ {🔄} Deg:[]
-- ✅ Gut dead code that's noted out from canvas. 
-- ✅ impliment svgWidth 
-- ✅ create a new `hexMapUI.js`
-- ✅ Refactor:  `buildHexMap`(replace `buildPolygons`?)
-- ✅ Impliment svgConfig svgWidth for both "%" & "px" should drop drop into css as str..
-- ✅ Set for default empty hexgrid that get's build onload, BUT the `obj` needs to be pushed through `buildHexGrid` the same as any. This should also use a new `hexMap.viewDegree`.
-- Color changeing are getting off, add a color change, click rotate, see it went 1 one elevation. Need to fix that. 
-- Top Color goes back to bottom. But make reverse (Shiftclick) go from bottom to top.
+- ✅ block colors from changing at top and bott.
+- ✅ Color changeing are getting off, add a color change, click rotate, see it went 1 one elevation. Need to fix that. 
+- pushed through `buildHexGrid` the same as any. This should also use a new `hexMap.viewDegree`.
 - 🙋🚨: Do we want the obj to be a 2d array. Or, rather just a single array with row/column directions? what makes more since for data storage? As long as it's a simple data parse. 
 - Fix Stroke. make inset(make individual to polygon)
 - Create "/hexMaps" folder with "/tests" & "/templates" put `const HexMaptemplate` in.
@@ -26,6 +15,8 @@
 - OPEN > opens page with "lists" "SAVE 1", "SAVE 2"
   - Add Edit to rename and delete buttons
   - Also checks in "/saved" folder for hard-coded ones. 
+- reset if window resize.
+- Get better colors. don't need to be named colors. 
 - Add UI directions for "Shift+Click"
 
 # MVP 
