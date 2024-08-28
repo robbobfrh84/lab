@@ -2,7 +2,7 @@ class HexMap {
   constructor(params) { Object.assign(this,params) }
 
   create() {
-    this.polygons = []
+    this.polygons = this.polygons || []
     if (!this.viewDegree) { this.viewDegree = 0 }
     this.createPolygonObject() 
     return this
@@ -20,14 +20,13 @@ class HexMap {
           staggerRow = column%2 !== 0 ? 0 : 1 
         } 
         if (!this.polygons[row]) this.polygons[row] = []
-
         this.polygons[row][column] = { 
           row, 
           column,
           staggerColumn, 
           staggerRow, 
-          elevation: -2,
-          color: elavations[0].color
+          elevation: this.polygons[row][column]?.elevation || -2,
+          color: this.polygons[row][column]?.color || elavations[0].color
         }
 
       }
