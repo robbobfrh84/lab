@@ -1,18 +1,18 @@
 # How I think this works as a  ✨ Post-a-long ✨
 - Find a demo you wanna toy with: https://brm.io/matter-js/demo 
 - Copy the code you wanna use and make sure it works as a demo in the `demos` folder.
-- Then, create your own fun example using it in `projects`
-- If youo use an additional example. Just add that to `demos` and include in current project.
-- Sometimes you'l add a few demos. Sometimes maybe none now!
+- Add anything new `_tester` app, translated to your example.
+- Then, create your own fun example using it in `projects` (may use multiple demos)
+- move your example to the `/posts` folder and **post**. 
 
 # To Do ✅ 🟡
 "Drop on Blocks"
 - ✅ Get Sprites working
 - ✅ Build and post "Drop on Block"
 - ✅ Create a new folder to host: `bob.farm/posts/drop_on_block#earth_to_bob_`
-- Post Thread. 
-  - Follow up post with you playing with it more
-  - HERE's A CRAZY idea, create a short youtube vid... maybe adding another person and playing with it....????
+- ✅ Post Thread. ✅ Follow up post with you playing with it more.
+- Review code and make POA. 
+
 
 Create `projects/_Template`
 - I think we need an app.js. 

@@ -1,0 +1,41 @@
+{
+  "groups": {
+    "#cc3333": {
+      "label": "",
+      "paths": ["Modoc__CA", "Siskiyou__CA", "Shasta__CA", "Lassen__CA", "Sierra__CA", "Plumas__CA", "Butte__CA", "Tehama__CA", "Glenn__CA", "Trinity__CA"]
+    },
+    "#fc4e2a": {
+      "label": "",
+      "paths": ["Del_Norte__CA", "Humboldt__CA", "Mendocino__CA", "Lake__CA", "Colusa__CA", "Sutter__CA", "Yuba__CA", "Nevada__CA", "Placer__CA", "El_Dorado__CA", "Yolo__CA", "Napa__CA", "Sonoma__CA"]
+    }
+  },
+  "title": "",
+  "hidden": [],
+  "background": "#ffffff",
+  "borders": "#000",
+  "legendFont": "Helvetica",
+  "legendFontColor": "#000",
+  "legendBorderColor": "#00000000",
+  "legendBgColor": "#00000000",
+  "legendWidth": 124.03224182128906,
+  "legendBoxShape": "square",
+  "areBordersShown": true,
+  "defaultColor": "#d1dbdd",
+  "labelsColor": "#000000",
+  "labelsFont": "Arial",
+  "strokeWidth": "medium",
+  "areLabelsShown": false,
+  "uncoloredScriptColor": "#ffff33",
+  "v6": true,
+  "areStateBordersShown": true,
+  "legendPosition": "custom",
+  "legendX": 1266.315960083008,
+  "legendY": 476.76781762695305,
+  "legendSize": "custom",
+  "legendScale": 1.0180993475662432,
+  "legendTranslateX": "-3.00",
+  "legendStatus": "show",
+  "scalingPatterns": true,
+  "legendRowsSameColor": true,
+  "legendColumnCount": 1
+}

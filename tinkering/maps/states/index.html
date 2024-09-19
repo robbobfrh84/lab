@@ -1,0 +1,79 @@
+<!DOCTYPE html><html lang='en'>
+<title> ? title ? </title>
+<!-- <link rel='icon' href='link/or/path'>  -->
+<head>
+  <meta charset='UTF-8'><meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <!-- <link rel='stylesheet' href='main.css'> -->
+  <style>
+    body {
+      margin: 0;
+      background-color: rgba(0, 0, 0, 0.7);
+    }
+    .centered-container {
+      margin-top: 50px;
+    }
+    #lastState {
+      top: 10px;
+      position: absolute;
+      width: 100%;
+      margin: auto;
+      color: rgba(255, 255, 255, 0.7);
+      text-align: center;
+      font-size: 22px;
+    }
+    #svgContainer{
+      padding: 2.5%;
+      width: 80%;
+      margin: auto;
+      background-color: cornflowerblue;
+    }
+    #statesSelected {
+      margin-top: 5px;
+      width: 100%;
+      color: rgba(255, 255, 255, 0.7);
+      text-align: center;
+      font-size: 22px;
+    }
+    </style>
+</head>
+<body>
+  <div id="lastState"></div>
+  <div class="centered-container">
+    <div id="svgContainer"></div>
+  </div>
+  <div id="statesSelected">States Selected = 0</div>
+
+</body>
+<script src="statesJS.js"></script>
+<script>
+
+var cnt = 0
+
+window.onload = function() {
+  svgContainer.innerHTML = statesJS 
+  const paths =  Array.from(svgContainer.querySelectorAll('path'))
+  const polylines =  Array.from(svgContainer.querySelectorAll('polyline'))
+
+  const states = paths.concat(polylines)
+  states.forEach(state => {
+    state.addEventListener('click', function() {
+      console.log('state clicked:', state.id)
+      const x = state.style.fill
+      if (state.style.fill !== 'red') {
+        cnt++
+        state.style.fill = 'red'
+      } else {
+        cnt--
+        state.style.fill = '#5C5D60'
+      }
+      statesSelected.innerHTML = `States Selected = ${cnt}`
+      lastState.innerHTML = state.id
+    })
+  })
+  
+}
+
+</script>
+</html>
+
