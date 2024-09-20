@@ -1,0 +1,19 @@
+/* styles.css */
+/* Add your custom styles here */
+
+.fraction-container {
+  display: inline-block;
+  text-align: center;
+  margin: 20px;
+}
+
+.fraction-container input {
+  width: 50px;
+  text-align: center;
+  margin: 5px 0;
+}
+
+.fraction-line {
+  border-top: 2px solid black;
+  margin: -5px 0;
+}
