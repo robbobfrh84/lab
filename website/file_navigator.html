@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GitHub Repo Directory Listing</title>
+  <style>
+    * {
+      font-family: Arial, sans-serif;
+    }
+    .file {
+      margin-left: 20px;
+    }
+    .folder {
+      margin-left: 20px;
+      cursor: pointer;
+      font-weight: bold;
+    } 
+    ul {
+      padding-left: 0px;
+    }
+    li {
+      font-size: 20px;
+      padding: 5px;
+      margin-bottom: 3px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>GitHub Repository Directory Listing</h1>
+  <div id="repo-contents"></div>
+
+  <script>
+    const username = 'robbobfrh84';
+    const repository = 'lab';
+    const apiUrl = `https://api.github.com/repos/${username}/${repository}/contents/`;
+
+    async function fetchDirectoryContents(path = '') {
+      const url = `${apiUrl}${path}`;
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Error fetching directory contents: ${response.statusText}`);
+      }
+      return response.json();
+    }
+
+    async function displayDirectoryContents(path = '', parentElement) {
+      try {
+        const contents = await fetchDirectoryContents(path);
+        const ul = document.createElement('ul');
+        contents.forEach(item => {
+          const li = document.createElement('li');
+          if (item.type === 'dir') {
+            li.textContent = `📁 ${item.name}`;
+            li.className = 'folder';
+            li.addEventListener('click', () => {
+              if (li.querySelector('ul')) {
+                li.querySelector('ul').classList.toggle('hidden');
+              } else {
+                displayDirectoryContents(item.path, li);
+              }
+            });
+          } else {
+            const fileLink = document.createElement('a');
+            const fileExtension = item.name.split('.').pop();
+            if (fileExtension === 'html') {
+              console.log('html file');
+              fileLink.href = `https://${username}.github.io/${repository}/${item.path}`;
+              console.log('fileLink.href:',fileLink.href)
+            } else {
+              fileLink.href = item.html_url;
+            }
+            // fileLink.href = item.html_url;
+            fileLink.textContent = `${item.name}`;
+            fileLink.target = '_blank';
+            li.className = 'file';
+            li.appendChild(fileLink);
+          }
+          ul.appendChild(li);
+        });
+        parentElement.appendChild(ul);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const repoContents = document.getElementById('repo-contents');
+      displayDirectoryContents('', repoContents);
+    });
+  </script>
+</body>
+
+</html>
