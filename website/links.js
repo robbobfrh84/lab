@@ -12,6 +12,7 @@ var pages = [ // * MUST be var, need to access it via window[...]
 ]
 
 var other = [ // * MUST be var, need to access it via window[...]
+  { name: "📁 Lab's 'live-link' File Navigator...", route: "https://robbobfrh84.github.io/lab/website/file_navigator.html", mobile: true },
   { name: "tobob.earth: Bob's Portfolio Website", route: "https://tobob.earth", mobile: true, 
     sheet: "https://docs.google.com/spreadsheets/d/1h7AQcnPrSPL9kwPwcBwkRRHB_VIdJ-NszRY1eYJHf24/edit#gid=1906007068",
     github: "https://github.com/robbobfrh84/portfolio"},
