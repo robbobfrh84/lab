@@ -13,7 +13,6 @@
 - ✅ Post Thread. ✅ Follow up post with you playing with it more.
 - Review code and make POA. 
 
-
 Create `projects/_Template`
 - I think we need an app.js. 
   - Maybe not onload.js, that can be on index.html
