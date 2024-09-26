@@ -1,0 +1,139 @@
+/* style.css */
+
+/* Global styles */
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f8f8f8;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1 {
+  color: #ff0000;
+  text-align: center;
+}
+
+/* Game board styles */
+#game-board {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  grid-template-rows: repeat(3, 100px);
+  gap: 5px;
+  margin-top: 20px;
+}
+
+.cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border: 2px solid #ff4d4d;
+  font-size: 2em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cell:hover {
+  background-color: #ffcccc;
+}
+
+/* Difficulty settings styles */
+#difficulty-settings {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.difficulty-label {
+  display: block;
+  margin-bottom: 10px;
+  color: #ff0000;
+}
+
+.difficulty-radio {
+  margin-right: 5px;
+}
+
+/* Result display styles */
+#result-display {
+  margin-top: 20px;
+  text-align: center;
+  font-weight: bold;
+  color: #ff0000;
+}
+
+.difficulty-buttons {
+  margin-bottom: 20px;
+}
+
+.difficulty-button {
+  background-color: #ff9999;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.difficulty-button.selected {
+  background-color: #ff4d4d;
+}
+
+.difficulty-button:hover {
+  background-color: #ff6666;
+}
+
+.difficulty-button:hover {
+  background-color: #ff6666;
+}
+
+.restart-button {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 20px 0;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.restart-button:hover {
+  background-color: #ff1a1a;
+}
+
+.game-board {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  grid-template-rows: repeat(3, 100px);
+  gap: 5px;
+}
+
+.cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border: 2px solid #ff4d4d;
+  font-size: 2em;
+  cursor: pointer;
+}
+
+.cell.X {
+  color: #ff4d4d;
+}
+
+.cell.O {
+  color: #4d4dff;
+}

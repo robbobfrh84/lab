@@ -1,0 +1,40 @@
+body {
+  background-color: #DDDDDD;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  min-height: 330px; /* Adjust this value as needed */
+}
+
+label, input, button, p {
+  margin: 10px 0;
+}
+
+input, button {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  background-color: cornflowerblue;
+  color: white;
+  cursor: pointer;
+  margin-top: 30px;
+}
+
+button:hover {
+  background-color: #6495ED;
+}
