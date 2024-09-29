@@ -1,7 +1,4 @@
-# To Do ✅🟡
-- 
-
-# How to make Create images for Social media posts
+# How to Create a link with an image for Social media posts
 - Set window you want to capture to 1200x627 
   - 🚨 NOTE: The window chrome plugin has preset for 1200x711 - BUT is correct (includes bar)
 - USe Shift Command + FIVE, here you can set to 1200x627 and then grab and move before capture
