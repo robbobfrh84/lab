@@ -1,6 +1,6 @@
 const delay_fadin = 500;
-let unselected_state_color;
-let selected_state_color = 'rgb(255, 0, 0)' 
+let unselected_state_color; // * declared in css '.state' and set in javescript.
+let selected_state_color = 'green' 
 
 window.onload = ()=>{ 
   svgContainer.innerHTML = statesJS 
@@ -16,8 +16,8 @@ const build_SVG_map = () => {
   const filterStates = ['InteriorOutlines', 'DC']
   states = states.filter(state => !filterStates.includes(state.id))
   states = states.filter(state => state.classList.contains('state'))
-  build_states(states)
   unselected_state_color = states[0].style.fill 
+  build_states(states)
 }
 
 const build_states = (states) => {   
