@@ -8,13 +8,31 @@
 
 <body>
 
-  <div id="mapContainer">
+  <section id="mapContainer" class="mainSection">
     <div id="svgContainer"></div>
-  </div>
+  </section>
+
+  <section id="colorSelectorContainer" class="mainSection no-select">
+    <span id="colorSelectorTitle">Group:</span>
+    <div id="groupColorSelector"></div>
+    <span id="addGroupButton" class="plus-icon">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 5V19M5 12H19" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </span>
+  </section>
+
+  <section id="tablesContainer" class="mainSection"></section>
 
 </body>
 
 <script src="assets/states_svg.js"></script>
+<script src="js/color_selector.js"></script>
+<script src="js/map.js"></script>
+<script src="js/groups.js"></script>
+<script src="js/_toolkit.js"></script>
+<script src="statesData.js"></script>
 <script src="app.js"></script>
+
 </html>
 

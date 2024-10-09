@@ -1,38 +1,28 @@
-const delay_fadin = 500;
+const GROUPS = [
+  { id: 1, color: 'green', label: 'Group A', states: [] },
+  { id: 2, color: 'red', label: 'Group B', states: [] },
+  { id: 3, color: 'blue', label: 'Group C', states: [] },
+]
+
+const DEFAULT_HEADERS = [ 'id', 'name', 'pop', 'cap', 'au' ] 
+const HEADER_KEYS = { id: "Abbr.", name: "Name", pop: "Pop.", cap: "Cap.", au: "Est.", sqm: "Sqr M", gdp: "GDP" }
+
+let selectedGroup = GROUPS[0]
+let selected_state_color = selectedGroup.color 
 let unselected_state_color; // * declared in css '.state' and set in javescript.
-let selected_state_color = 'green' 
+svgContainer.innerHTML = statesJS // * assets/states_svg.js
+const delay_fadin = 500;
+
+
+/* 🎬 PRELOAD 🎬 */
+build_map()
+build_color_selector()
 
 window.onload = ()=>{ 
-  svgContainer.innerHTML = statesJS 
-  setTimeout(() => { svgContainer.style.opacity = 1 }, delay_fadin);
-  build_SVG_map()
-}
-
-const build_SVG_map = () => {
-  const paths =  Array.from(svgContainer.querySelectorAll('path'))
-  const polylines =  Array.from(svgContainer.querySelectorAll('polyline'))
-  let states = paths.concat(polylines)
-
-  const filterStates = ['InteriorOutlines', 'DC']
-  states = states.filter(state => !filterStates.includes(state.id))
-  states = states.filter(state => state.classList.contains('state'))
-  unselected_state_color = states[0].style.fill 
-  build_states(states)
-}
-
-const build_states = (states) => {   
-  states.forEach(state => {
-    add_state_click_event(state)
-  })
-}
-
-const add_state_click_event = (state) => {
-  state.addEventListener('click', function() {
-    console.log('state clicked:', state.id)
-    if (state.style.fill != unselected_state_color) {
-      state.style.fill = unselected_state_color
-    } else {
-      state.style.fill = selected_state_color
-    }
+  const mainSections = document.querySelectorAll('section')
+  mainSections.forEach( (section, index) => {
+    setTimeout(() => { 
+      section.style.opacity = 1 
+    }, delay_fadin + (index * 200) )
   })
 }

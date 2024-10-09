@@ -2,27 +2,41 @@
 Building an interactive US states map for blog posts.
 
 ### To Do 🟡 ✅ 🚨
-- ✅ Create CSS & JS file
-- ✅ Clean up code for what we're doing, ignore `highlight_click_show` specifics.
-- ✅ ? Remove all state's `fill="#5C5D60"` in states_svg.jg
-- ✅ Create a white submask for each state.
-- ✅ Change states and bg color. Should be different, but maybe both on gray scale.
-- ✅ Set border radius and drop shaddow 
-- ✅ Decide on background color & State color.
-- ✅ test out grainy background. maybe only water?
-- ✅ Disable clicking borders. 
-- ✅ Remove DC 
-- ✅ Decide on a max width.
+- ✅ Convert `statesObj` to `statesData` = [] * AS ARRAY
+- ✅ we shouldn't need to pass any arguments within the app.js onload.
+- ✅ BUG: create a green state > click red > click same state
+- ✅ Once done, it should be saved ass `statesData.js` HARDCODED!
+- ✅ add id to be abbreviations
+- ✅ Test feeding Gemini statesData 
+- Finishing implimenting HEADER_KEYS > should loop DEFAULT HEADER instead of state obj.
+- Finished Capitolize Global vars. 
+- REVIEW this README.md > Plan next
+
+
+- Hover over should really show what the next color is going to be. I think this is just a quick change of the css's hover background color on color change.
+
 - Settle on mobile margins and padding.
+  - This really needs to be tightened up for mobile.
 - Zoom Browser: ? How do I wanna handle this?
 - Zoom Mobile: ? How do I wanna Handle this?
 - User story: Think about this before jumping into thoughts on different colors
   - Onload: User just wants to click a state and see what happens. 
   - So maybe we have a "default"("green") group that starts to populate as you click.
-  - Even hover could have a "hover"-bar that shows basic info about the state. 
+- INFO on HOVER: 🤔 Need to consider All three containers map,colors,tables... 
+
+- Table Design
+  - How to handle abbreviations
 
 Unordered
-- Damn, we need State Lable/abbreviations. 
+- Create select all and Deselect all button
+- Menu
+  - Menu icon > modal > buttons (Handle show hide) *See polygons
+  - Add "Upload Map" button  
+  - Add "Download Map" Button
+  - Create 🛠️ Dev tests bottom section & Add hardcoded maps to upload
+  - Add test objects to menu button
+- Enhancements
+  - Allow multi-colored / group states. 
 - Create browser tab icon & Review Tab Title still matches. 
 
 ### MVP (Blog Post #1) - Creating and saving maps (.png map & .csv data)
@@ -41,6 +55,8 @@ Unordered
 
 ### MVP (Blog Post #2) - Adding AI
 - Create new folder `states2`
-- Theme: 
+- Theme: Thematic Map Generator with AI
+- Various Changes
+  - Let's remove less static things from `statesData`. like population/GDP can change. better to let AI answer that. 
 
 ### MVP (Blog Post #3) - Adding Authentication and DB
