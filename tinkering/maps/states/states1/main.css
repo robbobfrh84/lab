@@ -30,7 +30,7 @@ body {
   fill: rgb(255, 255, 255);
 }
 .state {
-  fill: rgb(80, 80, 80);
+  fill: #505050;
   cursor: pointer;
   transition: fill 0.3s ease-out, opacity 0.3s ease-out;
 }
@@ -39,13 +39,19 @@ body {
   transform: opacity 0.3s ease-out;
 }
 
-/* 🎨 Group Color Selector */
-#colorSelectorContainer {
+/* 🎨 Group Editor  */
+#groupEditorContainer {
   display: flex;
   align-items: center;
 }
 #colorSelectorTitle {
   margin-right: 10px;
+}
+#groupColorSelector {
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 0px 8px;
+  height: 50px; 
+  border-radius: 25px; 
 }
 #groupColorSelector input[type="radio"] {
   display: none;
@@ -53,7 +59,7 @@ body {
 #groupColorSelector label {
   display: inline-block;
   position: relative;
-  top: 2px;
+  top: 1px;
   margin: 5px;
   width: 30px;
   height: 30px;
@@ -62,7 +68,7 @@ body {
   box-shadow: 0 0 4px black;
 }
 #groupColorSelector input[type="radio"]:checked + label {
-  top: 4px;
+  top: 3px;
   outline: 2px solid white;
   border: 2px solid black;
 }
@@ -75,7 +81,7 @@ body {
 .blue {
   background-color: blue;
 }
-.plus-icon {
+.group-edit-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -86,9 +92,9 @@ body {
   height: 30px;
   border-radius: 50%;
   cursor: pointer;
-  border: 2px solid white;
+  border: 1px solid white;
 }
-.plus-icon:hover {
+.group-edit-icon:hover {
   background-color: rgba(255, 255, 255, 0.2);
 }
 

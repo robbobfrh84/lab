@@ -3783,4 +3783,20 @@ const statesJS = `<svg viewBox="0 0 485.499 300" xmlns="http://www.w3.org/2000/s
 	l0.299,0.864v0.092l0.195,0.458l0.441,1.466l0.281,0.699l0.225,0.819l0.279,0.693l0.224,0.74l0.28,0.7l0.439,1.533l0.281,0.699
 	l0.223,0.741l0.37,0.864v0.755l0.206,0.685l0.323,0.638l0.658,0.594l0.69,0.345l-0.003,0.007l0.212,0.191l0.064,0.639l0.625,0.688
 	l0.308,0.123L458.839,65.537z"></path>
+
+  <defs>
+        <pattern id="striped-pattern" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(315)">
+            <!-- Red stripe -->
+            <rect width="4" height="12" fill="red" />
+            <!-- Blue stripe -->
+            <rect x="4" width="4" height="12" fill="blue" />
+            <rect x="8" width="4" height="12" fill="green" />
+
+        </pattern>
+    </defs>
+
+    <!-- Path element using the pattern as a fill -->
+    <path d="M 50 50 Q 100 10 150 50 T 250 50" fill="url(#striped-pattern)" stroke="black" stroke-width="2" />
+
+
 </svg>`

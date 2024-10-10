@@ -1,28 +1,36 @@
-const GROUPS = [
-  { id: 1, color: 'green', label: 'Group A', states: [] },
-  { id: 2, color: 'red', label: 'Group B', states: [] },
-  { id: 3, color: 'blue', label: 'Group C', states: [] },
-]
+const _config = {
+  data: CLIENT_STATES_DATA, // * from data/statesData.js
+  groups: [
+    { id: 1, color: 'url(#striped-pattern)', label: 'Group A', states: [] },
+    { id: 2, color: 'red', label: 'Group B', states: [] },
+    { id: 3, color: 'blue', label: 'Group C', states: [] },
+  ],
+  unselectedGroup: { id: 0, color: '#505050', label: 'unselected' },
+  headers: [ 'id', 'name', 'pop', 'cap', 'au' ], // * Default headers to show,
+  headerKeys: { id: "Abbr.", name: "Name", pop: "Pop.", cap: "Cap.", au: "Est.", sqm: "Sqr M", gdp: "GDP" }, 
+  style: {
+    delay_fade_in: 500,
+  }
+}
 
-const DEFAULT_HEADERS = [ 'id', 'name', 'pop', 'cap', 'au' ] 
-const HEADER_KEYS = { id: "Abbr.", name: "Name", pop: "Pop.", cap: "Cap.", au: "Est.", sqm: "Sqr M", gdp: "GDP" }
+const STATE = { // * ✨ This is setting the DEFAULT STATE, and replaced by Saved states.
+  groups: _config.groups,
+  selectedGroup: _config.groups[0],
+  unselectedGroup: _config.unselectedGroup,
+  headers: _config.headers
+}
 
-let selectedGroup = GROUPS[0]
-let selected_state_color = selectedGroup.color 
-let unselected_state_color; // * declared in css '.state' and set in javescript.
-svgContainer.innerHTML = statesJS // * assets/states_svg.js
-const delay_fadin = 500;
+const preload = () => {
+  svgContainer.innerHTML = statesJS
+  build_map()
+  build_color_selector()
+}
 
-
-/* 🎬 PRELOAD 🎬 */
-build_map()
-build_color_selector()
-
-window.onload = ()=>{ 
+window.onload = () => { 
   const mainSections = document.querySelectorAll('section')
   mainSections.forEach( (section, index) => {
     setTimeout(() => { 
       section.style.opacity = 1 
-    }, delay_fadin + (index * 200) )
+    }, _config.style.delay_fade_in + (index * 200) )
   })
 }

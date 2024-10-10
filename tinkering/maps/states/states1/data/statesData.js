@@ -13,7 +13,7 @@ to the corrisponding state's object.
 
 
 
-const statesData = [
+const CLIENT_STATES_DATA = [
   {
       "id": "AL",
       "name": "Alabama",

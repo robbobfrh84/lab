@@ -12,12 +12,18 @@
     <div id="svgContainer"></div>
   </section>
 
-  <section id="colorSelectorContainer" class="mainSection no-select">
+  <section id="groupEditorContainer" class="mainSection no-select">
     <span id="colorSelectorTitle">Group:</span>
     <div id="groupColorSelector"></div>
-    <span id="addGroupButton" class="plus-icon">
+    <span id="addGroupButton" class="group-edit-icon">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M12 5V19M5 12H19" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </span>
+    <span id="addGroupButton" class="group-edit-icon">
+      <svg width="24" height="24" viewBox="0 1 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill="darkgoldenrod" d="M3 17.25V21H6.75L17.81 9.94L14.06 6.19L3 17.25Z" stroke="white" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+        <path fill="brown" d="M14.06 6.19L16.85 3.4C17.24 3.01 17.87 3.01 18.26 3.4L20.6 5.74C20.99 6.13 20.99 6.76 20.6 7.15L17.81 9.94" stroke="white" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </span>
   </section>
@@ -31,8 +37,10 @@
 <script src="js/map.js"></script>
 <script src="js/groups.js"></script>
 <script src="js/_toolkit.js"></script>
-<script src="statesData.js"></script>
+<script src="data/statesData.js"></script>
 <script src="app.js"></script>
-
+<script>
+preload()
+</script>
 </html>
 
