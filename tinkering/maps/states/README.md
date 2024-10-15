@@ -12,6 +12,7 @@
 - ✅ REVIEW this README.md > Prune
 - ✅ colorcontainer updates
 - multi-color gradient: https://chatgpt.com/c/67043849-20dc-8002-808d-8bedcd4e7a70
+  - see states_svg at bottom for hardcoded griant guide. 
 
 
 ### Unordered To Do
