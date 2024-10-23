@@ -12,8 +12,7 @@ const color_selector_build = () => {
 
     const label = document.createElement('label')
     label.htmlFor = 'colorButton_'+color.id
-    label.classList.add(color.color)  
-
+    label.style.backgroundColor = color.color
     groupColorSelector.appendChild(input)
     groupColorSelector.appendChild(label)
   })

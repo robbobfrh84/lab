@@ -72,15 +72,6 @@ body {
   outline: 2px solid white;
   border: 2px solid black;
 }
-.green {
-  background-color: green;
-}
-.red {
-  background-color: red;
-}
-.blue {
-  background-color: blue;
-}
 .group-edit-icon {
   display: inline-flex;
   align-items: center;
