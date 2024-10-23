@@ -1,7 +1,7 @@
-const build_tables = () => {
+const group_build_tables = () => {
   STATE.groups.forEach(group => {
     if (group.states.length > 0) {
-      const tbody = build_tbody(group)
+      const tbody = group_build_tbody(group)
       group.states.forEach(state => {
         const row = tbody.insertRow()
         STATE.headers.forEach( (key, index) => {
@@ -15,7 +15,7 @@ const build_tables = () => {
   })
 }
 
-const build_tbody = (group) => {
+const group_build_tbody = (group) => {
   let tbody;
   if (!window['states_table_'+group.label]) {
     const table = document.createElement('table')

@@ -1,4 +1,16 @@
 const statesJS = `<svg viewBox="0 0 485.499 300" xmlns="http://www.w3.org/2000/svg">
+
+<defs>
+<pattern id="striped-pattern" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(315)">
+    <!-- Red stripe -->
+    <rect width="4" height="12" fill="red" />
+    <!-- Blue stripe -->
+    <rect x="4" width="4" height="12" fill="blue" />
+    <rect x="8" width="4" height="12" fill="green" />
+
+</pattern>
+</defs>
+
 <path id="Maryland" d="M393.699,120.888l15.12-2.88l17.136-3.672l2.448,8.496l1.224,5.112l0.432,0.792l5.328-1.224
 	l-0.143,0.288l-0.36,0.288l0.72,0.648l-0.359,1.512l-0.36-0.216l-0.359,1.512l-0.576,0.72l0.072,0.72l-1.584,0.576l-0.721,0.72
 	h-0.648l-1.439,0.504v-0.504l0.504-0.792l0.288-0.72l-0.72,0.288l-0.288-0.504l-0.721,0.432l-0.144-0.72l0.648-0.792l-0.504-0.216
@@ -3783,20 +3795,4 @@ const statesJS = `<svg viewBox="0 0 485.499 300" xmlns="http://www.w3.org/2000/s
 	l0.299,0.864v0.092l0.195,0.458l0.441,1.466l0.281,0.699l0.225,0.819l0.279,0.693l0.224,0.74l0.28,0.7l0.439,1.533l0.281,0.699
 	l0.223,0.741l0.37,0.864v0.755l0.206,0.685l0.323,0.638l0.658,0.594l0.69,0.345l-0.003,0.007l0.212,0.191l0.064,0.639l0.625,0.688
 	l0.308,0.123L458.839,65.537z"></path>
-
-  <defs>
-        <pattern id="striped-pattern" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(315)">
-            <!-- Red stripe -->
-            <rect width="4" height="12" fill="red" />
-            <!-- Blue stripe -->
-            <rect x="4" width="4" height="12" fill="blue" />
-            <rect x="8" width="4" height="12" fill="green" />
-
-        </pattern>
-    </defs>
-
-    <!-- Path element using the pattern as a fill -->
-    <path d="M 50 50 Q 100 10 150 50 T 250 50" fill="url(#striped-pattern)" stroke="black" stroke-width="2" />
-
-
 </svg>`

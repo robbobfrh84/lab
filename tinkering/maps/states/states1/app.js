@@ -1,7 +1,9 @@
 const _config = {
-  data: CLIENT_STATES_DATA, // * from data/statesData.js
+  states: CLIENT_STATES_DATA, // * from data/statesData.js
   groups: [
-    { id: 1, color: 'url(#striped-pattern)', label: 'Group A', states: [] },
+    // { id: 1, color: 'url(#striped-pattern)', label: 'Group A', states: [] },
+    { id: 1, color: 'green', label: 'Group A', states: [] },
+
     { id: 2, color: 'red', label: 'Group B', states: [] },
     { id: 3, color: 'blue', label: 'Group C', states: [] },
   ],
@@ -15,15 +17,15 @@ const _config = {
 
 const STATE = { // * ✨ This is setting the DEFAULT STATE, and replaced by Saved states.
   groups: _config.groups,
-  selectedGroup: _config.groups[0],
+  selectedGroupId: _config.groups[0].id,
   unselectedGroup: _config.unselectedGroup,
   headers: _config.headers
 }
 
 const preload = () => {
   svgContainer.innerHTML = statesJS
-  build_map()
-  build_color_selector()
+  map_build()
+  color_selector_build()
 }
 
 window.onload = () => { 

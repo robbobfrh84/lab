@@ -1,13 +1,13 @@
-const build_color_selector = () => {
+const color_selector_build = () => {
   STATE.groups.forEach(color => {
     const input = document.createElement('input')
     input.type = 'radio'
     input.id = 'colorButton_'+color.id
     input.name = 'color'
     input.value = color.color
-    input.checked = color.color == STATE.selectedGroup.color ? 'checked' : ''
+    input.checked = color.id == STATE.selectedGroupId ? 'checked' : ''
     input.addEventListener('click', function() {
-      STATE.selectedGroup = color
+      STATE.selectedGroupId = color.id
     })
 
     const label = document.createElement('label')

@@ -3,16 +3,14 @@
 - 
 
 ### To Do 🟡 ✅ 🚨
-- ✅ Finishing implimenting HEADER_KEYS > loop DEFAULT HEADER instead of state obj.
-- ✅ Create STATE and _config finish _config.unselectedGroup
-- ✅ Review `_config`
-- ✅ STATE.groups[0] keys need to be filtered when added to STATE.group
-- ✅ Finished Capitolize Global vars TEST and DELET NOTES
-- ✅ Add <script> to html. call preload()
-- ✅ REVIEW this README.md > Prune
-- ✅ colorcontainer updates
+- ✅ let's rename all `/js` function with the prefix `map_...`, etc..
 - multi-color gradient: https://chatgpt.com/c/67043849-20dc-8002-808d-8bedcd4e7a70
-  - see states_svg at bottom for hardcoded griant guide. 
+  - ✅ see states_svg at top for hardcoded griant guide. 
+  - ✅ make multi placeholder `pink` and when clicked again it removes
+  - need to add state to current group table when pink
+  - need to remove state from ALL groups when unselected from pink
+  - make `map_fill_state()`
+
 
 
 ### Unordered To Do
@@ -44,11 +42,12 @@
   - Find USA country icon outline .png for icon (put something fun inside... sparkle?)
   - Create browser tab icon & Review Tab Title still matches.   
 - ✨ Misc. Enhancements / Refactor
-  -  INFO on HOVER: 🤔 Need to consider All three containers map, colors, tables...  
+  - INFO on HOVER: 🤔 Need to consider All three containers map, colors, tables...  
     - show selected color's group name.
     - show state name
     - shows edit buttons details. 
     - show header full name sqm = "Total Square Miles"
+  - White is too white. Our white lines, around states, buttons are kinda "Stingy" let's take this moment to create a /css and break apart and add _vars.css and add white. 
 
 ### Misc... MVP
 - Add a number count column, that can be reversed so that the states that show up are added to the top NOT bottom. 
