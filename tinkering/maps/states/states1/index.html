@@ -1,44 +1,46 @@
 <!DOCTYPE html><html lang='en'>
-<title> US States Thematic Map Builder </title><!-- <link rel='icon' href='link/or/path'>  -->
+<title> US Thematic Map Builder </title><!-- <link rel='icon' href='link/or/path'>  -->
 <head>
   <meta charset='UTF-8'><meta http-equiv='X-UA-Compatible' content='ie=edge'>
   <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-  <link rel='stylesheet' href='main.css'>
+
+  <link rel='stylesheet' href='css/main.css'>
+  <script src="js/tk.js"></script>
+  <script src="js/states_svg.js"></script>
+  <script src="js/statesData.js"></script>
+  <script src="app.js"></script>
+
+  <!-- Components 👇 -->
+  <link rel='stylesheet' href='components/map/map.css'>
+  <script src="components/map/map.js"></script>
+
+  <link rel='stylesheet' href='components/tables/tables.css'>
+  <script src="components/tables/tables.js"></script>
+
+  <link rel='stylesheet' href='components/groups/groups.css'>
+  <script src="components/groups/groups.js"></script>
+
+  <link rel='stylesheet' href='components/modal/modal.css'>
+  <script src="components/modal/modal.js"></script>
+  <!-- Components 👆  -->
+
 </head>
 
 <body>
 
-  <section id="mapContainer" class="mainSection">
-    <div id="svgContainer"></div>
-  </section>
+  <section id="modal_container"></section>
+  <section id="map_container" class="mainSection"></section>
+  <section id="groups_container" class="mainSection no-select"></section>
+  <section id="tables_container" class="mainSection"></section>
 
-  <section id="groupEditorContainer" class="mainSection no-select">
-    <span id="colorSelectorTitle">Group:</span>
-    <div id="groupColorSelector"></div>
-    <span id="addGroupButton" class="group-edit-icon">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 5V19M5 12H19" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </span>
-    <span id="addGroupButton" class="group-edit-icon">
-      <svg width="24" height="24" viewBox="0 1 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path fill="darkgoldenrod" d="M3 17.25V21H6.75L17.81 9.94L14.06 6.19L3 17.25Z" stroke="white" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-        <path fill="brown" d="M14.06 6.19L16.85 3.4C17.24 3.01 17.87 3.01 18.26 3.4L20.6 5.74C20.99 6.13 20.99 6.76 20.6 7.15L17.81 9.94" stroke="white" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </span>
-  </section>
+  <!-- 🛠️ Developer tools, note-out on producation -->
+  <section id="dev_tools_container" class="mainSection"></section>
+  <script src="js/_dev_tools.js"></script>
 
-  <section id="tablesContainer" class="mainSection"></section>
+  <section id="all_states_tables_container" class="mainSection"></section>
 
+
+<script>app_preload()</script>
 </body>
-
-<script src="assets/states_svg.js"></script>
-<script src="js/color_selector.js"></script>
-<script src="js/map.js"></script>
-<script src="js/lists.js"></script>
-<script src="js/_toolkit.js"></script>
-<script src="data/statesData.js"></script>
-<script src="app.js"></script>
-<script> app_preload() </script>
 </html>
 

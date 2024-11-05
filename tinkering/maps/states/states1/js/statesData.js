@@ -85,6 +85,16 @@ const CLIENT_STATES_DATA = [
       "groups": []
   },
   {
+    "id": "DC",
+    "name": "DistrictOfColumbia",
+    "pop": 705749,
+    "cap": "Washington",
+    "au": 1790,
+    "sqm": 68,
+    "gdp": "1.41e+02",
+    "groups": []
+  },
+  {
       "id": "DE",
       "name": "Delaware",
       "pop": 1003384,
