@@ -1,5 +1,5 @@
 const tables_build_allStates = () => {
-  console.log('💀tables build allStates💀')
+
   SESH.filteredStates = tk_sort(
     SESH.filteredStates, 
     STATE.allStates.sort, 
@@ -42,7 +42,6 @@ const tables_build = () => {
 }
 
 const tables_build_tbody = (group, container) => {
-  console.log('group:',group)
   let tbody;
   if (!window['states_table_'+group.id]) {
     const table = document.createElement('table')
@@ -59,7 +58,6 @@ const tables_build_tbody = (group, container) => {
     STATE.headers.forEach((key, index) => {
       const header_cell = header_row.insertCell(index + 1) 
       header_cell.innerHTML = CONFIG.headerKeys[key]
-
       //
       //
       // const sortButton = document.createElement('button')

@@ -85,8 +85,6 @@ const groups_edit_save = () => {
   group.color = groupColor
   group.label = groupName
   groups_build()
-
-  // 
   tables_build()
   modal_close()
 }

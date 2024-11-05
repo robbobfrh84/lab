@@ -2,23 +2,16 @@ const map_build = (mapId) => {
   map_container.innerHTML = /*html*/`<div id=${mapId}>${statesJS}</div>`
   const statesSVG = map_prep_SVG()
   map_filter_states()
-  map_build_states(statesSVG)
+  statesSVG.forEach(state => {  
+    map_add_state_click_event(state)
+  })
 }
 
 const map_prep_SVG = (svg) => {
-  // const paths = Array.from(svg_container.querySelectorAll('path'))
-  // const polylines = Array.from(svg_container.querySelectorAll('polyline'))
-  // const g = Array.from(svg_container.querySelectorAll('g'))
-  // let statesSVG = paths.concat(polylines)
-  // statesSVG = statesSVG.concat(g)
-
   let statesSVG = Array.from(svg_container.querySelectorAll('g'))
-
-  // statesSVG = statesSVG.filter(state => !CONFIG.filterElements.includes(state.id))
   statesSVG = statesSVG.filter(state => state.classList.contains('state'))
   return statesSVG
 }
-
 
 const map_filter_states = () => {
   CONFIG.states.forEach( state => {
@@ -28,19 +21,9 @@ const map_filter_states = () => {
   })
 }
 
-const map_build_states = (statesSVG) => {   
-  statesSVG.forEach(state => { // maybe just have this is map_build? Keep events there too. 
-    map_add_state_click_event(state)
-    state.style.fill = STATE.unselectedGroup.color
-    // const bubble = state.querySelector('circle')
-    // if (bubble) {
-    //   bubble.style.fill = STATE.unselectedGroup.color
-    // }
-    state.groupId = STATE.unselectedGroup.id
-  })
-}
-
 const map_add_state_click_event = (state) => {
+  state.style.fill = STATE.unselectedGroup.color
+  state.groupId = STATE.unselectedGroup.id
   state.addEventListener('click', function() {
     const stateData = SESH.filteredStates.filter(s => s.name === state.id)[0]   
     const groupIndex = STATE.groups.findIndex(g=>g.id === STATE.selectedGroupId)

@@ -1,6 +1,6 @@
 const CONFIG = {
   states: CLIENT_STATES_DATA, // * from data/statesData.js
-  groups: [ // * 🚨 id: 0 is reserved for All States group.
+  groups: [ // * 🚨 NOTE: `id: 0` is reserved for All States group.
     { id: 1, color: 'green', label: 'Group A', states: [] },
     { id: 2, color: 'red', label: 'Group B', states: [] },
     { id: 3, color: 'blue', label: 'Group C', states: [] },
@@ -9,7 +9,6 @@ const CONFIG = {
   unselectedGroup: { id: 0, color: '#505050', label: 'unselected' },
   headers: [ 'id', 'name', 'pop', 'cap', 'au' ], // * Default headers to show,
   headerKeys: { id: "Abbr", name: "Name", pop: "Pop.", cap: "Cap.", au: "Est.", sqm: "Sqr M", gdp: "GDP" }, 
-  // filterElements: ['InteriorOutlines'], 
   style: {
     delay_fade_in: 500,
   }
@@ -30,7 +29,6 @@ const STATE = { // * This is setting the DEFAULT STATE, and replaced by Saved st
   showBubbles: true,
   showDC: false,
 }
-
 
 const app_preload = () => {
   map_build("svg_container")

@@ -11,7 +11,7 @@
 }
 #modal_main {
   position: relative;
-  background: url('../assets/images/dark-grain-lighter.jpg'); 
+  background: url('../../assets/images/dark-grain-lighter.jpg'); 
   box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.4);
   margin: 15% auto;
   padding: 20px;

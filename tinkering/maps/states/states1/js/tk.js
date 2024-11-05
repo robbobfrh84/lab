@@ -7,14 +7,6 @@ const tk_random = function(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-// const tk_removeByID = (arr,id) => { 
-//   return arr.filter(item => item.id !== id)
-// }
-
-// const tk_getByID = (arr,id) => { 
-//   return arr.filter(item => item.id === id)[0]
-// }
-
 const tk_sort = (arr,sort,order) => { 
   if (order === "ascending") {
     return arr.sort((a,b) => a[sort] > b[sort] ? 1 : -1)

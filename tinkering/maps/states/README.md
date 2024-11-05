@@ -13,18 +13,18 @@
 - ✅ Update/use STATE.allStates name & order when building `tables_build_allStates`
   - ✅ This should replace where you have `tk_sort(` in `_toggleDC(`
   - ✅ test a couple different options, and with DC on/off.
+- ✅ PUSH CHANGES -> 👀 Actually review changes!
+
+- ✅ Remove noted out code. 
+- ✅ Look for notes that need to be quickly updated and tested, OR OR OR noted here...
 - PUSH CHANGES -> 👀 Actually review changes!
+- Reboot comp.
 
 
 - Finish implimenting sort for ALL GROUPS and all states table. 
   - 👀 Starter code is there NOTED OUT from Copilot....
 - PUSH CHANGES -> 👀 Actually review changes!
 
-
-- Remove noted out code. 
-- Look for notes that need to be quickly updated and tested, OR OR OR noted here...
-- PUSH CHANGES -> 👀 Actually review changes!
-- Reboot comp.
 
 - Let's Add a settings icon (use ai) > top right and "topNav" section
   - Add header `"US Map Data" Powered by Gemini AI` - (mapdata.farm)
