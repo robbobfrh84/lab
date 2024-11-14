@@ -7,8 +7,8 @@ class Matter_Helper {
     if (!hash) {    
       this.hashImage = this.C.default_user_image
     } else {
-      this.hashImage = hash.split('http')[1] ? hash : "assets/"+hash+".png"
-      const checkedImage = await matter_toolkit_check_image(this.hashImage)
+      this.hashImage = hash.split('http')[1] ? hash : "assets/"+hash
+      const checkedImage = await toolkit_check_image(this.hashImage)
       if (checkedImage == "error") this.hashImage = this.C.default_user_image
     }
   }
@@ -28,25 +28,17 @@ class Matter_Helper {
     Composite.add(world, walls)
   }
 
-  add_bodies(Bodies) { // 🔥 Rough Copy/Paste from `drop_on_blocks`
+  async add_bodies(Bodies) { // 🔥 Rough Copy/Paste from `drop_on_blocks`
     const bodies_Array = []
-  
-    this.C.matter_live_bodies.forEach( b => {
-      if (b.image === "avatar") { // 🚨 this should go up top of loop and be updated for all images. 
+    for (const b of this.C.matter_live_bodies) {
+      if (b.image === "avatar") { 
         b.image = this.hashImage 
         // 🔥
-        // const rectTexture = createRoundedRectTexture(b.w, b.h, 10, b.image);
-        const testy = new Promise((resolve, reject) => {
-          const dataUrl = createRoundedImage(200, 200, 50, this.hashImage);
-          resolve()
-        })
-        // await testy
-        // console.log('b.image',b.image)
-        // console.log('rectTexture:',rectTexture)
+        const dataUrl = await createRoundedImage(b.rSize*2, b.rSize*2, b.rSize, b.image)
+        b.image = dataUrl
         // 🔥
       }
       if (b.shape === "circle") {
-
         const circle = Bodies.circle(b.x, b.y, b.rSize, {
           density: 0.0007,
           frictionAir: 0.02,
@@ -75,12 +67,12 @@ class Matter_Helper {
         })
         bodies_Array.push(rect)
       }
-    })
+    }
   
     return bodies_Array
   }
 
-  build_matter = function() { // 🔥 Rough Copy/Paste from `drop_on_blocks`
+  async build_matter() { // 🔥 Rough Copy/Paste from `drop_on_blocks`
     const Engine = Matter.Engine,
       Render = Matter.Render,
       Runner = Matter.Runner,
@@ -112,7 +104,7 @@ class Matter_Helper {
     world.bodies = []
   
     this.build_walls(Composite, Bodies, world)
-    const newBodies = this.add_bodies(Bodies)
+    const newBodies = await this.add_bodies(Bodies)
     Composite.add(world, newBodies);
   
     const mouse = Mouse.create(render.canvas), // add mouse control
