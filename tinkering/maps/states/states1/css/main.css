@@ -1,6 +1,10 @@
+html {
+  background: url('../assets/images/dark-grain2.png');
+  background-color: rgb(60, 60, 60);
+}
 body {
   margin: 0;
-  background: url('../assets/images/dark-grain2.png'); /* background-color: rgb(100, 100, 100); */
+  background: url('../assets/images/dark-grain2.png');
   color: white;
   font-family: Avenir, sans-serif;
   padding-bottom: 50px;
@@ -18,64 +22,3 @@ body {
   -moz-user-select: none; /* For Firefox */
   -ms-user-select: none; /* For older IE versions */
 }
-
-/* 🎨 Group Editor  */
-#groups_container {
-  display: flex;
-  align-items: center;
-}
-#groupTitle {
-  margin-right: 10px;
-}
-#groupColorSelector {
-  background-color: rgba(255, 255, 255, 0.2);
-  padding: 0px 8px 0px 8px;
-  height: 50px; 
-  border-radius: 25px; 
-}
-#groupColorSelector input[type="radio"] {
-  display: none;
-}
-#groupColorSelector label {
-  display: inline-block;
-  position: relative;
-  top: 1px;
-  margin: 5px;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  cursor: pointer;
-  box-shadow: 0 0 4px black;
-}
-#groupColorSelector input[type="radio"]:checked + label {
-  top: 3px;
-  outline: 2px solid white;
-  border: 2px solid black;
-}
-.group-edit-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  top: 1px;
-  margin-left: 10px;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  cursor: pointer;
-  border: 1px solid white;
-}
-.group-edit-icon:hover {
-  background-color: rgba(255, 255, 255, 0.2);
-}
-
-/* 🏘️ Tables 🍽️ */
-.states_table {
-  margin-bottom: 10px;
-  width: 100%;
-  background-color: rgba(255, 255, 255, 0.2);
-}
-thead {
-  background-color: rgba(255, 255, 255, 0.2);
-}
-

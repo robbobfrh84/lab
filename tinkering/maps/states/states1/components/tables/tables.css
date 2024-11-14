@@ -1,0 +1,8 @@
+.states_table {
+  margin-bottom: 10px;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+thead {
+  background-color: rgba(255, 255, 255, 0.2);
+}

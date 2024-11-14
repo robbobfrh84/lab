@@ -32,7 +32,7 @@ const STATE = { // * This is setting the DEFAULT STATE, and replaced by Saved st
 
 const app_preload = () => {
   map_build("svg_container")
-  SESH.filteredStates = tk_sort(SESH.filteredStates, STATE.allStates.sort, STATE.allStates.order)
+  // SESH.filteredStates = tk_sort(SESH.filteredStates, STATE.allStates.sort, STATE.allStates.order)
   groups_build()
   _toggleDC(true, true) // * 1st arg is "holdToggle" and prevents UI from toggling. 2nd arg is "holdTableBuild" and prevents a doulbe load of all states table.
   tables_build_allStates()

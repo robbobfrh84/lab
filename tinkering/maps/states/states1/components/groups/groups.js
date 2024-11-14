@@ -1,13 +1,13 @@
 const groups_build = () => {
   groups_container.innerHTML = /*html*/`  
     <span id="groupTitle">Groups</span>
-    <div id="groupColorSelector"></div>
-    <span id="addGroupButton" onclick="groups_add()" class="group-edit-icon">
+    <div id="group_ColorSelector"></div>
+    <span id="addGroupButton" onclick="groups_add()" class="group_edit-icon">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M12 5V19M5 12H19" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </span>
-    <span id="editGroupButton" onclick="groups_edit()" class="group-edit-icon">
+    <span id="editGroupButton" onclick="groups_edit()" class="group_edit-icon">
       <svg width="24" height="24" viewBox="0 1 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path fill="darkgoldenrod" d="M3 17.25V21H6.75L17.81 9.94L14.06 6.19L3 17.25Z" stroke="white" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
         <path fill="brown" d="M14.06 6.19L16.85 3.4C17.24 3.01 17.87 3.01 18.26 3.4L20.6 5.74C20.99 6.13 20.99 6.76 20.6 7.15L17.81 9.94" stroke="white" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
@@ -22,7 +22,7 @@ const groups_build_color_buttons = () => {
     <input type="radio" id="colorButton_${color.id}" name="color" value="${color.color}" ${color.id == STATE.selectedGroupId ? 'checked' : ''}>
     <label for="colorButton_${color.id}" style="background-color: ${color.color}"></label>
   `}).join('')
-  groupColorSelector.innerHTML = html
+  group_ColorSelector.innerHTML = html
 
   STATE.groups.forEach(color => {
     document.getElementById('colorButton_' + color.id).addEventListener('click', function() {

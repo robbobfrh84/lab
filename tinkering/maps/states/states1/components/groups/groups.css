@@ -1,0 +1,48 @@
+#groups_container {
+  display: flex;
+  align-items: center;
+}
+#group_title {
+  margin-right: 10px;
+}
+#group_ColorSelector {
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 0px 8px 0px 8px;
+  height: 50px; 
+  border-radius: 25px; 
+}
+#group_ColorSelector input[type="radio"] {
+  display: none;
+}
+#group_ColorSelector label {
+  display: inline-block;
+  position: relative;
+  top: 1px;
+  margin: 5px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 4px black;
+}
+#group_ColorSelector input[type="radio"]:checked + label {
+  top: 3px;
+  outline: 2px solid white;
+  border: 2px solid black;
+}
+.group_edit-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  top: 1px;
+  margin-left: 10px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 1px solid white;
+}
+.group_edit-icon:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}

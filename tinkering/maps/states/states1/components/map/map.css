@@ -4,6 +4,10 @@
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.75);
   border-radius: 3px;
 }
+
+/* 
+  - stages_svg.js Embeded IDs and classes 
+*/
 .stateSubBack {
   fill: white;
 }

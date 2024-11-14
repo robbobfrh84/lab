@@ -1,47 +1,36 @@
 # US Thematic Map Builder
 -
 
-### To Do 🟡 ✅ 🚨 
-- ✅ Update `_config_` & `_sesh` be `CONFIG` and `SESH` ? 
-- ✅ Update `_toolkit.js` > `tk.js` use name convention: `tk_random.js` (ALL)
-- ✅ Create reusable `tk...`: removeById, getByID, sort
-- ✅ Add / remove: DC to `SESH.filteredStates` on DC ON toggle & Remove on OFF toggle
-- ✅ See app.js app_preload DC toggle. want to pass aditioinal arguments 
-- ✅ Add / Remove DC from groups when toggled. 
-- ✅ Update Map's visuals of DC - This should NOT mantain group! This matches our UX.
-- ✅ Update new `tk ` funcs across code base:
-- ✅ Update/use STATE.allStates name & order when building `tables_build_allStates`
-  - ✅ This should replace where you have `tk_sort(` in `_toggleDC(`
-  - ✅ test a couple different options, and with DC on/off.
-- ✅ PUSH CHANGES -> 👀 Actually review changes!
-
-- ✅ Remove noted out code. 
-- ✅ Look for notes that need to be quickly updated and tested, OR OR OR noted here...
-- PUSH CHANGES -> 👀 Actually review changes!
-- Reboot comp.
-
-
+### To Do 🟡 ✅ 🚨 (✋ PUSH CHANGES -> 👀 Actually review changes!)
+- ✅ Break up main.css
+  - You changed your mind. rather do `.group .elms`
+    - see: https://chatgpt.com/c/672cfeb3-2694-8002-8a36-c17882f6a5e9
+  - Example: You changed to` group_elms` fix and update
+  - See index.html where i've added `map`, `groups`, `tables` to class.
+  - Review and update sitewide: include `state_svg.js` in `map.css`
+- Update states_svg classes and ids to be `map_`...?
 - Finish implimenting sort for ALL GROUPS and all states table. 
   - 👀 Starter code is there NOTED OUT from Copilot....
-- PUSH CHANGES -> 👀 Actually review changes!
+✋ PUSH CHANGES -> 👀 Actually review changes!
 
 
 - Let's Add a settings icon (use ai) > top right and "topNav" section
   - Add header `"US Map Data" Powered by Gemini AI` - (mapdata.farm)
   - Clicking opens "clean-ish" layout of dev tools.
   - make a sub-section (keep in html) that includes _dev_tools.js. But all we've built so far should be normal Settings options.
-- break up main.css
-  - Review and consider filename class `.map .elements` may need to put everything in a `div` wrapper. `class="map-component"`
-- PUSH CHANGES -> 👀 Actually review changes!
+
+✋ PUSH CHANGES -> 👀 Actually review changes!
 
 - Review and match how all html is added site-wide (_dev_tools too.)
   - This will be mostly in maps and tables (some in group too). might take some decent work here.
-- PUSH CHANGES -> 👀 Actually review changes!
+✋ PUSH CHANGES -> 👀 Actually review changes!
 
-🚨 Like take the time to plan out the remaining things in this `### To Do`
+🚨 Major Pruning, dissolved this `### To Do` into MVP and Prune there.
+- Try to really have a since of mvp now. BIG QUESTION, when do we want to add AI?
+✋ PUSH CHANGES -> 👀 Actually review changes!
 
-Adding "spectrum" map (This needs be thought out and planned before jumping in)
-- Tinker with creating spectrum map from all States Table
+
+- Adding "spectrum" map (This needs be thought out and planned before jumping in)
   - could start by having a "Spectrum ( ▻ ) " button in each tab of the all group.
 - Modal: 
   - Review and refactor AI Add & Edit groups code....
@@ -50,7 +39,7 @@ Adding "spectrum" map (This needs be thought out and planned before jumping in)
 - Add Raw group color change
   - Have 12 options (2x rows)
   - Changing after groups have been selected should change: map, multi, list.
-- PUSH CHANGES -> 👀 Actually review changes!
+- ✋ PUSH CHANGES -> 👀 Actually review changes!
 
 
 - New UI idea: see notepad drawing notes and Wireframe.
@@ -66,8 +55,6 @@ Adding "spectrum" map (This needs be thought out and planned before jumping in)
   - Info icon > modal > general info about map / .gif examples.  
 - 🗺️ Map Container:
   - Tighten up mobile margins and padding.
-  - ✅ 🟡 handling multi group in STATE.
-  - ✅ Add lines and bubble for small states.
   - Add zoom in / out 
     - Handle click drag (browser + Mobile will differ)
   - Add stroke to all states and (? remove inbetween state lines ?)
@@ -84,7 +71,7 @@ Adding "spectrum" map (This needs be thought out and planned before jumping in)
 - 🎼 Group Tables: 
   - Adding sort. 
   - Style
-  - ? HOw do we handle if a state is in multiple groups? 
+  - Groups Column with small color dots that have tooltip of group name when hovered 
 - 🖥️ Browser:
   - Find USA country icon outline .png for icon (put something fun inside... sparkle?)
   - Create browser tab icon & Review Tab Title still matches.   

@@ -4,17 +4,19 @@
 <head>
   <meta charset='UTF-8'><meta http-equiv='X-UA-Compatible' content='ie=edge'>
   <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-  <link rel='stylesheet' href='main.css'>
+  <link rel='stylesheet' href='css/main.css'>
 </head>
 
 <body>
   <h1>Matter-js Helper Class (MH)</h1>
   <div id="matterContainer"></div>
-  <div id="maskContainer"></div>
 </body>
 
-<script src='matter.js'></script>
-<script src='../_matter_helper/matter_helper_v1.0.js'></script>
-<script src='onload.js'></script>
+<script src='js/matter_v1.17.1.js'></script>
+<script src='js/UPDATES_matter_helper_v1.0.js'></script>
+<script src='js/STARTS_matter_toolkit.js'></script>
+<script src='config.js'></script>
+<script src='app.js'></script>
+<script>window.onload = () => { app_start() }</script>
 
 </html>
