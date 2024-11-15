@@ -2,8 +2,7 @@ const C = { // Config
   w: 600,  // Matter container size in px. w/h can both be specific or... 👇
   h: 600,  // "portrait"(9:16),"landscape"(16:9) or "square". Either w/h can scale.
   default_user_image: "assets/cat.png",
-  default_matter_container_id: "matterContainer",
-  default_mask_container_id: "maskContainer",
+  default_matter_container_id: "2d_physics_container",
   matter_walls: { w: 10, show: [ false, true, true, true ]}, // show: [top, right, bottom, left]
 
   matter_static_bodies: [
