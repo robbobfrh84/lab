@@ -3,13 +3,21 @@
 
 ## `_tests/_overview`
 - ✅ update `_tests/todo.md`
-- Add "WIP" popup for settings icon
-- Update file structure. 
-- fix default size first. then we'll go onto override size... after re-org config.
+- ✅ Post blueSky
+- ✅ Add "WIP" popup for settings icon
+- ✅ Update file structure. 
+- ✅ cleanup // 🔥 Rough Copy/Paste from `drop_on_blocks`
+- ✅ fix default size first. then we'll go onto override size... after re-org config.
+- ✅ fix resize to work for ratio.
+- ✅ handle toolkit_update_image for `rounded` and `opacity`
+- Tackle svg layers to place svg elements inside of.
+  - how is this handled in config?
+- Tackle rendering image vs svg
 - Make option for wireframe. ? IS this an all or none ?  
-- update sprites to have type: "sprite", "svg", and an "image" and "options" within.
+- update sprites to have type: "image", "svg" (and "options" within)
   - sprites: options: "transparency(0-1)", "rounded(true/false)", customSize:{w:,h:}
     - use ball_bad_crop_example.png cropped as example. (move good drop to _assets)
+  - 
 - update sprites to fit space > options to override size.  
 - create masks: two options `foreground`, `background` in `config.js` built in order.
 

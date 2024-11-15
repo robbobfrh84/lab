@@ -30,16 +30,19 @@ class Matter_Helper {
 
   async add_bodies(Bodies) { // 🔥 Rough Copy/Paste from `drop_on_blocks`
     const bodies_Array = []
-    for (const b of this.C.matter_live_bodies) {
-      if (b.image === "avatar") { 
-        b.image = this.hashImage 
-        // 🔥
-        // const dataUrl = await createRoundedImage(b.rSize*2, b.rSize*2, b.image)
-        // b.image = dataUrl
-        // 🔥
-      }
+    for (const b of this.C.matter_live_bodies) {     
+      /* 👀 ORDER SENTITIVE 👀*/
+      if (b.image === "avatar") { b.image = this.hashImage } 
+      if (b.options?.rounded) { b.image = await toolkit_round_image(b.r*2, b.r*2, b.image)} 
+      if (b.options?.opacity) { b.image = await toolkit_image_opacity(b.options.opacity, b.image)}
+      const { w, h } = await toolkit_get_image_size(b.image) 
+
       if (b.shape === "circle") {
-        const circle = Bodies.circle(b.x, b.y, b.rSize, {
+        const rw = b.options?.resize?.w || b.r
+        const rh = b.options?.resize?.h || b.r
+        const scale = { x: (rw * 2) / w, y: (rh * 2) / h }
+
+        const circle = Bodies.circle(b.x, b.y, b.r, {
           density: 0.0007,
           frictionAir: 0.02,
           restitution: 0.3,
@@ -47,23 +50,25 @@ class Matter_Helper {
           render: {
             sprite: { 
               texture: b.image, 
-              xScale: 1,
-              yScale: 1,
-              // xScale: (b.rSize * 2) / b.imageSize.x,
-              // yScale: (b.rSize * 2) / b.imageSize.y,
+              xScale: scale.x, 
+              yScale: scale.y,
             }
           }
         })
         bodies_Array.push(circle)
       }
       else if (b.shape === "rect") {
+        const rw = b.options?.resize?.w || b.w
+        const rh = b.options?.resize?.h || b.h
+        const scale = { x: (rw*2) / w, y: (rh*2) / h }
+
         const rect = Bodies.rectangle(b.x, b.y, b.w, b.h, {
           render: {
             strokeStyle: '#ffffff',
             sprite: {
               texture: b.image,
-              xScale: (b.w) / b.imageSize.x,
-              yScale: (b.h) / b.imageSize.y,
+              xScale: scale.x, 
+              yScale: scale.y,
             }
           }
         })
@@ -89,7 +94,7 @@ class Matter_Helper {
       world = engine.world
   
     const render = Render.create({
-      element: window[this.C.default_matter_container_id], // document.body,
+      element: window[this.C.default_container_id], // document.body,
       engine: engine,
       options: {
         width: this.C.w,
@@ -109,8 +114,8 @@ class Matter_Helper {
     const newBodies = await this.add_bodies(Bodies)
     Composite.add(world, newBodies);
   
-    const mouse = Mouse.create(render.canvas), // add mouse control
-      mouseConstraint = MouseConstraint.create(engine, { // 🚨 This code looks weird to me.... maybe it just needs it's own const, then remove the comma the line before?
+    const mouse = Mouse.create(render.canvas) // add mouse control
+    const mouseConstraint = MouseConstraint.create(engine, { 
         mouse: mouse,
         constraint: {
           stiffness: 0.2,
