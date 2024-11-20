@@ -1,4 +1,4 @@
-# 😊 Welcome to 2d_physics Development Lab 🧫
+# 😊 Welcome to Physics 2d Development Lab 🧫
 
 # Workflow
 - See: `/todo_and_ideas.md` for top-level todos and ideas. 

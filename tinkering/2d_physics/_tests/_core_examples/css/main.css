@@ -1,0 +1,29 @@
+* {
+  font-family: Avenir;
+  color: #222222;
+  font-weight: 200;
+}
+body {
+  text-align: center;
+  background: url('../assets/bg_light_grain.png');
+}
+#physics_2d_container { 
+  position: relative;
+}
+.svg-layer-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  pointer-events: none;
+}
+#topNavBar {
+  text-align: right;
+}
+.icon {
+  width: 24px;
+  height: 24px;
+  margin: 0 10px;
+  cursor: pointer;
+}

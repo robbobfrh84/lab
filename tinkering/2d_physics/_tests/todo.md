@@ -1,58 +1,58 @@
+### Where I Left Off
+- Also, Started adding layers, but realized it may be worth updating matter's w/h.
+  - Which will mean I'm going to need to translate all the X,Ys to 0-1 ranges.
+  - wondering is 0-100 might be better
+
 # TO DO ✅ 🟡 🟠
-- 
 
 ## `_tests/_overview`
-- ✅ update `_tests/todo.md`
-- ✅ Post blueSky
-- ✅ Add "WIP" popup for settings icon
-- ✅ Update file structure. 
-- ✅ cleanup // 🔥 Rough Copy/Paste from `drop_on_blocks`
-- ✅ fix default size first. then we'll go onto override size... after re-org config.
-- ✅ fix resize to work for ratio.
-- ✅ handle toolkit_update_image for `rounded` and `opacity`
-- Tackle svg layers to place svg elements inside of.
-  - how is this handled in config?
-- Tackle rendering image vs svg
-- Make option for wireframe. ? IS this an all or none ?  
-- update sprites to have type: "image", "svg" (and "options" within)
-  - sprites: options: "transparency(0-1)", "rounded(true/false)", customSize:{w:,h:}
-    - use ball_bad_crop_example.png cropped as example. (move good drop to _assets)
-  - 
-- update sprites to fit space > options to override size.  
-- create masks: two options `foreground`, `background` in `config.js` built in order.
+- ✅ Convert to `physics_2d` & ✅ rename `_core_examples`
+- ✅ Fixed layer blocking issues
+- switch to 100% & add Max-width
+- set hight to be determined by ratios. Can just do math do here...
+  - 1, 9/16 or 16/9, or even 2/3, etc... 1 is square.
+  - margin's are will be in .css outside of config's order
+- Make custom 0-100 Range for all bodies.
 
-- Let's deal with w/h...
-  - I'm honestly thinking this is a container issues. really we just need to...
-    - Make width 100% of container. Not an option because we can add widths margins by container(s) work. 
-    - Then hight is determined by ratios. Can just do math do here...
-      - 1, 9/16 or 16/9, or even 2/3, etc... 1 is square.
-    - Then everything should be 0-1 now. 
-    - But need a Max Width!
-- add/update `matter_hellper_v1.0.js` & NEW `toolkit_v1.0.js`
-- PUSH! ligit push with comment
+- Let's setup dyanmic layer tracking for svg. (see tourdefrance in shed)
 
 - walls `w` dosn't make since. changing it dosn't seem to match... what's going on???
   - Should also handle 0 or 1 for width for a wall that is effectivly the visual wall.
-- COPY/PASTE `/2d_physics_v1.1` -> `/_dependency_versions`
+
+- Ok, avitar needs to be SVG! and use #<url>!
+- PUSH! ligit push with comment
+
+- COPY/PASTE `/physics_2d_v1.1` -> `/_dependency_versions`
+- review all code for notes / cleanup.
 - PUSH! ligit push with comment
 
 #### Un-Ordered To Do
-- Mask walls - simple textures (add the 5 we have and test)
-- matter_walls - add - Curved inset -   matter_walls: { w: 10, innerRadius: 10 },
-- matter_walls - add - Curved inset and shaddow (border radius!!)
-- Mask walls - add - drop shaddow
-- Mask walls - add - Example of "Frills" Designs in corners (Like bike one.)
+- Add basic static block with `html` mask
+- Add button to basic static block with html that remove the matter & overlay.
+- Add basic static curve
 
+- Walls and Backgrounds
+  - Add Texture to background
+  - Add texture to walls
+  - Add Drop shaddow inset to background
+  - Add to walls:`insetCurve: 10` (for all walls, anything else, just use static bodies)
+- Mask walls - simple textures (add the 5 we have and test)
 
 
 ----
-# 2D Physic Libraries
+# Physics 2d Library
 
-### MVP
+### MVP (prep for Odd balls)
+- `#url` images should work.
 
 ### MVP + 1
+- Add a layer type 'html'? I think it'd be pretty easy, just build around a `<div>` instead of an `<svg>`
+- Consider adding a "demo" changer from a list in a menu popup. use US Maps component.
+  - Then, create a folder inside `_core_examples` of `/configs` so we can toggle through different examples easy. 
+- Drag and drop to update avatar image. 
+- Create a `_DOCs.md` that has all config settings and options layed out. 
 
-### Daydreams / Down the Road...
+### MVP++ Daydreams & Down the Road...
 
 
 
