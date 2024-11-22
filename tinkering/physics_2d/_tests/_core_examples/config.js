@@ -1,7 +1,8 @@
 const Config = { // Config
-  w: 600,  // Matter container size in px. w/h can both be specific or... 👇
-  h: 600,  // "portrait"(9:16),"landscape"(16:9) or "square". Either w/h can scale.
+  maxWidth: 600,  
+  heightRatio: 1, // 1="Square" - 2/3,9/16="landscape" - 3/2,16/9="Portrait"
   wireframe: false, // * Matter.js wireframe mode (Can't be done individually, unless styled to mimic wireframe)
+  gravity: { x: 0, y: 1 }, // * Matter.js gravity. Default(x:0,y:1)
   default_user_image: "assets/cat.png",
   default_container_id: "physics_2d_container",
   default_main_matter_id: "main_matter_layer", // 👇 Decalared below
@@ -11,36 +12,44 @@ const Config = { // Config
     { type: "matter", id: "main_matter_layer" },
     { type: "svg", id: "mask_layer" },
   ],
+  // walls: { thickness: 3, show: [ true, true, true, true ]}, // show: [top, right, bottom, left]
+  walls: { thickness: 3, show: [ false, true, true, true ]}, // show: [top, right, bottom, left]
 
-  walls: { w: 10, show: [ false, true, true, true ]}, // show: [top, right, bottom, left]
-  // 🔥 change name to walls?
-
-  static_bodies: [   // 🔥 change name to static_bodies?
+  static_bodies: [  
     // 🔥 moving static bodies should be an options here...
   ],
 
-  live_bodies: [
+  dynamic_bodies: [ // 🔥 change name to dynamic_bodies_groups?
     { // * 🧚‍♀️ Use Matter.js to render styles and sprites examples
       type: "matter",
       bodies: [ 
-        { shape: 'circle', x: 400, y: 50, r: 50, image: "avatar", 
+
+        
+        // REMOVE AFTER scaling is set...
+        // { shape: 'circle', x: 25, y: 25, r: 2 },
+        // { shape: 'circle', x: 50, y: 50, r: 2 },
+        // { shape: 'circle', x: 75, y: 75, r: 2 },
+        // { shape: 'rect', x: 25, y: 75, w: 2, h: 2 },
+        //
+
+
+        { shape: 'circle', x: 80, y: 10, r: 7, image: "avatar", 
           options: { 
             rounded: true,
           }
         },
-        { shape: 'circle', x: 75, y: 50, r: 50, 
+        { shape: 'circle', x: 15, y: 50, r: 10, 
           image: "assets/ball_bad_crop_example.png", 
           options: {
-            resize: { w: 63, h: 63 }, // * Here's an example of resize that makes sense. This png has a transparent border of around 63 pix. So we need to scale up so that the physics matched the ball border.
+            resize: { w: 12.5, h: 12.5 }, // * Here's an example of resize that makes sense. This png has a transparent border of around 63 pix. So we need to scale up so that the physics matched the ball border.
             opacity: 0.25,
           }
         },
-        { shape: 'circle', x: 480, y: -1500, r: 20, image: "assets/ball.png" },
+        { shape: 'circle', x: 81, y: -200, r: 2.5, image: "assets/ball.png" },
     
-        // * 📝 Recangles are render center out. 
-        { shape: 'rect', x: 355, y: 410, w: 70, h: 70, image: "assets/box.png" },
-        { shape: 'rect', x: 305, y: 210, w: 35, h: 70, image: "assets/box.png" },
-        { shape: 'rect', x: 350, y: 0, w: 20, h: 20 },
+        // // * 📝 Recangles are render center out. 
+        { shape: 'rect', x: 50, y: 75, w: 10, h: 10, image: "assets/box.png" },
+        { shape: 'rect', x: 50, y: 50, w: 5, h: 5, image: "assets/box.png" },
         
         // TEST: Overscaled Rectangle. Should stretch beyond physical walls, overlapping other objects.
         // { shape: 'rect', x: 305, y: -210, w: 35, h: 70, image: "assets/box.png",
@@ -51,7 +60,7 @@ const Config = { // Config
       type: "svg",
       id: "mask_layer",
       bodies: [    
-        { shape: 'circle', x: 200, y: 50, r:"20", svg: /*html*/`
+        { shape: 'circle', x: 30, y: 5, r:5, svg: /*html*/`
           <circle cx="200" cy="50" r="20" stroke-width="5" stroke="cornflowerblue" 
             fill="yellow" opacity="0.25" />
         `},
