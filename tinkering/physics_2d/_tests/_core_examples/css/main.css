@@ -6,6 +6,7 @@
 body {
   text-align: center;
   background: url('../assets/bg_light_grain.png');
+  margin-top: 0px;
 }
 #physics_2d_container { 
   position: relative;
@@ -19,7 +20,23 @@ body {
   pointer-events: none;
 }
 #topNavBar {
-  text-align: right;
+  padding: 5px 0px;
+  display: flex;
+  align-items: center;
+  height: 40px;
+}
+#topNavBar .title {
+  font-size: 18px;
+  font-weight: 500;
+  text-align: left;
+  max-width: 80%;
+}
+#topNavBar .right {
+  margin-left: auto;
+}
+#topRightNavBar_menu {
+  display: flex;
+  align-items: center;
 }
 .icon {
   width: 24px;
