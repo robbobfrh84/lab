@@ -33,6 +33,9 @@ const Config = { // Config
           options: {
             resize: { w: 12.5, h: 12.5 }, // * Here's an example of resize that makes sense. This png has a transparent border of around 63 pix. So we need to scale up so that the physics matched the ball border.
             opacity: 0.25,
+            friction: 0,
+            frictionAir: 0,
+            restitution: 1
           }
         },
         { shape: 'cir', x: 81, y: -200, r: 2.5, image: "assets/ball.png" },

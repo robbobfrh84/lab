@@ -102,7 +102,7 @@ class Helper {
     Matter.Runner.run(runner, this.Matter.engine)
   }
 
-  /* Internally called methods */
+  /* Methods that are only internally called */
 
   async add_group_bodies({bodies, type, layerId}) {
     const bodies_array = []    

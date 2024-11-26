@@ -1,10 +1,11 @@
 ### Where I Left Off
-- I left off thinking maybe Body's can do more work and make more since as we continue. just feels like more at this point cus your 1/2 done and there's going to be a lot of code to remove and re-order. 
-- The Helper boject feels big and redudent. I just think we've decided to preserve the original code. we COULD do something like `b.Body.config = savedConfigBody`
+- 
 
 # TO DO ✅ 🟡 🟠
 
 ## `_tests/_overview`
+- ✅ Make custom 0-100 Range for all bodies 
+- ✅ root name still need to change to physics_2d
 - ✅ create scale_bodies()
 - ✅ `'circle'` -> `'cir'` ? in config file
 - ✅ check walls again to see if you can "pre-scale" w,h
@@ -12,29 +13,17 @@
 - ✅ create add_bodies
 - ✅ Push code for pre-removal of notes
 - ✅ Move all add bodies code into Bodys
-- Push before Body refactor
-- Refactor Body to matterObj
-  - Also sprite. make sure it's seemly added to matterObj too. 
-- Scale svgs
-- Only Add to the Helper class and modify those changes. We should maintain config.
-- 🟡 Handling walls / refactoring...
-  - First at `build_walls` lets add `bodies` & remove "setting" the bodies there
-  - Then a new function `add_walls` sets them.
-- Build out class Body
+- ✅ Push before Body refactor
+- ✅ Refactor Body to matterObj
+- ✅ Also sprite. make sure it's seemly added to matterObj too. 
 
-- Scale svgs
-- How can we better handle `options`
-- Svgs ELEMENT attributes need to be resized, 
-- 🟡 Make custom 0-100 Range for all bodies 
-- root name still need to change to physics_2d
+- Svgs ELEMENT attributes need to be resized
+- Track SVGS (see tourdefrance in shed)
+- Add hash to svg
 
-- Extend `Helper` to add `Helper_Bodies.js`. 
-  - Should we create `Body.js` It wouldn't be much. 
-
-- Let's setup dyanmic layer tracking for svg. (see tourdefrance in shed)
-
-- Ok, avitar needs to be SVG! and use #<url>!
-- PUSH! ligit push with comment
+- Add a static_object
+- Give static object an svg overlay
+- create new static object that moves/rotates
 
 - COPY/PASTE `/physics_2d_v1.1` -> `/_dependency_versions`
 - review all code for notes / cleanup.

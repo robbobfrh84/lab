@@ -1,7 +1,7 @@
 const app_start = async () => {
   const helper = new Helper(Config)
 
-  // This order should be matched in Helper.js - So, it's easy to follow the script.
+  // * This order should be matched in Helper.js - So, it's easy to follow the script.
   await helper.check_hash_image()
   helper.set_width_height()
 
@@ -13,6 +13,7 @@ const app_start = async () => {
   helper.add_bodies()
   helper.set_matter() 
   helper.start_matter() 
+
 
 
 
