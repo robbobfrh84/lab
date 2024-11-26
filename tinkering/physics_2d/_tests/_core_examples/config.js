@@ -1,6 +1,7 @@
 const Config = { // Config
   maxWidth: 600,  
-  heightRatio: 1, // 1="Square" - 2/3,9/16="landscape" - 3/2,16/9="Portrait"
+  heightRatio: 1, // * 1="Square" - 2/3,9/16="landscape" - 3/2,16/9="Portrait"
+  widthScale: 100, // * WARNING: Changing this will change the ratio of the hardcoded x,y location & size are of each body. You'll have to re-hard code each. If 100, layout will be 0-100 x, and 0-100 y on the canvas. So location and size represented by a %.
   wireframe: false, // * Matter.js wireframe mode (Can't be done individually, unless styled to mimic wireframe)
   gravity: { x: 0, y: 1 }, // * Matter.js gravity. Default(x:0,y:1)
   default_user_image: "assets/cat.png",
@@ -10,13 +11,16 @@ const Config = { // Config
     { type: "svg", id: "border_layer" },
     { type: "svg", id: "background_layer" },
     { type: "matter", id: "main_matter_layer" },
-    { type: "svg", id: "mask_layer" },
+    { type: "svg", id: "mask_layer" }, // Add animate="true"
   ],
-  // walls: { thickness: 3, show: [ true, true, true, true ]}, // show: [top, right, bottom, left]
-  walls: { thickness: 3, show: [ false, true, true, true ]}, // show: [top, right, bottom, left]
+  wall_bodies: { thickness: 3, show: [ false, true, true, true ] }, // show: [top, right, bottom, left]
 
   static_bodies: [  
     // 🔥 moving static bodies should be an options here...
+    // {
+    //   type: "matter",
+    //   bodies: [ 
+    // }
   ],
 
   dynamic_bodies: [ // 🔥 change name to dynamic_bodies_groups?
@@ -26,26 +30,26 @@ const Config = { // Config
 
         
         // REMOVE AFTER scaling is set...
-        // { shape: 'circle', x: 25, y: 25, r: 2 },
-        // { shape: 'circle', x: 50, y: 50, r: 2 },
-        // { shape: 'circle', x: 75, y: 75, r: 2 },
+        // { shape: 'cir', x: 25, y: 25, r: 2 },
+        // { shape: 'cir', x: 50, y: 50, r: 2 },
+        // { shape: 'cir', x: 75, y: 75, r: 2 },
         // { shape: 'rect', x: 25, y: 75, w: 2, h: 2 },
         //
 
 
-        { shape: 'circle', x: 80, y: 10, r: 7, image: "avatar", 
+        { shape: 'cir', x: 80, y: 10, r: 7, image: "avatar", 
           options: { 
             rounded: true,
           }
         },
-        { shape: 'circle', x: 15, y: 50, r: 10, 
+        { shape: 'cir', x: 15, y: 50, r: 10, 
           image: "assets/ball_bad_crop_example.png", 
           options: {
             resize: { w: 12.5, h: 12.5 }, // * Here's an example of resize that makes sense. This png has a transparent border of around 63 pix. So we need to scale up so that the physics matched the ball border.
             opacity: 0.25,
           }
         },
-        { shape: 'circle', x: 81, y: -200, r: 2.5, image: "assets/ball.png" },
+        { shape: 'cir', x: 81, y: -200, r: 2.5, image: "assets/ball.png" },
     
         // // * 📝 Recangles are render center out. 
         { shape: 'rect', x: 50, y: 75, w: 10, h: 10, image: "assets/box.png" },
@@ -58,9 +62,9 @@ const Config = { // Config
     },
     { // * 🎨 SVG tracking Mask Examples 
       type: "svg",
-      id: "mask_layer",
+      layerId: "mask_layer",
       bodies: [    
-        { shape: 'circle', x: 30, y: 5, r:5, svg: /*html*/`
+        { shape: 'cir', x: 28, y: 5, r:5, svg: /*html*/`
           <circle cx="200" cy="50" r="20" stroke-width="5" stroke="cornflowerblue" 
             fill="yellow" opacity="0.25" />
         `},
