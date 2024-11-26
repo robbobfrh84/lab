@@ -15,28 +15,14 @@ const Config = { // Config
   ],
   wall_bodies: { thickness: 3, show: [ false, true, true, true ] }, // show: [top, right, bottom, left]
 
-  static_bodies: [  
-    // 🔥 moving static bodies should be an options here...
-    // {
-    //   type: "matter",
-    //   bodies: [ 
-    // }
+  static_bodies: [  // 🔥 moving static bodies should be an options here...
+
   ],
 
   dynamic_bodies: [ // 🔥 change name to dynamic_bodies_groups?
     { // * 🧚‍♀️ Use Matter.js to render styles and sprites examples
       type: "matter",
       bodies: [ 
-
-        
-        // REMOVE AFTER scaling is set...
-        // { shape: 'cir', x: 25, y: 25, r: 2 },
-        // { shape: 'cir', x: 50, y: 50, r: 2 },
-        // { shape: 'cir', x: 75, y: 75, r: 2 },
-        // { shape: 'rect', x: 25, y: 75, w: 2, h: 2 },
-        //
-
-
         { shape: 'cir', x: 80, y: 10, r: 7, image: "avatar", 
           options: { 
             rounded: true,
@@ -55,9 +41,10 @@ const Config = { // Config
         { shape: 'rect', x: 50, y: 75, w: 10, h: 10, image: "assets/box.png" },
         { shape: 'rect', x: 50, y: 50, w: 5, h: 5, image: "assets/box.png" },
         
-        // TEST: Overscaled Rectangle. Should stretch beyond physical walls, overlapping other objects.
-        // { shape: 'rect', x: 305, y: -210, w: 35, h: 70, image: "assets/box.png",
-        //   options: { resize: { w: 70, h: 140 },} },
+        // // TEST: Overscaled Rectangle. Should stretch beyond physical walls, overlapping other objects.
+        // { shape: 'rect', x: 50, y: -25, w: 5, h: 10, image: "assets/box.png",
+        //   options: { resize: { w: 10, h: 20 },} 
+        // },
       ]
     },
     { // * 🎨 SVG tracking Mask Examples 

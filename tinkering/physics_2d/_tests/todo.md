@@ -7,11 +7,16 @@
 ## `_tests/_overview`
 - ✅ create scale_bodies()
 - ✅ `'circle'` -> `'cir'` ? in config file
-- check walls again to see if you can "pre-scale" w,h
-- `if (b.options?.resize)` Move to Body, same thing!
-- Body/Bodies
-  - Make all the needed changes to the default config within the Body class
-  - Only Add to the Helper class and modify those changes. We should maintain config.
+- ✅ check walls again to see if you can "pre-scale" w,h
+- ✅ `if (b.options?.resize)` Move to Body, same thing!
+- ✅ create add_bodies
+- ✅ Push code for pre-removal of notes
+- ✅ Move all add bodies code into Bodys
+- Push before Body refactor
+- Refactor Body to matterObj
+  - Also sprite. make sure it's seemly added to matterObj too. 
+- Scale svgs
+- Only Add to the Helper class and modify those changes. We should maintain config.
 - 🟡 Handling walls / refactoring...
   - First at `build_walls` lets add `bodies` & remove "setting" the bodies there
   - Then a new function `add_walls` sets them.
