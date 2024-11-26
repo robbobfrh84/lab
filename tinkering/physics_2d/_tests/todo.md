@@ -1,18 +1,26 @@
 ### Where I Left Off
-- 
+- I left off thinking maybe Body's can do more work and make more since as we continue. just feels like more at this point cus your 1/2 done and there's going to be a lot of code to remove and re-order. 
+- The Helper boject feels big and redudent. I just think we've decided to preserve the original code. we COULD do something like `b.Body.config = savedConfigBody`
 
 # TO DO ✅ 🟡 🟠
 
 ## `_tests/_overview`
-- ✅ Convert to `physics_2d` & ✅ rename `_core_examples`
-- ✅ Fixed layer blocking issues
-- ✅ switch to 100% & add Max-width
-- ✅ Set hight to be determined by ratios. 
-- ✅ fix walls, make sure they match 0-100 scaling
-- ✅ startingGravity to `Config`
-- Svgs ELEMENT attributes need to be resized, BUT maybe do it real quick, then put all resizing in one method. It's confusing scattered out, and we should just loop through everything that needs to be resized first. 
+- ✅ create scale_bodies()
+- ✅ `'circle'` -> `'cir'` ? in config file
+- check walls again to see if you can "pre-scale" w,h
+- `if (b.options?.resize)` Move to Body, same thing!
+- Body/Bodies
+  - Make all the needed changes to the default config within the Body class
+  - Only Add to the Helper class and modify those changes. We should maintain config.
+- 🟡 Handling walls / refactoring...
+  - First at `build_walls` lets add `bodies` & remove "setting" the bodies there
+  - Then a new function `add_walls` sets them.
+- Build out class Body
+
+- Scale svgs
+- How can we better handle `options`
+- Svgs ELEMENT attributes need to be resized, 
 - 🟡 Make custom 0-100 Range for all bodies 
-- `'circle'` -> `'cir'` ? in config file
 - root name still need to change to physics_2d
 
 - Extend `Helper` to add `Helper_Bodies.js`. 
@@ -47,6 +55,8 @@
   - negative thickness (-) on rectanges seems to be visually 0 BUT has effect!
   - However, setting =0 seems to break matter and not show up OR take effect
 
+- Review code as MVC and make basic notes about code structure in a ?new readme.md at `/_tests` root level. 
+
 ----
 # Physics 2d Library
 
@@ -54,7 +64,7 @@
 - `#url` images should work.
 
 ### MVP + 1
-- Add a layer type 'html'? I think it'd be pretty easy, just build around a `<div>` instead of an `<svg>`
+
 - Consider adding a "demo" changer from a list in a menu popup. use US Maps component.
   - Then, create a folder inside `_core_examples` of `/configs` so we can toggle through different examples easy. 
 - Drag and drop to update avatar image. 
@@ -68,6 +78,8 @@
 
 ### MVP++ Daydreams & Down the Road...
 
+Wait for usecase...
+- Add a layer type 'html'? I think it'd be pretty easy, just build around a `<div>` instead of an `<svg>`. One usecase could be .gifs. I'm not sure they work in svgs 
 
 
 ----
