@@ -1,79 +1,90 @@
 ### Where I Left Off
-- 
+- For adding the image to the svg, i'm starting with the circle and need to add a clip to the main svg. 
+- Ok, see note in Body.js @66
 
 # TO DO ✅ 🟡 🟠
 
 ## `_tests/_overview`
-- ✅ Make custom 0-100 Range for all bodies 
-- ✅ root name still need to change to physics_2d
-- ✅ create scale_bodies()
-- ✅ `'circle'` -> `'cir'` ? in config file
-- ✅ check walls again to see if you can "pre-scale" w,h
-- ✅ `if (b.options?.resize)` Move to Body, same thing!
-- ✅ create add_bodies
-- ✅ Push code for pre-removal of notes
-- ✅ Move all add bodies code into Bodys
-- ✅ Push before Body refactor
-- ✅ Refactor Body to matterObj
-- ✅ Also sprite. make sure it's seemly added to matterObj too. 
+- ✅ Handle hard-coded svg images first. 
+- ✅  Figureout rotate. 
+- ✅  Add Shareena Insta... & setup funny while you refactor. 
+- update for avatar with # hash image. 
+  - Post
 
-- Svgs ELEMENT attributes need to be resized
-- Track SVGS (see tourdefrance in shed)
-- Add hash to svg
+- More SVG initial building...
+  - OK you MUST set for Matter JS, and here are the options..
+    - 1. Default setting of location and size - No need to set(done for circle)
+    - 2. Override by "100s" 's' meaning scale. 
 
+- So... hight isn't 0-100 meaning x: 50, y: 50 isn't centered if 2/3 ratio. Think about how best to fix this. Could just handle "h" by ratio and might work. 
+
+Static Objects
 - Add a static_object
 - Give static object an svg overlay
 - create new static object that moves/rotates
 
-- COPY/PASTE `/physics_2d_v1.1` -> `/_dependency_versions`
-- review all code for notes / cleanup.
-- PUSH! ligit push with comment
+Cleanup
+- Should "options" be "render" just so that it matches Matter terminology?
+- Let's review all the example and only have what is needed for use-cases/tests
 
-#### Un-Ordered To Do (maybe punt to later MVP)
-- Add basic static block with `html` mask
-- Add button to basic static block with html that remove the matter & overlay.
-- Add basic static curve
+#### Un-Ordered To Do (? Maybe move to later MVP!?)
 
 - Walls and Backgrounds
   - Add Texture to background
   - Add texture to walls
   - Add Drop shaddow inset to background
-  - Add to walls:`insetCurve: 10` (for all walls, anything else, just use static bodies)
-- Mask walls - simple textures (add the 5 we have and test)
 
-- resize event? ()
+- Add curved Object to put in courners (don't add to wall object, that's to specific)
+  - Add to walls:`insetCurve: 10` (for all walls, anything else, just use static bodies)
+
 - Convert to Progressive Web App (PWA) 
   - chatGPT guide: https://chatgpt.com/c/673e378a-5aec-8002-ac19-bf226b70abfc
 
-- Info
-  - negative thickness (-) on rectanges seems to be visually 0 BUT has effect!
-  - However, setting =0 seems to break matter and not show up OR take effect
-
-- Review code as MVC and make basic notes about code structure in a ?new readme.md at `/_tests` root level. 
 
 ----
 # Physics 2d Library
 
-### MVP (prep for Odd balls)
-- `#url` images should work.
+### 🟡 MVP - Basic Setup: 
+- layers
+- tracking
+- backgournds
+- curve static
+- `#url` images for avatar.
+- Move v1.1 to dependency_versions
+- 🦋 POST: Curate and post ramp example with basic backgrounds. 
 
-### MVP + 1
+### MVP - Expand and clean up `_tests` & BASIC Documentation
+- Add `index.html` to root level of tests. simple links to all `_tests`
+- Move `physics_2d_v1.1` out of `_core_examples`. We do want to share
+- When we add changes to the libs, we create a new folder (`c/p`) and incremient
+- THEN, we can switch each test over one-by-one as we test 😜.
+- Add `README.md` and explain work flow and gotach (`### Jumping Back In?`)
+  - Add `### How SVGs are rendered to Matter`
+    - "the object" MUST have shape match. 
+- Review `physics_2d/README.md` to reflect changes.
 
-- Consider adding a "demo" changer from a list in a menu popup. use US Maps component.
-  - Then, create a folder inside `_core_examples` of `/configs` so we can toggle through different examples easy. 
-- Drag and drop to update avatar image. 
-- Create a `_DOCs.md` that has all config settings and options layed out. 
+### MVP - ODD balls (start in projects)
+- Create new `_test` > `rotating_complex_object`
 
-- Fast moving objects escape body. Look into matter js for a way to handle this.
-  - Fall back to just making the wall exists in negative space a bunch.
+### MVP - Complex objects 
+- Matter.Bodies >`{rectangle: ƒ, trapezoid: ƒ, circle: ƒ, polygon: ƒ, fromVertices: ƒ}`
 
-`_core_examples` menu toggle tests to add.
-  - Bounce box demoing mass and multi-bodies objects.
+### MVP+ (Needs MVP home)
+- Image Drag and drop Box - to update avatar image. 
+- Re-evaluating walls:
+  - Negative thickness i.e.(`= -2`) on rectanges seems to be visually 0 BUT has effect!
+  - However, setting `=0` seems to break matter and not show up OR take effect.
+  - Also, should we add `negThickness:10` to build into empty space to stop fast object?
+- resize event? this might be problamatic.. or super easy. lol. 
 
-### MVP++ Daydreams & Down the Road...
+Tests (`_tests`)
+- Bounce box in circle. Tests max object load with 1. svgs, 2. images, 3.r aw objects
+
+### MVP++ "Wait for usecase" / "Daydreams" & "Down the Road"...
 
 Wait for usecase...
-- Add a layer type 'html'? I think it'd be pretty easy, just build around a `<div>` instead of an `<svg>`. One usecase could be .gifs. I'm not sure they work in svgs 
+- Add a layer type `html`? Just build around a `<div>` instead of an `<svg>`. 
+  - Usecases: .gifs, Complex UI 💡(moving control panel) Even whole svgs embed.
 
 
 ----
@@ -84,5 +95,6 @@ Wait for usecase...
 
 ### "Moving Static Bodies"
 - Polygon that can be modified by points, 3(tryange), 4, 5, 6,.. 8(octogon)
-  - Ok to be hard coded. 
-- Button press on level flicks like a pin-ball paddle. But this object is static.  
+  - `<` & `>` external muttons add/remove points, min 3, max 20,  
+  - And this rotates and can be controlled by additional `<` & `>` buttons.
+- And, under a Button press flicks a body like a pin-ball paddle. (static?)

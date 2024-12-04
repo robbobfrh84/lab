@@ -1,6 +1,11 @@
 class Helper {
 
-  constructor(params) { Object.assign(this, params) }
+  constructor(params) { 
+    Object.assign(this, params) 
+    this.track = []
+    this.allMatterBodies = [] // * Collects all the bodies that are added to Matter. However, while this.track is being used, this isn't being used, and may need to be rethought. It was kind of a scope creep place holder i thought would be nice for testing.
+    this.isPaused = false
+  }
 
   async check_hash_image() {
     const hash = window.location.hash.split('#')[1]
@@ -30,7 +35,9 @@ class Helper {
       } else if (layer.type === "svg") {
         elm.innerHTML += /*html*/`
           <div class="svg-layer-container">
-            <svg id="${layer.id}" width="${this.w}" height="${this.h}"></svg>
+            <svg id="${layer.id}" width="${this.w}" height="${this.h}">
+              <defs></defs>
+            </svg>
           </div>
         `
       } 
@@ -48,7 +55,12 @@ class Helper {
   }
 
   async build_bodies() {
-    this.dynamic_bodies.forEach(group => { group.bodies.forEach(b => {
+    this.dynamic_body_groups.forEach(group => { group.bodies.forEach(b => {
+      b.Body = new Body(b, this.scale)
+    })})
+    this.static_bodies.forEach(group => { group.bodies.forEach(b => {
+      if (!b.options) { b.options = {} }
+      b.options.isStatic = true
       b.Body = new Body(b, this.scale)
     })})
   }
@@ -61,12 +73,49 @@ class Helper {
   }
 
   async add_bodies() {
-    const walls = await this.add_group_bodies({ bodies: this.wall_bodies.bodies})
-    for (const group of this.dynamic_bodies) {
-      const bodies = await this.add_group_bodies(group)
+
+    const add_group_bodies = async (group) => {
+      const bodies_array = []    
+      for (let { Body } of group.bodies) {
+        const b = await Body.build_body(group.type, group.layerId, this.hashImage)
+        bodies_array.push(b)
+      }
+      return bodies_array
+    }
+
+    // Wall Bodies
+    const wall_bodies = await add_group_bodies({ bodies: this.wall_bodies.bodies})
+    this.allMatterBodies.push({ bodies: wall_bodies, name: 'wall_bodies', type: 'wall_bodies', layerId: this.default_main_matter_id })
+    Matter.Composite.add(this.Matter.engine.world, wall_bodies)
+
+    // Static Bodies
+    for (const group of this.static_bodies) { // 🔥 static_bodies and Dynmic bodies is the same code. so make new method/function here. ALSO, pretty sure walls can use it too. 
+      const bodies = await add_group_bodies(group)
+      const obj = { bodies, name: group.name, type: group.type }
+      if (group.type == "svg") {
+        this.track.push(obj)
+      }
+      this.allMatterBodies.push(obj)
       Matter.Composite.add(this.Matter.engine.world, bodies)
     }
-    Matter.Composite.add(this.Matter.engine.world, walls)
+
+    // Dynamic Bodies
+    for (const group of this.dynamic_body_groups) { // 🔥 static_bodies and Dynmic bodies is the same code. so make new method/function here. ALSO, pretty sure walls can use it too. 
+      const bodies = await add_group_bodies(group)
+      const obj = { bodies, name: group.name, type: group.type, group: group.layerId }
+      if (group.type == "svg") {
+        this.track.push(obj)
+      }
+      this.allMatterBodies.push(obj)
+      Matter.Composite.add(this.Matter.engine.world, bodies)
+    }
+
+    this.track.forEach(g=>{
+      g.bodies.forEach( ({ Body })=>{
+        Body.svg = document.getElementById(Body.svgId)
+      })
+    })
+
   }
 
   set_matter() {
@@ -80,7 +129,7 @@ class Helper {
         wireframes: this.wireframe
       }
     })
-    const mouse = Matter.Mouse.create(render.canvas) // add mouse control
+    const mouse = Matter.Mouse.create(render.canvas) 
     const mouseConstraint = Matter.MouseConstraint.create(this.Matter.engine, { 
       mouse: mouse,
       constraint: {
@@ -89,28 +138,39 @@ class Helper {
       }
     })
     Matter.Composite.add(this.Matter.engine.world, mouseConstraint)
-    render.mouse = mouse // keep the mouse in sync with rendering
-    Matter.Render.lookAt(render, { // fit the render viewport to the scene
+    render.mouse = mouse // * keep the mouse in sync with rendering
+    Matter.Render.lookAt(render, { // * fit the render viewport to the scene
       min: { x: 0, y: 0 },
       max: { x: this.w, y: this.h }
     })
     Matter.Render.run(render)
+    this.Matter.runner = Matter.Runner.create()
   }
 
   start_matter() {
-    const runner = Matter.Runner.create()
-    Matter.Runner.run(runner, this.Matter.engine)
+    Matter.Runner.run(this.Matter.runner, this.Matter.engine)
   }
 
-  /* Methods that are only internally called */
+  pause_matter() {
+    Matter.Runner.stop(this.Matter.runner)
+  }
 
-  async add_group_bodies({bodies, type, layerId}) {
-    const bodies_array = []    
-    for (let { Body } of bodies) {
-      const b = await Body.build_body(type, layerId, this.hashImage)
-      bodies_array.push(b)
+  matter_events(event) { // * 🤔 This could just be track_matter. was keeping it open for other options, but if i've gone another direction, let's make this simpler. 
+    const track = this.track
+
+    if (event == 'track') {
+      Matter.Events.on(this.Matter.engine, 'afterUpdate', function() {
+        // * Everything in the Matter object is directly available like this example: console.log('-',this.world.bodies[3].position)
+        // * Using this.track makes it so we're only targeting what we chose to track. rather than looping through all the bodies. 
+        track.forEach(g=>{ 
+          g.bodies.forEach(b=>{ b.Body.update_svg(b) })
+        })
+      })
     }
-    return bodies_array
+
   }
+
+  /* 👇 Methods that are only internally called 👇 */
+  // - ... 👀 I had some... but removed them. BUT, there could be some!
 
 }

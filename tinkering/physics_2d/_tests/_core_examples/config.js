@@ -16,33 +16,46 @@ const Config = { // Config
   wall_bodies: { thickness: 3, show: [ false, true, true, true ] }, // show: [top, right, bottom, left]
 
   static_bodies: [  // 🔥 moving static bodies should be an options here...
-
+    {
+      type: "matter", name: "static matter tests",
+      bodies: [
+        { shape: 'rect', x: 18, y: 25, w: 5, h: 5, options: { fillStyle: "red" }},
+        { shape: 'rect', x: 20, y: 50, w: 10, h: 5, options: { fillStyle: "green" } },
+        { shape: 'cir', x: 44, y: 60, r: 3, options: { fillStyle: "orange" }},
+        { shape: 'rect', x: 20, y: 75, w: 20, h: 5, options: { fillStyle: "dodgerblue" }},
+      ]
+    }
   ],
 
-  dynamic_bodies: [ // 🔥 change name to dynamic_bodies_groups?
-    { // * 🧚‍♀️ Use Matter.js to render styles and sprites examples
-      type: "matter",
+// * 🧚‍♀️ Use Matter.js to render styles and sprites examples
+  dynamic_body_groups: [
+    { 
+      type: "matter", name: "dynamic matter tests",
       bodies: [ 
-        { shape: 'cir', x: 80, y: 10, r: 7, image: "avatar", 
+        { shape: 'cir', x: 80, y: 10, r: 7, 
+          image: "avatar", 
           options: { 
-            rounded: true,
+            rounded: true, 
           }
         },
-        { shape: 'cir', x: 15, y: 50, r: 10, 
-          image: "assets/ball_bad_crop_example.png", 
-          options: {
-            resize: { w: 12.5, h: 12.5 }, // * Here's an example of resize that makes sense. This png has a transparent border of around 63 pix. So we need to scale up so that the physics matched the ball border.
-            opacity: 0.25,
-            friction: 0,
-            frictionAir: 0,
-            restitution: 1
-          }
-        },
-        { shape: 'cir', x: 81, y: -200, r: 2.5, image: "assets/ball.png" },
+        // { shape: 'cir', x: 15, y: 50, r: 10, 
+        //   image: "assets/ball_bad_crop_example.png", 
+        //   options: {
+        //     resize: { w: 12.5, h: 12.5 }, // * Here's an example of resize that makes sense. This png has a transparent border of around 63 pix. So we need to scale up so that the physics matched the ball border.
+        //     opacity: 0.25,
+        //     friction: 0,
+        //     frictionAir: 0,
+        //     restitution: 1
+        //   }
+        // },
+        // { shape: 'cir', x: 70, y: 20, r: 2.5,
+        //    options: { fillStyle: "red" } 
+        // },
+        // { shape: 'cir', x: 81, y: -200, r: 2.5, image: "assets/ball.png" },
     
-        // // * 📝 Recangles are render center out. 
-        { shape: 'rect', x: 50, y: 75, w: 10, h: 10, image: "assets/box.png" },
-        { shape: 'rect', x: 50, y: 50, w: 5, h: 5, image: "assets/box.png" },
+        // // // * 📝 Recangles are render center out. 
+        // { shape: 'rect', x: 50, y: 75, w: 10, h: 10, image: "assets/box.png" },
+        // { shape: 'rect', x: 50, y: 50, w: 5, h: 5, image: "assets/box.png" },
         
         // // TEST: Overscaled Rectangle. Should stretch beyond physical walls, overlapping other objects.
         // { shape: 'rect', x: 50, y: -25, w: 5, h: 10, image: "assets/box.png",
@@ -50,26 +63,29 @@ const Config = { // Config
         // },
       ]
     },
-    { // * 🎨 SVG tracking Mask Examples 
-      type: "svg",
-      layerId: "mask_layer",
+// * 🎨 SVG tracking Mask Examples 
+    { 
+      type: "svg", name: "circles", layerId: "mask_layer",
       bodies: [    
-        { shape: 'cir', x: 28, y: 5, r:5, svg: /*html*/`
-          <circle cx="200" cy="50" r="20" stroke-width="5" stroke="cornflowerblue" 
-            fill="yellow" opacity="0.25" />
+        // { shape: 'cir', x: 25, y: 60, r:5, svg: /*html*/`
+        //   <circle stroke-width="5" stroke="cornflowerblue" fill="goldenrod" opacity="1" />
+        // `},
+        { shape: 'cir_image', x: 37, y:-200, r: 8, svg: /*html*/`
+          <image href="assets/shareena.png" />
         `},
-        // { layerId:"mask_layer", svg: /*html*/`
-        //   <circle cx="0" cy="0" r="50" stroke="red" stroke-width="3" fill="yellow" />
-        // `},
-        
-        // { layerId:"mask_layer", svg: /*html*/`
-        //   <image href="assets/cat.png" x="200" y="80" height="50" width="50" clip-path="circle(50%)"/>
-        // `},
-        // { layerId:"mask_layer", svg: /*html*/`
-        //   <image href="assets/green_grid_smile.jpg" x="130" y="80" height="50" width="50" clip-path="circle(50%)"/>
-        // `},
+        { shape: 'cir_image', x: 21, y:10, r: 8, svg: /*html*/`
+          <image href="assets/bob_square.jpg" />
+        `},
       ]
-    }
+    },
+    // { 
+    //   type: "svg", name: "rectangles", layerId: "mask_layer",
+    //   bodies: [    
+    //     { shape: 'rect', x: 19, y: 70, w: 8, h: 5, svg: /*html*/`
+    //       <rect stroke="pink" stroke-width="2" fill="blue"/>
+    //     `},
+    //   ]
+    // }
   ],
 
 }
