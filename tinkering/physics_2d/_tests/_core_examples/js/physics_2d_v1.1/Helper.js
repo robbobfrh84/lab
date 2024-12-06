@@ -5,6 +5,8 @@ class Helper {
     this.track = []
     this.allMatterBodies = [] // * Collects all the bodies that are added to Matter. However, while this.track is being used, this isn't being used, and may need to be rethought. It was kind of a scope creep place holder i thought would be nice for testing.
     this.isPaused = false
+    if (!this.static_bodies) { this.static_bodies = [] }
+    if (!this.dynamic_body_groups) { this.dynamic_body_groups = [] }
   }
 
   async check_hash_image() {
@@ -77,7 +79,7 @@ class Helper {
     const add_group_bodies = async (group) => {
       const bodies_array = []    
       for (let { Body } of group.bodies) {
-        const b = await Body.build_body(group.type, group.layerId, this.hashImage)
+        const b = await Body.build_body(group.type, group.layerId, this.hashImage, this.default_user_image)
         bodies_array.push(b)
       }
       return bodies_array
@@ -125,8 +127,9 @@ class Helper {
       options: {
         width: this.w,
         height: this.h,
-        showAngleIndicator: false,
-        wireframes: this.wireframe
+        background:  this.background || "#2a2a2a", 
+        showAngleIndicator:  this.showAngleIndicator || false,
+        wireframes: this.wireframe || false
       }
     })
     const mouse = Matter.Mouse.create(render.canvas) 

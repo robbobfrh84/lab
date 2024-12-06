@@ -1,15 +1,10 @@
 ### Where I Left Off
-- For adding the image to the svg, i'm starting with the circle and need to add a clip to the main svg. 
-- Ok, see note in Body.js @66
+- 
 
 # TO DO ✅ 🟡 🟠
 
-## `_tests/_overview`
-- ✅ Handle hard-coded svg images first. 
-- ✅  Figureout rotate. 
-- ✅  Add Shareena Insta... & setup funny while you refactor. 
+## `_tests/_overview` 
 - update for avatar with # hash image. 
-  - Post
 
 - More SVG initial building...
   - OK you MUST set for Matter JS, and here are the options..
@@ -17,6 +12,9 @@
     - 2. Override by "100s" 's' meaning scale. 
 
 - So... hight isn't 0-100 meaning x: 50, y: 50 isn't centered if 2/3 ratio. Think about how best to fix this. Could just handle "h" by ratio and might work. 
+
+Organize config objects. 
+- Give `name`s like "matter shapes", "matter images" etc...
 
 Static Objects
 - Add a static_object
@@ -58,6 +56,7 @@ Cleanup
 - Move `physics_2d_v1.1` out of `_core_examples`. We do want to share
 - When we add changes to the libs, we create a new folder (`c/p`) and incremient
 - THEN, we can switch each test over one-by-one as we test 😜.
+- Or: keep the same structure we have? Either way...👇 This MVP thinks this out. 
 - Add `README.md` and explain work flow and gotach (`### Jumping Back In?`)
   - Add `### How SVGs are rendered to Matter`
     - "the object" MUST have shape match. 

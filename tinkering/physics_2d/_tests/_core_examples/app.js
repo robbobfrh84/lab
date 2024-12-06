@@ -22,7 +22,8 @@ const app_start = async () => {
 
   // 🔥 TEMP
   setTimeout(()=>{
-    console.log('helper:',helper)
+    console.log('\n\n📋\nhelper:',helper)
+    console.log('helper.allMatterBodies:',helper.allMatterBodies)
   },300)
 }
 

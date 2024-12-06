@@ -15,9 +15,12 @@ class Body {
     })
   }
 
-  async build_sprite_image(hash) { /* 👀 ORDER SENTITIVE 👀 */
-    if (this.image === "avatar") { this.image = hash } 
-    if (this.options.rounded) { this.image = await toolkit_round_image(this.r*2, this.r*2, this.image)} 
+  async build_sprite_image(hash, defaultImage) { /* 👀 ORDER SENTITIVE 👀 */
+    if (this.image === "<<avatar>>") { this.image = hash }
+    if (this.options.rounded) { 
+      try { this.image = await toolkit_round_image(this.r*2, this.r*2, this.image)
+      } catch(err) { this.image = defaultImage }
+    } 
     if (this.options.opacity) { this.image = await toolkit_image_opacity(this.options.opacity, this.image)}
     const { w, h } = await toolkit_get_image_size(this.image) 
     if (!this.options.resize) { this.options.resize = { }}
@@ -47,15 +50,18 @@ class Body {
     }
   }
 
-  async build_body(type, layerId, hash) {
-    this.options.sprite = this.image ? await this.build_sprite_image(hash) : {}
+  async build_body(type, layerId, hash, defaultImage) {
+    this.options.sprite = this.image ? await this.build_sprite_image(hash, defaultImage) : {}
     this.matterObj = this.build_matterObj(type)
 
     if (type == 'svg') { /* 👀 Yes need to sandwich both svg conditions around shapes! 👀 */
       svgCounter++
+      if (this.svg.split('href="')[1]?.split('"')[0] == "<<avatar>>") {
+        this.svg = this.svg.split('<<avatar>>').join(hash)
+      }
       const parser = new DOMParser()
       const svgDoc = parser.parseFromString(this.svg, 'image/svg+xml')
-      this.svg = svgDoc.documentElement // ??? I can't target it directly and need to get it by Id, so wondering if we should even add this. just use th svgId
+      this.svg = svgDoc.documentElement
       this.svgId = layerId+"_"+svgCounter // * This is how the Matter Body object finds the svg. 
       this.svg.setAttribute('id', this.svgId)
     } 
