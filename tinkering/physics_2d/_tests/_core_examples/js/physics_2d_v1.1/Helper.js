@@ -21,8 +21,8 @@ class Helper {
   }
 
   set_width_height() {
-    const containerWidth = window[this.default_container_id].clientWidth
-    this.w = containerWidth > this.maxWidth ? this.maxWidth : containerWidth
+    this.containerWidth = window[this.default_container_id].clientWidth
+    this.w = this.containerWidth > this.maxWidth ? this.maxWidth : this.containerWidth
     this.h = this.w * (this.heightRatio)
     this.scale = this.w / this.widthScale
   }
@@ -35,9 +35,20 @@ class Helper {
           <div id="${layer.id}"></div>
         `
       } else if (layer.type === "svg") {
+        
+        // elm.innerHTML += /*html*/`
+        //   <div class="svg-layer-container">
+        //     <svg id="${layer.id}" width="${this.w}" height="${this.h}">
+        //       <defs></defs>
+        //     </svg>
+        //   </div>
+        // `
+
+
+// 🔥HARDCODED DEMINTIONS 600, 100 etc...
         elm.innerHTML += /*html*/`
           <div class="svg-layer-container">
-            <svg id="${layer.id}" width="${this.w}" height="${this.h}">
+            <svg id="${layer.id}" width="600" height="600" viewBox="0,0,100,100">
               <defs></defs>
             </svg>
           </div>
@@ -47,13 +58,13 @@ class Helper {
   }
 
   build_walls() {
-    const t = this.wall_bodies.thickness * this.scale, w = this.w, h = this.h
+    const t = this.wall_bodies.thickness, w = this.widthScale, h =this.widthScale
     const show = this.wall_bodies.show, options = { isStatic: true }
     this.wall_bodies.bodies = []
-    if (show[0]) { this.wall_bodies.bodies.push( { Body: new Body({ x:w/2, y:t/2, w:w, h:t, shape:"rect", options },)})}
-    if (show[1]) { this.wall_bodies.bodies.push( { Body: new Body({ x:w-t/2, y:h/2, w:t, h:h, shape:"rect", options })} ) }
-    if (show[2]) { this.wall_bodies.bodies.push( { Body: new Body({ x:w/2, y:h-t/2, w:w, h:t, shape:"rect", options })} ) }
-    if (show[3]) { this.wall_bodies.bodies.push( { Body: new Body({ x:t/2, y:h/2, w:t, h:h, shape:"rect", options })} ) }
+    if (show[0]) { this.wall_bodies.bodies.push( { Body: new Body({ x:w/2, y:t/2, w:w, h:t, shape:"rect", options }, this.scale)})}
+    if (show[1]) { this.wall_bodies.bodies.push( { Body: new Body({ x:w-t/2, y:h/2, w:t, h:h, shape:"rect", options }, this.scale)} ) }
+    if (show[2]) { this.wall_bodies.bodies.push( { Body: new Body({ x:w/2, y:h-t/2, w:w, h:t, shape:"rect", options }, this.scale)} ) }
+    if (show[3]) { this.wall_bodies.bodies.push( { Body: new Body({ x:t/2, y:h/2, w:t, h:h, shape:"rect", options }, this.scale)} ) }
   }
 
   async build_bodies() {
@@ -128,7 +139,7 @@ class Helper {
         width: this.w,
         height: this.h,
         background:  this.background || "#2a2a2a", 
-        showAngleIndicator:  this.showAngleIndicator || false,
+        showAngleIndicator: this.wireframe || false,
         wireframes: this.wireframe || false
       }
     })

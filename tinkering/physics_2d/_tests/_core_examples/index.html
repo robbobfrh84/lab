@@ -6,6 +6,7 @@
   <meta name='viewport' content='width=device-width, initial-scale=1.0'>
   <link rel='stylesheet' href='css/main.css'>
   <link rel='stylesheet' href='css/mobile.css'>
+  <link rel='stylesheet' href='css/bottomNavBar.css'>
 </head>
 
 <body>
@@ -20,7 +21,17 @@
   <section id="physics_2d_container"></section>
 
   <section id="bottomNavBar">
-    <button id="bottomNavBar_pause">Pause</button>
+    <button id="bottomNavBar_pause">Play</button>&nbsp;
+    |
+    <span>Show Wireframe: </span>
+    <label class="switch">
+      <input type="checkbox" id="bottomNavBar_wireframe">
+      <span class="slider round"></span>
+    </label> 
+    |
+    <span>SVG opacity: </span>
+    <input type="range" id="bottomNavBar_svg_opacity" value="1" min="0" max="1" step="0.01" >
+    |
   </section>
 
 </body>
@@ -29,7 +40,7 @@
 <script src='js/physics_2d_v1.1/Body.js'></script>
 <script src='js/physics_2d_v1.1/Helper.js'></script>
 <script src='js/physics_2d_v1.1/toolkit.js'></script>
-<script src='config.js'></script>
+<script src='CONFIG.js'></script>
 <script src='app.js'></script>
 <script src='js/events.js'></script>
 <script>window.onload = () => { app_start() }</script>

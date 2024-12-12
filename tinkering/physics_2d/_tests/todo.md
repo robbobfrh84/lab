@@ -1,29 +1,90 @@
 ### Where I Left Off
-- 
+- circle img normal!
 
 # TO DO ✅ 🟡 🟠
 
 ## `_tests/_overview` 
-- update for avatar with # hash image. 
 
-- More SVG initial building...
-  - OK you MUST set for Matter JS, and here are the options..
-    - 1. Default setting of location and size - No need to set(done for circle)
-    - 2. Override by "100s" 's' meaning scale. 
+✅ Rectangles. 
+- ✅ Review & test
+- ✅ Fix resizing issue for x, y svgs. 
+- ✅ Fix W,H / 2 issue and rescale all rects
+- ✅ create Body.svgPos.oX, .oY
 
+✅ Adding Dev Tools
+- ✅ Toggle and restart with wireframes
+- ✅ Added slider for svg opacity
+
+✅ Review Circles
+- ✅ First fix for just normal svg styling.
+- ✅ And svg cir example using stroke and fit useing `r`.
+- ✅ And Add oversized svg cir example x, y, r.
+- ✅ Fix for normal image, gball1.png
+  - ✅ Need to update position for image as a rect for circle.
+- ✅ Also need to fix matter bodies
+- ✅ Now on local `cir_image`
+- ✅ finally on avatar
+
+- ✅ update for avatar with # hash image. 
+
+
+🟡 Refactor
+- push > create good comment
+- Consolidate `build_...` for all shapes like `update_svg` with emojies for reminders
+- Add to us `oX="-1" oY="2"` on svg
+  - Add note to docs section below about this. YOU CAN USE EITHER. but oX is easier.
+- Make sure broken links/file names fallback to default and alert() for user. 
+  - it works for url with good and fallback, but there's no error, need to catch
+  - for local it works as expected. and has an error, just need to relay alert. 
+- Push again. 
+
+Post Reply on bsky. 
+- Create a new 'project' `url_avatar`
+- Just add the blocks like they are in the image you shared. 
+- Trimm down CONFIG.js and index.html as much as possible. 
+- Post and reply with examples. maybe with your avatar and theirs :) 
+
+Create section cotainers And update `bottomNavBar`
+- Add `Pysics window: (x,y), Actual Window: fps: 58.8 `
+
+Cleanup / Breakup _core_examples. Individual `app.js`, `config.js`, etc... 
+- index.html just has links to
+  - 🙆‍♂️ avatars. 
+    - 6x - Svg & matter - Three `<<avatar>>` #local, #url, default
+  - 🟣 circles_&_squares
+    - demo "over" scale
+    - try for `<g></g>` groups and adding shadow layer. 
+    - offset svg examples. 
+    - JUST ONE example for matter, the original box.png overscale. 
+  - 🔶 other_shapes
+  - 🧱 static_bodies
+    - include svg examples
+  - ☄️ options explore
+- Remove unused images. 
+
+Create new `_test` called `width_height_scale` (This is a bit of a tinker)
 - So... hight isn't 0-100 meaning x: 50, y: 50 isn't centered if 2/3 ratio. Think about how best to fix this. Could just handle "h" by ratio and might work. 
+- Set up an easy toggle between 600 v 1200, etc. 
+- If the window allows for 1000x1000, they physics will behave differently. I think the fix for this is to lock in a width, 600, 1000, 1200? Then use `transform: scale()` to match window width. 
 
-Organize config objects. 
-- Give `name`s like "matter shapes", "matter images" etc...
-
-Static Objects
+Static Body Rotate
 - Add a static_object
-- Give static object an svg overlay
 - create new static object that moves/rotates
 
 Cleanup
 - Should "options" be "render" just so that it matches Matter terminology?
 - Let's review all the example and only have what is needed for use-cases/tests
+
+
+To DOCUMENT
+- Rectangles
+  - Explain how they're fitted to matter js, i.e. x,y,w,h...
+- SVG don't use `options.resize` do manually in svg element.
+  - Use the same 0-100 and it'll be scaled. 
+  - Rectangles are built differently however, so....
+- Notes on scaling matter canvas (git branch `higher-resolution-tester`)
+  - "fixes blurry and fussy lines for matter layers" etc...
+  - I messed around with this a bit, and discovered that while possible (see branch), the downside is that it changes the physics, meaning the numbers that build the physics are built into the pixel size it seems. 
 
 #### Un-Ordered To Do (? Maybe move to later MVP!?)
 

@@ -1,94 +1,110 @@
-const Config = { // Config
+const CONFIG = { // Config
   maxWidth: 600,  
   heightRatio: 1, // * 1="Square" - 2/3,9/16="landscape" - 3/2,16/9="Portrait"
   widthScale: 100, // * WARNING: Changing this will change the ratio of the hardcoded x,y location & size are of each body. You'll have to re-hard code each. If 100, layout will be 0-100 x, and 0-100 y on the canvas. So location and size represented by a %.
   background: "cornflowerblue", // * Default is "2a2a2a"
-  showAngleIndicator: false, // * Default "false" - Shows angle indicator on all bodies
-  wireframe: false, // * Default "false" - Matter.js wireframe mode (Can't be done individually, it's all on or off!)
+  wireframe: false, // * Default false - Matter.js wireframe mode (Can't be done individually, it's all on or off!)
   gravity: { x: 0, y: 1 }, // * Matter.js gravity. Default(x:0,y:1)
   default_user_image: "assets/cat.png",
   default_container_id: "physics_2d_container",
-  default_main_matter_id: "main_matter_layer", // 👇 Decalared below
+  default_main_matter_id: "main_matter_layer", // * 👇 Set in layers.
+  default_main_svg_id: "mask_layer", // * 👇 Set in layers.
   layers: [ // types: 'matter','svg'
     { type: "svg", id: "border_layer" },
     { type: "svg", id: "background_layer" },
     { type: "matter", id: "main_matter_layer" },
-    { type: "svg", id: "mask_layer" }, // Add animate="true"
+    { type: "svg", id: "mask_layer" }, 
   ],
-  wall_bodies: { thickness: 3, show: [ false, true, true, true ] }, // show: [top, right, bottom, left]
+  wall_bodies: { thickness: 2, show: [ false, true, true, true ] }, // show: [top, right, bottom, left]
 
-  static_bodies: [  // 🔥 moving static bodies should be an options here...
+  static_bodies: [  
     {
       name: "static matter tests", type: "matter", 
       bodies: [
-        { shape: 'rect', x: 18, y: 25, w: 5, h: 5, options: { fillStyle: "red" }},
-        { shape: 'rect', x: 20, y: 50, w: 10, h: 5, options: { fillStyle: "green" } },
-        { shape: 'cir', x: 44, y: 60, r: 3, options: { fillStyle: "orange" }},
-        { shape: 'rect', x: 20, y: 75, w: 20, h: 5, options: { fillStyle: "dodgerblue" }},
+        { shape: 'rect', x: 15, y: 15, w: 10, h: 2, options: { fillStyle: "red" }},
+        { shape: 'rect', x: 25, y: 30, w: 10, h: 5, options: { fillStyle: "green" } },
+        { shape: 'cir', x: 44, y: 35, r: 3, options: { fillStyle: "orange" }},
+        { shape: 'rect', x: 35, y: 38, w: 3, h: 1, options: { fillStyle: "blue" }},
       ]
     }
   ],
 
   dynamic_body_groups: [
-// * 🧚‍♀️ Using Matter.js to render styles and sprites examples
-    { 
+    { // * 🧚‍♀️ Using Matter.js to render styles and sprites examples
       name: "dynamic matter tests", type: "matter", 
       bodies: [ 
-        { shape: 'cir', x: 37.5, y: 23, r: 7, 
+        { shape: 'cir', x: 90, y: 10, r: 7, 
           image: "<<avatar>>", 
-          options: { 
-            rounded: true, 
-          }
+          options: { rounded: true, }
         },
-        { shape: 'cir', x: 15, y: 50, r: 10, 
+        { shape: 'cir', x: 75, y: 10, r: 7, 
+          image: "assets/woman1.png", 
+          options: { rounded: true, }
+        },
+        { shape: 'cir', x: 60, y: 10, r: 7, 
           image: "assets/ball_bad_crop_example.png", 
           options: {
-            resize: { w: 12.5, h: 12.5 }, // * Here's an example of resize that makes sense. This png has a transparent border of around 63 pix. So we need to scale up so that the physics matched the ball border.
-            opacity: 0.25,
-            friction: 0,
-            frictionAir: 0,
-            restitution: 1
+            resize: { w: 8.8, h: 8.8 }, // * Here's an example of resize that makes sense. This png has a transparent border of around 63 pix. So we need to scale up so that the physics matched the ball border.
+            opacity: 0.25, // * Default 1
+            density: 0.0007, // * Default 0.0007
+            friction: 0.0, // * Default 0.01
+            frictionAir: 0.0, // * Default 0.02
+            restitution: 1, // * Default 0.3
           }
         },
-        { shape: 'cir', x: 70, y: 20, r: 2.5,
+        { shape: 'cir', x: 31, y: 20, r: 2.5,
            options: { fillStyle: "red" } 
         },
         { shape: 'cir', x: 81, y: -200, r: 2.5, image: "assets/ball.png" },
     
         // // // * 📝 Recangles are render center out. 
-        { shape: 'rect', x: 50, y: 75, w: 10, h: 10, image: "assets/box.png" },
-        { shape: 'rect', x: 50, y: 50, w: 5, h: 5, image: "assets/box.png" },
-        
-        // // 🧪TEST: Overscaled Rectangle. Should stretch beyond physical walls, overlapping other objects.
-        // { shape: 'rect', x: 50, y: -25, w: 5, h: 10, image: "assets/box.png",
-        //   options: { resize: { w: 10, h: 20 },} 
-        // },
+        { shape: 'rect', x: 50, y: 75, w: 8, h: 8, image: "assets/box.png",
+          options: { resize: { w: 16, h: 16 } }
+        },
+        { shape: 'rect', x: 30, y: 50, w: 16, h: 16, image: "assets/square_red_squirrel.png" },
       ]
     },
 // * 🎨 SVG tracking Mask Examples 
     { 
       name: "svg circles", type: "svg",layerId: "mask_layer",
       bodies: [    
-        { shape: 'cir_image', x: 37, y:8, r: 7, svg: /*html*/`
+        { shape: 'cir_image', x: 90, y:24, r: 7, svg: /*html*/`
           <image href="<<avatar>>" />
         `},
-        { shape: 'cir', x: 25, y: 60, r:5, svg: /*html*/`
-          <circle stroke-width="5" stroke="green" fill="goldenrod" opacity="1" />
+        { shape: 'cir_image', x: 75, y: 24, r: 7, svg: /*html*/`
+          <image href="assets/woman1.png" />
         `},
-        { shape: 'cir_image', x: 37, y:-200, r: 8, svg: /*html*/`
-          <image href="assets/shareena.png" />
+        { shape: 'cir', x: 75, y:40, r: 5, svg: /*html*/`
+          <image href="assets/gball1.png"/>
         `},
-        { shape: 'cir_image', x: 21, y:10, r: 8, svg: /*html*/`
-          <image href="assets/bob_square.jpg" />
+        { shape: 'cir', x: 60, y: 24, r:3, svg: /*html*/`
+          <circle fill="goldenrod" opacity="1" />
         `},
+        { shape: 'cir', x: 60, y: 37, r:5, svg: /*html*/`
+          <circle r="4" stroke-width="2" opacity="1" stroke="green" fill="orange"/>
+        `},
+        { shape: 'cir', x: 60, y: 50, r:5, svg: /*html*/` 
+          <circle x="63" y="53" r="6" fill="orange" opacity="0.5" />
+        `}, // 🔥 It SHOULD be OFFSET and OVERSIZED!
       ]
     },
     { 
      name: "svg rectangles",  type: "svg", layerId: "mask_layer",
       bodies: [    
-        { shape: 'rect', x: 19, y: 70, w: 8, h: 5, svg: /*html*/`
-          <rect stroke="pink" stroke-width="2" fill="blue"/>
+        { shape: 'rect', x: 11, y: 74, w: 16, h: 16, svg: /*html*/` 
+          <image href="assets/gbox1.png" />
         `},
+        { shape: 'rect', x: 10, y: 90, w: 16, h: 16, svg: /*html*/`
+          <image width="32" height="32" href="assets/box.png" />
+        `},
+        { shape: 'rect', x: 35, y: 70, w: 14, h: 8, svg: /*html*/`
+          <rect x="35" y="70" width="13" height="7" stroke-width="2" stroke="rgba(0,0,0,0.5)"  fill="rgba(0,255,0,0.5)"/>
+        `},
+        { shape: 'rect', x: 35, y: 90, w: 16, h: 16, 
+          svg: /*html*/` <image x="33" y="88" oX="-2" 
+            href="assets/gbox1.png" 
+          />
+        `}, // 🔥 It SHOULD be OFFSET as XY example
       ]
     }
   ],

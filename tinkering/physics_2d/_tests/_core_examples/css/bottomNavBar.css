@@ -1,0 +1,68 @@
+#bottomNavBar {
+  text-align: left;
+}
+button {
+  cursor: pointer;
+}
+#bottomNavBar_pause {
+  width: 70px;
+  text-align: center;
+  border: 4px solid red;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 1);
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: bold;
+}
+#bottomNavBar_pause:hover {
+  opacity: 0.75;
+}
+#bottomNavBar_svg_opacity {
+  position: relative;
+  top: 4px;
+}
+
+/* SWITCH */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+  top: -5px;
+}
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+}
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: .4s;
+}
+input:checked + .slider {
+  background-color: #2196F3;
+}
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+.slider.round {
+  border-radius: 34px;
+}
+.slider.round:before {
+  border-radius: 50%;
+}
