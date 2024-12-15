@@ -1,13 +1,10 @@
-let svgCounter = 0
+class Body extends Helper {
 
-class Body {
-
-  constructor(params, scale) { 
+  constructor(params) { 
+    super()
     Object.assign(this, params) 
-    // this.show_SVGs_matter_bg = true // * This is just for development. Like wireframe, but solid colors if you want?
-    this.scale = scale
+    this.scale = this.getHelperVar('scale')
     if (!this.options) { this.options = {} }
-    // if (scale) { this.scale_ratio(this) }
     this.scale_ratio(this)
     if (this.options.resize) { this.scale_ratio(this.options.resize) }
   }
@@ -54,29 +51,26 @@ class Body {
     }
   }
 
+  create_svg_elements(layerId, hash) {
+    const svgCount = this.svg_counter()
+    if (this.svg.split('href="')[1]?.split('"')[0] == "<<avatar>>") {
+      this.svg = this.svg.split('<<avatar>>').join(hash)
+    }
+    const parser = new DOMParser()
+    const svgDoc = parser.parseFromString(this.svg, 'image/svg+xml')
+    this.svg = svgDoc.documentElement
+    this.svgId = layerId+"_"+svgCount // * This is how the Matter Body object finds the svg. 
+    this.svg.setAttribute('id', this.svgId)
+  }
+
   async build_body(type, layerId, hash, defaultImage) {
     this.options.sprite = this.image ? await this.build_sprite_image(hash, defaultImage) : {}
     this.matterObj = this.build_matterObj(type)
+    if (type == 'svg') { this.create_svg_elements(layerId, hash) } /* 👀 👇 Yes need to sandwich both svg conditions around shapes! 👀 */
 
-// 🔥 MAKE THIS IT"S OWN METHOD!!!
-    if (type == 'svg') { /* 👀 Yes need to sandwich both svg conditions around shapes! 👀 */
-      svgCounter++
-      if (this.svg.split('href="')[1]?.split('"')[0] == "<<avatar>>") {
-        this.svg = this.svg.split('<<avatar>>').join(hash)
-      }
-      const parser = new DOMParser()
-      const svgDoc = parser.parseFromString(this.svg, 'image/svg+xml')
-      this.svg = svgDoc.documentElement
-      this.svgId = layerId+"_"+svgCounter // * This is how the Matter Body object finds the svg. 
-      this.svg.setAttribute('id', this.svgId)
-    } 
+    const matterBody = this.build_shape(this.shape, type, layerId)
 
-    let matterBody;
-    if (this.shape === "cir") { matterBody = this.build_circle(type) 
-    } else if (this.shape === "rect") { matterBody = this.build_rectangle(type) 
-    } else if (this.shape === "cir_image") { matterBody = this.build_circle_image(layerId) }
-
-    if (type == "svg") { /* 👀 Yes need to sandwich both svg conditions around shapes! 👀 */
+    if (type == "svg") { /* 👀 👆 Yes need to sandwich both svg conditions around shapes! 👀 */
       window[layerId].innerHTML += new XMLSerializer().serializeToString(this.svg)
       this.svg = document.getElementById(this.svgId)
       matterBody.Body = this 
@@ -84,122 +78,73 @@ class Body {
     return matterBody
   }
 
-  build_rectangle(type) {
-
+  build_shape(shape, type, layerId) {
     if (type == 'svg') {
-      // this.svg.setAttribute('x', this.x - (this.w)) 
-      // this.svg.setAttribute('y', this.y- (this.w)) 
-      // this.svg.setAttribute('width', this.w * 2) 
-      // this.svg.setAttribute('height', this.h * 2) 
-
-
-
-      // THIS works, but we want to rather scale at root level
-      // this.width = !this.svg.getAttribute('width') ? this.w : this.svg.getAttribute('width') * this.scale
-      // this.height = !this.svg.getAttribute('height') ? this.h : this.svg.getAttribute('height') * this.scale
-      // this.svg.setAttribute('x', this.x - this.width) 
-      // this.svg.setAttribute('y', this.y - this.height) 
-      // this.svg.setAttribute('width', this.width * 2)
-      // this.svg.setAttribute('height', this.height * 2)
-
-
-      this.svgPos = {}  // 🔥 This should probably be in a more global locatoin
-      this.svgPos.x = !this.svg.getAttribute('x') ? this.prescale.x : this.svg.getAttribute('x')
-      this.svgPos.y = !this.svg.getAttribute('y') ? this.prescale.y : this.svg.getAttribute('y')
-      this.svgPos.w = !this.svg.getAttribute('width') ? this.prescale.w : this.svg.getAttribute('width')
-      this.svgPos.h = !this.svg.getAttribute('height') ? this.prescale.h : this.svg.getAttribute('height')
-      this.svgPos.oX = (this.svgPos.w/2) - (this.svgPos.x - this.prescale.x)
-      this.svgPos.oY = (this.svgPos.h/2) - (this.svgPos.y - this.prescale.y)
-      // 🔥 This should probably be in a more global locatoin
-
-      this.svg.setAttribute('x', this.svgPos.x - (this.svgPos.w/2) ) 
-      this.svg.setAttribute('y', this.svgPos.y - (this.svgPos.h/2) ) 
-      this.svg.setAttribute('width', this.svgPos.w)
-      this.svg.setAttribute('height',this.svgPos.h)
-
-
+      this.getSVG()
+      const offsetX = this.svgPos.x - this.prescale.x // 🔥 We need Y here?
+      const offsetY = this.svgPos.y - this.prescale.y
+      this.svgPos.oX = shape == 'rect' ? (this.svgPos.w/2) - offsetX : offsetX
+      this.svgPos.oY = shape == 'rect' ? (this.svgPos.h/2) - offsetY : offsetY
+      if (shape != 'cir_image') { 
+        this.setSVG(shape, this.svgPos.r * 2)
+      } else {
+        this.clipId = this.svgId+"_clip"
+        window[layerId].children[0].innerHTML += /*html*/`
+          <clipPath id=${this.clipId}>
+            <circle cx="${this.svgPos.x}" cy="${this.svgPos.y}" r="${this.svgPos.r}" />
+          </clipPath>
+        `
+        this.svg.setAttribute('clip-path', "url(#"+this.clipId+")")
+        this.setSVG(shape, this.svgPos.r * 2)
+      }
     }
-    return Matter.Bodies.rectangle(this.x, this.y, this.w, this.h, this.matterObj)
-  }
-
-  build_circle(type) { 
-    
-    if (type == 'svg') {
-      this.svgPos = {}  // 🔥 This should probably be in a more global locatoin
-      this.svgPos.x = !this.svg.getAttribute('x') ? this.prescale.x : this.svg.getAttribute('x')
-      this.svgPos.y = !this.svg.getAttribute('y') ? this.prescale.y : this.svg.getAttribute('y')
-      this.svgPos.r = !this.svg.getAttribute('r') ? this.prescale.r : this.svg.getAttribute('r')
-      this.svgPos.oX = (this.svgPos.x - this.prescale.x)
-      this.svgPos.oY = (this.svgPos.y - this.prescale.y)
-      // 🔥 This should probably be in a more global locatoin
-      // console.log('this:',this)
-      this.svg.setAttribute('cx', this.svgPos.x) 
-      this.svg.setAttribute('cy', this.svgPos.y) 
-      this.svg.setAttribute('r', this.svgPos.r) 
-
-
-      // on if image though. but, i guess for setup i don't need it. 
-      this.svg.setAttribute('x', this.svgPos.x - (this.svgPos.r) ) 
-      this.svg.setAttribute('y', this.svgPos.y - (this.svgPos.r) ) 
-      this.svg.setAttribute('width', this.svgPos.r * 2)
-      this.svg.setAttribute('height', this.svgPos.r * 2)
+    if (shape == 'rect') {
+      return Matter.Bodies.rectangle(this.x, this.y, this.w, this.h, this.matterObj)
+    } 
+    else if (shape == 'cir' || shape == 'cir_image') {
+      return Matter.Bodies.circle(this.x, this.y, this.r, this.matterObj)
     }
-    return Matter.Bodies.circle(this.x, this.y, this.r, this.matterObj)
   }
 
-  build_circle_image(layerId) {
-    this.svgPos = {}  // 🔥 This should probably be in a more global locatoin
-    this.svgPos.x = !this.svg.getAttribute('x') ? this.prescale.x : this.svg.getAttribute('x')
-    this.svgPos.y = !this.svg.getAttribute('y') ? this.prescale.y : this.svg.getAttribute('y')
-    this.svgPos.r = !this.svg.getAttribute('r') ? this.prescale.r : this.svg.getAttribute('r')
-    this.svgPos.oX = (this.svgPos.x - this.prescale.x)
-    this.svgPos.oY = (this.svgPos.y - this.prescale.y)
-    // 🔥 This should probably be in a more global locatoin
-
-    this.clipId = this.svgId+"_clip"
-    window[layerId].children[0].innerHTML += /*html*/`
-      <clipPath id=${this.clipId}>
-        <circle cx="${this.svgPos.x}" cy="${this.svgPos.y}" r="${this.svgPos.r}" />
-      </clipPath>
-    `
-    this.svg.setAttribute('clip-path', "url(#"+this.clipId+")")
-    this.svg.setAttribute('x', this.svgPos.x - (this.svgPos.r) ) 
-    this.svg.setAttribute('y', this.svgPos.y - (this.svgPos.r) ) 
-    this.svg.setAttribute('width', this.svgPos.r * 2)
-    this.svg.setAttribute('height', this.svgPos.r * 2)
-
-    // this.svg.setAttribute('clip-path', "url(#"+this.clipId+")")
-    // this.svg.setAttribute('x', this.x - (this.r)) 
-    // this.svg.setAttribute('y', this.y - (this.r)) 
-    // this.svg.setAttribute('width', this.r*2) 
-    // this.svg.setAttribute('height', this.r*2) 
-    return Matter.Bodies.circle(this.x, this.y, this.r, this.matterObj)
+  getSVG() {
+    this.svgPos = {
+      x: parseInt(this.svg.getAttribute('x')) || this.prescale.x,
+      y: parseInt(this.svg.getAttribute('y')) || this.prescale.y,
+      r: parseInt(this.svg.getAttribute('r')) || this.prescale.r,
+      soX: parseInt(this.svg.getAttribute('ox')) || 0,
+      soY: parseInt(this.svg.getAttribute('oy')) || 0,
+      w: parseInt(this.svg.getAttribute('width')) || (this.prescale.w || 0),
+      h: parseInt(this.svg.getAttribute('height')) || (this.prescale.h || 0)
+    } 
   }
 
-  update_svg(b) { // 🔥 Should `build_circle` and `build_rectangle` be like this??? or should this funciton be seperated like them????
-    
+  setSVG(shape, widthHeight) {
+    const whrX = shape == 'rect' ? (this.svgPos.w/2 ) : this.svgPos.r
+    const whrY = shape == 'rect' ? (this.svgPos.h/2 ) : this.svgPos.r
+    this.svg.setAttribute('x', this.svgPos.x - whrX + this.svgPos.soX)  
+    this.svg.setAttribute('y', this.svgPos.y - whrY + this.svgPos.soY) 
+    this.svg.setAttribute('cx', this.svgPos.x + this.svgPos.soX ) 
+    this.svg.setAttribute('cy', this.svgPos.y + this.svgPos.soY ) 
+    this.svg.setAttribute('r', this.svgPos.r ) 
+    this.svg.setAttribute('width', widthHeight || this.svgPos.w)
+    this.svg.setAttribute('height', widthHeight || this.svgPos.h)
+  }
+
+  update_svg(b) { 
+    const shapeOffSetX = this.shape == 'rect' ? (this.svgPos.oX*-1) : (this.svgPos.oX - this.svgPos.r)
+    const shapeOffSetY = this.shape == 'rect' ? (this.svgPos.oY*-1) : (this.svgPos.oY - this.svgPos.r)
     const x = b.position.x / this.scale 
-    const y = b.position.y / this.scale  
+    const y = b.position.y / this.scale 
+    
+    this.svg.setAttribute('x', x + shapeOffSetX + this.svgPos.soX)
+    this.svg.setAttribute('y', y + shapeOffSetY + this.svgPos.soY)
+   
+    this.svg.setAttribute('cx', x + this.svgPos.oX + this.svgPos.soX)
+    this.svg.setAttribute('cy', y + this.svgPos.oY + this.svgPos.soY)
 
-    if (this.shape == 'rect') {
-      // this.svg.setAttribute('x', b.position.x - (this.width))
-      // this.svg.setAttribute('y', b.position.y - (this.height))
-      this.svg.setAttribute('x', x - this.svgPos.oX)
-      this.svg.setAttribute('y', y - this.svgPos.oY)
-    } else if (this.shape == 'cir') {
-      this.svg.setAttribute('cx', x + this.svgPos.oX)
-      this.svg.setAttribute('cy', y + this.svgPos.oY)
-      this.svg.setAttribute('x', x - this.svgPos.oX - this.svgPos.r)
-      this.svg.setAttribute('y', y - this.svgPos.oY - this.svgPos.r)
-    } else if (this.shape == 'cir_image') {
-      // this.svg.setAttribute('x', b.position.x - this.r)
-      // this.svg.setAttribute('y', b.position.y - this.r)
-      this.svg.setAttribute('x', x - this.svgPos.oX - this.svgPos.r)
-      this.svg.setAttribute('y', y - this.svgPos.oY - this.svgPos.r)
+    if (this.shape == 'cir_image') {
       const c = document.getElementById(this.clipId).children[0]
-      // c.setAttribute('cx', b.position.x )
-      // c.setAttribute('cy', b.position.y )
-      c.setAttribute('cx',  x + this.svgPos.oX )
+      c.setAttribute('cx', x + this.svgPos.oX )
       c.setAttribute('cy', y + this.svgPos.oY )
     }
     this.svg.setAttribute('transform', `rotate(${b.angle * (180 / Math.PI)}, ${x}, ${y})`)

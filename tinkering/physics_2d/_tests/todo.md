@@ -1,65 +1,40 @@
 ### Where I Left Off
-- circle img normal!
+- I don't want this Helper to be a blcoker, where anytime you change anything in the class, you have to go back and test and update everything. 
+- You have to decide to start, edit Helper on the fly, make notes, then come back. 
 
 # TO DO ✅ 🟡 🟠
-
-## `_tests/_overview` 
-
-✅ Rectangles. 
-- ✅ Review & test
-- ✅ Fix resizing issue for x, y svgs. 
-- ✅ Fix W,H / 2 issue and rescale all rects
-- ✅ create Body.svgPos.oX, .oY
-
-✅ Adding Dev Tools
-- ✅ Toggle and restart with wireframes
-- ✅ Added slider for svg opacity
-
-✅ Review Circles
-- ✅ First fix for just normal svg styling.
-- ✅ And svg cir example using stroke and fit useing `r`.
-- ✅ And Add oversized svg cir example x, y, r.
-- ✅ Fix for normal image, gball1.png
-  - ✅ Need to update position for image as a rect for circle.
-- ✅ Also need to fix matter bodies
-- ✅ Now on local `cir_image`
-- ✅ finally on avatar
-
-- ✅ update for avatar with # hash image. 
-
-
 🟡 Refactor
-- push > create good comment
-- Consolidate `build_...` for all shapes like `update_svg` with emojies for reminders
-- Add to us `oX="-1" oY="2"` on svg
-  - Add note to docs section below about this. YOU CAN USE EITHER. but oX is easier.
-- Make sure broken links/file names fallback to default and alert() for user. 
-  - it works for url with good and fallback, but there's no error, need to catch
-  - for local it works as expected. and has an error, just need to relay alert. 
-- Push again. 
-
-Post Reply on bsky. 
-- Create a new 'project' `url_avatar`
-- Just add the blocks like they are in the image you shared. 
-- Trimm down CONFIG.js and index.html as much as possible. 
-- Post and reply with examples. maybe with your avatar and theirs :) 
-
-Create section cotainers And update `bottomNavBar`
-- Add `Pysics window: (x,y), Actual Window: fps: 58.8 `
+- 🔥 AHHH cut out test example for Vertices "save here at bottom" 
+- pre code clean lazypush
+- 🟡(...✅ just test a little more) Add to us `oX="-1" oY="2"` on svg
+- review all code. 
+- Push again with comment
 
 Cleanup / Breakup _core_examples. Individual `app.js`, `config.js`, etc... 
-- index.html just has links to
+- ⛄️ Needed for snowman game 
+  - _blank_example_copyPaste
+  - ⚙️ complete_config
   - 🙆‍♂️ avatars. 
     - 6x - Svg & matter - Three `<<avatar>>` #local, #url, default
   - 🟣 circles_&_squares
     - demo "over" scale
     - try for `<g></g>` groups and adding shadow layer. 
-    - offset svg examples. 
+    - offset svg examples. (make sure to note x,y vs. oX,oY)
     - JUST ONE example for matter, the original box.png overscale. 
-  - 🔶 other_shapes
+⛄️- 🔶 other_shapes
   - 🧱 static_bodies
     - include svg examples
+    - ramps_&_rounded_courners
+  - 🖼️ backgrounds_and_shadow_layers
+    - Make walls offset
+    - Add textures
+    - Add Drop shaddow inset to background
+    - Add curved Object to put in courners (don't add to wall object, that's to specific)
+      - Add to walls:`insetCurve: 10` (for all walls, anything else, just use static bodies)
+  - 🌋 moving_static_bodies
   - ☄️ options explore
+⛄️- 🪟 tracking_zone_events
+?⛄️- 🍡 binding_bodies_in_motion
 - Remove unused images. 
 
 Create new `_test` called `width_height_scale` (This is a bit of a tinker)
@@ -67,38 +42,27 @@ Create new `_test` called `width_height_scale` (This is a bit of a tinker)
 - Set up an easy toggle between 600 v 1200, etc. 
 - If the window allows for 1000x1000, they physics will behave differently. I think the fix for this is to lock in a width, 600, 1000, 1200? Then use `transform: scale()` to match window width. 
 
-Static Body Rotate
-- Add a static_object
-- create new static object that moves/rotates
-
 Cleanup
 - Should "options" be "render" just so that it matches Matter terminology?
 - Let's review all the example and only have what is needed for use-cases/tests
 
-
-To DOCUMENT
+### To DOCUMENT
 - Rectangles
   - Explain how they're fitted to matter js, i.e. x,y,w,h...
+  - How they're built center out, rather than right-> like svgs. 
 - SVG don't use `options.resize` do manually in svg element.
   - Use the same 0-100 and it'll be scaled. 
-  - Rectangles are built differently however, so....
+  - Remember Rectangles are built differently.
+  - Within the actualy SVG ELM...
+    - Use `oX="-3" oY="2"` when you want to offset relative to x,y
+    - YOU CAN directly put in x,y but it'll just be harder to head math the locations.
 - Notes on scaling matter canvas (git branch `higher-resolution-tester`)
   - "fixes blurry and fussy lines for matter layers" etc...
   - I messed around with this a bit, and discovered that while possible (see branch), the downside is that it changes the physics, meaning the numbers that build the physics are built into the pixel size it seems. 
 
 #### Un-Ordered To Do (? Maybe move to later MVP!?)
 
-- Walls and Backgrounds
-  - Add Texture to background
-  - Add texture to walls
-  - Add Drop shaddow inset to background
-
-- Add curved Object to put in courners (don't add to wall object, that's to specific)
-  - Add to walls:`insetCurve: 10` (for all walls, anything else, just use static bodies)
-
-- Convert to Progressive Web App (PWA) 
-  - chatGPT guide: https://chatgpt.com/c/673e378a-5aec-8002-ac19-bf226b70abfc
-
+- ...
 
 ----
 # Physics 2d Library
@@ -145,7 +109,8 @@ Tests (`_tests`)
 Wait for usecase...
 - Add a layer type `html`? Just build around a `<div>` instead of an `<svg>`. 
   - Usecases: .gifs, Complex UI 💡(moving control panel) Even whole svgs embed.
-
+- Convert to Progressive Web App (PWA) 
+  - chatGPT guide: https://chatgpt.com/c/673e378a-5aec-8002-ac19-bf226b70abfc
 
 ----
 # Example Post Ideas...
@@ -158,3 +123,41 @@ Wait for usecase...
   - `<` & `>` external muttons add/remove points, min 3, max 20,  
   - And this rotates and can be controlled by additional `<` & `>` buttons.
 - And, under a Button press flicks a body like a pin-ball paddle. (static?)
+
+
+
+----
+
+//
+//
+// 🔥 AHHH cut this out and do code review FIRST
+
+const starVertices = [
+  { x: 0, y: -50 },
+  { x: 14, y: -20 },
+  { x: 47, y: -15 },
+  // { x: 23, y: 7 },
+  // { x: 29, y: 40 },
+  // { x: 0, y: 25 },
+  // { x: -29, y: 40 },
+  // { x: -23, y: 7 },
+  // { x: -47, y: -15 },
+  // { x: -14, y: -20 },
+];
+
+// Create a body from the vertices
+const starBody = Matter.Bodies.fromVertices(400, 300, [starVertices], {
+  isStatic: false, // Make it dynamic
+  render: {
+      fillStyle: 'yellow',
+      strokeStyle: 'black',
+      lineWidth: 1,
+  },
+});
+
+// Add the body to the world
+// World.add(world, starBody);
+Matter.Composite.add(this.Matter.engine.world,starBody)
+
+//
+//

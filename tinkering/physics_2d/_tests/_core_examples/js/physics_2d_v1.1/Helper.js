@@ -5,6 +5,7 @@ class Helper {
     this.track = []
     this.allMatterBodies = [] // * Collects all the bodies that are added to Matter. However, while this.track is being used, this isn't being used, and may need to be rethought. It was kind of a scope creep place holder i thought would be nice for testing.
     this.isPaused = false
+    Helper.svgCount = 1 
     if (!this.static_bodies) { this.static_bodies = [] }
     if (!this.dynamic_body_groups) { this.dynamic_body_groups = [] }
   }
@@ -16,7 +17,10 @@ class Helper {
     } else {
       this.hashImage = hash.split('http')[1] ? hash : "assets/"+hash
       const checkedImage = await toolkit_check_image(this.hashImage)
-      if (checkedImage == "error") this.hashImage = this.default_user_image
+      if (checkedImage == "error") {
+        this.hashImage = this.default_user_image
+        alert(`Failed to load image: \n\n${hash}`);
+      }
     }
   }
 
@@ -24,7 +28,8 @@ class Helper {
     this.containerWidth = window[this.default_container_id].clientWidth
     this.w = this.containerWidth > this.maxWidth ? this.maxWidth : this.containerWidth
     this.h = this.w * (this.heightRatio)
-    this.scale = this.w / this.widthScale
+    Helper.scale = this.w / this.widthScale
+    this.heightScale = this.widthScale // modify when we fix hight scaling
   }
 
   build_layers() {
@@ -35,20 +40,10 @@ class Helper {
           <div id="${layer.id}"></div>
         `
       } else if (layer.type === "svg") {
-        
-        // elm.innerHTML += /*html*/`
-        //   <div class="svg-layer-container">
-        //     <svg id="${layer.id}" width="${this.w}" height="${this.h}">
-        //       <defs></defs>
-        //     </svg>
-        //   </div>
-        // `
-
-
-// 🔥HARDCODED DEMINTIONS 600, 100 etc...
         elm.innerHTML += /*html*/`
           <div class="svg-layer-container">
-            <svg id="${layer.id}" width="600" height="600" viewBox="0,0,100,100">
+            <svg id="${layer.id}" width="${this.w}" height="${this.h}" 
+              viewBox="0,0,${this.heightScale},${this.heightScale}">
               <defs></defs>
             </svg>
           </div>
@@ -61,20 +56,20 @@ class Helper {
     const t = this.wall_bodies.thickness, w = this.widthScale, h =this.widthScale
     const show = this.wall_bodies.show, options = { isStatic: true }
     this.wall_bodies.bodies = []
-    if (show[0]) { this.wall_bodies.bodies.push( { Body: new Body({ x:w/2, y:t/2, w:w, h:t, shape:"rect", options }, this.scale)})}
-    if (show[1]) { this.wall_bodies.bodies.push( { Body: new Body({ x:w-t/2, y:h/2, w:t, h:h, shape:"rect", options }, this.scale)} ) }
-    if (show[2]) { this.wall_bodies.bodies.push( { Body: new Body({ x:w/2, y:h-t/2, w:w, h:t, shape:"rect", options }, this.scale)} ) }
-    if (show[3]) { this.wall_bodies.bodies.push( { Body: new Body({ x:t/2, y:h/2, w:t, h:h, shape:"rect", options }, this.scale)} ) }
+    if (show[0]) { this.wall_bodies.bodies.push( { Body: new Body({ x:w/2, y:t/2, w:w, h:t, shape:"rect", options })})}
+    if (show[1]) { this.wall_bodies.bodies.push( { Body: new Body({ x:w-t/2, y:h/2, w:t, h:h, shape:"rect", options })} ) }
+    if (show[2]) { this.wall_bodies.bodies.push( { Body: new Body({ x:w/2, y:h-t/2, w:w, h:t, shape:"rect", options })} ) }
+    if (show[3]) { this.wall_bodies.bodies.push( { Body: new Body({ x:t/2, y:h/2, w:t, h:h, shape:"rect", options })} ) }
   }
 
   async build_bodies() {
     this.dynamic_body_groups.forEach(group => { group.bodies.forEach(b => {
-      b.Body = new Body(b, this.scale)
+      b.Body = new Body(b)
     })})
     this.static_bodies.forEach(group => { group.bodies.forEach(b => {
       if (!b.options) { b.options = {} }
       b.options.isStatic = true
-      b.Body = new Body(b, this.scale)
+      b.Body = new Body(b)
     })})
   }
 
@@ -96,32 +91,21 @@ class Helper {
       return bodies_array
     }
 
-    // Wall Bodies
-    const wall_bodies = await add_group_bodies({ bodies: this.wall_bodies.bodies})
-    this.allMatterBodies.push({ bodies: wall_bodies, name: 'wall_bodies', type: 'wall_bodies', layerId: this.default_main_matter_id })
-    Matter.Composite.add(this.Matter.engine.world, wall_bodies)
-
-    // Static Bodies
-    for (const group of this.static_bodies) { // 🔥 static_bodies and Dynmic bodies is the same code. so make new method/function here. ALSO, pretty sure walls can use it too. 
-      const bodies = await add_group_bodies(group)
-      const obj = { bodies, name: group.name, type: group.type }
-      if (group.type == "svg") {
-        this.track.push(obj)
+    const add_groups = async (groups) => {
+      for (const group of groups) { // 🔥 static_bodies and Dynmic bodies is the same code. so make new method/function here. ALSO, pretty sure walls can use it too. 
+        const bodies = await add_group_bodies(group)
+        const obj = { bodies, name: group.name, type: group.type, group: group.layerId }
+        if (group.type == "svg") {
+          this.track.push(obj)
+        }
+        this.allMatterBodies.push(obj)
+        Matter.Composite.add(this.Matter.engine.world, bodies)
       }
-      this.allMatterBodies.push(obj)
-      Matter.Composite.add(this.Matter.engine.world, bodies)
     }
 
-    // Dynamic Bodies
-    for (const group of this.dynamic_body_groups) { // 🔥 static_bodies and Dynmic bodies is the same code. so make new method/function here. ALSO, pretty sure walls can use it too. 
-      const bodies = await add_group_bodies(group)
-      const obj = { bodies, name: group.name, type: group.type, group: group.layerId }
-      if (group.type == "svg") {
-        this.track.push(obj)
-      }
-      this.allMatterBodies.push(obj)
-      Matter.Composite.add(this.Matter.engine.world, bodies)
-    }
+    await add_groups([{ bodies: this.wall_bodies.bodies}])
+    await add_groups(this.static_bodies)
+    await add_groups(this.dynamic_body_groups)
 
     this.track.forEach(g=>{
       g.bodies.forEach( ({ Body })=>{
@@ -169,7 +153,7 @@ class Helper {
     Matter.Runner.stop(this.Matter.runner)
   }
 
-  matter_events(event) { // * 🤔 This could just be track_matter. was keeping it open for other options, but if i've gone another direction, let's make this simpler. 
+  matter_events(event) { 
     const track = this.track
 
     if (event == 'track') {
@@ -184,7 +168,43 @@ class Helper {
 
   }
 
-  /* 👇 Methods that are only internally called 👇 */
-  // - ... 👀 I had some... but removed them. BUT, there could be some!
+
+  /* 👇 Methods that are called outside of main build events 👇 */
+
+  matter_reset() { // More info on a complete reset - https://stackoverflow.com/questions/60195772/how-to-completely-stop-reset-reinitialize-matter-js-canvas-world-engine-instance
+    if (!this.isPaused) { bottomNavBar_pause.click() }
+    this.Matter = null
+    window[this.default_container_id].innerHTML = ""
+  }
+
+  svg_counter() {
+    return Helper.svgCount++ // * this counts after, so 0 is return first time, that's why it's set to 1 in the first place.
+  }
+
+  getHelperVar(field) {
+    return Helper[field]
+  }
+    
+  calculate_fps() {
+    let lastTime = performance.now()
+    let frameCount = 0
+    const fpsDisplay = document.getElementById('fps_display')
+
+    const updateFPS = () => {
+      const now = performance.now()
+      frameCount++
+      const delta = now - lastTime
+      if (delta >= 1000) {
+        const fps = (frameCount / delta) * 1000
+        fpsDisplay.textContent = `FPS: ${fps.toFixed(1)}`
+        frameCount = 0
+        lastTime = now
+      }
+      if (!this.isPaused) { requestAnimationFrame(updateFPS) }
+    }
+
+    if (!this.isPaused) { requestAnimationFrame(updateFPS) }
+  }
+
 
 }

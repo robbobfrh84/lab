@@ -1,5 +1,5 @@
 <!DOCTYPE html><html lang='en'>
-<title> Physics 2d helper class (H) - Core Examples </title>
+<title> Physics 2d Helper - Core Examples </title>
 
 <head>
   <meta charset='UTF-8'><meta http-equiv='X-UA-Compatible' content='ie=edge'>
@@ -12,7 +12,7 @@
 <body>
 
   <section id="topNavBar">
-    <div class="title"> Physics 2d helper class (H) - Core Examples </div>
+    <div id="topNavBar_title" class="title"> Physics 2d Helper</div>
     <div class="right">
       <img id="topRightNavBar_menu" src="assets/cog.svg" class="icon">
     </div>
@@ -20,7 +20,7 @@
 
   <section id="physics_2d_container"></section>
 
-  <section id="bottomNavBar">
+  <section id="bottomNavBar" class="centered-column">
     <button id="bottomNavBar_pause">Play</button>&nbsp;
     |
     <span>Show Wireframe: </span>
@@ -32,17 +32,56 @@
     <span>SVG opacity: </span>
     <input type="range" id="bottomNavBar_svg_opacity" value="1" min="0" max="1" step="0.01" >
     |
+    <span id="fps_display">FPS: 0</span>
+  </section>
+  
+  <section class="centered-column"> <hr/>
+    Examples:
+    <div id="config_select" style="display: inline-block;">
+      <select id="config_select_select"></select>
+    </div>
   </section>
 
 </body>
 
 <script src='js/physics_2d_v1.1/Matter.js'></script>
-<script src='js/physics_2d_v1.1/Body.js'></script>
 <script src='js/physics_2d_v1.1/Helper.js'></script>
+<script src='js/physics_2d_v1.1/Body.js'></script>
 <script src='js/physics_2d_v1.1/toolkit.js'></script>
-<script src='CONFIG.js'></script>
+<!-- * <script src='CONFIGS/base_chaos.js'></script> All fileVar names are dynamically loaded. Just keeping this here to reference. -->
+
 <script src='app.js'></script>
 <script src='js/events.js'></script>
-<script>window.onload = () => { app_start() }</script>
+<script>
+
+var CURRENT_CONFIG = 'base_chaos' // 'fromVertices' // 'base_chaos' 
+
+const CONFIGS = [
+  { name: 'Base Chaos', fileVar: 'base_chaos' },
+  { name: 'fromVertices', fileVar: 'fromVertices' },
+];
+
+const configSelect = document.getElementById('config_select_select');
+
+CONFIGS.forEach(config => {
+  const option = document.createElement('option');
+  option.value = config.fileVar;
+  option.textContent = config.name;
+  if (config.fileVar === CURRENT_CONFIG) { option.selected = true; }
+  configSelect.appendChild(option);
+  const script = document.createElement('script');
+  script.src = `CONFIGS/${config.fileVar}.js`;
+  document.body.appendChild(script);
+});
+
+const getConfig = () => CONFIGS.filter(c=>c.fileVar == CURRENT_CONFIG)[0]
+
+window.onload = () => { 
+  const config = getConfig()
+  topNavBar_title.innerHTML = `Physics 2d Helper - ${config.name}`
+  app_start(config, true) 
+}
+
+</script>
 
 </html>

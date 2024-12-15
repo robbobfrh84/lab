@@ -1,9 +1,9 @@
-const CONFIG = { // Config
+var base_chaos = { // Config
   maxWidth: 600,  
   heightRatio: 1, // * 1="Square" - 2/3,9/16="landscape" - 3/2,16/9="Portrait"
   widthScale: 100, // * WARNING: Changing this will change the ratio of the hardcoded x,y location & size are of each body. You'll have to re-hard code each. If 100, layout will be 0-100 x, and 0-100 y on the canvas. So location and size represented by a %.
   background: "cornflowerblue", // * Default is "2a2a2a"
-  wireframe: false, // * Default false - Matter.js wireframe mode (Can't be done individually, it's all on or off!)
+  wireframe: true, // * Default false - Matter.js wireframe mode (Can't be done individually, it's all on or off!)
   gravity: { x: 0, y: 1 }, // * Matter.js gravity. Default(x:0,y:1)
   default_user_image: "assets/cat.png",
   default_container_id: "physics_2d_container",
@@ -44,7 +44,7 @@ const CONFIG = { // Config
         { shape: 'cir', x: 60, y: 10, r: 7, 
           image: "assets/ball_bad_crop_example.png", 
           options: {
-            resize: { w: 8.8, h: 8.8 }, // * Here's an example of resize that makes sense. This png has a transparent border of around 63 pix. So we need to scale up so that the physics matched the ball border.
+            resize: { w: 17, h: 17 }, // * Here's an example of resize that makes sense. This png has a transparent border of around 63 pix. So we need to scale up so that the physics matched the ball border.
             opacity: 0.25, // * Default 1
             density: 0.0007, // * Default 0.0007
             friction: 0.0, // * Default 0.01
@@ -84,8 +84,8 @@ const CONFIG = { // Config
           <circle r="4" stroke-width="2" opacity="1" stroke="green" fill="orange"/>
         `},
         { shape: 'cir', x: 60, y: 50, r:5, svg: /*html*/` 
-          <circle x="63" y="53" r="6" fill="orange" opacity="0.5" />
-        `}, // 🔥 It SHOULD be OFFSET and OVERSIZED!
+          <circle ox="2" oy="2" r="6" fill="orange" opacity="0.5" />
+        `}, // * 🔥 It SHOULD be OFFSET and OVERSIZED!
       ]
     },
     { 
@@ -98,13 +98,14 @@ const CONFIG = { // Config
           <image width="32" height="32" href="assets/box.png" />
         `},
         { shape: 'rect', x: 35, y: 70, w: 14, h: 8, svg: /*html*/`
-          <rect x="35" y="70" width="13" height="7" stroke-width="2" stroke="rgba(0,0,0,0.5)"  fill="rgba(0,255,0,0.5)"/>
+          <rect width="13" height="7" stroke-width="1" stroke="red"  fill="rgba(0,255,0,0.5)"/>
         `},
-        { shape: 'rect', x: 35, y: 90, w: 16, h: 16, 
-          svg: /*html*/` <image x="33" y="88" oX="-2" 
+        { shape: 'rect', x: 35, y: 90, w: 16, h: 16, // * 🔥 Keep two examples for offsetting using x,y and ox,oy to show how they're the same! :)
+          // svg: /*html*/` <image ox="-2" oy="-2" 
+          svg: /*html*/` <image x="33" y="88" 
             href="assets/gbox1.png" 
           />
-        `}, // 🔥 It SHOULD be OFFSET as XY example
+        `}, // * 🔥 It SHOULD be OFFSET as XY example
       ]
     }
   ],
