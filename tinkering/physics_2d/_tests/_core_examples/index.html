@@ -4,6 +4,9 @@
 <head>
   <meta charset='UTF-8'><meta http-equiv='X-UA-Compatible' content='ie=edge'>
   <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <script src='js/physics_2d_v1.1/Matter.js'></script>
+  <script src="https://cdn.jsdelivr.net/npm/poly-decomp@0.2.1/build/decomp.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.20.0/matter.min.js"></script>
   <link rel='stylesheet' href='css/main.css'>
   <link rel='stylesheet' href='css/mobile.css'>
   <link rel='stylesheet' href='css/bottomNavBar.css'>
@@ -44,7 +47,6 @@
 
 </body>
 
-<script src='js/physics_2d_v1.1/Matter.js'></script>
 <script src='js/physics_2d_v1.1/Helper.js'></script>
 <script src='js/physics_2d_v1.1/Body.js'></script>
 <script src='js/physics_2d_v1.1/toolkit.js'></script>
@@ -54,7 +56,7 @@
 <script src='js/events.js'></script>
 <script>
 
-var CURRENT_CONFIG = 'base_chaos' // 'fromVertices' // 'base_chaos' 
+var CURRENT_CONFIG = 'fromVertices' // 'fromVertices' // 'base_chaos' 
 
 const CONFIGS = [
   { name: 'Base Chaos', fileVar: 'base_chaos' },

@@ -1,9 +1,10 @@
 var base_chaos = { // Config
+  wireframe: true, // * Default false - Matter.js wireframe mode (Can't be done individually, it's all on or off!)
+  svgOpacity: 0.5, // * Default 1
   maxWidth: 600,  
   heightRatio: 1, // * 1="Square" - 2/3,9/16="landscape" - 3/2,16/9="Portrait"
   widthScale: 100, // * WARNING: Changing this will change the ratio of the hardcoded x,y location & size are of each body. You'll have to re-hard code each. If 100, layout will be 0-100 x, and 0-100 y on the canvas. So location and size represented by a %.
   background: "cornflowerblue", // * Default is "2a2a2a"
-  wireframe: true, // * Default false - Matter.js wireframe mode (Can't be done individually, it's all on or off!)
   gravity: { x: 0, y: 1 }, // * Matter.js gravity. Default(x:0,y:1)
   default_user_image: "assets/cat.png",
   default_container_id: "physics_2d_container",

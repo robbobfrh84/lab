@@ -1,0 +1,172 @@
+<!DOCTYPE html><html lang='en'>
+<title> SVG </title>
+<!-- <link rel='icon' href='link/or/path'>  -->
+<head>
+  <meta charset='UTF-8'><meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <script src="matter.js"></script>
+  <script src="decomp.min.js" type="text/javascript"></script>
+  <script src="pathseg.js"></script>
+<style>
+  
+</style>
+</head>
+<body>
+<script>
+
+// Source Code: https://github.com/liabru/matter-js/blob/master/examples/svg.js
+var Example = Example || {};
+
+Example.svg = function() {
+    var Engine = Matter.Engine,
+        Render = Matter.Render,
+        Runner = Matter.Runner,
+        Common = Matter.Common,
+        MouseConstraint = Matter.MouseConstraint,
+        Mouse = Matter.Mouse,
+        Composite = Matter.Composite,
+        Vertices = Matter.Vertices,
+        Svg = Matter.Svg,
+        Bodies = Matter.Bodies;
+
+    // Common.setDecomp(require('poly-decomp'));
+
+    // create engine
+    var engine = Engine.create(),
+        world = engine.world;
+
+    // create renderer
+    var render = Render.create({
+        element: document.body,
+        engine: engine,
+        options: {
+            width: 800,
+            height: 600
+        }
+    });
+
+    Render.run(render);
+
+    // create runner
+    var runner = Runner.create();
+    Runner.run(runner, engine);
+
+    // add bodies
+    if (typeof fetch !== 'undefined') {
+        var select = function(root, selector) {
+            return Array.prototype.slice.call(root.querySelectorAll(selector));
+        };
+
+        var loadSvg = function(url) {
+          // console.log('url:',url)
+            return fetch(url)
+                .then(function(response) { return response.text(); })
+                .then(function(raw) { return (new window.DOMParser()).parseFromString(raw, 'image/svg+xml'); });
+        };
+
+        ([
+            './images/testy.svg',
+            './images/iconmonstr-check-mark-8-icon.svg', 
+            './images/iconmonstr-paperclip-2-icon.svg',
+            './images/iconmonstr-puzzle-icon.svg',
+            './images/iconmonstr-user-icon.svg',
+        ]).forEach(function(path, i) { 
+            loadSvg(path).then(function(root) {
+                var color = Common.choose(['#f19648', '#f5d259', '#f55a3c', '#063e7b', '#ececd1']);
+
+                var getSelect = select(root, 'path');
+                var vertexSets = select(root, 'path')
+                    .map(function(path) { 
+                      console.log('path:',path)
+                      console.log('Svg.pathToVertices(path, 30):',Svg.pathToVertices(path, 30))
+                      return Vertices.scale(Svg.pathToVertices(path, 30), 0.4, 0.4); 
+                    });
+                console.log('vertexSets:',vertexSets)
+                Composite.add(world, Bodies.fromVertices(100 + i * 150, 200 + i * 50, vertexSets, {
+                    render: {
+                        fillStyle: color,
+                        strokeStyle: color,
+                        lineWidth: 1
+                    }
+                }, true));
+            });
+        });
+
+        loadSvg('./images/svg.svg').then(function(root) {
+            var color = Common.choose(['#f19648', '#f5d259', '#f55a3c', '#063e7b', '#ececd1']);
+            
+            var vertexSets = select(root, 'path')
+                .map(function(path) { return Svg.pathToVertices(path, 30); });
+
+            Composite.add(world, Bodies.fromVertices(400, 80, vertexSets, {
+                render: {
+                    fillStyle: color,
+                    strokeStyle: color,
+                    lineWidth: 1
+                }
+            }, true));
+        });
+
+    } else {
+        Common.warn('Fetch is not available. Could not load SVG.');
+    }
+
+    Composite.add(world, [
+        Bodies.rectangle(400, 0, 800, 50, { isStatic: true }),
+        Bodies.rectangle(400, 600, 800, 50, { isStatic: true }),
+        Bodies.rectangle(800, 300, 50, 600, { isStatic: true }),
+        Bodies.rectangle(0, 300, 50, 600, { isStatic: true })
+    ]);
+
+    // add mouse control
+    var mouse = Mouse.create(render.canvas),
+        mouseConstraint = MouseConstraint.create(engine, {
+            mouse: mouse,
+            constraint: {
+                stiffness: 0.2,
+                render: {
+                    visible: false
+                }
+            }
+        });
+
+    Composite.add(world, mouseConstraint);
+
+    // keep the mouse in sync with rendering
+    render.mouse = mouse;
+
+    // fit the render viewport to the scene
+    Render.lookAt(render, {
+        min: { x: 0, y: 0 },
+        max: { x: 800, y: 600 }
+    });
+
+    // context for MatterTools.Demo
+    return {
+        engine: engine,
+        runner: runner,
+        render: render,
+        canvas: render.canvas,
+        stop: function() {
+            Matter.Render.stop(render);
+            Matter.Runner.stop(runner);
+        }
+    };
+};
+
+Example.svg()
+
+Example.svg.title = 'Concave SVG Paths';
+Example.svg.for = '>0.16.1';
+
+if (typeof module !== 'undefined') {
+    module.exports = Example.svg;
+}
+</script>
+<div style="padding: 10px">
+  <img src="./images/testy.svg" width="200" height="200" alt="Test SVG" style="background-color: aquamarine;">
+
+</div>
+
+</body>
+</html>

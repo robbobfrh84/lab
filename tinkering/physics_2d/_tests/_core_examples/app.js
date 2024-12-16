@@ -18,7 +18,7 @@ const app_start = async (file, initial) => {
   helper.matter_events('track')
   // * 👆 
 
-  helper_events(helper, 1, CONFIG, initial)
+  helper_events(helper, helper.svgOpacity, CONFIG, initial)
   bottomNavBar_pause.click()
   helper.calculate_fps()
 

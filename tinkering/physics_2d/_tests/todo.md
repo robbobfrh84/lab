@@ -3,12 +3,26 @@
 - You have to decide to start, edit Helper on the fly, make notes, then come back. 
 
 # TO DO ✅ 🟡 🟠
-🟡 Refactor
-- 🔥 AHHH cut out test example for Vertices "save here at bottom" 
-- pre code clean lazypush
-- 🟡(...✅ just test a little more) Add to us `oX="-1" oY="2"` on svg
-- review all code. 
-- Push again with comment
+🟡 fromVertices in `_core_examples`
+- ✅ get working for matter x,y
+- 🟡 create 4x examples (1 x,y, 4 ox,oy) - Arrow, & 3 santa balls!
+- Push as matter only.
+- now add anothere example set as svg overlay
+- Let's add a 'name' option to individual bodies, it's really nice for testing. 
+
+svg_D_paths in `_core_examples`
+- get working for matter x,y
+- get working for matter ox,oy
+- create 3 different angled ramp
+
+svg_D_path_rounded_courners in `_core_examples`
+- create rounded courners and make option in 
+
+Start Snowman! zones & other elements get built in as best you can. 
+- Build in `_tests`, this will be an example. but IGNOR updating framework!
+
+Probably punt
+- But it'd be really nice to have a mouse over that gives you x,y for pixels, percentages and then if you click an object you get relative location...
 
 Cleanup / Breakup _core_examples. Individual `app.js`, `config.js`, etc... 
 - ⛄️ Needed for snowman game 
@@ -34,7 +48,7 @@ Cleanup / Breakup _core_examples. Individual `app.js`, `config.js`, etc...
   - 🌋 moving_static_bodies
   - ☄️ options explore
 ⛄️- 🪟 tracking_zone_events
-?⛄️- 🍡 binding_bodies_in_motion
+?⛄️- 🍡 binding_bodies_in_motion: https://brm.io/matter-js/demo/#collisionFiltering
 - Remove unused images. 
 
 Create new `_test` called `width_height_scale` (This is a bit of a tinker)
@@ -125,39 +139,3 @@ Wait for usecase...
 - And, under a Button press flicks a body like a pin-ball paddle. (static?)
 
 
-
-----
-
-//
-//
-// 🔥 AHHH cut this out and do code review FIRST
-
-const starVertices = [
-  { x: 0, y: -50 },
-  { x: 14, y: -20 },
-  { x: 47, y: -15 },
-  // { x: 23, y: 7 },
-  // { x: 29, y: 40 },
-  // { x: 0, y: 25 },
-  // { x: -29, y: 40 },
-  // { x: -23, y: 7 },
-  // { x: -47, y: -15 },
-  // { x: -14, y: -20 },
-];
-
-// Create a body from the vertices
-const starBody = Matter.Bodies.fromVertices(400, 300, [starVertices], {
-  isStatic: false, // Make it dynamic
-  render: {
-      fillStyle: 'yellow',
-      strokeStyle: 'black',
-      lineWidth: 1,
-  },
-});
-
-// Add the body to the world
-// World.add(world, starBody);
-Matter.Composite.add(this.Matter.engine.world,starBody)
-
-//
-//

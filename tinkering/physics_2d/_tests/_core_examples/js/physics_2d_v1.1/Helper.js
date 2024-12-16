@@ -103,7 +103,7 @@ class Helper {
       }
     }
 
-    await add_groups([{ bodies: this.wall_bodies.bodies}])
+    await add_groups([{ bodies: this.wall_bodies.bodies, name: "🧱 Wall Bodies", type: "matter" }])
     await add_groups(this.static_bodies)
     await add_groups(this.dynamic_body_groups)
 
@@ -161,7 +161,7 @@ class Helper {
         // * Everything in the Matter object is directly available like this example: console.log('-',this.world.bodies[3].position)
         // * Using this.track makes it so we're only targeting what we chose to track. rather than looping through all the bodies. 
         track.forEach(g=>{ 
-          g.bodies.forEach(b=>{ b.Body.update_svg(b) })
+          g.bodies.forEach(b=>{ b.Body.updateSVG(b) })
         })
       })
     }

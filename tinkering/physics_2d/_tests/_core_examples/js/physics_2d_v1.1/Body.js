@@ -14,6 +14,7 @@ class Body extends Helper {
     ;['x','y','w','h','r'].forEach( name => {
       if (obj[name]) { obj[name] = obj[name] * this.scale }
     })
+    if (obj.v) { obj.v.forEach( v => this.scale_ratio(v) ) }
   }
 
   async build_sprite_image(hash, defaultImage) { /* 👀 ORDER SENTITIVE 👀 */
@@ -104,6 +105,9 @@ class Body extends Helper {
     else if (shape == 'cir' || shape == 'cir_image') {
       return Matter.Bodies.circle(this.x, this.y, this.r, this.matterObj)
     }
+    else if (shape == 'verts') {
+      return Matter.Bodies.fromVertices(this.x, this.y, this.v, this.matterObj)
+    }
   }
 
   getSVG() {
@@ -130,7 +134,7 @@ class Body extends Helper {
     this.svg.setAttribute('height', widthHeight || this.svgPos.h)
   }
 
-  update_svg(b) { 
+  updateSVG(b) { 
     const shapeOffSetX = this.shape == 'rect' ? (this.svgPos.oX*-1) : (this.svgPos.oX - this.svgPos.r)
     const shapeOffSetY = this.shape == 'rect' ? (this.svgPos.oY*-1) : (this.svgPos.oY - this.svgPos.r)
     const x = b.position.x / this.scale 
