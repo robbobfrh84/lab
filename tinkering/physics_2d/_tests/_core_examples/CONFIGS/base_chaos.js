@@ -18,7 +18,7 @@ var base_chaos = { // Config
   ],
   wall_bodies: { thickness: 2, show: [ false, true, true, true ] }, // show: [top, right, bottom, left]
 
-  static_bodies: [  
+  static_body_groups: [  
     {
       name: "static matter tests", type: "matter", 
       bodies: [
@@ -85,8 +85,8 @@ var base_chaos = { // Config
           <circle r="4" stroke-width="2" opacity="1" stroke="green" fill="orange"/>
         `},
         { shape: 'cir', x: 60, y: 50, r:5, svg: /*html*/` 
-          <circle ox="2" oy="2" r="6" fill="orange" opacity="0.5" />
-        `}, // * 🔥 It SHOULD be OFFSET and OVERSIZED!
+          <circle ox="5" oy="5" r="6" fill="orange" opacity="0.5" />
+        `}, // * 🔥 It SHOULD be OFFSET & OVERSIZED!
       ]
     },
     { 
@@ -102,11 +102,11 @@ var base_chaos = { // Config
           <rect width="13" height="7" stroke-width="1" stroke="red"  fill="rgba(0,255,0,0.5)"/>
         `},
         { shape: 'rect', x: 35, y: 90, w: 16, h: 16, // * 🔥 Keep two examples for offsetting using x,y and ox,oy to show how they're the same! :)
-          // svg: /*html*/` <image ox="-2" oy="-2" 
-          svg: /*html*/` <image x="33" y="88" 
+          // svg: /*html*/` <image ox="-2" oy="-2" // x="33" y="88" 
+          svg: /*html*/` <image ox="-2" oy="-2" width="14" height="14"
             href="assets/gbox1.png" 
           />
-        `}, // * 🔥 It SHOULD be OFFSET as XY example
+        `}, // * 🔥 It SHOULD be OFFSET & UNDERsized
       ]
     }
   ],

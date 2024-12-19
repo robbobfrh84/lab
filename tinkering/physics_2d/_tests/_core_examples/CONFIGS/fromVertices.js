@@ -18,70 +18,93 @@ var fromVertices = { // Config
   ],
   wall_bodies: { thickness: 2, show: [ true, true, true, true ] }, // show: [top, right, bottom, left]
 
-  // static_bodies: [  
-  //   {
-  //     name: "static matter tests", type: "matter", 
-  //     bodies: [
-  //     ]
-  //   }
-  // ],
+  static_body_groups: [  
+    {
+      name: "static matter tests", type: "matter", 
+      bodies: [
+      ]
+    }
+  ],
 
   dynamic_body_groups: [
-    { // * 🧚‍♀️ Using Matter.js to render styles and sprites examples
+/* 🧚‍♀️ Using Matter.js only to render styles and sprites examples */
+    { 
       name: "dynamic matter tests", type: "matter", 
       bodies: [ 
-        { shape: 'verts', x: 80, y: 12, v: [
-            { x: 0, y: 0 }, { x: 10, y: 7 }, { x: 0, y: 14 },
-            { x: 3, y: 8 }, { x: -8, y: 7 }, { x: 3, y: 5 },
-          ],
-          options: { fillStyle: "red" } 
+        { shape: 'verts', name: 'arrow', x: 80, y: 12, v: [
+            [0, 0], [10, 7], [0, 14],
+            [3, 8], [-8, 7], [3, 5],
+          ], options: { fillStyle: "red" } 
         },
-        { shape: 'verts', x: 80, y: 35, v: [
-            { x: 0, y: -10 }, { x: 4, y: -8 },
-            { x: 10, y: 0 }, { x: 7, y: 6 },
-            { x: 0, y: 10 }, { x: -4, y: 8 },
-            { x: -10, y: 0 }, { x: -7.5, y: -7.5 },
-          ],
-          options: { fillStyle: "rgba(200,200,200)" } 
+        { shape: 'verts', name: 'lg snowball', x: 80, y: 35, v: [
+            [0,-10], [4,-8],  [10,0], [7,6],
+            [0,10], [-4,8],   [-10,0], [-7.5,-7.5],
+          ], options: { fillStyle: "rgba(200,200,200)" } 
         },
-        { shape: 'verts', x: 80, y: 55, v: [
-            { x: 0, y: -8 }, { x: 4, y: -8 },
-            { x: 8, y: 0 }, { x: 7, y: 6 },
-            { x: 0, y: 8 }, { x: -4, y: 8 },
-            { x: -8, y: 0 }, { x: -7.5, y: -7.5 },
-          ],
-          options: { fillStyle: "rgba(200,200,200)" } 
+        { shape: 'verts', name: 'md snowball', x: 80, y: 55, note: "👀 You can also write the vertices in directly like this.",
+          v: [
+            [0,-8], [4,-8], [8,0], [7,6], [0,8], [-4,8], [-8,0], [-7.5,-7.5]
+          ], 
+            options: { fillStyle: "rgba(200,200,200)" } 
         },
-        { shape: 'verts', x: 80, y: 75, v: [
-            { x: 0, y: -7 }, { x: 3, y: -6 },
-            { x: 8, y: 0 }, { x: 5, y: 6 },
-            { x: 0, y: 8 }, { x: -4, y: 6 },
-            { x: -7, y: 0 }, { x: -5, y: -5 },
-          ],
-          options: { fillStyle: "rgba(200,200,200)" } 
+        { shape: 'verts', name: 'sm snowball', x: 80, y: 75, v: [
+            [0, -7], [3, -6], [8, 0], [5, 6],
+            [0, 8], [-4, 6], [-7, 0], [-5, -5],
+          ], options: { fillStyle: "rgba(200,200,200)" } 
         },
-      ]
-    },
+        ]
+      },
 
+/* 🌙 SVG Examples */
     { 
      name: "svg fromVerticies",  type: "svg", layerId: "mask_layer",
       bodies: [    
-        { shape: 'rect', x: 11, y: 74, w: 16, h: 16, svg: /*html*/` 
-          <image href="assets/gbox1.png" />
-        `},
-        // { shape: 'verts', x: 20, y: 20, v: [
-        //     { x: 0, y: -7 }, { x: 3, y: -6 },
-        //     { x: 8, y: 0 }, { x: 5, y: 6 },
-        //     { x: 0, y: 8 }, { x: -4, y: 6 },
-        //     { x: -7, y: 0 }, { x: -5, y: -5 },
-        //   ],
-        //   svg: /*html*/` 
-        //     <image href="assets/gbox1.png" />
-        //   `,
-        // }
+        { shape: 'verts', name: 'path layer svg - matter set', x: 50, y: 20, v: [
+            [0, -7], [3, -6], [8, 0], [5, 6],
+            [0, 8], [-4, 6], [-7, 0], [-5, -5],
+          ], svg: /*html*/`
+          <polygon fill="lime"/>`,
+        },
+        { shape: 'verts', name: 'path layer svg - svg overide', x: 50, y: 40, v: [
+          [0, -7], [3, -6], [8, 0], [5, 6],
+          [0, 8], [-4, 6], [-7, 0], [-5, -5],
+        ], svg: /*html*/`
+          <polygon points="
+            0,-7 3,-6 8,0 5,6 0,8 -4,6 -7,0 -5,-5
+          " fill="lime"/>`,
+        },
+        { shape: 'verts', name: 'path layer svg - svg overide', x: 50, y: 40, v: [
+          [0, -7], [3, -6], [8, 0], [5, 6],
+          [0, 8], [-4, 6], [-7, 0], [-5, -5],
+        ], svg: /*html*/`
+          <polygon points="
+            0,-7 3,-6 8,0 5,6 0,8 -4,6 -7,0 -5,-5
+          " fill="lime" stroke="violet" stroke-width="1"/>`,
+        },
+        { shape: 'verts', name: 'lg snowball', x: 20, y: 20, v: [
+            [0,-10], [4,-8],  [10,0], [7,6],
+            [0,10], [-4,8],   [-10,0], [-7.5,-7.5],
+          ], svg: /*html*/`
+            <image x="-8" y="-8" width="16" height="16" href="assets/gbox1.png" />`,
+        },
+        { shape: 'verts', name: 'md snowball', x: 20, y: 50, note: "👀 You can also write the vertices in directly like this.",
+          v: [
+            [0,-8], [4,-8], [8,0], [7,6], [0,8], [-4,8], [-8,0], [-7.5,-7.5]
+          ], 
+          svg: /*html*/`
+            <circle r="4" stroke-width="2" opacity="1" stroke="green" fill="orange"/>`,
+        },
+        { shape: 'verts', name: 'sm snowball', x: 20, y: 75, v: [
+            [0, -7], [3, -6], [8, 0], [5, 6],
+            [0, 8], [-4, 6], [-7, 0], [-5, -5],
+          ], svg: /*html*/`
+            <circle r="4" stroke-width="2" opacity="1" stroke="green" fill="orange"/>`,
+        },
       ]
+      
     }
 
   ],
 
 }
+

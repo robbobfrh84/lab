@@ -21,13 +21,22 @@ const app_start = async (file, initial) => {
   helper_events(helper, helper.svgOpacity, CONFIG, initial)
   bottomNavBar_pause.click()
   helper.calculate_fps()
-
-  setTimeout(()=>{
-    console.log('\n\n📋\nhelper:', helper)
-    console.log('helper.allMatterBodies:', helper.allMatterBodies)
-  },300)
+  log_helper(helper)
 }
 
+
+const log_helper = (helper) => {
+  setTimeout(()=>{
+    console.log('\n * 👀 See `./Config` files! *\n\n📋 Helper instance:\n-----', helper)
+    console.log('helper.allMatterBodies:', helper.allMatterBodies)
+    helper.dynamic_body_groups.forEach( g => { console.log('\n- Dynamic group: "'+g.name+'"')
+      g.bodies.forEach((b,i) => { console.log(b) })
+    })
+    helper.static_body_groups.forEach( g => { console.log('\n- Static group: "'+g.name+'"')
+      g.bodies.forEach((b,i) => { console.log(b) })
+    })
+  },50)
+}
 
 const helper_events = (helper, opacity, CONFIG, initial) => {
 

@@ -1,41 +1,60 @@
 ### Where I Left Off
-- I don't want this Helper to be a blcoker, where anytime you change anything in the class, you have to go back and test and update everything. 
-- You have to decide to start, edit Helper on the fly, make notes, then come back. 
+- 🔥 AHHH you almost have it! see Body.js ~153
 
 # TO DO ✅ 🟡 🟠
 🟡 fromVertices in `_core_examples`
-- ✅ get working for matter x,y
-- 🟡 create 4x examples (1 x,y, 4 ox,oy) - Arrow, & 3 santa balls!
-- Push as matter only.
-- now add anothere example set as svg overlay
-- Let's add a 'name' option to individual bodies, it's really nice for testing. 
+- ✅ Let's add a 'name' option to individual bodies, it's really nice for testing. 
+- ✅ in log_helper loop through all objects, giving layernames and sub bodies
+- ✅ Create option for if v[0]
+- ✅  create `svg_D_paths_curved` with basecode & add notes from fromVerticies config.
+- 🔥 See above. 
+- lazyPUSH after Testing really well while keeping notes
+- Handle that pesky 2px offset thingy
+  - Then, gut notes 
+  - Then, remove any direct x,y rescaling (like x="45" on svg, it's only ox="-2" now)
+  - Then, we're not going to use objects anymore for `v` remov all `{ x:3, y: 13 }`
+  - PUSH AGAIN and continue 
 
-svg_D_paths in `_core_examples`
+- Set `index.html` to fromVerties and review where we're at with polygons
+- Photoshop out ONE snowball > Replace box (1st row, first col)
+- Add 2nd snowball and Test for rotating image (2nd row, first col)
+- Add 3nd snowball and Test for offset & scaling (3nd row, first col)
+- review all shapes and make sure there's clear explantions etc...
+- Push
+
+svg_D_paths_curved in `_core_examples`
 - get working for matter x,y
 - get working for matter ox,oy
 - create 3 different angled ramp
 
-svg_D_path_rounded_courners in `_core_examples`
-- create rounded courners and make option in 
+borders_rounded_courners in `_core_examples`
+- create rounded courners and make option for borders, give all 4 courners as arr.
+- Here's where you also make option to `outset` borders.
+
+borders_and_backgrounds in `_core_examples`
+- simple example without rounded corners
 
 Start Snowman! zones & other elements get built in as best you can. 
 - Build in `_tests`, this will be an example. but IGNOR updating framework!
+- create readme outline and include (`# update Physic 2D lib`)
+- clean out this `todo.md`
+- Update what else should be done for `v1.1`
 
-Probably punt
-- But it'd be really nice to have a mouse over that gives you x,y for pixels, percentages and then if you click an object you get relative location...
+Refactor
+- I feel like there's some code that can be moved to `tookit.js`. review and move.
 
-Cleanup / Breakup _core_examples. Individual `app.js`, `config.js`, etc... 
+Cleanup / Breakup _core_examples. Individual `config.js`, etc... 
 - ⛄️ Needed for snowman game 
-  - _blank_example_copyPaste
   - ⚙️ complete_config
   - 🙆‍♂️ avatars. 
     - 6x - Svg & matter - Three `<<avatar>>` #local, #url, default
-  - 🟣 circles_&_squares
+  - 🟩 circles_&_squares
     - demo "over" scale
     - try for `<g></g>` groups and adding shadow layer. 
     - offset svg examples. (make sure to note x,y vs. oX,oY)
     - JUST ONE example for matter, the original box.png overscale. 
-⛄️- 🔶 other_shapes
+🟡 -⛄️ 🔶 other_shapes
+  - 💠 all svg shapes (Keep simple. Need a complex ref? >see shapes detailed example)
   - 🧱 static_bodies
     - include svg examples
     - ramps_&_rounded_courners
@@ -47,14 +66,18 @@ Cleanup / Breakup _core_examples. Individual `app.js`, `config.js`, etc...
       - Add to walls:`insetCurve: 10` (for all walls, anything else, just use static bodies)
   - 🌋 moving_static_bodies
   - ☄️ options explore
-⛄️- 🪟 tracking_zone_events
-?⛄️- 🍡 binding_bodies_in_motion: https://brm.io/matter-js/demo/#collisionFiltering
+  -⛄️ 🪟 tracking_zone_events
+  -?⛄️ 🍡 binding_bodies_in_motion: https://brm.io/matter-js/demo/#collisionFiltering
 - Remove unused images. 
+
 
 Create new `_test` called `width_height_scale` (This is a bit of a tinker)
 - So... hight isn't 0-100 meaning x: 50, y: 50 isn't centered if 2/3 ratio. Think about how best to fix this. Could just handle "h" by ratio and might work. 
 - Set up an easy toggle between 600 v 1200, etc. 
 - If the window allows for 1000x1000, they physics will behave differently. I think the fix for this is to lock in a width, 600, 1000, 1200? Then use `transform: scale()` to match window width. 
+
+Development helper UI
+- But it'd be really nice to have a mouse over that gives you x,y for pixels, percentages and then if you click an object you get relative location...
 
 Cleanup
 - Should "options" be "render" just so that it matches Matter terminology?
@@ -82,11 +105,11 @@ Cleanup
 # Physics 2d Library
 
 ### 🟡 MVP - Basic Setup: 
+- ✅ `#url` images for avatar.
 - layers
-- tracking
+- zone tracking
 - backgournds
 - curve static
-- `#url` images for avatar.
 - Move v1.1 to dependency_versions
 - 🦋 POST: Curate and post ramp example with basic backgrounds. 
 

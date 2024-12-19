@@ -6,7 +6,7 @@ class Helper {
     this.allMatterBodies = [] // * Collects all the bodies that are added to Matter. However, while this.track is being used, this isn't being used, and may need to be rethought. It was kind of a scope creep place holder i thought would be nice for testing.
     this.isPaused = false
     Helper.svgCount = 1 
-    if (!this.static_bodies) { this.static_bodies = [] }
+    if (!this.static_body_groups) { this.static_body_groups = [] }
     if (!this.dynamic_body_groups) { this.dynamic_body_groups = [] }
   }
 
@@ -66,7 +66,7 @@ class Helper {
     this.dynamic_body_groups.forEach(group => { group.bodies.forEach(b => {
       b.Body = new Body(b)
     })})
-    this.static_bodies.forEach(group => { group.bodies.forEach(b => {
+    this.static_body_groups.forEach(group => { group.bodies.forEach(b => {
       if (!b.options) { b.options = {} }
       b.options.isStatic = true
       b.Body = new Body(b)
@@ -92,9 +92,9 @@ class Helper {
     }
 
     const add_groups = async (groups) => {
-      for (const group of groups) { // 🔥 static_bodies and Dynmic bodies is the same code. so make new method/function here. ALSO, pretty sure walls can use it too. 
+      for (const group of groups) { // 🔥 static_body_groups and Dynmic bodies is the same code. so make new method/function here. ALSO, pretty sure walls can use it too. 
         const bodies = await add_group_bodies(group)
-        const obj = { bodies, name: group.name, type: group.type, group: group.layerId }
+        const obj = { bodies, name: group.name, type: group.type, layer: group.layerId }
         if (group.type == "svg") {
           this.track.push(obj)
         }
@@ -104,7 +104,7 @@ class Helper {
     }
 
     await add_groups([{ bodies: this.wall_bodies.bodies, name: "🧱 Wall Bodies", type: "matter" }])
-    await add_groups(this.static_bodies)
+    await add_groups(this.static_body_groups)
     await add_groups(this.dynamic_body_groups)
 
     this.track.forEach(g=>{
