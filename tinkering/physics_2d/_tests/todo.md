@@ -1,37 +1,34 @@
 ### Where I Left Off
-- 🔥 AHHH you almost have it! see Body.js ~153
+-
 
 # TO DO ✅ 🟡 🟠
-🟡 fromVertices in `_core_examples`
-- ✅ Let's add a 'name' option to individual bodies, it's really nice for testing. 
-- ✅ in log_helper loop through all objects, giving layernames and sub bodies
-- ✅ Create option for if v[0]
-- ✅  create `svg_D_paths_curved` with basecode & add notes from fromVerticies config.
-- 🔥 See above. 
-- lazyPUSH after Testing really well while keeping notes
-- Handle that pesky 2px offset thingy
-  - Then, gut notes 
-  - Then, remove any direct x,y rescaling (like x="45" on svg, it's only ox="-2" now)
-  - Then, we're not going to use objects anymore for `v` remov all `{ x:3, y: 13 }`
-  - PUSH AGAIN and continue 
+✅ fromVertices in `_core_examples`
+- ✅ Review Body.js, re-order with an SVG section, rest at top in cronological order.
+- ✅ new method for `adjustSVGpoints`
 
-- Set `index.html` to fromVerties and review where we're at with polygons
-- Photoshop out ONE snowball > Replace box (1st row, first col)
-- Add 2nd snowball and Test for rotating image (2nd row, first col)
-- Add 3nd snowball and Test for offset & scaling (3nd row, first col)
-- review all shapes and make sure there's clear explantions etc...
-- Push
+- Update `### Where I Left Off` 
+- PUSH AGAIN 
 
-svg_D_paths_curved in `_core_examples`
+`svg_D_paths_curved` in `_core_examples`
 - get working for matter x,y
 - get working for matter ox,oy
 - create 3 different angled ramp
 
-borders_rounded_courners in `_core_examples`
+`polygon_and_trapezoids`
+- https://brm.io/matter-js/docs/classes/Bodies.html
+
+`circle_and_rectangles`
+- https://brm.io/matter-js/docs/classes/Bodies.html
+
+`rounded_corners` ("chamfer") in `_core_examples` 
+- already have empty rounded_courners in matter_js_demos
+- https://brm.io/matter-js/demo/#rounded
+
+`borders_rounded_courners` in `_core_examples`
 - create rounded courners and make option for borders, give all 4 courners as arr.
 - Here's where you also make option to `outset` borders.
 
-borders_and_backgrounds in `_core_examples`
+`borders_and_backgrounds` in `_core_examples`
 - simple example without rounded corners
 
 Start Snowman! zones & other elements get built in as best you can. 

@@ -1,5 +1,5 @@
 <!DOCTYPE html><html lang='en'>
-<title> Physics 2d Helper - Core Examples </title>
+<title> Physics 2d Helper </title>
 
 <head>
   <meta charset='UTF-8'><meta http-equiv='X-UA-Compatible' content='ie=edge'>
@@ -15,7 +15,7 @@
 <body>
 
   <section id="topNavBar">
-    <div id="topNavBar_title" class="title"> Physics 2d Helper</div>
+    _core_examples:&nbsp;<div id="topNavBar_title" class="title"></div>
     <div class="right">
       <img id="topRightNavBar_menu" src="assets/cog.svg" class="icon">
     </div>
@@ -56,7 +56,7 @@
 <script src='js/events.js'></script>
 <script>
 
-var CURRENT_CONFIG = 'fromVertices' // 'fromVertices' // 'base_chaos' 
+var CURRENT_CONFIG = 'fromVertices' // * 'fromVertices' // 'base_chaos' 
 
 const CONFIGS = [
   { name: 'Base Chaos', fileVar: 'base_chaos' },
@@ -81,7 +81,7 @@ const getConfig = () => CONFIGS.filter(c=>c.fileVar == CURRENT_CONFIG)[0]
 
 window.onload = () => { 
   const config = getConfig()
-  topNavBar_title.innerHTML = `Physics 2d Helper - ${config.name}`
+  topNavBar_title.innerHTML = `${config.name}`
   app_start(config, true) 
 }
 

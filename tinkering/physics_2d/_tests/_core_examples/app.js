@@ -29,10 +29,10 @@ const log_helper = (helper) => {
   setTimeout(()=>{
     console.log('\n * 👀 See `./Config` files! *\n\n📋 Helper instance:\n-----', helper)
     console.log('helper.allMatterBodies:', helper.allMatterBodies)
-    helper.dynamic_body_groups.forEach( g => { console.log('\n- Dynamic group: "'+g.name+'"')
+    helper.static_body_groups.forEach( g => { console.log('\n- Static group: "'+g.name+'"')
       g.bodies.forEach((b,i) => { console.log(b) })
     })
-    helper.static_body_groups.forEach( g => { console.log('\n- Static group: "'+g.name+'"')
+    helper.dynamic_body_groups.forEach( g => { console.log('\n- Dynamic group: "'+g.name+'"')
       g.bodies.forEach((b,i) => { console.log(b) })
     })
   },50)
@@ -67,7 +67,7 @@ const helper_events = (helper, opacity, CONFIG, initial) => {
     configSelect.addEventListener('change', (event) => {
       CURRENT_CONFIG = event.target.value
       const config = getConfig()
-      topNavBar_title.innerHTML = `Physics 2d Helper - ${config.name}`
+      topNavBar_title.innerHTML = `${config.name}`
       const h = getHelper()
       h.matter_reset()
       app_start(getConfig()) 

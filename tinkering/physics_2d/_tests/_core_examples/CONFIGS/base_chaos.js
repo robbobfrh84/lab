@@ -102,7 +102,6 @@ var base_chaos = { // Config
           <rect width="13" height="7" stroke-width="1" stroke="red"  fill="rgba(0,255,0,0.5)"/>
         `},
         { shape: 'rect', x: 35, y: 90, w: 16, h: 16, // * 🔥 Keep two examples for offsetting using x,y and ox,oy to show how they're the same! :)
-          // svg: /*html*/` <image ox="-2" oy="-2" // x="33" y="88" 
           svg: /*html*/` <image ox="-2" oy="-2" width="14" height="14"
             href="assets/gbox1.png" 
           />

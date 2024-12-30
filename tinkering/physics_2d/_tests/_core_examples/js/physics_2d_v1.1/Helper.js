@@ -63,12 +63,12 @@ class Helper {
   }
 
   async build_bodies() {
-    this.dynamic_body_groups.forEach(group => { group.bodies.forEach(b => {
-      b.Body = new Body(b)
-    })})
     this.static_body_groups.forEach(group => { group.bodies.forEach(b => {
       if (!b.options) { b.options = {} }
       b.options.isStatic = true
+      b.Body = new Body(b)
+    })})
+    this.dynamic_body_groups.forEach(group => { group.bodies.forEach(b => {
       b.Body = new Body(b)
     })})
   }
@@ -92,7 +92,7 @@ class Helper {
     }
 
     const add_groups = async (groups) => {
-      for (const group of groups) { // 🔥 static_body_groups and Dynmic bodies is the same code. so make new method/function here. ALSO, pretty sure walls can use it too. 
+      for (const group of groups) { 
         const bodies = await add_group_bodies(group)
         const obj = { bodies, name: group.name, type: group.type, layer: group.layerId }
         if (group.type == "svg") {
@@ -171,7 +171,7 @@ class Helper {
 
   /* 👇 Methods that are called outside of main build events 👇 */
 
-  matter_reset() { // More info on a complete reset - https://stackoverflow.com/questions/60195772/how-to-completely-stop-reset-reinitialize-matter-js-canvas-world-engine-instance
+  matter_reset() { // * More info on a complete reset - https://stackoverflow.com/questions/60195772/how-to-completely-stop-reset-reinitialize-matter-js-canvas-world-engine-instance
     if (!this.isPaused) { bottomNavBar_pause.click() }
     this.Matter = null
     window[this.default_container_id].innerHTML = ""

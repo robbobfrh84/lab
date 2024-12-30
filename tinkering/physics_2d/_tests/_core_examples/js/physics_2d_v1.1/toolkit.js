@@ -49,3 +49,19 @@ async function toolkit_image_opacity(opacity, imageUrl) {
   ctx.drawImage(img, 0, 0)
   return canvas.toDataURL()
 }
+
+function process_string_verticies(vertices) {
+  let cleaned = vertices.replace(/[\[\]\(\)]+/g, ' ').replace(/\s+/g, ' ').trim()
+  cleaned = cleaned.replace(/,/g, ' ').replace(/\s+/g, ' ')
+  let parts = cleaned.split(' ').filter(Boolean)
+  let numbers = parts.map(Number).filter(n => !isNaN(n))
+
+  let resultPairs = []
+  for (let i = 0; i < numbers.length; i += 2) {
+    let x = numbers[i] 
+    let y = numbers[i + 1] 
+    resultPairs.push(`${x},${y}`)
+  }
+
+  return resultPairs.join(' ')
+}
