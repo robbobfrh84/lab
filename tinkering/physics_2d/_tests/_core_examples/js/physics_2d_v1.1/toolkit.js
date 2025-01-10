@@ -65,3 +65,18 @@ function process_string_verticies(vertices) {
 
   return resultPairs.join(' ')
 }
+
+function gen_poly_pts(sides, radius, angle) {
+  if (!angle) {angle = 0}
+  const points = []
+  const angleStep = (2 * Math.PI) / sides
+  const radianAngle = (angle * Math.PI) / 180
+
+  for (let i = 0; i < sides; i++) {
+    const x = (radius * Math.cos(i * angleStep + radianAngle)).toFixed(2)
+    const y = (radius * Math.sin(i * angleStep + radianAngle)).toFixed(2)
+    points.push(`${x},${y}`)
+  }
+
+  return points.join(" ")
+}

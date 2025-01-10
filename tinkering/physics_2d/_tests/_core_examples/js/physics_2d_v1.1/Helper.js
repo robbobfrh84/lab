@@ -44,7 +44,7 @@ class Helper {
           <div class="svg-layer-container">
             <svg id="${layer.id}" width="${this.w}" height="${this.h}" 
               viewBox="0,0,${this.heightScale},${this.heightScale}">
-              <defs></defs>
+              <defs id="${layer.id}_defs"></defs>
             </svg>
           </div>
         `

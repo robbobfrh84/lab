@@ -123,7 +123,7 @@ var fromVertices = { // Config
       // [8, 16], [4, 14],  [1, 8], [3, 3],
     },
 
-  /* 🧚‍♀️ Using Matter.js only to render styles and sprites examples */
+  /* 🧚‍♀️ Using Matter.js only */
     { 
       name: "3️⃣ matter only column", type: "matter", 
       bodies: [ 

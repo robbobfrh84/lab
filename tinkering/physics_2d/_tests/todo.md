@@ -1,26 +1,33 @@
 ### Where I Left Off
--
+- OK! i think i got through Polygons and Trapazoids. Some refactoring next. 
 
 # TO DO ✅ 🟡 🟠
-✅ fromVertices in `_core_examples`
-- ✅ Review Body.js, re-order with an SVG section, rest at top in cronological order.
-- ✅ new method for `adjustSVGpoints`
+🟡 `polygons_and_trapezoids` in `_core_examples`
+- ✅ https://brm.io/matter-js/docs/classes/Bodies.html
+- ✅ Get raw hardcoded `if poly` put in place... 
+- ✅ Add solid SVGs
+- ✅ Add SVG Stroke example (keep overflow)
+- ✅ Add svg override example
+- ✅ Add SVG with <g> images
+- ✅ Add <g> example with image. 
+- ✅ Added place for defs to be added in app.js
+- ✅ Add `rotate` to main body object. 
+- ✅ HAVE FUN! create a polygon onion of different sides and colors. 
+- ✅ Finish adding trapezoids
+- ✅ Review all test names in config & cleanup
 
-- Update `### Where I Left Off` 
-- PUSH AGAIN 
+Update fromVertices See body ~@173
+- Remove "overrideOffSet" condition and use if `this.svgPos.v.length < 1`. Should be like polygons
+- Refactor updateSVG to share values
+
+Comment and PUSH
 
 `svg_D_paths_curved` in `_core_examples`
 - get working for matter x,y
 - get working for matter ox,oy
 - create 3 different angled ramp
 
-`polygon_and_trapezoids`
-- https://brm.io/matter-js/docs/classes/Bodies.html
-
-`circle_and_rectangles`
-- https://brm.io/matter-js/docs/classes/Bodies.html
-
-`rounded_corners` ("chamfer") in `_core_examples` 
+(👀"chamfer") `rounded_corners`  in `_core_examples` 
 - already have empty rounded_courners in matter_js_demos
 - https://brm.io/matter-js/demo/#rounded
 
@@ -28,24 +35,41 @@
 - create rounded courners and make option for borders, give all 4 courners as arr.
 - Here's where you also make option to `outset` borders.
 
-`borders_and_backgrounds` in `_core_examples`
+`svg_borders_and_backgrounds` in `_core_examples`
 - simple example without rounded corners
+- review how these independent parts tie into the layers array for scaling....
+- might need to clear out all _core_examples configs. 
 
-Start Snowman! zones & other elements get built in as best you can. 
+`circle_and_rectangles` in `_core_examples`
+- https://brm.io/matter-js/docs/classes/Bodies.html
+- Um... maybe Base Choas is actually `circles_rectangles_and_avatars` Save the work?
+
+
+Refactor / Cleanup / Clarify
+-
+
+Create new `_test` called `width_height_scale` (This is a bit of a tinker)
+- So... hight isn't 0-100 meaning x: 50, y: 50 isn't centered if 2/3 ratio. Think about how best to fix this. Could just handle "h" by ratio and might work. 
+- Set up an easy toggle between 600 v 1200, etc. 
+- If the window allows for 1000x1000, they physics will behave differently. I think the fix for this is to lock in a width, 600, 1000, 1200? Then use `transform: scale()` to match window width. 
+
+BOB > 👀 Ignor templates until after you've built some real stuff to know what works!
+
+Finalize v1.1
+- Prume this `todo.md` and create seciton for next v1.2 MVP
+- Move copy to `_dependency_versions`
+
+Start Snowman! 
 - Build in `_tests`, this will be an example. but IGNOR updating framework!
 - create readme outline and include (`# update Physic 2D lib`)
-- clean out this `todo.md`
 - Update what else should be done for `v1.1`
-
-Refactor
-- I feel like there's some code that can be moved to `tookit.js`. review and move.
 
 Cleanup / Breakup _core_examples. Individual `config.js`, etc... 
 - ⛄️ Needed for snowman game 
   - ⚙️ complete_config
   - 🙆‍♂️ avatars. 
     - 6x - Svg & matter - Three `<<avatar>>` #local, #url, default
-  - 🟩 circles_&_squares
+  - ⭕️ circles_&_squares
     - demo "over" scale
     - try for `<g></g>` groups and adding shadow layer. 
     - offset svg examples. (make sure to note x,y vs. oX,oY)
@@ -67,20 +91,14 @@ Cleanup / Breakup _core_examples. Individual `config.js`, etc...
   -?⛄️ 🍡 binding_bodies_in_motion: https://brm.io/matter-js/demo/#collisionFiltering
 - Remove unused images. 
 
-
-Create new `_test` called `width_height_scale` (This is a bit of a tinker)
-- So... hight isn't 0-100 meaning x: 50, y: 50 isn't centered if 2/3 ratio. Think about how best to fix this. Could just handle "h" by ratio and might work. 
-- Set up an easy toggle between 600 v 1200, etc. 
-- If the window allows for 1000x1000, they physics will behave differently. I think the fix for this is to lock in a width, 600, 1000, 1200? Then use `transform: scale()` to match window width. 
-
 Development helper UI
-- But it'd be really nice to have a mouse over that gives you x,y for pixels, percentages and then if you click an object you get relative location...
+- It'd be really nice to have a mouse over that gives you x,y for pixels, percentages and then if you click an object you get relative location...
 
-Cleanup
+Cleanup / Refactor
 - Should "options" be "render" just so that it matches Matter terminology?
 - Let's review all the example and only have what is needed for use-cases/tests
 
-### To DOCUMENT
+### To DOCUMENT (raw notes)
 - Rectangles
   - Explain how they're fitted to matter js, i.e. x,y,w,h...
   - How they're built center out, rather than right-> like svgs. 
@@ -93,6 +111,14 @@ Cleanup
 - Notes on scaling matter canvas (git branch `higher-resolution-tester`)
   - "fixes blurry and fussy lines for matter layers" etc...
   - I messed around with this a bit, and discovered that while possible (see branch), the downside is that it changes the physics, meaning the numbers that build the physics are built into the pixel size it seems. 
+- Find good place for Matter JS docs uses, like...
+  - https://brm.io/matter-js/docs/classes/Bodies.html
+- explain how we can use the toolkit function `gen_poly_pts(7,7,90)` to build and rotate svg polygons.
+- explain how `rotate` uses 260 and is applied to matter at root Body level.
+  - See polygon examples 
+- explain how we can use app.js to put svg `<defs>` in svg elm. 
+  - See polygon examples 
+
 
 #### Un-Ordered To Do (? Maybe move to later MVP!?)
 

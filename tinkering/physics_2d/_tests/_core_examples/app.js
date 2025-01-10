@@ -19,24 +19,12 @@ const app_start = async (file, initial) => {
   // * 👆 
 
   helper_events(helper, helper.svgOpacity, CONFIG, initial)
+  add_svg_defs(window[helper.default_main_svg_id+"_defs"])
   bottomNavBar_pause.click()
   helper.calculate_fps()
   log_helper(helper)
 }
 
-
-const log_helper = (helper) => {
-  setTimeout(()=>{
-    console.log('\n * 👀 See `./Config` files! *\n\n📋 Helper instance:\n-----', helper)
-    console.log('helper.allMatterBodies:', helper.allMatterBodies)
-    helper.static_body_groups.forEach( g => { console.log('\n- Static group: "'+g.name+'"')
-      g.bodies.forEach((b,i) => { console.log(b) })
-    })
-    helper.dynamic_body_groups.forEach( g => { console.log('\n- Dynamic group: "'+g.name+'"')
-      g.bodies.forEach((b,i) => { console.log(b) })
-    })
-  },50)
-}
 
 const helper_events = (helper, opacity, CONFIG, initial) => {
 
@@ -60,7 +48,6 @@ const helper_events = (helper, opacity, CONFIG, initial) => {
   window[helper.default_main_svg_id].style.opacity = opacity
   document.getElementById("bottomNavBar_svg_opacity").value = opacity
 
-
   getHelper = () => helper
 
   if (initial) {
@@ -75,6 +62,39 @@ const helper_events = (helper, opacity, CONFIG, initial) => {
   }
 
 }
+
+
+const log_helper = (helper) => {
+  setTimeout(()=>{
+    console.log('\n * 👀 See `./Config` files! *\n\n📋 Helper instance:\n-----', helper)
+    console.log('helper.allMatterBodies:', helper.allMatterBodies)
+    helper.static_body_groups.forEach( g => { console.log('\n- Static group: "'+g.name+'"')
+      g.bodies.forEach((b,i) => { console.log(b) })
+    })
+    helper.dynamic_body_groups.forEach( g => { console.log('\n- Dynamic group: "'+g.name+'"')
+      g.bodies.forEach((b,i) => { console.log(b) })
+    })
+  },50)
+}
+
+const add_svg_defs = (elm) => {
+  elm.innerHTML += /*html*/`
+
+    <filter id="svg_dropShadow">
+      <feDropShadow dx="0.2" dy="0.4" stdDeviation="0.2" flood-color="black" flood-opacity="0.7"/>
+    </filter>
+
+    <filter id="svg_dropShadow2">
+      <feDropShadow dx="0" dy="0" stdDeviation="0.5" flood-color="cyan" flood-opacity="1"/>
+    </filter>
+    
+    <filter id="svg_dropShadow3">
+      <feDropShadow dx="0" dy="0" stdDeviation="0.5" flood-color="black" flood-opacity="1"/>
+    </filter>
+    
+  `
+}
+
 
 
 

@@ -29,7 +29,7 @@ class Body extends Helper {
     this.matterObj = this.build_matterObj(type)
     if (type == 'svg') { this.create_svg_elements(layerId, hash) } /* 👀 👇 Yes need to sandwich both svg conditions around shapes! 👀 */
 
-    const matterBody = this.build_shape(this.shape, type, layerId)
+    const matterBody = this.build_shape(this.shape, type, layerId) 
     matterBody.Body = this 
     this.matterBody = matterBody
 
@@ -38,7 +38,15 @@ class Body extends Helper {
       this.svg = document.getElementById(this.svgId)
       this.AdjustSVG() // * 👀 Need be here because we need to set the svg first, so we can reference it.
     }
-    return matterBody
+
+    if (this.rotate) {
+      this.radianRotate = this.rotate * (Math.PI / 180)
+      Matter.Body.rotate(this.matterBody, this.radianRotate)
+    } else {
+      this.radianRotate = 0
+    }
+
+    return this.matterBody
   }
 
   async build_sprite_image(hash, defaultImage) { /* 👀 ORDER SENTITIVE 👀 */
@@ -103,6 +111,16 @@ class Body extends Helper {
     else if (shape == 'verts') {
       return Matter.Bodies.fromVertices(this.x, this.y, this.v, this.matterObj, true)
     }
+    //
+    //
+    else if (shape == 'poly') {
+      return Matter.Bodies.polygon(this.x, this.y, this.sides, this.r, this.matterObj)
+    }
+    else if (shape == 'trap') {
+      return Matter.Bodies.trapezoid(this.x, this.y, this.w, this.h, this.slope, this.matterObj)
+    }
+    //
+    //
   }
 
   getSVG() {
@@ -164,17 +182,28 @@ class Body extends Helper {
       if (typeof this.svgPos.v === 'string') {
         this.svgPos.v = this.svgPos.v.split(' ').map(p => p.split(',').map(Number))
       }
-      const bX = this.matterBody.bounds.min.x / this.scale
-      const bY = this.matterBody.bounds.min.y / this.scale
-      const mX = Math.min(...this.svgPos.v.map(point => point[0]))
-      const mY = Math.min(...this.svgPos.v.map(point => point[1]))
+      const bX = this.matterBody.bounds.min.x / this.scale // 🔥 Actually a shared value, can go above
+      const bY = this.matterBody.bounds.min.y / this.scale // 🔥 Actually a shared value, can go above
+      const mX = Math.min(...this.svgPos.v.map(point => point[0])) // 🔥 See notes, I'm pretty sure we're just gonna remove this.
+      const mY = Math.min(...this.svgPos.v.map(point => point[1])) // 🔥 See notes, I'm pretty sure we're just gonna remove this.
 
-      if (!this.overrideOffSet) {
-        this.svgPos.v = this.svgPos.v.map(v => 
+      if (!this.overrideOffSet) { // 🔥 See notes, I'm pretty sure we're just gonna remove this.
+        this.svgPos.v = this.svgPos.v.map( v => 
           [v[0]+bX-this.prescale.x-mX, v[1]+bY-this.prescale.y-mY]
         )
       }
 
+      this.svg.setAttribute('points', this.svgPos.v)
+    } 
+    else if ( 
+      (this.shape == "poly" || this.shape == "trap") 
+      && this.svgPos.v.length < 1
+    ) {
+      const pX = this.matterBody.position.x / this.scale
+      const pY = this.matterBody.position.y / this.scale
+      this.svgPos.v = this.matterBody.vertices.map( v => 
+        [ (v.x / this.scale)-pX, (v.y / this.scale)-pY ]
+      )
       this.svg.setAttribute('points', this.svgPos.v)
     }
   }
@@ -183,7 +212,7 @@ class Body extends Helper {
     const x = b.position.x / this.scale 
     const y = b.position.y / this.scale 
     this.svg.setAttribute('transform', `
-        rotate(${b.angle * (180 / Math.PI)}, ${x}, ${y})
+        rotate(${(b.angle-this.radianRotate) * (180 / Math.PI)}, ${x}, ${y})
         translate(${x},${y})
       `
     )
