@@ -44,6 +44,13 @@ var heading = document.getElementsByTagName('h1')[0];
 var arr = heading.innerHTML.split('');
 heading.innerHTML = null;
 
+var hash = window.location.hash.substring(1);
+if (hash) {
+  heading.innerHTML = decodeURIComponent(hash);
+  arr = heading.innerHTML.split('');
+  heading.innerHTML = null;
+}
+
 var c = [];
 
 for (var i = 0; i < arr.length; i++){
