@@ -1,5 +1,8 @@
 ### Where I Left Off
 - OK! i think i got through Polygons and Trapazoids. Some refactoring next. 
+- OH this: https://codepen.io/jinjor/pen/XWxvNQL
+  - Find a good home for that link. So we can reference it for ODD phun!
+
 
 # TO DO ✅ 🟡 🟠
 🟡 `polygons_and_trapezoids` in `_core_examples`
@@ -74,7 +77,7 @@ Cleanup / Breakup _core_examples. Individual `config.js`, etc...
     - try for `<g></g>` groups and adding shadow layer. 
     - offset svg examples. (make sure to note x,y vs. oX,oY)
     - JUST ONE example for matter, the original box.png overscale. 
-🟡 -⛄️ 🔶 other_shapes
+    🟡 -⛄️ 🔶 other_shapes
   - 💠 all svg shapes (Keep simple. Need a complex ref? >see shapes detailed example)
   - 🧱 static_bodies
     - include svg examples
@@ -183,5 +186,4 @@ Wait for usecase...
   - `<` & `>` external muttons add/remove points, min 3, max 20,  
   - And this rotates and can be controlled by additional `<` & `>` buttons.
 - And, under a Button press flicks a body like a pin-ball paddle. (static?)
-
 

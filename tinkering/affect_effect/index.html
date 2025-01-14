@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Affect vs. Effect Quiz</title>
+  <style>
+    /* Basic reset */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f0f0f0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #333;
+      color: #fff;
+      padding: 1rem 2rem;
+    }
+
+    header h1 {
+      font-size: 1.5rem;
+    }
+
+    /* Score in top-right corner */
+    .score-container {
+      font-size: 1rem;
+    }
+
+    /* Center the card in the viewport */
+    .card-container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      perspective: 1000px; /* for the flip effect */
+    }
+
+    /* The “quiz-card” is the 3D container that will flip */
+    .card {
+      width: 400px;
+      max-width: 90%;
+      position: relative;
+      transition: transform 0.8s ease;
+      transform-style: preserve-3d; /* children can be positioned in 3D space */
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      border-radius: 12px;
+      background: #fff;
+    }
+
+    /* Flip the card when .flipped class is added */
+    .flipped {
+      transform: rotateY(180deg);
+    }
+
+    /* Front and back faces of the card */
+    .card-face {
+      position: absolute;
+      width: 100%;
+      backface-visibility: hidden; /* hides the “back” when you flip */
+      border-radius: 12px;
+      padding: 2rem;
+      box-sizing: border-box;
+    }
+
+    /* Front side styling */
+    .card-front {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-color: dodgerblue;
+      transform: rotateY(0deg);
+    }
+
+    /* Back side styling */
+    .card-back {
+      transform: rotateY(180deg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: green;
+
+      justify-content: center;
+    }
+
+    h2, #question {
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .options {
+      margin: 1rem 0;
+    }
+
+    label {
+      display: inline-block;
+      margin-right: 1rem;
+      cursor: pointer;
+    }
+
+    button {
+      padding: 0.5rem 1rem;
+      background: #333;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #555;
+    }
+
+    #feedback {
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+    }
+
+    #explanation {
+      font-style: italic;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    #next-btn {
+      margin-top: 1rem;
+    }
+
+    /* Responsive scaling */
+    @media (max-width: 480px) {
+      .card {
+        width: 90%;
+      }
+      body {
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Affect vs. Effect Quiz</h1>
+    <div class="score-container" id="score">Score: 0/0</div>
+  </header>
+
+  <div class="card-container">
+    <div class="card" id="quiz-card">
+      <!-- FRONT SIDE -->
+      <div class="card-face card-front">
+        <div id="question" style="margin-bottom: 1em;"></div>
+        <form id="quiz-form" style="text-align: center;">
+          <div class="options">
+            <label>
+              <input type="radio" name="answer" value="affect" />
+              Affect
+            </label>
+            <label>
+              <input type="radio" name="answer" value="effect" />
+              Effect
+            </label>
+          </div>
+          <button type="button" onclick="checkAnswer()">Submit</button>
+        </form>
+      </div>
+
+      <!-- BACK SIDE -->
+      <div class="card-face card-back">
+        <div id="feedback"></div>
+        <div id="explanation"></div>
+        <button id="next-btn" onclick="nextQuestion()">Next</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Array of 20 questions. Each object has:
+    // { sentence, correct ('affect' or 'effect'), explanation }
+    const questions = [
+      {
+        sentence: "1. The loud music can _____ my ability to concentrate.",
+        correct: "affect",
+        explanation: "Here, 'affect' is a verb meaning 'to influence.'"
+      },
+      {
+        sentence: "2. The new government policy had a significant _____ on small businesses.",
+        correct: "effect",
+        explanation: "'Effect' (noun) refers to the result of something."
+      },
+      {
+        sentence: "3. Her speech will likely _____ how the committee votes.",
+        correct: "affect",
+        explanation: "'Affect' is the action (influence) on the committee's decision."
+      },
+      {
+        sentence: "4. We’re still trying to figure out the full _____ of the storm.",
+        correct: "effect",
+        explanation: "'Effect' is the outcome or consequence of the storm."
+      },
+      {
+        sentence: "5. Smoking can negatively _____ your health.",
+        correct: "affect",
+        explanation: "Smoking influences (affects) health."
+      },
+      {
+        sentence: "6. The side _____ of the medication include dizziness and nausea.",
+        correct: "effect",
+        explanation: "Side effects (noun) are the resulting symptoms."
+      },
+      {
+        sentence: "7. Their decision will _____ everyone on the team.",
+        correct: "affect",
+        explanation: "The decision influences (affects) the entire team."
+      },
+      {
+        sentence: "8. The heatwave had a serious _____ on crop production this year.",
+        correct: "effect",
+        explanation: "The result (effect) on crops was serious."
+      },
+      {
+        sentence: "9. Stress can _____ your ability to sleep well at night.",
+        correct: "affect",
+        explanation: "Stress influences (affects) sleep."
+      },
+      {
+        sentence: "10. We’re assessing the _____ of the recent budget cuts.",
+        correct: "effect",
+        explanation: "We are looking at the result (effect) of the budget cuts."
+      },
+      {
+        sentence: "11. If you skip meals, it can _____ your energy levels.",
+        correct: "affect",
+        explanation: "Skipping meals influences (affects) energy levels."
+      },
+      {
+        sentence: "12. The positive _____ of exercise include better mood and health.",
+        correct: "effect",
+        explanation: "The results (effects) of exercise are beneficial."
+      },
+      {
+        sentence: "13. Snowstorms can _____ travel plans for many people.",
+        correct: "affect",
+        explanation: "Snowstorms influence (affect) travel plans."
+      },
+      {
+        sentence: "14. The new coach hopes to _____ real change on the team.",
+        correct: "effect",
+        explanation: "Here, 'effect' is a verb meaning 'to bring about' change (less common usage)."
+      },
+      {
+        sentence: "15. His words didn’t seem to _____ her decision at all.",
+        correct: "affect",
+        explanation: "His words did not influence (affect) her decision."
+      },
+      {
+        sentence: "16. The biggest _____ of that experiment was discovering a new element.",
+        correct: "effect",
+        explanation: "The result (effect) of the experiment was a significant discovery."
+      },
+      {
+        sentence: "17. The weather can _____ how quickly the paint dries.",
+        correct: "affect",
+        explanation: "Weather influences (affects) the speed at which paint dries."
+      },
+      {
+        sentence: "18. The movie had such a profound _____ on me that I recommended it to everyone.",
+        correct: "effect",
+        explanation: "The impact or result (effect) the movie had was profound."
+      },
+      {
+        sentence: "19. The boss’s mood tends to _____ the entire office atmosphere.",
+        correct: "affect",
+        explanation: "The mood influences (affects) the office atmosphere."
+      },
+      {
+        sentence: "20. We’re studying the cumulative _____ of these small policy changes.",
+        correct: "effect",
+        explanation: "We’re examining the overall result (effect) of these changes."
+      }
+    ];
+
+    let currentQuestionIndex = 0;
+    let correctAnswers = 0;
+
+    const quizCard = document.getElementById("quiz-card");
+    const questionElement = document.getElementById("question");
+    const feedbackElement = document.getElementById("feedback");
+    const explanationElement = document.getElementById("explanation");
+    const scoreElement = document.getElementById("score");
+
+    window.onload = function() {
+      showQuestion();
+      updateScore();
+    };
+
+    // Display the current question on the front card
+    function showQuestion() {
+      const questionObj = questions[currentQuestionIndex];
+      questionElement.textContent = questionObj.sentence;
+
+      // Clear radio buttons
+      const radios = document.getElementsByName("answer");
+      for (let i = 0; i < radios.length; i++) {
+        radios[i].checked = false;
+      }
+
+      // If the card is flipped, flip it back
+      quizCard.classList.remove("flipped");
+      feedbackElement.textContent = "";
+      explanationElement.textContent = "";
+    }
+
+    function checkAnswer() {
+      const questionObj = questions[currentQuestionIndex];
+      const selected = document.querySelector('input[name="answer"]:checked');
+
+      if (!selected) {
+        alert("Please select an answer before submitting.");
+        return;
+      }
+
+      // Flip the card to show the back
+      quizCard.classList.add("flipped");
+
+      if (selected.value === questionObj.correct) {
+        feedbackElement.textContent = "Correct!";
+        feedbackElement.style.color = "green";
+        correctAnswers++;
+      } else {
+        feedbackElement.textContent = "Incorrect!";
+        feedbackElement.style.color = "red";
+      }
+
+      explanationElement.textContent = "Explanation: " + questionObj.explanation;
+      updateScore();
+    }
+
+    function nextQuestion() {
+      currentQuestionIndex++;
+      if (currentQuestionIndex < questions.length) {
+        showQuestion();
+      } else {
+        endQuiz();
+      }
+    }
+
+    function endQuiz() {
+      quizCard.innerHTML = `
+        <div class="card-face" style="text-align: center;">
+          <h2>Quiz Complete!</h2>
+          <p>Your final score is: ${correctAnswers} / ${questions.length}</p>
+        </div>
+      `;
+    }
+
+    function updateScore() {
+      scoreElement.textContent = `Score: ${correctAnswers} / ${currentQuestionIndex + 1}`;
+    }
+  </script>
+</body>
+</html>

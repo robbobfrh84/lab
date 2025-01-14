@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Affect vs. Effect Quiz</title>
+</head>
+<body>
+  <h1>Affect vs. Effect Quiz</h1>
+  <p>Select the correct word for each sentence. Good luck!</p>
+
+  <div id="quiz-container">
+    <div id="question" style="margin-bottom: 1em;"></div>
+    
+    <form id="quiz-form">
+      <label style="margin-right: 1em;">
+        <input type="radio" name="answer" value="affect" />
+        Affect
+      </label>
+      <label style="margin-right: 1em;">
+        <input type="radio" name="answer" value="effect" />
+        Effect
+      </label>
+      <br /><br />
+      <button type="button" onclick="checkAnswer()">Submit</button>
+    </form>
+    
+    <div id="feedback" style="margin-top: 1em; font-weight: bold;"></div>
+    <div id="explanation" style="margin: 0.5em 0;"></div>
+    <button id="next-btn" style="display: none;" onclick="nextQuestion()">Next</button>
+  </div>
+
+  <div id="score" style="margin-top: 2em; font-size: 1.2em; font-weight: bold;"></div>
+
+  <script>
+    // Array of 20 questions. Each object has:
+    // sentence, correct (answer: 'affect' or 'effect'), explanation
+    let questions = [
+      {
+        sentence: "1. The loud music can _____ my ability to concentrate.",
+        correct: "affect",
+        explanation: "Here, 'affect' is used as a verb meaning 'to influence.'"
+      },
+      {
+        sentence: "2. The new government policy had a significant _____ on small businesses.",
+        correct: "effect",
+        explanation: "'Effect' (noun) refers to the result of something."
+      },
+      {
+        sentence: "3. Her speech will likely _____ how the committee votes.",
+        correct: "affect",
+        explanation: "'Affect' is the action (influence) on the committee's decision."
+      },
+      {
+        sentence: "4. We’re still trying to figure out the full _____ of the storm.",
+        correct: "effect",
+        explanation: "'Effect' is the outcome or consequence of the storm."
+      },
+      {
+        sentence: "5. Smoking can negatively _____ your health.",
+        correct: "affect",
+        explanation: "Smoking influences (affects) health."
+      },
+      {
+        sentence: "6. The side _____ of the medication include dizziness and nausea.",
+        correct: "effect",
+        explanation: "Side effects (noun) are the resulting symptoms."
+      },
+      {
+        sentence: "7. Their decision will _____ everyone on the team.",
+        correct: "affect",
+        explanation: "Decision influences (affects) the entire team."
+      },
+      {
+        sentence: "8. The heatwave had a serious _____ on crop production this year.",
+        correct: "effect",
+        explanation: "The result (effect) on crops was serious."
+      },
+      {
+        sentence: "9. Stress can _____ your ability to sleep well at night.",
+        correct: "affect",
+        explanation: "Stress influences (affects) sleep."
+      },
+      {
+        sentence: "10. We’re assessing the _____ of the recent budget cuts.",
+        correct: "effect",
+        explanation: "We are looking at the results (effect) of the budget cuts."
+      },
+      {
+        sentence: "11. If you skip meals, it can _____ your energy levels.",
+        correct: "affect",
+        explanation: "Skipping meals influences (affects) energy levels."
+      },
+      {
+        sentence: "12. The positive _____ of exercise include better mood and health.",
+        correct: "effect",
+        explanation: "The results (effects) of exercise are beneficial."
+      },
+      {
+        sentence: "13. Snowstorms can _____ travel plans for many people.",
+        correct: "affect",
+        explanation: "Snowstorms influence (affect) travel plans."
+      },
+      {
+        sentence: "14. The new coach hopes to _____ real change on the team.",
+        correct: "effect",
+        explanation: "Here, 'effect' is a verb meaning 'to bring about' change (less common usage)."
+      },
+      {
+        sentence: "15. His words didn’t seem to _____ her decision at all.",
+        correct: "affect",
+        explanation: "His words did not influence (affect) her decision."
+      },
+      {
+        sentence: "16. The biggest _____ of that experiment was discovering a new element.",
+        correct: "effect",
+        explanation: "The result (effect) of the experiment was a significant discovery."
+      },
+      {
+        sentence: "17. The weather can _____ how quickly the paint dries.",
+        correct: "affect",
+        explanation: "Weather influences (affects) the speed at which paint dries."
+      },
+      {
+        sentence: "18. The movie had such a profound _____ on me that I recommended it to everyone.",
+        correct: "effect",
+        explanation: "The impact or result (effect) the movie had on you was profound."
+      },
+      {
+        sentence: "19. The boss’s mood tends to _____ the entire office atmosphere.",
+        correct: "affect",
+        explanation: "The mood influences (affects) the workplace atmosphere."
+      },
+      {
+        sentence: "20. We’re studying the cumulative _____ of these small policy changes.",
+        correct: "effect",
+        explanation: "We're examining the overall result (effect) of the policy changes."
+      }
+    ];
+
+    let currentQuestionIndex = 0;
+    let correctAnswers = 0;
+
+    // Load the first question on page load
+    window.onload = function() {
+      showQuestion();
+    };
+
+    // Show the current question in the HTML
+    function showQuestion() {
+      let questionObj = questions[currentQuestionIndex];
+      document.getElementById("question").textContent = questionObj.sentence;
+      document.getElementById("feedback").textContent = "";
+      document.getElementById("explanation").textContent = "";
+      document.getElementById("next-btn").style.display = "none";
+
+      // Clear selected radio button
+      const radios = document.getElementsByName("answer");
+      for (let i = 0; i < radios.length; i++) {
+        radios[i].checked = false;
+      }
+    }
+
+    // Check if user’s answer is correct
+    function checkAnswer() {
+      const questionObj = questions[currentQuestionIndex];
+      const selected = document.querySelector('input[name="answer"]:checked');
+
+      if (!selected) {
+        alert("Please select an answer before submitting.");
+        return;
+      }
+
+      if (selected.value === questionObj.correct) {
+        document.getElementById("feedback").textContent = "Correct!";
+        correctAnswers++;
+      } else {
+        document.getElementById("feedback").textContent = "Incorrect!";
+      }
+
+      // Show explanation
+      document.getElementById("explanation").textContent = 
+        "Explanation: " + questionObj.explanation;
+
+      // Show "Next" button
+      document.getElementById("next-btn").style.display = "inline-block";
+
+      // Display updated score
+      document.getElementById("score").textContent = 
+        `Score: ${correctAnswers} / ${currentQuestionIndex + 1}`;
+    }
+
+    // Go to the next question
+    function nextQuestion() {
+      currentQuestionIndex++;
+      if (currentQuestionIndex < questions.length) {
+        showQuestion();
+      } else {
+        // Quiz is complete
+        endQuiz();
+      }
+    }
+
+    function endQuiz() {
+      document.getElementById("quiz-container").innerHTML = `
+        <h2>Quiz Complete!</h2>
+        <p>Your final score is: ${correctAnswers} / ${questions.length}</p>
+      `;
+    }
+  </script>
+</body>
+</html>
