@@ -1,0 +1,12 @@
+body {
+  text-align: center;
+}
+.svg-container {
+  display: inline-block;
+  width: 90%;
+  background-color: rgba(0,0,0,0.1);
+  margin: 10px;
+}
+.svg-container svg {
+  width: 100%;
+}

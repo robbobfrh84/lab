@@ -3,7 +3,6 @@
 - OH this: https://codepen.io/jinjor/pen/XWxvNQL
   - Find a good home for that link. So we can reference it for ODD phun!
 
-
 # TO DO ✅ 🟡 🟠
 🟡 `polygons_and_trapezoids` in `_core_examples`
 - ✅ https://brm.io/matter-js/docs/classes/Bodies.html
@@ -49,7 +48,8 @@ Comment and PUSH
 
 
 Refactor / Cleanup / Clarify
--
+- Should "options" be "render" just so that it matches Matter terminology?
+
 
 Create new `_test` called `width_height_scale` (This is a bit of a tinker)
 - So... hight isn't 0-100 meaning x: 50, y: 50 isn't centered if 2/3 ratio. Think about how best to fix this. Could just handle "h" by ratio and might work. 
@@ -59,10 +59,12 @@ Create new `_test` called `width_height_scale` (This is a bit of a tinker)
 BOB > 👀 Ignor templates until after you've built some real stuff to know what works!
 
 Finalize v1.1
+- Review and give home to everything in `### To DOCUMENT (raw notes)` section
 - Prume this `todo.md` and create seciton for next v1.2 MVP
 - Move copy to `_dependency_versions`
+- Create It's own REPOSITORY `physics_2d`. It's time. 
 
-Start Snowman! 
+Snowman! 
 - Build in `_tests`, this will be an example. but IGNOR updating framework!
 - create readme outline and include (`# update Physic 2D lib`)
 - Update what else should be done for `v1.1`
@@ -96,10 +98,6 @@ Cleanup / Breakup _core_examples. Individual `config.js`, etc...
 
 Development helper UI
 - It'd be really nice to have a mouse over that gives you x,y for pixels, percentages and then if you click an object you get relative location...
-
-Cleanup / Refactor
-- Should "options" be "render" just so that it matches Matter terminology?
-- Let's review all the example and only have what is needed for use-cases/tests
 
 ### To DOCUMENT (raw notes)
 - Rectangles
