@@ -1,0 +1,97 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<title id='tabTitle'> All Colors </title>
+<link id='tabIcon' rel="shortcut icon" type="image/x-icon" href="icon.png" />
+<link rel="stylesheet" href="style.css"/>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-76417128-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-76417128-3');
+</script>
+
+</head>
+<body>
+
+  <div id='gradient'>
+
+    <div id='starry-night'></div>
+
+    <div id='left-col'></div>
+
+    <div id='selector-container'>
+      <h2 class='white-bg'> * Color Converter & Selector &nbsp;
+        <span id='color-name1'></span>
+      </h2>
+
+      <input id='r' class='rgb' value="255">
+      <input id='g' class='rgb' value="200">
+      <input id='b' class='rgb' value="49">
+      <input id='rgbSyn' class='txt1 syn' placeholder='...paste full rgb(...)'></input>
+      <button id='copy' class='copy'>&#8678; copy</button>
+      <span class='white-bg txt1'>RGB</span>
+      <button class='copy info-box' onclick='linkTo("https://www.w3schools.com/colors/colors_rgb.asp")'> ? </button>
+      <br>
+
+      <input id='hr' class='hex' value="255">
+      <input id='hg' class='hex' value="200">
+      <input id='hb' class='hex' value="49">
+      <input id='hrgbSyn' class='txt1 syn' placeholder='...paste full #...'></input>
+      <button id='hcopy' class='copy'>&#8678; copy</button>
+      <span class='white-bg txt1'>Hex.</span>
+      <button class='copy info-box i2' onclick='linkTo("https://www.w3schools.com/colors/colors_hexadecimal.asp")'> ? </button>
+      <br>
+
+      <div class='slider-box'>
+        <input id='sr' class='red slider' type="range" min="0" max="255" value="0"/>
+        <input id='sg' class='green slider slider-left' type="range" min="0" max="255" value="0"/>
+        <input id='sb' class='blue slider slider-left' type="range" min="0" max="255" value="0"/>
+      </div>
+
+      <canvas id="picker" width="256px" height="256px"></canvas>
+      <div id='selector'><div id='selector-pointer'></div></div>
+
+      <input id='black-white' class='slider' type="range" min="0" max="200" value="100"/>
+
+      <div id='transperency-box'>
+        <span class='white-bg txt1'> RGBA</span>
+        <button id='transperency-info' class='copy info-box' onclick='linkTo("https://www.w3schools.com/cssref/css_colors_legal.asp")'> ? </button>
+        <div id='checkers'></div>
+        <input id='transparent' class='slider' type="range" min="0" max="100" value="100"/>
+        <span class='white-bg txt1 shift1'> <em style='font-size: 15px;'> *transparency</em> </span>
+      </div>
+
+      <h2><span id='color-name2' class='white-bg'></span></h2>
+
+    </div>
+
+    <div id='right-col'></div>
+
+    <div id='spectrum-box' onmouseleave='spectrumAreaLeave(event)'></div>
+    <div id='color-name3'></div>
+
+    <div id='search-input-box'>
+      &#x1f50e;&nbsp;
+      <input id='search-input' class='input1' placeholder="...filter colors by name">
+      &#x1f50d; &nbsp;
+    </div>
+
+    <div id='colorName-container'></div>
+
+    <div id="footer">
+      <div class="by">Created & Managed by</div>
+      <div class="author"> Bobby Main </div>
+      <br>
+      <div class="about"> 
+        allcolors.io is an <a href="https://github.com/robbobfrh84/allcolors">open source project</a>
+      </div>
+      <div class="plea">✨ 🥹 Please consider <strong><a href="https://github.com/sponsors/robbobfrh84?frequency=recurring&sponsor=robbobfrh84">sponsoring</a></strong>, or leaving a <strong><a href="https://github.com/sponsors/robbobfrh84?frequency=one-time&sponsor=robbobfrh84">donation</a></strong>. 🥹 ✨</div>
+    </div>
+ 
+
+  </div>
+
+</body>
+<script type="text/javascript" src='colors.js'></script>
+<script type="text/javascript" src='script.js'></script>
+</html>
