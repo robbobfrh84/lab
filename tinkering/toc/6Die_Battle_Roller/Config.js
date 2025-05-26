@@ -1,4 +1,4 @@
-var Test = 'TEST1' // * options: false, 'TEST1'
+// var Test = 'TEST1' // * options: false, 'TEST1'
 let delay = false // NOT USED YET
 let RollCnt = 0
 const Names = ['d4','d6','d8','d10','d12','d20']
