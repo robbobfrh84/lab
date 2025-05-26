@@ -1,0 +1,106 @@
+<!DOCTYPE html><html lang='en'>
+<title> 6-Die Battle Roller </title> <!-- <link rel='icon' href='link/or/path'>  -->
+
+<head>
+  <meta charset='UTF-8'>
+  <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no'>
+  <link rel='stylesheet' href='core.css'>
+</head>
+
+<body>
+  <div class="page-grid-container">
+
+    <header>
+      <h4>6-Die Battle Roller</h4>
+    </header>
+
+    <main>
+
+      <input id="top_keycode_input" 
+        oninput="keycode_set(event,'top')"
+        placeholder="...keycode" 
+        inputmode="numeric"
+      >
+      <span id="top_die_keyCode">?</span> <br>
+
+      <input id="bot_keycode_input" 
+        oninput="keycode_set(event,'bot')" 
+        placeholder="...keycode" 
+        inputmode="numeric"
+      >
+      <span id="bot_die_keyCode">?</span> <br>
+
+      <div class="messages-container">
+        <p><em>
+          For each character keycode, enter 3 digits between 1-6, i.e. "516", "435".
+        </em></p>
+      </div>
+
+
+      <div id="die_values_container">
+        <!-- <label>Top: </label>
+        <div class="die-value" id="top-die-0">d?</div>
+        <div class="die-value" id="top-die-1">d?</div>
+        <div class="die-value" id="top-die-2">d?</div>
+        <label>Bot: </label>
+        <div class="die-value" id="bot-die-0">d?</div>
+        <div class="die-value" id="bot-die-1">d?</div>
+        <div class="die-value" id="bot-die-2">d?</div> -->
+      </div>
+
+      <div class="messages-container">
+        <p id="rollCntElm">Roll #</p>
+        <p id="alertMessage"></p>
+      </div>
+
+      <div id="die_roll_container">
+        <!-- <label>Top: </label>
+        <div class="top-die-roll-value" id="top-die-roll-0">?</div>
+        <div class="top-die-roll-value" id="top-die-roll-1">?</div>
+        <div class="top-die-roll-value" id="top-die-roll-2">?</div>
+        <label>Bot: </label>
+        <div class="bot-die-roll-value" id="bot-die-roll-0">?</div>
+        <div class="bot-die-roll-value" id="bot-die-roll-1">?</div>
+        <div class="bot-die-roll-value" id="bot-die-roll-2">?</div> -->
+      </div>
+
+      <div class="results-button-container">
+
+        <div id="results_only_container">
+          <!-- <label> T </label>
+          <div id="TopResults"></div>
+          <label> B </label>
+          <div id="BotResults"></div>  -->
+        </div>
+
+        <button id="actionButton" onclick="readyMatch()" aria-disabled="true">
+          Ready
+        </button>
+        
+      </div>
+
+      <p id="rollResult"></p>
+
+      <div class='buttons-container'>
+        <button id="resetMatchButton" onclick='resetMatch()' aria-disabled="true">
+          Reset Match
+        </button> <br>
+        <button id="newMatchButton" onclick="reStart()">
+          <em>* New Match</em>
+        </button>
+      </div>
+
+    </main>
+
+    <footer></footer>
+
+  </div>
+</body>
+
+<script src='Start.js'></script>
+<script src='Config.js'></script>
+<script src='match.js'></script>
+<script src='view.js'></script>
+<script> window.onload = ()=>{ Start() } </script>
+</html>

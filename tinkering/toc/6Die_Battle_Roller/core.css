@@ -1,0 +1,158 @@
+* {
+  font-family: Avenir;
+  font-size: 1rem;
+}
+body {
+  margin: 0;
+  background-color: rgba(0,0,0,0.05);
+}
+h4 {
+  margin: 0;
+  background-color: rgba(0,0,0,0.05);
+  padding: 5px;
+}
+input {
+  margin: 2px;
+  width: 80px;
+}
+p {
+  margin: 5px 5px 5px 0px;
+}
+.page-grid-container {
+  /* * margin: auto; makes it so the whole view is centered in window*/ 
+  background-color: rgba(0,0,0,0.05);
+  padding: 0 5px;
+  max-width: 416px;
+}
+#top_die_keyCode, #bot_die_keyCode {
+  font-weight: bold;
+}
+button {
+  touch-action: manipulation;
+  user-select: none;
+}
+button[aria-disabled="true"] {
+  pointer-events: none;
+  opacity: 0.5;
+  touch-action: manipulation;
+}
+
+/* 
+  Value Container (Grid) 
+*/
+#die_values_container, #die_roll_container {
+  display: grid;
+  /* * grid-template-columns: 40px repeat(3, 1fr); Sets first column to 40px, then divides the remaning container's space by 3 and fills for columns 2-4 */
+  /* * grid-template-columns: 60px 100px 150px 1fr;  */
+  /* * grid-template-columns: repeat(4, 1fr); */
+  grid-template-columns: repeat(4, 40px); 
+  grid-template-rows: repeat(2, auto);
+  gap: 0.5rem;
+  padding: 0.5rem;
+  background-color: rgba(0,0,0,0.05);
+  max-width: 400px;
+}
+#die_roll_container {
+  grid-template-columns: 40px repeat(3, 1fr);
+  grid-template-rows: repeat(2, 36px);
+}
+#die_values_container div, 
+#die_roll_container div {
+  background-color: rgba(0,0,0,0.05);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#die_values_container label, 
+#die_roll_container label {
+  display: flex;
+  align-items: center;
+}
+#die_roll_container em {
+  font-size: 14px;
+}
+#die_roll_container strong {
+  font-size: 20px;
+}
+
+/* 
+  Action Containers  
+*/
+.messages-container, .results-button-container {
+  display: flex;
+  max-width: 416px;
+  justify-content: space-between;
+}
+.results-button-container {
+  display: flex;
+  grid-template-columns: 40px repeat(3, 1fr);
+  margin-top: 0.5rem;
+}
+#results_only_container {
+  background-color: rgba(0,0,0,0.05);
+  width: 100%;
+  display: grid;
+  margin-right: 5px;
+  grid-template-columns: 16px repeat(1, 1fr);
+}
+#results_only_container > label {
+  background-color: rgba(0,0,0,0.05);
+  display: flex;
+  align-items: center;
+  margin: 2px;
+  margin-right: 3px;
+}
+#TopResults, #BotResults {
+  display: flex;
+  padding: 2px;
+}
+#TopResults div, #BotResults div {
+  background-color: rgba(0,0,0,0.05);
+  font-size: 14px;
+  width: 28px;
+  margin-right: 2px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.result-grid-tie {
+  max-width: 20px;
+}
+.removed-result-die {
+  border: 1px solid rgba(255,0,0,0.75);
+  box-sizing: border-box;
+  background: 
+    linear-gradient(
+      135deg,
+      transparent 0%,
+      transparent 45%,
+      rgba(255,0,0,0.5) 50%,
+      transparent 55%,
+      transparent 100%
+    ),
+    linear-gradient(
+      45deg,
+      transparent 0%,
+      transparent 45%,
+      rgba(255,0,0,0.5) 50%,
+      transparent 55%,
+      transparent 100%
+    );
+}
+#actionButton {
+  margin: 0;
+  margin-top: 0.5rem;
+  margin-bottom: 0.25rem;
+  height: 40px;
+  width: 100px;
+  align-self: flex-end;
+}
+
+.buttons-container {
+  margin-top: 20px;
+}
+#newMatchButton {
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
