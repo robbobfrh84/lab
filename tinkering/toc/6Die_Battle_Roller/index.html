@@ -37,58 +37,38 @@
         </em></p>
       </div>
 
-
-      <div id="die_values_container">
-        <!-- <label>Top: </label>
-        <div class="die-value" id="top-die-0">d?</div>
-        <div class="die-value" id="top-die-1">d?</div>
-        <div class="die-value" id="top-die-2">d?</div>
-        <label>Bot: </label>
-        <div class="die-value" id="bot-die-0">d?</div>
-        <div class="die-value" id="bot-die-1">d?</div>
-        <div class="die-value" id="bot-die-2">d?</div> -->
-      </div>
+      <div id="die_values_container"></div>
 
       <div class="messages-container">
         <p id="rollCntElm">Roll #</p>
         <p id="alertMessage"></p>
       </div>
 
-      <div id="die_roll_container">
-        <!-- <label>Top: </label>
-        <div class="top-die-roll-value" id="top-die-roll-0">?</div>
-        <div class="top-die-roll-value" id="top-die-roll-1">?</div>
-        <div class="top-die-roll-value" id="top-die-roll-2">?</div>
-        <label>Bot: </label>
-        <div class="bot-die-roll-value" id="bot-die-roll-0">?</div>
-        <div class="bot-die-roll-value" id="bot-die-roll-1">?</div>
-        <div class="bot-die-roll-value" id="bot-die-roll-2">?</div> -->
-      </div>
+      <div id="die_roll_container"></div>
 
       <div class="results-button-container">
-
-        <div id="results_only_container">
-          <!-- <label> T </label>
-          <div id="TopResults"></div>
-          <label> B </label>
-          <div id="BotResults"></div>  -->
-        </div>
-
-        <button id="actionButton" onclick="readyMatch()" aria-disabled="true">
-          Ready
+        <div id="results_only_container"></div>
+        <button id="ffButton" onclick="fastForward()" aria-disabled="true">
+          >>
         </button>
-        
       </div>
 
       <p id="rollResult"></p>
 
       <div class='buttons-container'>
-        <button id="resetMatchButton" onclick='resetMatch()' aria-disabled="true">
-          Reset Match
-        </button> <br>
-        <button id="newMatchButton" onclick="reStart()">
-          <em>* New Match</em>
-        </button>
+        <div class='resets-button-container'>
+          <button id="resetMatchButton" onclick='resetMatch()' aria-disabled="true">
+            Reset Match
+          </button> <br>
+          <button id="newMatchButton" onclick="reStart()">
+            <em>* New Match</em>
+          </button>
+        </div>
+        <div class="ready-button-container">
+          <button id="actionButton" onclick="readyMatch()" aria-disabled="true">
+            Ready
+          </button>
+        </div>
       </div>
 
     </main>

@@ -28,6 +28,7 @@ const updateButtonUI = function(name, die, elm) {
   if (name == 'enable') {
     actionButton.innerHTML = "Ready"
     actionButton.setAttribute('aria-disabled', 'false')
+    ffButton.setAttribute('aria-disabled', 'false')
     actionButton.focus()
     actionButton.onclick = ()=>readyMatch()
     resetMatchButton.setAttribute('aria-disabled', 'true')
@@ -36,7 +37,6 @@ const updateButtonUI = function(name, die, elm) {
     actionButton.onclick = ()=>roll()
     resetMatchButton.setAttribute('aria-disabled', 'false')
   } else if (name == 'clear') {
-    // actionButton.innerHTML = 'Clear'
     actionButton.innerHTML = 'Next Roll'
     actionButton.onclick = ()=>clearDice(die, elm)
   } else if (name == 'score') {
@@ -45,13 +45,9 @@ const updateButtonUI = function(name, die, elm) {
   } else if (name == 'disabled') {
     actionButton.innerHTML = 'Ready'
     actionButton.setAttribute('aria-disabled', 'true')
+    ffButton.setAttribute('aria-disabled', 'true')
     actionButton.onclick = ()=>readyMatch()
   } 
-  // else if (name == 'ready') {
-  //   actionButton.disabled = false
-  //   actionButton.focus()
-  //   actionButton.onclick = ()=>readyMatch()
-  // }
 }
 
 const updateResultsUI = function({ which, value }) {

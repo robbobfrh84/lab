@@ -140,19 +140,24 @@ button[aria-disabled="true"] {
       transparent 100%
     );
 }
-#actionButton {
-  margin: 0;
-  margin-top: 0.5rem;
-  margin-bottom: 0.25rem;
-  height: 40px;
-  width: 100px;
-  align-self: flex-end;
-}
 
 .buttons-container {
+  display: flex;
   margin-top: 20px;
+  max-width: 416px;
+  justify-content: space-between;
+  padding-bottom: 5px;
 }
 #newMatchButton {
   margin-top: 10px;
-  margin-bottom: 5px;
+}
+#newMatchButton, #resetMatchButton {
+  width: 130px;
+}
+.ready-button-container {
+  margin-top: auto;
+}
+#actionButton {
+  height: 50px;
+  width: 100px;
 }

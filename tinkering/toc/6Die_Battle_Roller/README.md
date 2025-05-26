@@ -1,3 +1,13 @@
+# 6 Die Battle Roller
+
+# Resources
+- CSS Grid: https://gridbyexample.com/examples/
+
+# Tests
+- See `Config.js` for test rolls. 
+
+
+----
 ### To Do:
 ✅ resetMatch
 ✅ New Match
@@ -15,24 +25,3 @@ Tests
 - test more than 5 rolls in score. 
 - Just go over the tests well that we have...
 - Test well on phone. 
-
-[ >> ] button ?
-- might just be able to actionButton.click() actionButton.click()!?
-  - like if actionButton.innerHTML == "Score" 
-- what would it take?
-- Inital 'Ready' should jump to roll
-- and it just stays on roll
-- Then back to ready when over
-
-Finalize
-- Review and clear out notes
-- Fill out Rules_eexample.md
-- Move to `lab/tinkering/toc` 
-- Push
-
-
-----
-# 6 Die Battle Roller
-
-# Resources
-- CSS Grid: https://gridbyexample.com/examples/

@@ -4,13 +4,23 @@ const readyMatch = function() {
   Match.bot.dice.forEach((die, i)=>{ setRollDie(die, i, 'bot')})
   updateRolledDice()
   updateButtonUI('roll')
+}  
+
+const fastForward = function() {
+  actionButton.click()
+  if (
+    actionButton.innerHTML == "Score" ||
+    actionButton.innerHTML == "Roll"
+  ) {
+    setTimeout(()=>{
+      fastForward()
+    }, 150)
+  }
 }
 
 const setRollDie = function({ id, value, attr }, i, which) {
   const rollObj = { which, id, value, attr, rolled: '?', state: 'in' }
   Match.rolls.push(rollObj)
-
-   // 🔥 Needs to be donw in view.js
   const elm = window[which+'-die-roll-'+i]
   elm.id = which+'-die-roll-id'+id
 }
