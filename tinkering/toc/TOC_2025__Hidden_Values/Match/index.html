@@ -1,0 +1,66 @@
+<!DOCTYPE html><html lang='en'>
+<title>TOC 2025 - Hidden Values --- Match</title> <!-- <link rel='icon' href='link/or/path'>  -->
+<head>
+  <meta charset='UTF-8'><meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no'>
+  <link rel='stylesheet' href='main.css'>
+</head>
+<body><div id="allContainer">
+  
+  <h1>TOC 2025 - Hidden Values --- Match</h1>
+
+  <nav class="nav-container">
+    • <a href="https://docs.google.com/spreadsheets/d/1JIXolkM-XXJJdzm33evUv-zXYT6XGuliEZmt4B4UdHw">Google Sheet Url</a>
+    • <a href="/Character_Creator/index.html">Character Creator</a>
+    • <a href="/Details/">Details</a>
+  </nav>
+
+  <div class="sheetId-container">
+    <label>Sheet Id:</label> 
+    <input type="text" id="sheetIdValue" value=""> <span id="localStorageNote">* localStorage</span> 
+    <button onclick="updateSheedId()">update</button>
+  </div>
+
+  <hr>
+
+  <div class="charSelect-container">
+
+    <input id="topUserInput" 
+      placeholder="Type to filter..." 
+      onfocus="clickInInput('top', 'bot')"
+      onblur="clickOutInput('top')" 
+      oninput="filterChars('top')"
+    >
+    <div id="topSelected"></div>
+
+    <div class="divider"> <span> ----- </span> <span> vs </span> <span> ----- </span> </div>
+
+    <input id="botUserInput" 
+      placeholder="Type to filter..." 
+      onfocus="clickInInput('bot', 'top')"
+      onblur="clickOutInput('bot')"
+      oninput="filterChars('bot')"
+    >
+    <div id="botSelected"></div>
+
+    <div id="charSelect"></div>
+
+    <div id="charSelectLoading"><div class="spinner"></div></div>
+
+  </div>
+
+  <hr>
+  <div id="matchContainer"></div>
+
+  ❌ 🟢
+
+</div></body>
+<script src='Gasup_v1.1.0.js'></script>
+<script src='start.js'></script>
+</html>
+
+
+
+
+
+

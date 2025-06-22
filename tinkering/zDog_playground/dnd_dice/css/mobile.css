@@ -1,0 +1,11 @@
+/* - - - - - MOBILE - - - - - */
+@media (max-width: 600px) {
+  menu {
+    gap: 4px;
+  }
+  #roll {
+    width: 94%;
+    margin: 3%;
+  }
+
+}

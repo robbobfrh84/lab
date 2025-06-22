@@ -1,0 +1,22 @@
+/* - - - - - MENU - - - - - */
+menu {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  background-color: var(--primary);
+  padding: 8px;
+}
+
+.select-dice {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 64px;
+  height: 100%;
+  aspect-ratio: 1 / 1;
+  background-color: var(--background);
+  cursor: pointer;
+}

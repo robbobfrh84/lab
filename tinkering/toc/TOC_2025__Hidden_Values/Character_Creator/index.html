@@ -1,0 +1,168 @@
+<!DOCTYPE html><html lang='en'>
+<title> TOC 2025 - Hidden Values </title> 
+<head>
+  <meta charset='UTF-8'><meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+   <style>
+    body * {
+      margin: 5px;
+    }
+    label {
+      display: inline-block;
+      width: 60px;
+    }
+   </style>
+</head>
+<body>
+
+  <h1>TOC 2025 - Hidden Values --- Character Creator</h1>
+  
+  <a href="https://docs.google.com/spreadsheets/d/1JIXolkM-XXJJdzm33evUv-zXYT6XGuliEZmt4B4UdHw">
+    Google Sheet Url
+  </a>
+
+  <a href="/Match/">"Match" Page</a>
+  <a href="/Details/">"Details" Page</a>
+
+  <hr>
+  <div> 
+    <label>Sheet Id:</label> 
+    <input type="text" id="sheetIdValue" value=""> * localStorage 
+    <button onclick="updateSheedId()">update</button>
+    
+    <br>
+
+    <label>name:</label>
+    <input type="text" id="nameInput"> <br>
+
+    <label>region:</label>
+    <input type="text" id="regionInput" placeholder="...mountain, valley"> <br>
+
+    <button onclick="createCharecter()">Create Character</button> <br>
+  </div>
+  
+  <hr>
+  <div>
+    <button onclick="readSheet()">Read Sheet</button>
+  </div>
+     
+  <em>*See console logs</em>
+
+
+</body>
+<script src='Gasup_v1.1.0.js'></script>
+<script>
+
+const deployId = "AKfycbwu9tQSLZ-AXYs8h6nVuqxb_zdi6gmHnjPKOw4udfGGNybtTGAk8rKiFIHIxkZhog0uIQ"
+const id = "1JIXolkM-XXJJdzm33evUv-zXYT6XGuliEZmt4B4UdHw"
+const gasup = new Gasup({ deployId, id, app: { name: "My GAS Up App"} })
+const defaultSheetId = "1604584153" // * Test sheet
+
+window.onload = () => { 
+  getSheetId()
+  readSheet()
+}
+
+const getSheetId = function() {
+  if (!localStorage.toc_2025__character_creator_sheetId) {
+    console.log('no locals')
+    localStorage.setItem("toc_2025__character_creator_sheetId", defaultSheetId)
+  }
+  sheetIdValue.value = localStorage.toc_2025__character_creator_sheetId
+}
+
+const updateSheedId = function() {
+  console.log('sheetId.value:',sheetIdValue.value)
+  localStorage.setItem("toc_2025__character_creator_sheetId", sheetIdValue.value)
+}
+
+const readSheet = function() {
+  gasup.read.sheet({
+    sheetId: sheetIdValue.value
+  })
+    .then( response => {
+      console.log(response) 
+      console.log('response.data.rows:',response.data.rows)
+    })
+    .catch( error => console.log(error) )
+}
+
+const sexes = ["M","F","U","AM"]
+const createCharecter = function() {
+  const character = {
+    name: nameInput.value || "no name",
+    age: Math.min(...[random(18,50), random(18,50), random(18,50)]),
+    region: regionInput.value || "no region",
+    sex: sexes[random(0,3)],
+    attributes: encodeObscured(JSON.stringify({
+      sp: random(1,6),
+      st: random(1,6),
+      ex: random(1,6),
+      in: random(1,6),
+      wp: random(1,6)
+    })),
+    wins: "0",
+    losses: "0",
+    year: "1",
+    history: JSON.stringify([])
+  }
+
+  console.log('Create character:', character)
+
+  gasup.create.row({
+    sheetId: sheetIdValue.value,
+    row: character
+  })
+    .then( response => console.log(response) )
+    .catch( error => console.log(error) )
+}
+
+
+/* ⚙️ Tools ⚙️ */
+
+random = (min, max)=>{
+  return Math.floor(Math.random() * (max - min + 1) + min)
+}
+
+function encodeObscured(inputStr) {
+  const salt = Math.random().toString(36).slice(2, 6)
+  const salted = `${inputStr}::${salt}`
+  const scrambled = Array.from(salted)
+    .map((char, i) => {
+      const saltChar = salt.charCodeAt(i % salt.length)
+      return (char.charCodeAt(0) + saltChar).toString(36)
+    })
+    .join('.')
+  return `${salt}|${scrambled}`
+}
+
+function decodeObscured(encodedStr) {
+  const [salt, scrambled] = encodedStr.split('|')
+  if (!salt || !scrambled) return null
+  const parts = scrambled.split('.')
+  const decoded = parts.map((part, i) => {
+    const saltChar = salt.charCodeAt(i % salt.length)
+    return String.fromCharCode(parseInt(part, 36) - saltChar)
+  }).join('')
+
+  return decoded.split('::')[0]
+}
+
+
+</script>
+</html>
+
+
+<!-- const testAttributes = {
+  sp: 1,
+  st: 3,
+  ex: 2,
+  in: 4,
+  wp: 3,
+}
+const stringed = JSON.stringify(testAttributes)
+console.log('stringed:',stringed)
+const encrypted = encodeObscured(stringed)  
+console.log('encrypted:',encrypted)
+const decrypted = decodeObscured(encrypted)
+console.log('decrypted:', decrypted) -->

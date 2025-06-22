@@ -1,0 +1,59 @@
+<!DOCTYPE html><html lang='en'>
+<title> DnD Dice Roller </title><!-- <link rel='icon' href='link/or/path'>  -->
+<head>
+  <meta charset='UTF-8'><meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <link rel='stylesheet' href='css/main.css'>
+  <link rel='stylesheet' href='css/header.css'>
+  <link rel='stylesheet' href='css/menu.css'>
+  <link rel='stylesheet' href='css/roll.css'>
+  <link rel='stylesheet' href='css/history.css'>
+  <link rel='stylesheet' href='css/mobile.css'> <!-- * 👀 Remember Mobile needs to after all to override -->
+</head>
+<body>
+
+  <header>
+    <h1> • DnD Dice Roller • </h1>
+    <div id="devNotes">Dev Mode Notes</div>
+  </header>
+
+  <main>
+
+    <menu class="dice">
+      <div class="select-dice"><canvas id="selectCanvas0" width="0" height="0"></canvas></div>
+      <div class="select-dice"><canvas id="selectCanvas1" width="0" height="0"></canvas></div>
+      <div class="select-dice"><canvas id="selectCanvas2" width="0" height="0"></canvas></div>
+      <div class="select-dice"><canvas id="selectCanvas3" width="0" height="0"></canvas></div>
+      <div class="select-dice"><canvas id="selectCanvas4" width="0" height="0"></canvas></div>
+      <div class="select-dice"><canvas id="selectCanvas5" width="0" height="0"></canvas></div>
+    </menu>
+
+    <section id="roll">
+      <canvas id="rollCanvas" width="0" height="0"></canvas>
+    </section>
+
+    <section id="history_of_rolls"></section> <!-- Can't use id=history, it's a reserved var -->
+
+  </main>
+
+</body>
+<script src="js/dependencies/zDog.js"></script>
+
+<script src="js/events.js"></script>
+<script src="js/animate.js"></script>
+<script src="js/history.js"></script>
+
+<script src='shapes/tetrahedron.js'></script>
+<script src='shapes/cube.js'></script>
+<script src='shapes/octahedron.js'></script>
+<script src='shapes/decahedron.js'></script>
+<script src='shapes/dodecahedron.js'></script>
+<script src='shapes/isocahedron.js'></script>
+
+<script src='start.js'></script>
+
+<script>
+window.onload = () => { start() }
+</script>
+
+</html>

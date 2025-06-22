@@ -1,0 +1,17 @@
+/* - - - - - ROLL - - - - - */
+#roll {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  margin-top: 16px;
+  width: 400px;
+  aspect-ratio: 1 / 1;
+  background-color: var(--primary);
+  cursor: pointer;
+}
+
+#rollCanvas {
+  /* cursor: move; */
+  /* background-color: rgba(0,0,0,0.1); */
+}

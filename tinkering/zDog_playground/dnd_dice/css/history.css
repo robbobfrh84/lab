@@ -1,0 +1,32 @@
+/* - - - - - MENU - - - - - */
+#history_of_rolls {
+  display: flex;
+  /* flex-direction: column; */
+  /* justify-content: center; */
+  /* align-items: flex-start; */
+  gap: 16px;
+  margin: auto;
+  margin-top: 8px;
+  padding: 8px 0px;
+  /* width: 200px;  */
+  width: 400px;
+  /* height: 200px;  */
+  overflow-y: scroll; 
+  box-sizing: border-box;
+}
+
+.history-of-rolls-dice {
+  display: flex;
+  /* justify-content: center; */
+  /* align-items: center; */
+  /* width: 100%; */
+  width: 64px;
+  /* max-width: 64px; */
+  min-width: 64px;
+  aspect-ratio: 1 / 1;
+  
+  /* flex-shrink: 0; */
+  /* margin: 0 auto;  */
+  background-color: var(--primary);
+  cursor: pointer;
+}
