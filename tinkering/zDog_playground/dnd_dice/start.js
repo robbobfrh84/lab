@@ -21,7 +21,7 @@ const placeMenuDice = function() {
   // placeDice(selectCanvas2, (m ? 7 : 8), "Octahedron", false, true)
   // placeDice(selectCanvas3, (m ? 7 : 8), "Decahedron", false, true)
   placeDice(selectCanvas4, (m ? 7 : 8), "Dodecahedron", false, true)
-  // placeDice(selectCanvas4, (m ? 7 : 8), "Isocahedron", false, true)
+  // placeDice(selectCanvas4, (m ? 7 : 8), "Icosahedron", false, true)
 }
 
 
@@ -38,8 +38,10 @@ const placeDice = function(elm, radius, shape, selected, rotate) {
   switch(shape) {
     case "Tetrahedron": selectedDice = build_tetrahedron(illo, radius, colors); break;
     case "Cube": selectedDice = build_cube(illo, radius, colors); break;
-
+    case "Octahedron": selectedDice = build_octahedron(illo, radius, colors); break;
+    // case "Decahedron": selectedDice = build_decahedron(illo, radius, colors); break;
     case "Dodecahedron": selectedDice = build_dodecahedron(illo, radius, colors); break;
+    // case "Icosahedron": selectedDice = build_icosahedron(illo, radius, colors); break;
     default: break;
   }
   

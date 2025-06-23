@@ -2,7 +2,6 @@
 header {
   padding: 16px;
 }
-
 h1 {
   margin: 0;
   font-size: 24px;
@@ -10,7 +9,6 @@ h1 {
   letter-spacing: 4px;
   text-align: center;
 }
-
 #devNotes {
   position: absolute;
   top: 5px;

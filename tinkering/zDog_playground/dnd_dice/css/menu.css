@@ -8,7 +8,6 @@ menu {
   background-color: var(--primary);
   padding: 8px;
 }
-
 .select-dice {
   display: flex;
   justify-content: center;

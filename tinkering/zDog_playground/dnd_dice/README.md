@@ -12,7 +12,6 @@ Refactorinig UI Setup
 - ✅ Swap colors to use index now from Config.
 - ✅ Start `test_dodecahedron_goTo()`
 - 🟡 Put into lab/tinkering (push and clean push)
-  - Push, then gut noted out(mostly css) and push again. 
 
 Initial zDog setup
 - Finish events and `devNotes` for `down_Click_Tap` `up_click_tap`

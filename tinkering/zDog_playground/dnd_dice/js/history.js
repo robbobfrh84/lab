@@ -1,42 +1,17 @@
 const placeHistory = function() {
   const hard_coded_history = [
-    {
-      shape: "Tetrahedron"
-    },
-    {
-      shape: "Cube"
-    },
-    {
-      shape: "Dodecahedron"
-    },
-
-    // {
-    //   shape: "Dodecahedron"
-    // },
-    // {
-    //   shape: "Dodecahedron"
-    // },
-    // {
-    //   shape: "Dodecahedron"
-    // },
-    // {
-    //   shape: "Cube"
-    // },
-    // {
-    //   shape: "Dodecahedron"
-    // },
-    // {
-    //   shape: "Tetrahedron"
-    // },
-    // {
-    //   shape: "Dodecahedron"
-    // },
-    // {
-    //   shape: "Dodecahedron"
-    // },
-    // {
-    //   shape: "Dodecahedron"
-    // },
+    { shape: "Tetrahedron", roll: 3},
+    { shape: "Cube", roll: 5 },
+    { shape: "Octahedron", roll: 7 },
+    { shape: "Decahedron", roll: 9 },
+    { shape: "Dodecahedron", roll: 11 },
+    { shape: "Icosahedron", roll: 13 },
+    { shape: "Tetrahedron", roll: 3},
+    { shape: "Cube", roll: 5 },
+    { shape: "Octahedron", roll: 7 },
+    { shape: "Decahedron", roll: 9 },
+    { shape: "Dodecahedron", roll: 11 },
+    { shape: "Icosahedron", roll: 13 },
   ]
 
   // Maybe refacotor this with copilot using createElement.
