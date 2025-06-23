@@ -2,7 +2,7 @@ const animate = function(illo, elm, selectedDice, w, h, selected, rotate) {
   if (!rotate) {
     illo.updateRenderGraph()
   } else if (selected) {
-    start_spinning_and_update(illo, elm, selectedDice, w, h)
+    start_spinning_and_drag(illo, elm, selectedDice, w, h)
     // test_dodecahedron_goTo(illo, elm, selectedDice, w, h)
   } else {
     start_spinning(illo)
@@ -19,7 +19,7 @@ const start_spinning = function(illo) {
   animate()
 }
 
-const start_spinning_and_update = function(illo, elm, selectedDice, w, h) {
+const start_spinning_and_drag = function(illo, elm, selectedDice, w, h) {
 
   const TAU = Zdog.TAU
   let isSpinning = true;

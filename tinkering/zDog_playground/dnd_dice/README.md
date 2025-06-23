@@ -5,32 +5,22 @@
 
 ### To Do ✅ 🟠 🟡
 
-Refactorinig UI Setup
-- ✅ Fix issue with large dice in mobile view.
-- ✅ Add Config to top of start.js (global) Add colors
-- ✅ Have history scroll horizontal
-- ✅ Swap colors to use index now from Config.
-- ✅ Start `test_dodecahedron_goTo()`
-- 🟡 Put into lab/tinkering (push and clean push)
-
 Initial zDog setup
-- Finish events and `devNotes` for `down_Click_Tap` `up_click_tap`
-  - Test on mobile
-  - rename as appropriot
-- Revert colors to array > Fix for three dice so far
 - Finish Select Die from Menu
-- Breakup touch animation > spinning(), drag_move()
-  - Prep this a bit more first... You'll wanna update to "your code style"
-- Add d8
-- Add d20 
-- Fix Tetrahedron
+- Clear out all 'vars' in all dice & a bit review.
+- Copy and rename dnd_dice_shape_only and save in zDog_playground (good ref. 4 later)
 - Prep next Tasks (Don't have to stick to following order either)
-  
-Add Rotate to number testing
-- Look at `test_dodecahedron_goTo` & REALLY think what you need to be building.
 
 Add D10
 - Plan...
+
+Adding UI for testing
+- Finish events and `devNotes` for `down_Click_Tap` `up_click_tap`
+  - Test on mobile
+  - rename as appropriot
+  
+Add Rotate to number testing
+- Look at `test_dodecahedron_goTo` & REALLY think what you need to be building.
 
 Add Numbers to dice
 - Plan...
@@ -71,6 +61,17 @@ Day 1 (5-6 hours)
 Day 2 (2 hours)
 - ✅ Break app.js: start.js, animate.js, events.js, history.js
 - ✅ Setup initial animation with 3 die
+- ✅ Breakup touch animation > spinning(), drag_move()
 - ✅ Break up CSS
 - ✅ History.js place holder with hardcoded history
 - ✅ Prep next Tasks
+
+Day 3 (4 hours)
+- ✅ Fix issue with large dice in mobile view.
+- ✅ Add Config to top of start.js (global) Add colors
+- ✅ Have history scroll horizontal
+- ✅ Swap colors to use index now from Config.
+- ✅ Start `test_dodecahedron_goTo()`
+- ✅ Put into lab/tinkering (push and clean push)
+- ✅ Add d8
+- ✅ Add d20 

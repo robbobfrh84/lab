@@ -20,7 +20,6 @@ const build_dodecahedron = function(illo, radius, colors) {
     fill: true,
     stroke: false,
     color: colors[4],
-    // backface: false,
   })
 
   face.copy({ // * bottom face
