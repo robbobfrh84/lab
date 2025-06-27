@@ -4,6 +4,9 @@
 - ⚠️ The dodeahedron on history isn't cut off. it's just an illution. 
 
 ### To Do ✅ 🟠 🟡
+- List what you did with number and to To Done below.
+- Need to rescale like your number and demos on codepen
+  - See if this removes the need for mobile boolean?
 
 Initial zDog setup
 - Finish Select Die from Menu

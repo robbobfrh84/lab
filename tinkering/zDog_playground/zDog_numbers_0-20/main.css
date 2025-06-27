@@ -1,0 +1,64 @@
+body {
+  margin: 0px 10px;
+}
+nav {
+  margin: 10px 0px;
+}
+.nav-container {
+  display: flex; 
+  gap: 4px;
+  margin: 4px 0px;
+}
+label {
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  padding: 0px 10px;
+  border-radius: 4px;
+  background-color: #636;
+  color: #FDB;
+  height: 40px;
+}
+.hide {
+  opacity: 0;
+}
+.select-canvas {
+  background: #FDB;
+  cursor: pointer;
+  border-radius: 4px;
+}
+.select-canvas.selected {
+  background-color: #EA0;
+}
+
+.display-canvas {
+  background: #FDB;
+  cursor: move;
+  border-radius: 8px;
+}
+.largeNumber-container {
+  position: relative;
+  margin-top: 8px;
+}
+#number_space_area {
+  position: absolute; 
+  outline: solid 2px rgba(200,150,0,0.3);
+  outline-offset: 0px;
+  top: calc(100px - 16.6667px);
+  left: calc(133.3334px - 16.6667px);
+  width: calc(133.3334px + 33.3334px);
+  height: calc(200px + 33.3334px);
+  background-color: rgba(0,255,0,0.25);
+}
+p {
+  display: flex;
+  align-items: center;
+  color: #FDB;
+  background-color: #636;
+  font-size: 18px;
+  padding: 0px 10px;
+  margin: 8px 0px;
+  height: 40px;
+  width: 550px;
+  border-radius: 4px;
+}
