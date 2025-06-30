@@ -14,6 +14,7 @@ const numberStroke = 6
 // const faceColors = [ 'rgb(255,0,0)', 'rgb(0,255,0)', 'rgb(0,0,255)', 'rgb(255,255,0)', 'rgb(128,0,128)' ];
 const faceColors = [ '#636', '#C25', '#E62', '#EA0', '#ED0' ] 
 
+
 const start = function(selected_number) {
   createZdog("#canvas_240", selected_number)
   createZdog("#canvas_400", selected_number)
@@ -34,13 +35,8 @@ const createZdog = function(elmSelector, number) {
     dragRotate: true,
   })
 
-  // const Die = new Zdog.Anchor({ // * SAVE `stroke: 167, color: "black"` * This is what i did to get my Ah-HA moment. realized could use spheres, ended up doing the tunneling, but i thought I was out of steam in fixing zFighting until this moment. Could also be used as a zFighting tool in other projects. So, wanted to preserve. 
-  //   addTo: illo, // * translate: { x: 0, y: 0 }, // * { x: 0, y: 0 } is the Default location.
-  // })
-
   const numberShape = new Zdog.Shape({
     scale: 0.3,
-    // translate: { z: 0 },
     translate: { z: -(numberStroke - 1) },
     stroke: numberStroke,
     path: Number_paths[number],                               
@@ -101,7 +97,6 @@ const createZdog = function(elmSelector, number) {
     newPentagon.addChild(numberShape.copy({ path: dieKey[i].number, color: numberColor }))   
   }
 
-
   function animate() {
     illo.updateRenderGraph()
     requestAnimationFrame( animate )
@@ -115,9 +110,9 @@ const build_pentagon = function(pentagon, color) {
   const points = getPoints(60, 5, 0, 0) 
   const topLine = new Zdog.Shape({
     addTo: pentagon,
-    path: [points[0],points[1]], // [ { x: 0, y: -60 }, { x: 57.07, y: -18.63 },],
-    stroke: 8, //8,
-    color: color, // "rgba(255,0,0,0.5)",
+    path: [points[0],points[1]],
+    stroke: 8, 
+    color: color, 
   })
   for (let i = 1; i < points.length - 1; i++) {
     topLine.copy({ path: [points[i],points[i+1]] })
@@ -126,26 +121,6 @@ const build_pentagon = function(pentagon, color) {
 
 
 const build_pocket_cone = function(pentagon, color) {
-  // const points2 = getPoints(53, 5, 0, 0)
-  // const cone = new Zdog.Anchor({
-  //   addTo: pentagon,
-  // })
-  // const triangle1 = new Zdog.Shape({
-  //   addTo: cone,
-  //   translate: { z: -8 },
-  //   path: [ points2[0], points2[1], { x: 0, y: 0, z: -60 }],
-  //   stroke: 12,
-  //   color: color,
-  //   closed: true,
-  //   fill: true
-  // })
-  // for (let i = 1; i < points2.length - 1; i++) {
-  //   triangle1.copy({ path: [ points2[i], points2[i+1], { x: 0, y: 0, z: -60 } ] })
-  // }
-
-
-
-
   const cone = new Zdog.Anchor({
     addTo: pentagon,
     translate: { z: 0 },
