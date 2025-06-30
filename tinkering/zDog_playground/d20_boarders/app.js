@@ -2,26 +2,29 @@ const initial_selected_number = "1"
 const rotateToNumber = false
 const relativeScale = 240
 const radius = 60
-
-const boarderColor = 'rgba(78,20,20,0)'
-const boarderStroke = 8
-
-// const numberColor = 'rgba(0,0,0,0.8)' 
-const numberColor = 'rgba(255,255,255,0.8)'
+const boarderStroke = 6
 const numberStroke = 6
 
-// const faceColors = [ 'rgb(128,0,0)', 'rgba(148,40,0)', 'rgb(108,0,20)', 'rgba(148,40,0)', 'rgb(128,0,0)' ];
-// const faceColors = [ 'rgb(255,0,0)', 'rgb(0,255,0)', 'rgb(0,0,255)', 'rgb(255,255,0)', 'rgb(128,0,128)' ];
-const faceColors = [ '#636', '#C25', '#E62', '#EA0', '#ED0' ] 
+const numberColor1 = 'rgba(0,0,0,0.8)' 
+const numberColor2 = 'rgba(255,255,255,0.8)'
+
+const boarderColor2 = 'rgba(170,80,20,1)'
+const boarderColor3 = 'rgb(0,0,0)'
+
+const faceColors1 = [ '#636', '#C25', '#E62', '#EA0', '#ED0' ] 
+const faceColors2 = [ 'rgb(128,0,0)', 'rgb(148,40,0)', 'rgb(108,0,20)', 'rgb(148,40,0)', 'rgb(128,0,0)' ];
+const faceColors3 = [ 'rgb(255,0,0)', 'rgb(0,255,0)', 'rgb(0,0,255)', 'rgb(255,255,0)', 'rgb(128,0,128)' ];
 
 
 const start = function(selected_number) {
-  createZdog("#canvas_240", selected_number)
-  createZdog("#canvas_400", selected_number)
+  createZdog("#canvas1_240", selected_number, boarderColor2, numberColor2, faceColors2)
+  createZdog("#canvas2_240", selected_number, false, numberColor1, faceColors1)
+  createZdog("#canvas1_400", selected_number, boarderColor2, numberColor2, faceColors2)
+  createZdog("#canvas2_400", selected_number, false, numberColor1, faceColors1)
 }
 
 
-const createZdog = function(elmSelector, number) {
+const createZdog = function(elmSelector, number, boarderColor, numberColor, faceColors) {
   const canvas = document.querySelector(elmSelector)
   const w = canvas.width
 
@@ -35,9 +38,10 @@ const createZdog = function(elmSelector, number) {
     dragRotate: true,
   })
 
+  // const numberDepth = boarderColor ? -(numberStroke/2) : -(boarderStroke/2)
   const numberShape = new Zdog.Shape({
     scale: 0.3,
-    translate: { z: -(numberStroke - 1) },
+    translate: { z: -(numberStroke/2) },
     stroke: numberStroke,
     path: Number_paths[number],                               
     color: numberColor,
@@ -50,8 +54,8 @@ const createZdog = function(elmSelector, number) {
     translate: { y: (-midradius) },
     rotate: { x: (TAU/4) },
   })
-  build_pentagon(topPentagon, boarderColor)
-  build_pocket_cone(topPentagon, faceColors[0])
+  if (boarderColor) { build_pentagon(topPentagon, boarderColor) }
+  build_pocket_cone(topPentagon, faceColors[0], boarderColor)
   topPentagon.addChild(numberShape.copy({ path: Number_paths["1"] }))
 
   // * Bottom face #12
@@ -59,8 +63,8 @@ const createZdog = function(elmSelector, number) {
     translate: { y: (midradius) },
     rotate: { x: (-TAU/4) },
   })
-  build_pentagon(botPentagon, boarderColor)
-  build_pocket_cone(botPentagon, faceColors[1])
+  if (boarderColor) { build_pentagon(botPentagon, boarderColor) }
+  build_pocket_cone(botPentagon, faceColors[1], boarderColor)
   botPentagon.addChild(numberShape.copy({ path: Number_paths["12"] }))
 
 
@@ -92,8 +96,8 @@ const createZdog = function(elmSelector, number) {
       translate: { z: (midradius) },
       rotate: { z: TAU/2  },
     })
-    build_pentagon(newPentagon, boarderColor)
-    build_pocket_cone(newPentagon, dieKey[i].color)
+    if (boarderColor) { build_pentagon(newPentagon, boarderColor) }
+    build_pocket_cone(newPentagon, dieKey[i].color, boarderColor)
     newPentagon.addChild(numberShape.copy({ path: dieKey[i].number, color: numberColor }))   
   }
 
@@ -111,7 +115,7 @@ const build_pentagon = function(pentagon, color) {
   const topLine = new Zdog.Shape({
     addTo: pentagon,
     path: [points[0],points[1]],
-    stroke: 8, 
+    stroke: boarderStroke, 
     color: color, 
   })
   for (let i = 1; i < points.length - 1; i++) {
@@ -120,16 +124,20 @@ const build_pentagon = function(pentagon, color) {
 }
 
 
-const build_pocket_cone = function(pentagon, color) {
+const build_pocket_cone = function(pentagon, color, boarderColor) {
+  const r = !boarderColor ? radius : radius - (boarderStroke/2)
+  const adjZ = !boarderColor ? 0 : (boarderStroke/2 * -1)
+  const stroke = !boarderColor ? 0 : (boarderStroke/4)
+  
   const cone = new Zdog.Anchor({
     addTo: pentagon,
-    translate: { z: 0 },
+    translate: { z: adjZ },
   })
-  const points2 = getPoints(60, 5, 0, 0)
+  const points2 = getPoints(r, 5, 0, 0)
   const triangle1 = new Zdog.Shape({
     addTo: cone,
     path: [ points2[0], points2[1], { x: 0, y: 0, z: -60 } ],
-    stroke: 0.5,
+    stroke: stroke,
     color: color,
     fill: true
   })

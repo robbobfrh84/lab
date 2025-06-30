@@ -2,9 +2,12 @@ body {
   margin: 8px;
 }
 .display-canvas {
-  /* background: #FDB; */
-  background: #4e342e;
+  background: #FDB;
+  /* background: #4e342e; */
   cursor: move;
   border-radius: 8px;
   margin: 8px;
+}
+.display-canvas.dark {
+  background: #4e342e;
 }
