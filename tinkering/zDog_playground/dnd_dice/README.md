@@ -7,6 +7,7 @@
 - List what you did with number and to To Done below.
 - Need to rescale like your number and demos on codepen
   - See if this removes the need for mobile boolean?
+- Probable ok to now have a toolkit.js for all math vars `const TAU` etc...
 
 Initial zDog setup
 - Finish Select Die from Menu

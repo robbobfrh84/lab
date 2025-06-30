@@ -1,0 +1,26 @@
+const TAU = Zdog.TAU
+const ROOT5 = Math.sqrt(5)
+const PHI = ( 1 + ROOT5 ) / 2
+
+const getPoints = function(radius, points, startX, startY) {
+  const angleStep = (2 * Math.PI) / points;
+  const result = [];
+
+  for (let i = 0; i < points; i++) {
+    const angle = i * angleStep - Math.PI / 2; // Start at 12 o'clock
+
+    let x = startX + radius * Math.cos(angle);
+    let y = startY + radius * Math.sin(angle);
+
+    // Correct small floating point errors
+    if (Math.abs(x) < 1e-10) x = 0;
+    if (Math.abs(y) < 1e-10) y = 0;
+
+    result.push({ x, y });
+  }
+
+  // Add the first point again to close the shape
+  result.push({ ...result[0] });
+
+  return result;
+}
