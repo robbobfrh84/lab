@@ -1,5 +1,5 @@
-const initial_selected_number = "1"
-const rotateToNumber = false
+let selected_number = "2"
+const rotateToNumber = true
 const relativeScale = 240
 const radius = 60
 const boarderStroke = 6
@@ -15,28 +15,47 @@ const faceColors1 = [ '#636', '#C25', '#E62', '#EA0', '#ED0' ]
 const faceColors2 = [ 'rgb(128,0,0)', 'rgb(148,40,0)', 'rgb(108,0,20)', 'rgb(148,40,0)', 'rgb(128,0,0)' ];
 const faceColors3 = [ 'rgb(255,0,0)', 'rgb(0,255,0)', 'rgb(0,0,255)', 'rgb(255,255,0)', 'rgb(128,0,128)' ];
 
+let clearElm = false
+let isUpdate = false
+let illoA, illoB, illoC, illoD; // * WARNING: only last illo will work with this un-noted & const removed from createZdog funtion. Only use for Developing when we want only 1 to be global to make hard console changes...
 
-const start = function(selected_number) {
-  createZdog("#canvas1_240", selected_number, boarderColor2, numberColor2, faceColors2)
-  createZdog("#canvas2_240", selected_number, false, numberColor1, faceColors1)
-  createZdog("#canvas1_400", selected_number, boarderColor2, numberColor2, faceColors2)
-  createZdog("#canvas2_400", selected_number, false, numberColor1, faceColors1)
+const snapTo = function(number) {
+  clear = true
+  isUpdate = true
+  window["btn"+selected_number].style.border = '2px solid black'
+  start(number)
 }
 
+const start = function(number) {
+  window["btn"+number].style.border = '2px solid red'
+  selected_number = number
+  createZdog("A", "#canvas1_240", number, boarderColor2, numberColor2, faceColors2)
+  createZdog("B", "#canvas2_240", number, false, numberColor1, faceColors1)
+  createZdog("C","#canvas1_400", number, boarderColor2, numberColor2, faceColors2)
+  createZdog("D","#canvas2_400", number, false, numberColor1, faceColors1)
+}
 
-const createZdog = function(elmSelector, number, boarderColor, numberColor, faceColors) {
+const createZdog = function(L, elmSelector, number, boarderColor, numberColor, faceColors) {
   const canvas = document.querySelector(elmSelector)
+  canvas.width = isUpdate ? canvas.width / 2 : canvas.width
+  canvas.height = isUpdate ? canvas.height / 2 : canvas.height
   const w = canvas.width
 
   const midradius = (( PHI * PHI ) / 2) * radius
 
-  const rotate = rotateToNumber ? d20[number].rotate : {}
-  const illo = new Zdog.Illustration({
+  const rotate = rotateToNumber ? d12[number].location : {}
+  // const illo = new Zdog.Illustration({
+  window["illo"+L] = new Zdog.Illustration({
     element: elmSelector,
     zoom: (1 / relativeScale) * w, // * Default=1, so do relative px w scale
-    rotate: rotate,
+    rotate: rotate[0],
     dragRotate: true,
   })
+  const Die = new Zdog.Anchor({
+    addTo: window["illo"+L],
+    rotate: rotate[1] ? rotate[1] : {},
+  })
+
 
   // const numberDepth = boarderColor ? -(numberStroke/2) : -(boarderStroke/2)
   const numberShape = new Zdog.Shape({
@@ -50,13 +69,16 @@ const createZdog = function(elmSelector, number, boarderColor, numberColor, face
 
   // * Create the first Pentagon (#1)
   const topPentagon = new Zdog.Anchor({
-    addTo: illo,
+    addTo: Die,
     translate: { y: (-midradius) },
     rotate: { x: (TAU/4) },
   })
   if (boarderColor) { build_pentagon(topPentagon, boarderColor) }
   build_pocket_cone(topPentagon, faceColors[0], boarderColor)
-  topPentagon.addChild(numberShape.copy({ path: Number_paths["1"] }))
+  topPentagon.addChild(numberShape.copy({ 
+    path: Number_paths["1"],
+    rotate: { z: d12["1"].rotate }
+  }))
 
   // * Bottom face #12
   const botPentagon = topPentagon.copy({ 
@@ -65,26 +87,29 @@ const createZdog = function(elmSelector, number, boarderColor, numberColor, face
   })
   if (boarderColor) { build_pentagon(botPentagon, boarderColor) }
   build_pocket_cone(botPentagon, faceColors[1], boarderColor)
-  botPentagon.addChild(numberShape.copy({ path: Number_paths["12"] }))
+  botPentagon.addChild(numberShape.copy({ 
+    path: Number_paths["12"],
+    rotate: { z: d12["12"].rotate }
+  }))
 
 
   const dieKey = {
-    "0": { number: Number_paths["2"], color: faceColors[0] },
-    "1": { number: Number_paths["3"], color: faceColors[1]},
-    "2": { number: Number_paths["4"], color: faceColors[2] },
-    "3": { number: Number_paths["5"], color: faceColors[3] },
-    "4": { number: Number_paths["6"], color: faceColors[4] },
-    "5": { number: Number_paths["7"], color: faceColors[0] },
-    "6": { number: Number_paths["8"], color: faceColors[1] },
-    "7": { number: Number_paths["9"], color: faceColors[2] },
-    "8": { number: Number_paths["10"], color: faceColors[3] },
-    "9": { number: Number_paths["11"], color: faceColors[4] },
+    "0": { number: "7", color: faceColors[0] },
+    "1": { number: "8", color: faceColors[1]},
+    "2": { number: "10", color: faceColors[2] },
+    "3": { number: "11", color: faceColors[3] },
+    "4": { number: "9", color: faceColors[4] },
+    "5": { number: "6", color: faceColors[0] },
+    "6": { number: "5", color: faceColors[1] },
+    "7": { number: "3", color: faceColors[2] },
+    "8": { number: "2", color: faceColors[3] },
+    "9": { number: "4", color: faceColors[4] },
   }
 
   for ( let i=0; i < 10; i++ ) {
     const ySide = i >= 5 ? 1 : -1
     const rotor1 = new Zdog.Anchor({
-      addTo: illo,
+      addTo: Die,
       rotate: { y: TAU/5 * (i) },
     })
     const rotor2 = new Zdog.Anchor({
@@ -98,12 +123,17 @@ const createZdog = function(elmSelector, number, boarderColor, numberColor, face
     })
     if (boarderColor) { build_pentagon(newPentagon, boarderColor) }
     build_pocket_cone(newPentagon, dieKey[i].color, boarderColor)
-    newPentagon.addChild(numberShape.copy({ path: dieKey[i].number, color: numberColor }))   
+    newPentagon.addChild(numberShape.copy({ 
+      path: Number_paths[dieKey[i].number], 
+      rotate: { z: d12[dieKey[i].number].rotate }
+    }))   
   }
 
   function animate() {
-    illo.updateRenderGraph()
-    requestAnimationFrame( animate )
+    if (!clearElm) {
+      window["illo"+L].updateRenderGraph()
+      requestAnimationFrame( animate )
+    } else { illo = null }
   }
 
   animate()
@@ -147,4 +177,102 @@ const build_pocket_cone = function(pentagon, color, boarderColor) {
 }
 
 
-start(initial_selected_number)
+
+
+// CHAT GPT made, idk, review and clean, probably put in other files.
+const animateTo = function(number) {
+  clear = true
+  isUpdate = true
+  window["btn"+selected_number].style.border = '2px solid black'
+  animateStart("A", number)
+  animateStart("B", number)
+  animateStart("C", number)
+  animateStart("D", number)
+}
+
+const animateStart = function(L, number) {
+  window["btn"+number].style.border = '2px solid red'
+  selected_number = number
+  
+  // If illo doesn't exist yet, create it first without animation
+  // const illo = illo1
+  // if (!window["illo"+L]) {
+  //   createZdog(window["illo"+L], "#canvas1_240", number, boarderColor2, numberColor2, faceColors2)
+  //   return;
+  // }
+  
+  // Get target positions
+  const targetX_0 = d12[number].location[0]?.x || 0;
+  const targetY_0 = d12[number].location[0]?.y || 0;
+  const targetZ_0 = d12[number].location[0]?.z || 0;
+  const targetX_1 = d12[number].location[1]?.x || 0;
+  const targetY_1 = d12[number].location[1]?.y || 0;
+  const targetZ_1 = d12[number].location[1]?.z || 0;
+
+  const Die = window["illo"+L].children[0];
+
+  // Calculate distances and directions
+  let distX_0 = Math.abs(window["illo"+L].rotate.x - targetX_0);
+  let distY_0 = Math.abs(window["illo"+L].rotate.y - targetY_0);
+  let distZ_0 = Math.abs(window["illo"+L].rotate.z - targetZ_0);
+  let distX_1 = Math.abs(Die.rotate.x - targetX_1);
+  let distY_1 = Math.abs(Die.rotate.y - targetY_1);
+  let distZ_1 = Math.abs(Die.rotate.z - targetZ_1);
+
+  const dirX_0 = targetX_0 > window["illo"+L].rotate.x ? 1 : -1;
+  const dirY_0 = targetY_0 > window["illo"+L].rotate.y ? 1 : -1;
+  const dirZ_0 = targetZ_0 > window["illo"+L].rotate.z ? 1 : -1;
+  const dirX_1 = targetX_1 > Die.rotate.x ? 1 : -1;
+  const dirY_1 = targetY_1 > Die.rotate.y ? 1 : -1;
+  const dirZ_1 = targetZ_1 > Die.rotate.z ? 1 : -1;
+
+  const animationSpeed = 0.05;
+
+  function animate() {
+    let isAnimating = false;
+
+    // Animate window["illo"+L] x, y, z
+    if (distX_0 > 0.001) {
+      distX_0 -= animationSpeed;
+      window["illo"+L].rotate.x += animationSpeed * dirX_0;
+      isAnimating = true;
+    }
+    if (distY_0 > 0.001) {
+      distY_0 -= animationSpeed;
+      window["illo"+L].rotate.y += animationSpeed * dirY_0;
+      isAnimating = true;
+    }
+    if (distZ_0 > 0.001) {
+      distZ_0 -= animationSpeed;
+      window["illo"+L].rotate.z += animationSpeed * dirZ_0;
+      isAnimating = true;
+    }
+
+    // Animate Die x, y, z
+    if (distX_1 > 0.001) {
+      distX_1 -= animationSpeed;
+      Die.rotate.x += animationSpeed * dirX_1;
+      isAnimating = true;
+    }
+    if (distY_1 > 0.001) {
+      distY_1 -= animationSpeed;
+      Die.rotate.y += animationSpeed * dirY_1;
+      isAnimating = true;
+    }
+    if (distZ_1 > 0.001) {
+      distZ_1 -= animationSpeed;
+      Die.rotate.z += animationSpeed * dirZ_1;
+      isAnimating = true;
+    }
+
+    window["illo"+L].updateRenderGraph();
+    
+    if (isAnimating) {
+      requestAnimationFrame(animate);
+    }
+  }
+
+  animate();
+}
+
+start(selected_number)
