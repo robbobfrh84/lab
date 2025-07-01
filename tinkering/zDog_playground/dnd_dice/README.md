@@ -1,9 +1,16 @@
 # zDog DnD Dice
 
 ### Previously On...
+- Kinda, need to organize my thoughts a big moving forward, how we want to appreach this project. It's a BIG project!
 - ⚠️ The dodeahedron on history isn't cut off. it's just an illution. 
+- Posted d12 on codepen and bsky...
 
 ### To Do ✅ 🟠 🟡
+Post d12
+- Now, we can start to move over the new d12..
+- Update Scale to be dynamic like it is on d12...
+
+Misc...
 - List what you did with number and to To Done below.
 - Need to rescale like your number and demos on codepen
   - See if this removes the need for mobile boolean?
