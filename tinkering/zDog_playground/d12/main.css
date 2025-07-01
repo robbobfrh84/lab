@@ -1,11 +1,80 @@
 body {
   margin: 8px;
 }
+nav {
+  display: flex;
+  gap: 3px;
+}
+nav:nth-of-type(n+2) {
+  padding-top: 8px;
+}
+nav label, nav button {
+  background-color: #636;
+  width: 40px;
+  min-width: 40px;
+  max-width: 40px;
+  min-height: 40px;
+  height: 100%;
+  color: #FDB;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+nav label {
+  min-width: 83px;
+}
+nav button {
+  border: none;
+  color: black;
+  background-color: goldenrod;
+}
+@media (max-width: 615px) {
+  nav {
+    flex-wrap: wrap;
+  }
+  nav label, nav button {
+    flex: 1 1 50%;
+  }
+}
+.rollBtn {
+  min-width: 130px;
+  height: 60px;
+  color: #636;
+  font-size: 23px;
+  letter-spacing: 6px;
+  font-weight: 900;
+}
+.top-container {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+.top-left-sm, .top-right-sm {
+  width: 100%;
+  max-width: 240px;
+  aspect-ratio: 1 / 1;
+  height: 100%;
+  padding: 0px;
+}
+.bot-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+.lg-container {
+  width: 100%;
+  max-width: 400px;
+  aspect-ratio: 1 / 1;
+  height: 100%;
+}
+
 .display-canvas {
   background: #FDB;
   cursor: move;
   border-radius: 8px;
-  margin: 8px;
 }
 .display-canvas.dark {
   background: #4e342e;

@@ -22,23 +22,29 @@ let illoA, illoB, illoC, illoD; // * WARNING: only last illo will work with this
 const snapTo = function(number) {
   clear = true
   isUpdate = true
-  window["btn"+selected_number].style.border = '2px solid black'
   start(number)
 }
 
 const start = function(number) {
+  window["btn"+selected_number].style.border = '2px solid rgba(0,0,0,0)'
   window["btn"+number].style.border = '2px solid red'
   selected_number = number
   createZdog("A", "#canvas1_240", number, boarderColor2, numberColor2, faceColors2)
   createZdog("B", "#canvas2_240", number, false, numberColor1, faceColors1)
-  createZdog("C","#canvas1_400", number, boarderColor2, numberColor2, faceColors2)
-  createZdog("D","#canvas2_400", number, false, numberColor1, faceColors1)
+  createZdog("C", "#canvas1_400", number, boarderColor2, numberColor2, faceColors2)
+  createZdog("D", "#canvas2_400", number, false, numberColor1, faceColors1)
+}
+
+const roll = function() {
+  animateTo([random(1,12),random(1,12),random(1,12),random(1,12)], true)
 }
 
 const createZdog = function(L, elmSelector, number, boarderColor, numberColor, faceColors) {
   const canvas = document.querySelector(elmSelector)
-  canvas.width = isUpdate ? canvas.width / 2 : canvas.width
-  canvas.height = isUpdate ? canvas.height / 2 : canvas.height
+  canvas.width = canvas.parentElement.clientWidth
+  canvas.height = canvas.parentElement.clientHeight
+  // canvas.width = isUpdate ? canvas.width / 2 : canvas.width
+  // canvas.height = isUpdate ? canvas.height / 2 : canvas.height
   const w = canvas.width
 
   const midradius = (( PHI * PHI ) / 2) * radius
@@ -180,18 +186,17 @@ const build_pocket_cone = function(pentagon, color, boarderColor) {
 
 
 // CHAT GPT made, idk, review and clean, probably put in other files.
-const animateTo = function(number) {
+const animateTo = function(number, roll) {
   clear = true
   isUpdate = true
-  window["btn"+selected_number].style.border = '2px solid black'
-  animateStart("A", number)
-  animateStart("B", number)
-  animateStart("C", number)
-  animateStart("D", number)
+  window["btn"+selected_number].style.border = '2px solid rgba(0,0,0,0)'
+  animateStart("A", roll ? number[0] : number)
+  animateStart("B", roll ? number[1] : number)
+  animateStart("C", roll ? number[2] : number)
+  animateStart("D", roll ? number[3] : number)
 }
 
 const animateStart = function(L, number) {
-  window["btn"+number].style.border = '2px solid red'
   selected_number = number
   
   // If illo doesn't exist yet, create it first without animation

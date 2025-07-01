@@ -17,3 +17,7 @@ const getPoints = function(radius, points, startX, startY) {
   result.push({ ...result[0] })
   return result
 }
+
+const random = function(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
