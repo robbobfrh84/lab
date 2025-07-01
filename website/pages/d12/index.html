@@ -1,0 +1,82 @@
+<!DOCTYPE html><html lang='en'>
+<title> zDog d12 </title><!-- <link rel='icon' href='link/or/path'>  -->
+<head>
+  <meta charset='UTF-8'><meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <link rel='stylesheet' href='main.css'>
+</head>
+<body>
+
+<main>
+
+  <nav>
+    <label>Snap</label>
+    <button id="btn0" onClick="snapTo('0')">0,0</button>
+    <button id="btn1" onClick="snapTo('1')">1</button>
+    <button id="btn2" onClick="snapTo('2')">2</button>
+    <button id="btn3" onClick="snapTo('3')">3</button>
+    <button id="btn4" onClick="snapTo('4')">4</button>
+    <button id="btn5" onClick="snapTo('5')">5</button>
+    <button id="btn6" onClick="snapTo('6')">6</button>
+    <button id="btn7" onClick="snapTo('7')">7</button>
+    <button id="btn8" onClick="snapTo('8')">8</button>
+    <button id="btn9" onClick="snapTo('9')">9</button>
+    <button id="btn10" onClick="snapTo('10')">10</button>
+    <button id="btn11" onClick="snapTo('11')">11</button>
+    <button id="btn12" onClick="snapTo('12')">12</button>
+  </nav>
+
+  <nav>
+    <label>Animate</label>
+    <button onClick="animateTo('0')">0,0</button>
+    <button onClick="animateTo('1')">1</button>
+    <button onClick="animateTo('2')">2</button>
+    <button onClick="animateTo('3')">3</button>
+    <button onClick="animateTo('4')">4</button>
+    <button onClick="animateTo('5')">5</button>
+    <button onClick="animateTo('6')">6</button>
+    <button onClick="animateTo('7')">7</button>
+    <button onClick="animateTo('8')">8</button>
+    <button onClick="animateTo('9')">9</button>
+    <button onClick="animateTo('10')">10</button>
+    <button onClick="animateTo('11')">11</button>
+    <button onClick="animateTo('12')">12</button>
+  </nav>
+
+  <nav>
+    <button class="rollBtn" onClick="roll()">ROLL</button>
+  </nav>
+
+  <div class="top-container">
+    <div class="top-left-sm">
+      <canvas id="canvas1_240" class="display-canvas sm" width="0" height="0"></canvas>
+      <!-- <canvas id="canvas1_240" class="display-canvas sm" width="240" height="240"></canvas> -->
+    </div>
+    <div class="top-right-sm">
+      <canvas id="canvas2_240" class="display-canvas sm dark" width="0" height="0"></canvas>
+      <!-- <canvas id="canvas2_240" class="display-canvas sm dark" width="240" height="240"></canvas> -->
+    </div>
+  </div>
+  <div class="bot-container">
+    <div class="lg-container">
+      <canvas id="canvas1_400" class="display-canvas lg" width="0" height="0"></canvas>
+      <!-- <canvas id="canvas1_400" class="display-canvas lg" width="400" height="400"></canvas> -->
+    </div>
+    <div class="lg-container">
+      <canvas id="canvas2_400" class="display-canvas lg dark" width="0" height="0"></canvas>
+      <!-- <canvas id="canvas2_400" class="display-canvas lg dark" width="400" height="400"></canvas> -->
+    </div>
+  </div>
+</main>
+
+</body>
+<script src='zDog.js'></script>
+<script src='toolkit.js'></script>
+<script src='Number_paths.js'></script>
+<script src='d12.js'></script>
+<script src='app.js'></script>
+
+</html>
+
+
+
