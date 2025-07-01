@@ -7,6 +7,9 @@ function buildLists(elm, list) {
     const tweet = link.tweet ? /*html*/`
       <a class='link btn' href='${link.tweet}'>🐦</a>
     ` : "";
+    const bsky = link.bsky ? /*html*/`
+      <a class='link btn' href='${link.bsky}'>🦋</a>
+    ` : "";
     const medium = link.medium ? /*html*/`
       <a class='link btn' href='${link.medium}'>Ⓜ</a>
     ` : "";
@@ -30,6 +33,7 @@ function buildLists(elm, list) {
         <a class="link" href="${href}">${name}</a>
         <a class="link btn sm" target="_blank" href="${href}">↗️</a>
         ${tweet}
+        ${bsky}
         ${medium}
         ${youtube}
         ${threads}

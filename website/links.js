@@ -38,7 +38,7 @@ var local = [ // * MUST be var, need to access it via window[...]
 ]
 
 var more = [ // * MUST be var, need to access it via window[...] 
-  { folder: 'd12', route: 'website/pages/', mobile: true, }, 
+  { folder: 'd12', route: 'website/pages/', mobile: true, bsky: 'https://bsky.app/profile/tobob.earth/post/3lswlpnyd2s2q'}, 
   { folder: 'run', route: 'website/pages/', mobile: true, },
   { folder: 'tour_de_france', route: 'website/pages/', mobile: true, tweet: 'https://twitter.com/BobMain49/status/1428839915484221442',},
   { folder: 'mouse_line_warp', route: 'website/pages/', tweet: "https://twitter.com/BobMain49/status/773317445322874880" },
