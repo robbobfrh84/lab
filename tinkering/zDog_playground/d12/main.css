@@ -82,4 +82,5 @@ nav button {
 
 button {
   border: 2px solid black;
+  cursor: pointer;
 }
