@@ -231,7 +231,7 @@ const animateStart = function(L, number) {
   const dirY_1 = targetY_1 > Die.rotate.y ? 1 : -1;
   const dirZ_1 = targetZ_1 > Die.rotate.z ? 1 : -1;
 
-  const animationSpeed = 0.05;
+  const animationSpeed = 0.1;
 
   function animate() {
     let isAnimating = false;
