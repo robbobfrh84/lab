@@ -1,6 +1,6 @@
 import { SiteConfig } from './../SiteConfig.js'
 
-const serveFolder = "" // * "/lab/core_design"
+const serveFolder = "/tinkering/arcadeoak/core_design_01" // * "/lab/core_design"
 
 export const Config = {
   title: "Arcade Main",

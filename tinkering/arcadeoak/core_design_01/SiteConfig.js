@@ -1,4 +1,4 @@
-import { Tests } from './../tests/Tests.js'
+import { Tests } from './tests/Tests.js'
 
 const SiteConfig = {
   site: "development",
