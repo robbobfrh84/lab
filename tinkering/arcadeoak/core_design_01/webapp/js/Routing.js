@@ -1,6 +1,6 @@
 import { Data } from './Base.js'
 import { HashPage } from './HashPage.js'
-import { SiteConfig } from "/../../SiteConfig.js" // GitHub Pages testing
+import { SiteConfig } from "./../../SiteConfig.js" // GitHub Pages testing
 
 const componentCache = {}
 
