@@ -1,4 +1,4 @@
-import { SiteConfig } from './../SiteConfig.js'
+import { SiteConfig } from '/../SiteConfig.js'
 
 const serveFolder = "" // * "/lab/core_design"
 
