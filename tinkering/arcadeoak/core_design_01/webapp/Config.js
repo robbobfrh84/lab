@@ -1,11 +1,11 @@
-import { _SiteConfig } from './../_SiteConfig.js'
+import { SiteConfig } from './../SiteConfig.js'
 
 const serveFolder = "" // * "/lab/core_design"
 
 export const Config = {
   title: "Arcade Main",
-  site: _SiteConfig.site,
-  tests: _SiteConfig.tests || false,
+  site: SiteConfig.site,
+  tests: SiteConfig.tests || false,
   landingPage: "home",
   theme: "dark",
   pages: [

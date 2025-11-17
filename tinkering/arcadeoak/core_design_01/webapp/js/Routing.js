@@ -1,13 +1,13 @@
 import { Data } from './Base.js'
 import { HashPage } from './HashPage.js'
-import { _SiteConfig } from "./../../_SiteConfig.js" // GitHub Pages testing
+import { SiteConfig } from "./../../SiteConfig.js" // GitHub Pages testing
 
 const componentCache = {}
 
 export const Routing = {
 
   setPageRoutes: function() {
-    const validPaths = _SiteConfig.basePaths
+    const validPaths = SiteConfig.basePaths
     const pathSegments = window.location.pathname.split('/')
     const foundPath = validPaths.find(path => pathSegments.includes(path))
     Data.pageRoute = foundPath ? `/${foundPath}` : ''
