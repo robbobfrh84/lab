@@ -20,18 +20,15 @@ export const Header = new class extends Base {
     </section>
 
     <div id="HeaderDivider" style="height: 30px;">
+
+      <!-- 
       <div style="font-size: 20px; line-height: 1px;">
         . &nbsp; . &nbsp; . &nbsp; . &nbsp; . &nbsp; . &nbsp; . &nbsp; . &nbsp;
         . &nbsp; . &nbsp; . &nbsp; . &nbsp; . &nbsp; . &nbsp; . &nbsp; . &nbsp;
       </div>
-      <!-- 
-        <div style="height: 10px; line-height: 5px;">
-          . &nbsp; . &nbsp; . &nbsp; . &nbsp; . &nbsp; . &nbsp; . &nbsp; . &nbsp;
-          . &nbsp; . &nbsp; . &nbsp; . &nbsp; . &nbsp; . &nbsp; . &nbsp; . &nbsp;
-        </div>
       -->
       <!-- 
-            <div style="height: 7px; line-height: 7px;">
+      <div style="height: 7px; line-height: 7px;">
         . &nbsp; . &nbsp; . &nbsp; . &nbsp; . &nbsp; . &nbsp;
         . &nbsp; . &nbsp; . &nbsp; . &nbsp; . &nbsp; . &nbsp; 
       </div>

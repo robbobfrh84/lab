@@ -36,7 +36,10 @@ export const Home = new class extends Base {
         <label>Current Theme: </label>
         <output id="Home_currentTheme">${Data.theme}</output>
         <br>
-        <a href='/tests' style="color: cornflowerblue">tests</a>
+        <!-- 
+                <a href='/tests' style="color: cornflowerblue">tests</a>
+
+        -->
       </div>
 
       <!-- 🔥 TEMP 🔥 --> 
