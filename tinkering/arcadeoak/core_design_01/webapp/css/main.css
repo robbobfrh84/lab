@@ -1,0 +1,13 @@
+body {
+  font-size: var(--font-size);
+  font-family: var(--font-family);
+  padding: 0px;
+  margin: 0px;
+  background-color: var(--bg);
+  color: var(--font);
+  width: var(--max-width);
+  max-width: 100%;
+  margin: auto;
+  opacity: 0;
+  transition: opacity var(--initial-fade-in) var(--initial-fade-in-delay);
+}

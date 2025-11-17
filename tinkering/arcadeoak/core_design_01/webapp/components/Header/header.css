@@ -1,0 +1,38 @@
+#Header > section {
+  display: flex;
+  max-height: 100px;
+  /* background-color: rgba(255,255,255,0.05); */
+}
+#Header_icon, #Header nav {
+  width: 17.5vw;
+  max-width: 100px;
+  /* background-color: rgba(255,255,255,0.15); */
+}
+#Header_icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background-color: rgba(255,255,255,0.05); */
+}
+#Header_heading {
+  flex: 1;
+  /* background-color: rgba(255,255,255,0.1); */
+}
+#Header nav {
+  /* background-color: rgba(255,255,255,0.05); */
+}
+
+/* Header column specific Styling */
+#Header_icon img {
+  position: relative;
+  padding-left: 12%;
+  width: 100%;
+  /* background-color: rgba(255,255,255,0.05); */
+}
+
+/* Header Divider */
+#HeaderDivider {
+  position: relative;
+  text-align: center;
+  /* background-color: rgba(255,255,255,0.2); */
+}

@@ -1,0 +1,58 @@
+:root {
+
+  /* ============== Transitions =============== */
+  --initial-fade-in-delay: 0.5s;
+  --initial-fade-in: 2.0s;
+  --color-theme-transitions: background-color 0.5s ease-in-out, color 0.5s ease-in-out, stroke 0.5s ease-in-out, fill 0.5s ease-in-out, opacity 0.5s ease-in-out;
+
+  /* ============== General =============== */
+  --font-size: 16px;
+  --font-family: Avenir, sans-serif;
+  --max-width: 768px;
+
+  /* ===================================== */
+  /* ========== Color Themes ============= */
+  /* ===================================== */
+
+  --offBlack_Purple: rgb(40,38,40);
+  --offBlack_Purple2: rgb(50,48,50);
+
+  --offWhite: rgb(240,240,240);
+  --offWhite_Red: rgb(200,190,180);
+
+  --red: red; 
+  --red2: orangered;
+  --red3: deeppink;
+  --green: springgreen;
+  --blue: dodgerblue;
+  --blue2: cornflowerblue;
+  --blue3: deepskyblue;
+  --blue4: aqua;
+  --blue5: slateblue;
+  --yellow: gold;
+  --yellow2: yellow;
+  --orange: darkorange;
+
+  /* ========== Default Color Theme ============= */
+  --bg: black;
+  --font: white;
+  --primary: var(--blue); 
+  --primary2: var(--blue2); /* * 2nd versions are lighter / duller for shading / soft border, etc.. */
+
+}
+
+.dark-theme {
+  --bg: var(--offBlack_Purple2);
+  --font: var(--offWhite_Red);
+  --primary: var(--blue);
+  --primary2: var(--blue2);
+  --primary3: var(--blue5);
+}
+
+.light-theme {
+  --bg: var(--offWhite);
+  --font: var(--offBlack_Purple);
+  --primary: var(--orange);
+  --primary2: var(--yellow);
+  --primary3: var(--yellow);
+}

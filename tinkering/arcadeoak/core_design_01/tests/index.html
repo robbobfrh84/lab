@@ -1,0 +1,65 @@
+<!DOCTYPE html><html lang='en'>
+<title> Core Design Tests </title>
+<head>
+  <meta charset='UTF-8'><meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <style>
+    ul {
+      margin: 0px 0px 10px;
+      padding-left: 15px;
+    }
+    h4 {
+      margin: 0px;
+      padding: 0px;
+    }
+  </style>
+</head>
+<body>
+
+<h3>Test Links</h3>
+
+<h4>Theme Tests</h4>
+<ul>
+  <li><a href="/">Home: </a></li>
+  <li><a href="/?theme=dark"></a></li>
+  <li><a href="/?theme=light"></a></li>
+  <li><a href="/?user=green_bob"></a> - <a href="">💡</a></li>
+</ul>
+
+<h4>Users</h4>
+* Note: URL `theme=` over-rides user.theme 
+<ul>
+  <li><a href="/?user=default"></a> - <a href="">💡</a></li>
+  <li><a href="/?user=custom_image"></a> - <a href="">💡</a></li>
+  <li><a href="/?user=custom_image_colors"></a> - <a href="">💡</a></li>
+  <li><a href="/?user=custom_image_colors_user_light_theme"></a>
+  <li><a href="/?user=button_holes"></a> - <a href="">💡</a></li>
+  <li><a href="/?user=no_holes"></a> - <a href="">💡</a></li>
+  <li><a href="/?user=two_nub"></a> - <a href="">💡</a></li>
+  <li><a href="/?user=two_hole"></a> - <a href="">💡</a></li>
+  <li><a href="/?user=bad_theme_fallback"></a> - <a href="">💡</a></li>
+  <li>No User found fallback: <a href="/?user=nope"></a> - <a href="">💡</a></li>
+  <li><a href="/?user=rand&acdelay=2000,5000"></a> - <a href="">💡</a></li>
+</ul>
+
+Pages
+<ul>
+  <li><a href="/">Home: </a></li>
+  <li><a href="/#home"></a></li>
+  <li><a href="/#profile"></a></li>
+  <li><a href="/#settings"></a></li>
+  <li><a href="/#styleguide"></a></li>
+</ul>
+
+</body>
+<script>
+document.querySelectorAll('li').forEach(li => {
+  const aTags = li.querySelectorAll('a')
+  const href = aTags[0].href.split(window.location.origin)[1]
+  aTags[0].innerHTML += href
+  if (aTags[1]) {
+    aTags[1].href = href+"&theme=light"
+  }
+});
+</script>
+</html>

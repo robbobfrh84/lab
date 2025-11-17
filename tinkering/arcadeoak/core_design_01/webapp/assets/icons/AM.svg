@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" xmlns:bx="https://boxy-svg.com">
+  <defs>
+    <bx:grid x="0" y="0" width="25" height="25" divisions="8"/>
+  </defs>
+  <rect width="500" height="500" style="stroke: rgb(0, 0, 0); fill: rgb(255, 255, 255); visibility: hidden;"/>
+  <g transform="matrix(1, 0, 0, 1, 18.75, 0)">
+    <title>M</title>
+    <line style="fill: rgb(0, 0, 0); stroke-linecap: round; paint-order: fill; stroke: rgb(100, 149, 237); stroke-width: 16px;" x1="306.25" y1="112.5" x2="456.25" y2="412.5"/>
+    <line style="fill: rgb(216, 216, 216); stroke-linecap: round; paint-order: fill; stroke: rgb(100, 149, 237); stroke-width: 16px;" x1="306.25" y1="112.5" x2="275" y2="175"/>
+    <line style="fill: rgb(216, 216, 216); stroke-linecap: round; paint-order: fill; stroke: rgb(100, 149, 237); stroke-width: 16px;" x1="275" y1="175" x2="250" y2="125"/>
+    <line style="fill: rgb(216, 216, 216); stroke-linecap: round; paint-order: fill; stroke: rgb(100, 149, 237); stroke-width: 16px;" x1="250" y1="125" x2="216.012" y2="192.977"/>
+  </g>
+  <g>
+    <title>A</title>
+    <path style="stroke: rgb(0, 0, 0); stroke-width: 0px; fill: rgb(107, 182, 255);" d="M 13.824 369.641 L 169.692 71.875 L 180.246 78.125 L 36.209 380.139 L 13.824 369.641 Z"/>
+    <line style="fill: rgb(216, 216, 216); stroke-linecap: round; stroke: rgb(30, 144, 255); paint-order: fill; stroke-width: 20px;" x1="175" y1="75" x2="262.5" y2="250"/>
+    <line style="fill: rgb(216, 216, 216); paint-order: stroke; stroke-linecap: round; stroke: rgb(30, 144, 255); stroke-width: 20px; visibility: hidden;" x1="25" y1="375" x2="175" y2="75"/>
+    <ellipse style="stroke: rgb(0, 0, 0); fill: rgb(29, 144, 255); stroke-width: 0;" cx="175" cy="75" rx="6.25" ry="6.25"/>
+    <ellipse style="stroke: rgb(0, 0, 0); fill: rgb(29, 144, 255); stroke-width: 0px;" cx="25" cy="375" rx="12.5" ry="12.5"/>
+  </g>
+  <g>
+    <title>left lines</title>
+    <line style="fill: rgb(216, 216, 216); stroke-linecap: round; paint-order: fill; stroke: rgb(184, 134, 11); stroke-width: 16px;" x1="50" y1="375" x2="193.75" y2="375"/>
+    <line style="fill: rgb(216, 216, 216); stroke-linecap: round; paint-order: fill; stroke: rgb(184, 134, 11); stroke-width: 16px;" x1="65.625" y1="343.75" x2="156.25" y2="343.75"/>
+    <line style="fill: rgb(216, 216, 216); stroke-linecap: round; paint-order: fill; stroke: rgb(184, 134, 11); stroke-width: 16px;" x1="81.25" y1="312.5" x2="128.125" y2="312.5"/>
+    <polyline style="fill: rgb(216, 216, 216); stroke-linecap: round; paint-order: fill; stroke: rgb(184, 134, 11); stroke-width: 16px;" points="96.875 281.25 103.321 281.25 109.375 281.25"/>
+  </g>
+  <g transform="matrix(1, 0, 0, 1, 18.75, 0)">
+    <title>right lines</title>
+    <line style="fill: rgb(0, 0, 0); stroke-linecap: round; paint-order: fill; stroke: rgb(218, 165, 32); stroke-width: 16px;" x1="268.75" y1="412.5" x2="431.25" y2="412.5"/>
+    <line style="fill: rgb(0, 0, 0); stroke-linecap: round; paint-order: fill; stroke: rgb(218, 165, 32); stroke-width: 16px;" x1="300" y1="381.25" x2="415.625" y2="381.25"/>
+    <line style="fill: rgb(0, 0, 0); stroke-linecap: round; paint-order: fill; stroke: rgb(218, 165, 32); stroke-width: 16px;" x1="325" y1="350" x2="400" y2="350"/>
+    <line style="fill: rgb(216, 216, 216); stroke-linecap: round; paint-order: fill; stroke: rgb(218, 165, 32); stroke-width: 16px;" x1="343.75" y1="318.75" x2="384.375" y2="318.75"/>
+    <line style="fill: rgb(216, 216, 216); stroke-linecap: round; paint-order: fill; stroke: rgb(218, 165, 32); stroke-width: 16px;" x1="356.25" y1="287.5" x2="368.75" y2="287.5"/>
+  </g>
+  <line style="fill: rgb(216, 216, 216); stroke-linecap: round; paint-order: fill; stroke: rgb(0, 128, 0); stroke-width: 16px;" x1="140.625" y1="200" x2="209.375" y2="200"/>
+  <g style="visibility: hidden;">
+    <title>example woosh</title>
+    <path style="stroke: rgb(0, 0, 0); fill: rgb(107, 182, 255); stroke-width: 0px;" d="M 37.176 25.09 C 100 21.105 184.375 24.614 225 31.25 L 225 43.75 C 159.375 37.5 53.125 43.75 37.5 50 L 37.176 25.09 Z"/>
+    <ellipse style="stroke: rgb(0, 0, 0); fill: rgb(29, 144, 255); stroke-width: 0px;" cx="225" cy="37.5" rx="6.25" ry="6.25"/>
+    <ellipse style="stroke: rgb(0, 0, 0); fill: rgb(29, 144, 255); stroke-width: 0;" cx="37.5" cy="37.5" rx="12.5" ry="12.5"/>
+  </g>
+</svg>
