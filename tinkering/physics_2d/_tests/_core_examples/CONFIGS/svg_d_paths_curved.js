@@ -40,11 +40,11 @@ var svg_d_paths_curved = { // Config
       bodies: [    
 
         { shape: 'verts', name: 'path layer svg - yellow green', x: 50, y: 20, v: [
-          { x: 0, y: -7 }, { x: 3, y: -6 },
-          { x: 8, y: 0 }, { x: 5, y: 6 },
-          { x: 0, y: 8 }, { x: -4, y: 6 },
-          { x: -7, y: 0 }, { x: -5, y: -5 },
-        ],
+            { x: 0, y: -7 }, { x: 3, y: -6 },
+            { x: 8, y: 0 }, { x: 5, y: 6 },
+            { x: 0, y: 8 }, { x: -4, y: 6 },
+            { x: -7, y: 0 }, { x: -5, y: -5 },
+          ],
           svg: /*html*/`
             <path d="M1.74,20 Q3.48,17.83 4.35,20 T7.83,20" fill="red" stroke="blue" stroke-width="1"/>
           `,

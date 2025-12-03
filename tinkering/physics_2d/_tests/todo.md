@@ -1,7 +1,15 @@
 ### Where I Left Off
-- OK! i think i got through Polygons and Trapazoids. Some refactoring next. 
-- OH this: https://codepen.io/jinjor/pen/XWxvNQL
-  - Find a good home for that link. So we can reference it for ODD phun!
+- 🤔 NOTES FROM JUMPING BACK IN Dec 2025... (I"M lost 😵‍💫)
+  - What i need is rounded corners. 
+  - Originally, in this section i left myself this note: 
+    - "OK! i think i got through Polygons and Trapazoids. Some refactoring next."
+  - Don't yet understand the "Update fromVertices See body ~@173" section. 
+  - Don't know what's going on with `svg_d_paths_curved`?
+  - I need to jump in somewhere. Might be worth building a... 
+    - `_core_example/CONFIGS/TEMP_messing_around.js`
+    - Then just building out each example to re-orient myself.
+  
+
 
 # TO DO ✅ 🟡 🟠
 🟡 `polygons_and_trapezoids` in `_core_examples`
@@ -24,13 +32,13 @@ Update fromVertices See body ~@173
 
 Comment and PUSH
 
-`svg_D_paths_curved` in `_core_examples`
+`svg_d_paths_curved` in `_core_examples`
 - get working for matter x,y
 - get working for matter ox,oy
 - create 3 different angled ramp
 
 (👀"chamfer") `rounded_corners`  in `_core_examples` 
-- already have empty rounded_courners in matter_js_demos
+- already have EMPTY rounded_courners in matter_js_demos
 - https://brm.io/matter-js/demo/#rounded
 
 `borders_rounded_courners` in `_core_examples`
@@ -90,7 +98,7 @@ Cleanup / Breakup _core_examples. Individual `config.js`, etc...
     - Add Drop shaddow inset to background
     - Add curved Object to put in courners (don't add to wall object, that's to specific)
       - Add to walls:`insetCurve: 10` (for all walls, anything else, just use static bodies)
-  - 🌋 moving_static_bodies
+  - 🌋 moving_static_bodies: https://codepen.io/jinjor/pen/XWxvNQL
   - ☄️ options explore
   -⛄️ 🪟 tracking_zone_events
   -?⛄️ 🍡 binding_bodies_in_motion: https://brm.io/matter-js/demo/#collisionFiltering
