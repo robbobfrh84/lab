@@ -1,0 +1,25 @@
+body {
+  text-align: center;
+}
+
+#supporters_container {
+  background-color: rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 1250px;
+  max-height: 800px;
+  margin: auto;
+  text-align: center;
+  box-sizing: border-box; /* * Foreces padding inside */
+  padding: 3px;
+}
+
+.supporter {
+  background-color: rgba(0,0,0,0.1);
+  border-radius: 100%;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.supporter img {
+  border-radius: 100%;
+}
