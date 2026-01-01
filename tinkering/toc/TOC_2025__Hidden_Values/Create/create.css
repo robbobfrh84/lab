@@ -1,0 +1,13 @@
+.create-container {
+  position: relative;
+  margin-top: 5px;
+}
+.create-label {
+  display: inline-block;
+  width: 65px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+.label-row {
+  padding-bottom: 5px;
+}

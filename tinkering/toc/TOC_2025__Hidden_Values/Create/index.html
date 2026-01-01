@@ -1,0 +1,72 @@
+<!DOCTYPE html><html lang='en'>
+<title>TOC - Create</title> 
+
+<head>
+  <meta charset='UTF-8'><meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <link rel='stylesheet' href='../main.css'>
+  <link rel='stylesheet' href='./create.css'>
+</head>
+
+<body>
+
+  <div id="allContainer">
+
+    <header>
+
+      <h1>TOC - Create</h1>
+
+      <h3 id="matchSheetName">. . .</h3>
+
+      <nav class="nav-container">
+        <span>
+          • <a href="../index.html">Home</a>
+        </span>
+        <span>
+          • <a href="../Match/index.html">Match</a>
+        </span>
+        <span>
+          • <a href="https://docs.google.com/spreadsheets/d/1JIXolkM-XXJJdzm33evUv-zXYT6XGuliEZmt4B4UdHw">gSheet</a>
+        </span>
+      </nav>
+
+    </header>
+
+    <div class="create-container"> 
+
+      <div class="label-row">
+        <label class="create-label">name:</label>
+        <input type="text" id="nameInput"> 
+        <span class="small-font"> * Max 16 chars </span> 
+      </div>
+
+      <div class="label-row">
+        <label class="create-label">region:</label>
+        <input type="text" id="regionInput" placeholder="...Highland, Valley, etc...">
+        <span class="small-font"> * Max 16 chars </span> 
+      </div>
+
+      <div class="button-container">
+        <button onclick="createCharecter()" class="green-btn">
+          Create
+        </button> 
+      </div>
+
+      <div id="loader"><div class="spinner"></div></div>
+
+      <div id="createNote"></div>
+
+    </div>
+
+  </div>
+
+</body>
+
+<script src='../Gasup_v1.1.0.js'></script>
+<script src='../getSheet.js'></script>
+<script src='../table/table.js'></script>
+<script src='create.js'></script>
+<script src='../config.js'></script>
+
+
+</html>

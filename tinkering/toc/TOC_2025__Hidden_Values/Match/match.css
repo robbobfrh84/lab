@@ -1,0 +1,33 @@
+.charSelect-container {
+  position: relative;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-align: center;
+  border-top: solid 2px rgba(0,0,0,0.2);
+}
+.divider {
+  text-align: center;
+  margin: 0px;
+}
+#topUserInput, #botUserInput {
+  text-align: center;
+  width: 200px;
+  height: 30px;
+  font-size: 18px;
+}
+.selected-input {
+  border: 6px solid goldenrod !important;
+}
+#charSelect {
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.charButtons {
+  display: block;
+  margin: 5px;
+  width: 200px;
+  height: 35px;
+  font-size: 18px;
+}
