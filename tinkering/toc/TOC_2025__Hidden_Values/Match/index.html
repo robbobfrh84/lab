@@ -31,32 +31,62 @@
       </nav>
 
     </header>
-  
-    <div class="charSelect-container">
 
-      <input id="topUserInput" 
-        placeholder="Type to filter..." 
-        onfocus="clickInInput('top', 'bot')"
-        oninput="filterChars('top')"
-      >
-      <div id="topSelected"></div>
+    <main>
+      
+      <div id="selectContainer">
 
-      <div class="divider"> <span> ----- </span> <span> vs </span> <span> ----- </span> </div>
+        <div id="charSelect"></div>
 
-      <input id="botUserInput" 
-        placeholder="Type to filter..." 
-        onfocus="clickInInput('bot', 'top')"
-        oninput="filterChars('bot')"
-      >
-      <div id="botSelected"></div>
+        <div class="selectInputs">
 
-      <div id="charSelect"></div>
+          <input id="topUserInput" 
+            placeholder="Type to filter..." 
+            onfocus="clickInInput('top', 'bot')"
+            oninput="filterChars('top')"
+          > 
+          <div id="topSelected" class="selectedCharContainer"></div>
+
+          <div class="vsDivider"> ----- vs ----- </div>
+
+          <input id="botUserInput" 
+            placeholder="Type to filter..." 
+            onfocus="clickInInput('bot', 'top')"
+            oninput="filterChars('bot')"
+          >
+          <div id="botSelected" class="selectedCharContainer"></div>
+
+          <div class="match-btn-container">
+            <button class="red-btn btn" onclick="resetInputs()">Clear</button>
+            <button id="officialMatchBtn" class="green-btn btn" aria-disabled="true" onclick="swapViews(true)">Offical Match</button>
+            <button id="sparBtn" class="yellow-btn btn" aria-disabled="true" onclick="swapViews(false)">Spar</button>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div id="matchContainer">
+        <div id="matchCard">
+          <div id="matchTop"></div>
+          <div id="scoreCard">||||</div>
+          <div id="matchBot"></div>
+        </div>
+        <div id="matchTypeLabel"></div>
+        <div id="matchControls">
+          <div>
+            <button class="red-btn btn" onclick="cancelMatch()">Cancel</button>
+          </div>
+          <div>
+            <button class="yellow-btn btn" disabled>Score Rd ></button>
+            <button class="green-btn btn">Finish >></button>
+          </div>
+        </div>
+      </div>
 
       <div id="loader"><div class="spinner"></div></div>
 
-    </div>
-
-    <div id="matchContainer"></div>
+    </main>
 
   </div>
 
@@ -65,6 +95,7 @@
 <script src='../Gasup_v1.1.0.js'></script>
 <script src='../getSheet.js'></script>
 <script src='match.js'></script>
+<script src='simulate.js'></script>
 <script src='../table/table.js'></script>
 <script src='../config.js'></script>
 

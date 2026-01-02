@@ -4,36 +4,51 @@ Google Sheet: https://docs.google.com/spreadsheets/d/1JIXolkM-XXJJdzm33evUv-zXYT
 
 ----
 # Where I left off...
-- Reviewing and updating MVP pitch and ready to remove details page
+- Done with select chars part.
 
 # To Do ✅ 🟠 🟡
-- ✅ Home: Add Calculate Win Percent columns
-- ✅ Add Sheet Name to all pages
-- ✅ Create: Updates, Loading, validating, error handling, etc...
-- ✅ Create Config and add table and Create Page stuff. 
-- 🟡 Prep MVP, See notebook if necissary.
+🟡 Match:
+- ✅ Offical and spar should be disabled to start.
+- ✅ When both chars are selected, enable both buttons.
+- ✅ Create events for both buttons to call and pass 3 vars to `simulate.js`
+- ✅ Disable buttons, and force a clear press to set up again.
+- ✅ Fix how selected chars look
+
+- Fix Styling for both desktop and mobile on Match view!
+  - ✅ Desktop: bolder name, i think that's it.
+  - Mobile: generate all conditions and tinker (DONT FUSS TO MUCH!)
+    - Maximise width.
+
+- Quick fix, when we say "* This table is empty. click [Create]..."
+  - Change that else to an `else if` that check for length of `chars.length > 0`
+  - filtering out everything should just be blank
+  - test for both.
+
+Match Simulate:
+- Ok, we need our decoder! probably need to look up in github!
+
+Table:
+- KISS!
 
 
 # MVP - Simple 3-pages Home, Create, Fight
 
 Pages: (All pages request sheet onload.)
 - Home:   
+  - Finish table 👇
+  - Add Help / directions for creating new sheet (Just an alert box)
+- Table:
   - row for 2x buttons [All] | [Regions] (default: all)
   - Display as Regions with titles and colors
   - Style with mobile in mind.
-- Table:
   - Style (I think you might just need to jump in)
-- Create: 
-  - Style, larger buttons.
+- ✅ Create: 
+  - Match Input Styling?
 - Match: 
-  - Fix Input & Select
-    - 
-  - Create `simulate.js`
-    - Start py just passing 'top' and 'bot'
-  - Make note that you can spar after selecting both chars
-
+  - All being done now ☝️ in To Do section...
 
 Cleanup: readme that MVP1 had been met, and to see "MVP+"
+- Make sure you have directions to create a new sheet somwhere
 
 
 ---

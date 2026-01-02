@@ -1,10 +1,12 @@
 * {
   font-family: Avenir, sans-serif;
+  touch-action: manipulation;
 }
 body {
   height: 100%;
   padding: 5px;
   margin: 0px;
+  touch-action: manipulation;
 }
 #allContainer {
   max-width: 768px;
@@ -55,10 +57,14 @@ h3 {
 }
 input {
   font-size: 16px;
+  touch-action: manipulation;
 }
 button {
   touch-action: manipulation;
   user-select: none;
+}
+a {
+  touch-action: manipulation;
 }
 button[aria-disabled="true"] {
   opacity: 0.5;
@@ -73,32 +79,31 @@ button[aria-disabled="true"] {
   gap: 10px;
   margin-top: 15px;
 }
-.button-container button {
-  padding: 10px 24px;
+
+/* Theme Buttons */
+.btn {
+  margin: 8px;
+  padding: 10px;
   font-size: 16px;
   border-radius: 6px;
   cursor: pointer;
   font-weight: 500;
-  min-width: 120px;
+  width: 180px;
 }
-
-.button-container button:hover {
+.btn:hover {
   opacity: 0.8;
 }
-
 .green-btn {
   background-color: #4CAF50;
   color: white;
   border: 2px solid #45a049;
 }
-
 .yellow-btn {
   background-color: #FFC107;
   color: #333;
   border: 2px solid #FFA000;
 }
-
-.red-button {
+.red-btn {
   background-color: #f44336;
   color: white;
   border: 2px solid #da190b;
@@ -130,3 +135,11 @@ button[aria-disabled="true"] {
   0% { transform: rotate(0deg);}
   100% { transform: rotate(360deg);}
 }
+
+/* Mobile */
+@media (max-width: 768px) {
+  .btn {
+    width: 140px;
+  }
+}
+
