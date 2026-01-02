@@ -1,0 +1,64 @@
+<!DOCTYPE html><html lang='en'>
+<title>TOC - Home</title> 
+
+<head>
+  <meta charset='UTF-8'><meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no'>
+  <link rel='stylesheet' href='./main.css'>
+  <link rel='stylesheet' href='./table/table.css'>
+</head>
+
+<body>
+
+  <div id="allContainer"> 
+
+    <header>
+
+      <h1>TOC - Hidden Values (5x) - Home</h1>
+
+      <h3 id="matchSheetName">. . .</h3>
+
+      <div class="sheetId-container">
+        <label>Sheet Id:</label> 
+        <input type="text" id="sheetIdValue" value=""> <span class="small-font">* localStorage</span> 
+        <button onclick="updateSheedId()">update</button>
+      </div>
+
+      <nav class="nav-container">
+        <span>
+          • <a href="./Create/index.html">Create</a>
+        </span>
+        <span>
+          • <a href="./Match/index.html">Match</a>
+        </span>
+        <span>
+          • <a href="https://docs.google.com/spreadsheets/d/1JIXolkM-XXJJdzm33evUv-zXYT6XGuliEZmt4B4UdHw">gSheet</a>
+        </span>
+      </nav>
+
+    </header>
+
+    <div class="main-container">
+      <main id="table_container"></main>
+      <div id="loader"><div class="spinner"></div></div>
+    </div>
+
+  </div>
+
+</body>
+
+<script src='Gasup_v1.1.0.js'></script>
+<script src='getSheet.js'></script>
+<script src='table/table.js'></script>
+<script src='Create/create.js'></script>
+<script src='Match/match.js'></script>
+<script src='home.js'></script>
+<script src='config.js'></script>
+
+</html>
+
+
+
+
+
+
