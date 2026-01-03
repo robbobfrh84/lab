@@ -85,8 +85,8 @@ const startSimulate = function(top,bot) { // * 👀 ⚠️ Bob, this is your fun
     } else {
       const { die, elm } = getByRollId(lowRoll_s[0], 'pulled')
       Match.rolls = Match.rolls.filter(d => d.id !== die.id)
-      Match.out.push(die) 
-      Match.boxScore.push(die.which === "top" ? "t" : "b")
+      Match.out.push(die) // * PUSH to out. That means loser. lol. I had it reversed
+      Match.boxScore.push(die.which === "top" ? "b" : "t")
       
     }
 
