@@ -27,10 +27,6 @@ const regionsObj = [
 const sexes = ["M","F","U","AM"]
 
 
-/* Simulate Info */
-const Values = [4,6,8,10,12,20]
-
-
 /* Tests */
 const testTop = { // * NOTE Because it's test, it could have been deleted, will need to copy log after pressing "Offical Match".
   "rowId": "r_g4hST1GY_mjus8t3k",

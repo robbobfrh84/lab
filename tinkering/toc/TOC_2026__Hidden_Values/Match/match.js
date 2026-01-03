@@ -3,15 +3,17 @@ let chars = []
 let whichInput = ""
 var topChar = false
 var botChar = false
+let isOffical = false
 
 window.onload = async ()=>{
   /* To Test: De-note "Test" code */
 
   /* Test - see config for test objects */
-  loader.style.display = 'none'
-  topChar = testTop; botChar = testBot; 
-  swapViews(false) // * false for spar match
-  return
+  // loader.style.display = 'none'
+  // topChar = testTop; botChar = testBot; 
+  // swapViews(false) // * false for spar match
+  // // finishSimulation()
+  // return
 
   /* Live */
   sheet = await getSheet()
@@ -99,8 +101,12 @@ const swapViews = function(isOfficalMatch) {
   isOffical = isOfficalMatch
   selectContainer.style.display = 'none'
   matchContainer.style.display = 'block'
+  matchControls.style.display = 'flex'
+  topWinner.innerHTML = ""
+  botWinner.innerHTML = ""
+  scoreCard.innerHTML = "VS"
+  newMatchBtn.style.display = 'none'
   
-  // Set match type label
   const label = document.getElementById('matchTypeLabel')
   if (isOfficalMatch) {
     label.textContent = '• OFFICIAL MATCH •'
@@ -111,7 +117,6 @@ const swapViews = function(isOfficalMatch) {
   }
   
   buildMatch()
-  startSimulate(topChar, botChar, isOffical)
 }
 
 const buildMatch = function() {
@@ -123,7 +128,7 @@ const buildMatch = function() {
     <div class="match-row">
       <div class="match-value name">${topChar.name}</div>
       <div class="match-separator">∙</div>
-      <div class="match-value record">${topChar.wins}-${topChar.losses}</div>
+      <div id="topMatchRecord" class="match-value record">${topChar.wins}-${topChar.losses}</div>
       <div class="match-separator">∙</div>
       <div class="match-value age-sex">${topChar.age}/${topChar.sex}</div>
       <div class="match-separator">∙</div>
@@ -140,7 +145,7 @@ const buildMatch = function() {
     <div class="match-row">
       <div class="match-value name">${botChar.name}</div>
       <div class="match-separator">∙</div>
-      <div class="match-value record">${botChar.wins}-${botChar.losses}</div>
+      <div id="botMatchRecord" class="match-value record">${botChar.wins}-${botChar.losses}</div>
       <div class="match-separator">∙</div>
       <div class="match-value age-sex">${botChar.age}/${botChar.sex}</div>
       <div class="match-separator">∙</div>
@@ -168,11 +173,4 @@ const resetInputs = function() {
   setCharSelect(chars)
   whichInput = 'top'
   topUserInput.focus({ preventScroll: true })
-}
-
-const cancelMatch = function() {
-  resetInputs()
-  selectContainer.style.display = 'flex'
-  matchContainer.style.display = 'none'
-  charSelect.style.display = 'flex'
 }

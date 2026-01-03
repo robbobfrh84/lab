@@ -1,10 +1,11 @@
-const startSimulate = function(top,bot,isOffical) { // * 👀 ⚠️ Bob, this is your func that will need to be in a server.
-  console.log('isOffical:',isOffical)
+const Values = [4,6,8,10,12,20] // * decodes Die value, so 1 is a d6, 6 is a d20
+
+const startSimulate = function(top,bot) { // * 👀 ⚠️ Bob, this is your func that will need to be in a server.
 
   /* Prep Match Object */
   const Match = { 
-    top: top, 
-    bot: bot, 
+    top: JSON.parse(JSON.stringify(top)), 
+    bot: JSON.parse(JSON.stringify(bot)), 
     rolls: [],
     out: [],
     boxScore: [], // * 't' = 'top' ,'b' = "bot", '-'="tie"
@@ -30,13 +31,16 @@ const startSimulate = function(top,bot,isOffical) { // * 👀 ⚠️ Bob, this i
     winner = checkWinner()
   }
   Match.winner = winner
-  Match.score = "5-"+Math.min(Match.boxScore.filter(s => s === 't').length, Match.boxScore.filter(s => s === 'b').length) 
+  const loser = winner === "top" ? "bot" : "top"
 
-  console.log('Match:', Match)
-  console.log('Match.winner:', Match.winner)
-  console.log('Match.scoreCard:', Match.boxScore)
-  console.log('Match.score:', Match.score)
-
+  return {
+    winner: winner,
+    loser: loser,
+    winnerObj: winner === "top" ? top : bot,
+    loserObj: loser === "top" ? top : bot,
+    boxScore: Match.boxScore,
+    score: "5-"+Math.min(Match.boxScore.filter(s => s === 't').length, Match.boxScore.filter(s => s === 'b').length) 
+  }
 
   /* ✨ Closure Methods ✨ */
   function prepMatch(attributes, iStart, dice = []) {
@@ -67,7 +71,7 @@ const startSimulate = function(top,bot,isOffical) { // * 👀 ⚠️ Bob, this i
     Match.rolls.sort((a, b) => a.rolled - b.rolled)
 
     const inRolls = Match.rolls.filter(item => item.state === 'in').sort((a, b) => a.rolled - b.rolled)
-    console.log('inRolls:',inRolls)
+    // console.log('inRolls:',inRolls)
 
     let lowRoll_s = Match.rolls.filter(item => item.rolled === inRolls[0].rolled)
     lowRoll_s.sort((a, b) => a.value - b.value)
@@ -75,41 +79,15 @@ const startSimulate = function(top,bot,isOffical) { // * 👀 ⚠️ Bob, this i
     // console.log('lowRoll_s:', lowRoll_s)
 
     if (lowRoll_s.length > 1) {
-      console.log('1) Tie lowRoll_s.length > 1')
-      lowRoll_s.forEach( lowDie => {
-        const { die, elm } = getByRollId(lowDie, 'canceled')
-        // updateDieUI( die, elm)
-      })
-      if (lowRoll_s.length == inRolls.length) {
-        console.log('TIE! lowRoll_s.length == inRolls.length')  
-        // handleTie()
-      }
       Match.boxScore.push('-')
     } else if (oneSided(inRolls)) { 
-      console.log('TIE: oneSided(inRolls)')  
-      // handleTie() 
       Match.boxScore.push('-')
     } else {
       const { die, elm } = getByRollId(lowRoll_s[0], 'pulled')
       Match.rolls = Match.rolls.filter(d => d.id !== die.id)
       Match.out.push(die) 
-
       Match.boxScore.push(die.which === "top" ? "t" : "b")
-
-      // updateDieUI(die, elm)
-      // updateResultsUI(die)
-
-      // const winner = checkWinner()
-
-      if (checkWinner()) {
-        // updateButtonUI('disabled')
-        // updateWinnerResultUI(winner)
-        console.log('⭐️ WINNER')
-      } 
-      // else {
-      //   // updateButtonUI('clear', die, elm)
-      //   console.log('3) no winner yet')
-      // }
+      
     }
 
   }
@@ -135,31 +113,15 @@ const startSimulate = function(top,bot,isOffical) { // * 👀 ⚠️ Bob, this i
     } else { return false }
   }
 
-  // function clearDice(pulledDie, elm) {
   function clearDice() {
     Match.rolls.forEach(die => {
       die.rolled = '?'
       die.state = 'in'
     })
-    // pulledDie.state = 'out'
-    // updateRolledDice()
-    // if (pulledDie) { updateDieUI(pulledDie, elm) }
-    // updateButtonUI('roll')
   }
-
-  // function handleTie() {
-  //   updateResultsUI('-')
-  //   updateButtonUI('clear', false, false)
-  //   updateTieResultUI()
-  // }
 
   /* Toolkit */
   function r(min, max) { return Math.floor(Math.random() * (max - min + 1) + min) }
-
-}
-
-// 🔥 MAYBE MOVE BACK TO match.js
-function updateResults() {
 
 }
 

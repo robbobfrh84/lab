@@ -7,21 +7,7 @@ Google Sheet: https://docs.google.com/spreadsheets/d/1JIXolkM-XXJJdzm33evUv-zXYT
 - 
 
 # To Do ✅ 🟠 🟡
-🟡 Match Simulate:
-- create Match.scoreCard
-- create Match.winner as object
-- Visualize
-  - Put back into match.js
-- Update GAS Up object
-- Now make it so you have to press `Finish >>` to get current results
-- Now, make `Score Rd`
-
-TEST:
-- make sure your confident with
-  - Always correct top/bot
-  - correct rolls being used
-  - roll new each time
-- Then log the decoded values and test a few to make sure it all looks right.
+✅ Match Simulate:
 
 Table:
 - KISS!

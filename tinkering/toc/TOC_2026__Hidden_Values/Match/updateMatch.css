@@ -1,0 +1,49 @@
+.results-container {
+  padding: 10px;
+}
+.winner-container {
+  font-size: 24px;
+  text-align: center;
+  /* padding: 10px; */
+}
+#scoreCard {
+  padding: 5px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+}
+.score-col {
+  display: inline-block;
+  margin-left: 1px;
+  margin-right: 1px;
+}
+.score-dot {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: green;
+}
+.score-dot-top {
+  margin-bottom: 5px;
+}
+.lose-dot {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: rgba(0,0,0,0.1);
+}
+.score-tie {
+  width: 4px;
+  height: 25px;
+  margin: 5px 1px;
+  background-color: rgba(0,0,0,0.25);
+  border-radius: 3px;
+}
+
+@media (max-width: 480px) {
+  .winner-container {
+    font-size: 20px;
+  }
+}

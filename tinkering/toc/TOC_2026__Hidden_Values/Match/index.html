@@ -6,6 +6,7 @@
   <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no'>
   <link rel='stylesheet' href='../main.css'>
   <link rel='stylesheet' href='./match.css'>
+  <link rel='stylesheet' href='./updateMatch.css'>
 </head>
 
 <body>
@@ -69,19 +70,25 @@
       <div id="matchContainer">
         <div id="matchCard">
           <div id="matchTop"></div>
-          <div id="scoreCard">||||</div>
+          <div class="results-container">
+            <div id="topWinner" class="winner-container"></div>
+            <div id="scoreCard">VS</div>
+            <div id="botWinner" class="winner-container"></div>
+          </div>
           <div id="matchBot"></div>
         </div>
         <div id="matchTypeLabel"></div>
         <div id="matchControls">
-          <div>
+          <div class="match-controls-left">
             <button class="red-btn btn" onclick="cancelMatch()">Cancel</button>
           </div>
-          <div>
-            <button class="yellow-btn btn" disabled>Score Round ></button>
-            <button class="green-btn btn">Finish >></button>
+          <div class="match-controls-right">
+            <button class="yellow-btn btn" onclick="scoreRoundSimulation()">Score Round ></button>
+            <button class="green-btn btn" onclick="finishSimulation()">Finish >></button>
           </div>
+          <div id="updateLoader"><div class="spinner"></div></div>
         </div>
+        <button id="newMatchBtn" class="red-btn btn" onclick="cancelMatch()">New Match</button>
       </div>
 
       <div id="loader"><div class="spinner"></div></div>
@@ -97,6 +104,7 @@
 <script src='../getSheet.js'></script>
 <script src='match.js'></script>
 <script src='simulate.js'></script>
+<script src='updateMatch.js'></script>
 <script src='../table/table.js'></script>
 <script src='../config.js'></script>
 

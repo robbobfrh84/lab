@@ -2,6 +2,9 @@ const readyMatch = function() {
   Match.rolls = []
   Match.top.dice.forEach((die, i)=>{ setRollDie(die, i, 'top') })
   Match.bot.dice.forEach((die, i)=>{ setRollDie(die, i, 'bot')})
+
+  console.log('Match:',Match)
+
   updateRolledDice()
   updateButtonUI('roll')
 }  
