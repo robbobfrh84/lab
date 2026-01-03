@@ -51,9 +51,9 @@ function doScore(match) {
   if (match.boxScore[round] === "-") {
     round++
     doScore(match)
+  } else {
+    round++
   }
-
-  round++
 
   if (match.boxScore.length <= round) {
     round = 0
