@@ -142,6 +142,8 @@ const setTable = function(data) {
     }
     
     let tableHTML = '<table><thead><tr>'
+    // Add non-sortable row number column
+    tableHTML += `<th class="row-number-header" style="${headerStyle}">#</th>`
     tableColumns.forEach(col => { 
       const isActive = currentSort.column === col.name
       const activeClass = isActive ? 'sorted-header' : ''
@@ -153,9 +155,11 @@ const setTable = function(data) {
     })
     tableHTML += '</tr></thead><tbody>'
     
-    sortedRows.forEach(row => {
+    sortedRows.forEach((row, index) => {
       const region = regionsObj.find(r => r.name === row.region)
       tableHTML += `<tr data-region="${row.region || ''}" style="border-bottom-color: ${borderColor};">`
+      // Add row number cell
+      tableHTML += `<td class="row-number" style="border-bottom-color: ${borderColor};">${index + 1}</td>`
       tableColumns.forEach(col => {
         let value = ''
         if (col.func) {

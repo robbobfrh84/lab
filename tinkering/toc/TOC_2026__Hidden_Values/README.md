@@ -3,7 +3,7 @@
 Google Sheet: https://docs.google.com/spreadsheets/d/1JIXolkM-XXJJdzm33evUv-zXYT6XGuliEZmt4B4UdHw/edit?gid=242964432#gid=242964432
 
 # How it works...
-- You just go to the Google Sheet, copy the TEMPLATE, then go to the /Home page and update the sheetId from the end of the url, usually 10 numbers long.
+- You just go to the Google Sheet, copy the TEMPLATE, then go to the /Home page and update the sheetId from the end of the url, usually 8-10 numbers long.
 
 ----
 # Where I left off...
