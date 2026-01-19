@@ -8,6 +8,9 @@ var pages = [ // * MUST be var, need to access it via window[...]
   { folder: 'petri_dish', route: 'website/pages/', mobile: true, },
   { folder: 'honeycomb_color_picker', route: 'website/pages/', mobile: true, tweet: "https://twitter.com/BobMain49/status/1155541132702552065"},
   { folder: 'party_text', route: 'website/pages/', mobile: true, tweet: "https://twitter.com/BobMain49/status/775727232035663872", threads: "https://www.threads.net/@earth_to_bob_/post/CyojtOFuamt"},
+  { name: 'AI Holiday Shopper', route: 'https:/tobob.earth/AI_Shopper/', mobile: true, bsky: 'https://bsky.app/profile/tobob.earth/post/3m6idlcpwyk2l'}, 
+  { name: 'Over One-Thousand Simulations', route: 'https:/tobob.earth/1000simulations/', mobile: true, bsky: 'https://bsky.app/profile/tobob.earth/post/3mcneioo5y22g'}, 
+
   // { folder: '', route: 'website/pages/' },
 ]
 
@@ -27,14 +30,11 @@ var other = [ // * MUST be var, need to access it via window[...]
     sheet: "https://docs.google.com/spreadsheets/d/1KrabEzohbEZwELTIqE7cRjLIQaGJFS95I2qR5mw4FpU/edit#gid=685369503",
     github: "https://github.com/robbobfrh84/gas-up/tree/master/examples/top5",
     tweet: "https://twitter.com/BobMain49/status/1464329706807824387"},
-  { name: "bob.farm: Repository (lab)", route: "https://github.com/robbobfrh84/lab", mobile: true, }
-
+  { name: "bob.farm: Repository (lab)", route: "https://github.com/robbobfrh84/lab", mobile: true, },
 ]
 
 var local = [ // * MUST be var, need to access it via window[...]
   { name: "Jar Lights", route: 'http://10.0.0.161/', mobile: true, },
-  { name: "tinkering", route: '/tinkering', mobile: true, },
-
 ]
 
 var more = [ // * MUST be var, need to access it via window[...] 
