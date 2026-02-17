@@ -9,6 +9,7 @@ const tableColumns = [
 ]
 
 const regionsObj = [
+  // TOC - Hidden Values 2026
   { name: 'Highland', color: '#de891aff', font: 'white'},
   { name: 'Woodland', color: '#6B8E4E', font: 'white'},
   { name: 'Valley', color: '#a74391ff', font: 'white'},
@@ -22,6 +23,11 @@ const regionsObj = [
   { name: 'Tundra', color: '#B8D8E8', font: 'black'},
   { name: 'Jungle', color: '#1B4D2E', font: 'white'},
   { name: 'Volcanic', color: '#C14520', font: 'white'},
+  // Racers
+  { name: 'West', color: '#de891aff', font: 'white'},
+  { name: 'Midwest', color: '#C14520', font: 'white'},
+  { name: 'South', color: '#2D5A2E', font: 'white'},
+  { name: 'Atlantic', color: '#2EB8D4', font: 'black'},
 ]
 
 const sexes = ["M","F","U","AM"]
