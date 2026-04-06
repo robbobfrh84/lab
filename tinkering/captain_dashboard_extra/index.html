@@ -1,0 +1,66 @@
+<head>
+  <meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=0.6">
+</head>
+
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/HeaderEffect.css">
+<link rel="stylesheet" href="css/BackgroundEffect.css">
+<title> Captain Dashboard </title>
+<body>
+  <canvas id='backgroundCanvas'></canvas>
+
+  <div id="captainDashboard">
+
+
+    <div id="signIn">
+      <div id="captainNameTitle"> Captain name: </div>
+
+      <div class="input-box draw-box-container">
+        <div id="blinkingCursor">.</div>
+        <input id="inputName" type="text" placeholder="">
+        <canvas class='draw-box'></canvas>
+      </div>
+
+      <button id="goArrow">
+        &#187; GO &#187;
+      </button>
+    </div>
+
+
+    <div class="dashboard">
+      <div id="dashLine" >
+        <div id="sliderIcon">*</div>
+        <input id="slider" type="range" value="505" min="10" max="1000" >
+      </div>
+
+      <div id="warpSpeed" class="type"> warp speed </div>
+      <div id="breakWarp" class="divide"> ◁ </div>
+
+      <div id="dayNight">
+        <div id="sun" class='toggle'>
+          <img src="gfx/sun.png" alt="sun" class='toggle-images'>
+        </div>
+        <div id="moon" class="toggle off">
+          <img src="gfx/moon.png" alt="moon" class='toggle-images'>
+        </div>
+      </div>
+
+      <div id="fullSpeed" class="divide"> ▷ </div>
+      <div id="racers" class="type"> light racers </div>
+    </div>
+
+
+  </div>
+
+
+  <canvas id="headerCanvas" height='100'></canvas>
+  <div id='captainName'></div>
+
+
+</body>
+
+<script src="Canvas.js" ></script>
+<script src="BackgroundEffect.js"></script>
+<script src="HeaderEffect.js" ></script>
+<script src="app.js" ></script>

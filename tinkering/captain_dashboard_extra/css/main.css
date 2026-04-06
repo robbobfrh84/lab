@@ -1,0 +1,194 @@
+body {
+  background: url("../gfx/bg3.png");
+  font-family: Avenir;
+  text-align: center;
+  overflow: hidden;
+  color: rgba(0,0,0,0.75);
+  transition: background 4s;
+  margin: 0px;
+  padding: 0px;
+}
+.draw-box-container {
+  position: relative;
+}
+.draw-box {
+  position: absolute;
+  top: -5px;
+  left: -4px;
+  pointer-events: none;
+}
+
+/*
+  🎖 * 🎖 * 🎖 * 🎖 * 🎖 * DASHBOARD * 🎖 * 🎖 * 🎖 * 🎖 * 🎖 *
+*/
+
+#captainDashboard {
+  padding-top: 30px;
+  opacity: 0;
+  transition: opacity 1s;
+}
+
+/*
+  ✍️ * ✍️ * ✍️ * ✍️ * ✍️ * ✍️ * Sign In * ✍️ * ✍️ * ✍️ * ✍️ * ✍️ * ✍️
+*/
+
+#signIn {
+  opacity: 1;
+  transition: opacity 1s;
+}
+#captainNameTitle {
+  font-size: 20
+}
+.input-box {
+  width: 390px;
+  margin: auto;
+  margin-top: 50px;
+}
+#inputName {
+  background-color: rgba(0,0,0,0.1);
+  font-size: 30px;
+  color: #cba;
+  opacity: 0;
+  border: none;
+  padding-left: 10px;
+  margin: 0;
+  width: 390px;
+  height: 50px
+}
+/* ARROW BUTTON */
+#goArrow {
+  position: relative;
+  color: rgba(100,149,237,0.75);
+  width: 170px;
+  background-color: transparent;
+  cursor: pointer;
+  border: none;
+  height: 50px;
+  margin-top: 50px;
+  border-radius: 25px;
+  outline: none;
+  font-size: 200%;
+  transition: box-shadow 0.3s, background-color 0.3s;
+}
+#goArrow:focus {
+  box-shadow: 0 0 3px 2px rgba(200,0,0,0.6);
+  transition: box-shadow 0.3s;
+}
+#goArrow:hover {
+  box-shadow: 0 0 3px 2px rgba(200,0,0,0.6);
+  transition: box-shadow 0.3s;
+}
+/* 🚀 SCIFI CURSOR 🚀 */
+#blinkingCursor {
+  position: absolute;
+  background-color: rgba(200,0,0,0.6);
+  color: rgba(0,0,0,0);
+  top: 5px;
+  left: 10px;
+  width: 16px;
+  height: 40px;
+  display: none;
+  animation: 1s blink step-end infinite;
+}
+@-webkit-keyframes "blink" {
+  from, to {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+/*
+  🎛 * 🎛 * 🎛 * 🎛 * 🎛 * 🎛 * DASHBOARD * 🎛 * 🎛 * 🎛 * 🎛 * 🎛 * 🎛
+*/
+
+.dashboard {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+}
+#dashLine {
+  width: 310px;
+  text-align: center;
+  margin: auto;
+  background-color: rgba(0,0,0,0.5);
+  height: 2px;
+  border-radius: 100%;
+  margin-bottom: 7px;
+  transition: color 4s, background-color 4s;
+}
+#slider {
+  position: relative;
+  top: -21px;
+  left: -5px;
+  width: 322px;
+  opacity: 0;
+  cursor: pointer;
+}
+#sliderIcon {
+  position: relative;
+  top: -5px;
+  left: 150px;
+  font-size: 20px;
+  color: rgba(215,235,255,0.5);
+  background-color: rgba(116,100,100,1);
+  width: 13px;
+  height: 13px;
+  line-height: 21px;
+  letter-spacing: 0.2px;
+  border-radius: 100%;
+  user-select: none;
+}
+.type {
+  display: inline-block;
+  cursor: pointer;
+  padding: 7px;
+  width: 100px;
+  transition: color 4s, background-color 0.3s;
+}
+.type:hover {
+  background-color: rgba(0,0,0,0.1);
+  border-radius: 3px;
+  transition: background-color 0.3s;
+}
+.divide {
+  display: inline-block;
+  letter-spacing: 3px;
+  padding-left: 7px;
+  padding-right:  5px;
+  transition: color 4s;
+  cursor: pointer;
+}
+#dayNight {
+  display: inline-block;
+  cursor: pointer;
+  position: relative;
+  top: 2px;
+  background-color: rgba(0,0,0,0.2);
+  box-shadow: inset 2px 2px 2px rgba(0,0,0,0.4);
+  margin-left: 15px;
+  margin-right: 15px;
+  border-radius: 11px;
+  height: 22px;
+  width: 60px;
+  line-height: 20px;
+  transition: background-color 4s;
+}
+.toggle {
+  position: relative;
+  display: inline-block;
+  top: 2px;
+}
+.toggle-images {
+  width: 17px;
+}
+#sun {
+  left: -8px;
+  transition: left 2s;
+  transition-timing-function: cubic-bezier(0,0,0.2,1);
+}
+#moon {
+  left: 8px;
+  opacity: 0.8
+}
