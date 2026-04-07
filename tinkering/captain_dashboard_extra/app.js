@@ -24,7 +24,7 @@ function start() {
     linesCnt: 1000, // 250
     lineS: ()=>( _rand(1, 10) ),
     lineW: ()=>( _rand(25, 300) ), // 300
-    colorsNight: ()=>( [160+_rand(-20,20), 170+_rand(-20,20), 200+_rand(-20,20)] ),
+    colorsNight: ()=>( [130+_rand(-20,20), 170+_rand(-20,20), 200+_rand(-20,20)] ),
     colorsDay: ()=>( [100+_rand(-20,20), 100+_rand(-20,20), 130+_rand(-20,20)] ),
     pause: false,
   })
