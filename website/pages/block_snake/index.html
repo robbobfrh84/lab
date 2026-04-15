@@ -1,0 +1,60 @@
+<!DOCTYPE html><html lang='en'>
+<title>Block Snake</title>
+<link rel='icon' href='assets/bob8x8_headband.png'> 
+<head>
+  <meta charset='UTF-8'><meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <link rel='stylesheet' href='css/main.css'>
+</head>
+<body>
+
+  <div class="grid-container">
+
+    <div id="start_restart_btn" class="nav-info-overlay">
+      <span> Click or Tap <br/> to <br/> START</span>
+    </div>
+
+    <h1>Block Snake</h1>
+
+    <section class="info-section">
+      <div>High Score: <span id="highScore"></span></div>
+      <div>Score: <span id="score"></span></div>
+    </section>
+
+    <div id="grid1" class="grid"></div>
+
+    <section class="controller-section">
+      <div class="arrow-container">
+
+        <div class="leftRight-container">
+          <button id="ArrowLeftBtn" class="arrowBtn left">◀</button>
+        </div>
+
+        <div class="upDown-container">
+          <button id="ArrowUpBtn" class="arrowBtn up">▲</button>
+          <button id="ArrowDownBtn" class="arrowBtn down">▼</button>
+        </div>
+
+        <div class="leftRight-container">
+          <button id="ArrowRightBtn" class="arrowBtn right">▶</button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- <div style="position:relative; width:120px; height:120px; margin:8px auto; background:rgba(255,255,255,0.2); border-radius:3px;">
+      <button id="dpUp"    style="position:absolute;inset:0;width:100%;height:100%;background:rgba(0,0,0,0.8);border:none;cursor:pointer;clip-path:polygon(2px 0%, calc(100% - 2px) 0%, 50% calc(50% - 2px));"></button>
+      <button id="dpDown"  style="position:absolute;inset:0;width:100%;height:100%;background:rgba(0,0,0,0.8);border:none;cursor:pointer;clip-path:polygon(2px 100%, calc(100% - 2px) 100%, 50% calc(50% + 2px));"></button>
+      <button id="dpLeft"  style="position:absolute;inset:0;width:100%;height:100%;background:rgba(0,0,0,0.8);border:none;cursor:pointer;clip-path:polygon(0% 2px, 0% calc(100% - 2px), calc(50% - 2px) 50%);"></button>
+      <button id="dpRight" style="position:absolute;inset:0;width:100%;height:100%;background:rgba(0,0,0,0.8);border:none;cursor:pointer;clip-path:polygon(100% 2px, 100% calc(100% - 2px), calc(50% + 2px) 50%);"></button>
+    </div> -->
+
+  </div>
+</body>
+<script src='settings.js'></script>
+<script src='build.js'></script>
+<script src='events.js'></script>
+<script src='game.js'></script>
+<script> build() </script>
+</html>
+

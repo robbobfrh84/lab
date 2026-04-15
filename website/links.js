@@ -8,6 +8,7 @@ var pages = [ // * MUST be var, need to access it via window[...]
   { folder: 'petri_dish', route: 'website/pages/', mobile: true, },
   { folder: 'honeycomb_color_picker', route: 'website/pages/', mobile: true, tweet: "https://twitter.com/BobMain49/status/1155541132702552065"},
   { folder: 'party_text', route: 'website/pages/', mobile: true, tweet: "https://twitter.com/BobMain49/status/775727232035663872", threads: "https://www.threads.net/@earth_to_bob_/post/CyojtOFuamt"},
+  { folder: 'block_snake', route: 'website/pages/', mobile: true, tweet: "https://twitter.com/BobMain49/status/775727232035663872", },
   { name: 'AI Holiday Shopper', route: 'https://tobob.earth/AI_Shopper/', mobile: true, bsky: 'https://bsky.app/profile/tobob.earth/post/3m6idlcpwyk2l'}, 
   { name: 'Over One-Thousand Simulations', route: 'https://tobob.earth/1000simulations/', mobile: true, bsky: 'https://bsky.app/profile/tobob.earth/post/3mcneioo5y22g'}, 
 
