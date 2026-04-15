@@ -47,12 +47,17 @@
       </div>
     </section>
 
-    <!-- <div style="position:relative; width:120px; height:120px; margin:8px auto; background:rgba(255,255,255,0.2); border-radius:3px;">
-      <button id="dpUp"    style="position:absolute;inset:0;width:100%;height:100%;background:rgba(0,0,0,0.8);border:none;cursor:pointer;clip-path:polygon(2px 0%, calc(100% - 2px) 0%, 50% calc(50% - 2px));"></button>
-      <button id="dpDown"  style="position:absolute;inset:0;width:100%;height:100%;background:rgba(0,0,0,0.8);border:none;cursor:pointer;clip-path:polygon(2px 100%, calc(100% - 2px) 100%, 50% calc(50% + 2px));"></button>
-      <button id="dpLeft"  style="position:absolute;inset:0;width:100%;height:100%;background:rgba(0,0,0,0.8);border:none;cursor:pointer;clip-path:polygon(0% 2px, 0% calc(100% - 2px), calc(50% - 2px) 50%);"></button>
-      <button id="dpRight" style="position:absolute;inset:0;width:100%;height:100%;background:rgba(0,0,0,0.8);border:none;cursor:pointer;clip-path:polygon(100% 2px, 100% calc(100% - 2px), calc(50% + 2px) 50%);"></button>
-    </div> -->
+    <!-- * 📱 Mobile 📱  -->
+    <section class="dpad-section">
+      <button id="dpUp"    class="dpBtn up"><div>▲</div></button>
+      <button id="dpDown"  class="dpBtn down"><div>▼</div></button>
+      <button id="dpLeft"  class="dpBtn left">
+        <div style="transform: rotate(-90deg);">▲</div>
+      </button>
+      <button id="dpRight" class="dpBtn right">
+        <div style="transform: rotate(90deg);">▲</div>
+      </button>
+    </section>
 
   </div>
 </body>

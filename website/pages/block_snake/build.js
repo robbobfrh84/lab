@@ -124,6 +124,13 @@ const placeFood = function(food) {
   })
 }
 
+
+/* �🛠️ Toolkit 🛠️ */
+random = function(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min)
+}
+
+
 /* 📱 Mobile 📱 */
 const isMobile = function() {
   return window.innerWidth <= 600 || ('ontouchstart' in window)
@@ -132,15 +139,9 @@ const isMobile = function() {
 const fitGridToWindow = function() {
   const available = window['grid1'].clientWidth
   const newBlockSize = Math.floor((available - (S.gridSize.c - 1) * S.blockGap) / S.gridSize.c)
-  console.log('newBlockSize:',newBlockSize)
   if (newBlockSize < S.blockSize) {
     S.blockSize = newBlockSize
     placeCSS()
     buildGrid()
   }
-}
-
-/* �🛠️ Toolkit 🛠️ */
-random = function(min, max) {
-  return Math.floor(Math.random() * (max - min + 1) + min)
 }

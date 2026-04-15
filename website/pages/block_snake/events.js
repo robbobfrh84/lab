@@ -9,6 +9,7 @@ const addEvents = function(game) {
   ArrowDownBtn.addEventListener('click', ()=>{ game.updateMoveLoc({ axis: 'r', dir: 1 }, 'Down', false) })
   ArrowLeftBtn.addEventListener('click', ()=>{game.updateMoveLoc({ axis: 'c', dir: -1 }, 'Left', false) })
 
+
   // * Arrow keyboard press
   document.addEventListener('keydown', (e)=>handleArrowKey(e, true))
   document.addEventListener('keyup', (e)=>handleArrowKey(e, false))
@@ -29,5 +30,12 @@ const addEvents = function(game) {
     }
   }
 
+
+  /* 📱 Mobile 📱 */
+  dpUp.addEventListener('pointerdown',    (e)=>{ e.preventDefault(); game.updateMoveLoc({ axis: 'r', dir: -1 }, 'Up',    false) })
+  dpRight.addEventListener('pointerdown', (e)=>{ e.preventDefault(); game.updateMoveLoc({ axis: 'c', dir:  1 }, 'Right', false) })
+  dpDown.addEventListener('pointerdown',  (e)=>{ e.preventDefault(); game.updateMoveLoc({ axis: 'r', dir:  1 }, 'Down',  false) })
+  dpLeft.addEventListener('pointerdown',  (e)=>{ e.preventDefault(); game.updateMoveLoc({ axis: 'c', dir: -1 }, 'Left',  false) })
+ 
 }
 

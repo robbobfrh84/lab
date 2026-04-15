@@ -5,6 +5,7 @@ class Game {
     this.respawnCountdowns = []
     this.snake = S.snake.map(s=>({...s}))
     this.moveLoc = S.starting_direction
+    this.setMoveLocation = this.moveLoc
     this.gameState = "ready"
     this.getOpenBlocks()
     this.setStartingFood()

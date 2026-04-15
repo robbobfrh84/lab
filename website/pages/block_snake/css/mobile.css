@@ -1,5 +1,15 @@
 /* Mobile */
+
+.dpad-section {
+  display: none;
+}
+
 @media (max-width: 600px), (pointer: coarse) {
+
+  * {
+    user-select: none;
+    -webkit-user-select: none;
+  }
 
   html, body {
     overflow: hidden;
@@ -14,6 +24,60 @@
   .grid-container {
     width: 100%;
     box-sizing: border-box;
+  }
+
+  .grid {
+    margin-top: 5px;
+  }
+
+  .controller-section {
+    display: none;
+  }
+
+  .dpad-section {
+    display: block;
+    position: relative;
+    width: 250px;
+    height: 250px;
+    margin: 8px auto;
+    border-radius: 3px;
+  }
+
+  .dpBtn {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    border: none;
+    cursor: pointer;
+    color: rgba(255,255,255,0.5);
+    -webkit-tap-highlight-color: transparent;
+    touch-action: none;
+  }
+  .dpBtn:active {
+    background: rgba(0,0,0,0.25);
+  }
+  .dpBtn div {
+    position: relative;
+    font-size: 40px;
+  }
+  .dpBtn.up div { top: -75px; }
+  .dpBtn.right div { right: -75px; }
+  .dpBtn.down div { top: 75px; }
+  .dpBtn.left div { left: -75px; }
+
+  #dpUp    { 
+    clip-path: polygon(3px 0%, calc(100% - 3px) 0%, 50% calc(50% - 3px)); 
+  }
+  #dpDown  { 
+    clip-path: polygon(3px 100%, calc(100% - 3px) 100%, 50% calc(50% + 3px)); 
+  }
+  #dpLeft  { 
+    clip-path: polygon(0% 3px, 0% calc(100% - 3px), calc(50% - 3px) 50%); 
+  }
+  #dpRight { 
+    clip-path: polygon(100% 3px, 100% calc(100% - 3px), calc(50% + 4px) 50%); 
   }
 
 }
