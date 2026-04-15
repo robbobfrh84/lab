@@ -1,13 +1,14 @@
 const build = function() { // * 👀 Order matters!
   placeHighScore()
   placeCSS()
+  if (isMobile()) { fitGridToWindow() }
   const game = new Game()
   addEvents(game)
   game.readyGame()
 }
 
 const placeCSS = function() {
-  grid1.style.gridTemplateColumns = `repeat(${S.gridSize.c}, 1fr)`
+  grid1.style.gridTemplateColumns = `repeat(${S.gridSize.c}, ${S.blockSize}px)`
   grid1.style.gap = S.blockGap+'px'
 }
 
@@ -84,7 +85,7 @@ const handleGameOver = function(snake, score) {
 
 }
 
-const placeHighScore = function() {
+const placeHighScore = function() { // This could be toolkit.js
   if (localStorage.getItem('blockSnakeHighScore') === null) {
     localStorage.setItem('blockSnakeHighScore', 0)
   }
@@ -123,7 +124,23 @@ const placeFood = function(food) {
   })
 }
 
-/* 🛠️ Toolkit 🛠️ */
+/* 📱 Mobile 📱 */
+const isMobile = function() {
+  return window.innerWidth <= 600 || ('ontouchstart' in window)
+}
+
+const fitGridToWindow = function() {
+  const available = window['grid1'].clientWidth
+  const newBlockSize = Math.floor((available - (S.gridSize.c - 1) * S.blockGap) / S.gridSize.c)
+  console.log('newBlockSize:',newBlockSize)
+  if (newBlockSize < S.blockSize) {
+    S.blockSize = newBlockSize
+    placeCSS()
+    buildGrid()
+  }
+}
+
+/* �🛠️ Toolkit 🛠️ */
 random = function(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min)
 }

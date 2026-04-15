@@ -7,16 +7,17 @@ body {
   min-height: 100vh;
   display: flex;
   justify-content: center;
-  background-color: #212121;
   padding-top: 30px;
+  /* background-color: rgba(0,0,0,0.1); */
+  background-color: #212121;
 }
 .grid-container {
   position: relative;
   height: 100%;
   padding: 10px;
+  border-radius: 3px;
   /* background-color: rgba(0,0,0,0.2); */
   background-color: rgba(255,255,255,0.25);
-  border-radius: 3px;
 }
 h1 {
   margin: 0px;
@@ -33,6 +34,8 @@ h1 {
 }
 .grid {
   display: grid;
+  margin: 0 auto;
+  justify-content: center;
 }
 .block { 
   /* NOTE: Background color set in settins.js */
@@ -49,8 +52,8 @@ h1 {
   align-items: center;
   justify-content: center;
   position: absolute;
+  top: 150px;
   left: 50%;
-  top: 50%;
   transform: translate(-50%, -50%);
   width: 185px;
   height: 100px;

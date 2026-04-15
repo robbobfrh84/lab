@@ -1,7 +1,7 @@
 const addEvents = function(game) {
 
   // * Start / Restart Button
-  start_restart_btn.addEventListener('click', ()=>{ game.start()})
+  start_restart_btn.addEventListener('click', ()=>{ game.start() })
 
   // * Arrow mouse clicks
   ArrowUpBtn.addEventListener('click', ()=>{ game.updateMoveLoc({ axis: 'r', dir: -1 }, 'Up', false) })
