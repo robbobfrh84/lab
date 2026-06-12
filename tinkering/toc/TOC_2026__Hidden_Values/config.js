@@ -12,7 +12,6 @@ const regionsObj = [
   // TOC - Hidden Values 2026
   { name: 'Highland', color: '#de891aff', font: 'white'},
   { name: 'Woodland', color: '#6B8E4E', font: 'white'},
-  { name: 'Forest', color: '#557938', font: 'white'},
   { name: 'Valley', color: '#a74391ff', font: 'white'},
   { name: 'Coastal', color: '#e6d972ff', font: 'black'},
   { name: 'Islands', color: '#2EB8D4', font: 'black'},
