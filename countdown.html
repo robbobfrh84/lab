@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Time Window</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #09090f;
+      color: #e0e0f0;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card {
+      background: linear-gradient(160deg, #141426 0%, #0f0f1e 100%);
+      border: 1px solid #22224a;
+      border-radius: 24px;
+      padding: 44px 40px 36px;
+      width: 360px;
+      text-align: center;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255,255,255,0.04);
+      position: relative;
+    }
+
+    .eyebrow {
+      font-size: 10px;
+      letter-spacing: 3.5px;
+      text-transform: uppercase;
+      color: #55558a;
+      margin-bottom: 14px;
+    }
+
+    .date-range {
+      font-size: 14px;
+      color: #7070a8;
+      line-height: 1.9;
+      margin-bottom: 36px;
+    }
+
+    .date-range strong {
+      color: #c8c8f0;
+      font-weight: 600;
+    }
+
+    /* ── Donut chart ── */
+    .chart-wrap {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      margin: 0 auto 28px;
+    }
+
+    .chart-wrap svg {
+      transform: rotate(-90deg);
+      filter: drop-shadow(0 0 18px rgba(120, 80, 255, 0.25));
+    }
+
+    #arc-track  { transition: none; }
+    #arc-fill   { transition: stroke-dasharray 0.8s cubic-bezier(.4,0,.2,1); }
+
+    .chart-center {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .pct-value {
+      font-size: 34px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #a0a0ff 0%, #d080ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+    }
+
+    .pct-label {
+      font-size: 10px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: #44447a;
+      margin-top: 5px;
+    }
+
+    /* ── Countdown / status ── */
+    .status-line {
+      font-size: 12px;
+      color: #55558a;
+      letter-spacing: 0.5px;
+      margin-bottom: 28px;
+      min-height: 18px;
+    }
+
+    /* ── Update button ── */
+    .update-btn {
+      background: transparent;
+      border: 1px solid #2a2a50;
+      color: #6060a0;
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 8px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.18s, color 0.18s, border-color 0.18s;
+    }
+
+    .update-btn:hover {
+      background: #1e1e3a;
+      color: #a0a0e0;
+      border-color: #5050a0;
+    }
+
+    /* ── Modal overlay ── */
+    .overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(4px);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .overlay.open { display: flex; }
+
+    .modal {
+      background: linear-gradient(160deg, #18183a 0%, #12122a 100%);
+      border: 1px solid #28285a;
+      border-radius: 18px;
+      padding: 32px 28px 26px;
+      width: 300px;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.04);
+    }
+
+    .modal-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #b0b0e0;
+      letter-spacing: 0.5px;
+      margin-bottom: 22px;
+    }
+
+    .field { margin-bottom: 18px; text-align: left; }
+
+    .field label {
+      display: block;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #55558a;
+      margin-bottom: 7px;
+    }
+
+    .field input[type="datetime-local"] {
+      width: 100%;
+      background: #0d0d1e;
+      border: 1px solid #22224a;
+      color: #d0d0f0;
+      font-size: 13px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      outline: none;
+      transition: border-color 0.2s;
+      color-scheme: dark;
+    }
+
+    .field input:focus { border-color: #6060c0; }
+
+    .modal-actions { display: flex; gap: 10px; margin-top: 6px; }
+
+    .btn-save {
+      flex: 1;
+      background: linear-gradient(135deg, #5050c0 0%, #8040c0 100%);
+      border: none;
+      color: #e8e8ff;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      padding: 11px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: opacity 0.18s;
+    }
+
+    .btn-save:hover { opacity: 0.85; }
+
+    .btn-cancel {
+      flex: 1;
+      background: transparent;
+      border: 1px solid #22224a;
+      color: #6060a0;
+      font-size: 12px;
+      padding: 11px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.18s, color 0.18s;
+    }
+
+    .btn-cancel:hover { background: #1a1a32; color: #9090c8; }
+
+    .error-msg {
+      font-size: 11px;
+      color: #ff6060;
+      margin-top: -10px;
+      margin-bottom: 12px;
+      min-height: 16px;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <div class="eyebrow">Time Window</div>
+  <div class="date-range" id="dateRange"></div>
+
+  <div class="chart-wrap">
+    <svg width="200" height="200" viewBox="0 0 200 200">
+      <defs>
+        <linearGradient id="arcGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%"   stop-color="#6060ff"/>
+          <stop offset="100%" stop-color="#c060ff"/>
+        </linearGradient>
+      </defs>
+      <!-- track -->
+      <circle id="arc-track" cx="100" cy="100" r="80"
+              fill="none" stroke="#1a1a34" stroke-width="16"/>
+      <!-- progress fill -->
+      <circle id="arc-fill" cx="100" cy="100" r="80"
+              fill="none" stroke="url(#arcGrad)" stroke-width="16"
+              stroke-linecap="round"
+              stroke-dasharray="0 502.65" stroke-dashoffset="0"/>
+    </svg>
+    <div class="chart-center">
+      <div class="pct-value" id="pctValue">0.00%</div>
+      <div class="pct-label">elapsed</div>
+    </div>
+  </div>
+
+  <div class="status-line" id="statusLine"></div>
+  <button class="update-btn" id="updateBtn">✎&nbsp;&nbsp;Update Dates</button>
+</div>
+
+<!-- Modal -->
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <div class="modal-title">Update Date Range</div>
+    <div class="field">
+      <label>Start — Sunday 5 pm</label>
+      <input type="datetime-local" id="inputStart" />
+    </div>
+    <div class="field">
+      <label>End — Friday 5 pm</label>
+      <input type="datetime-local" id="inputEnd" />
+    </div>
+    <div class="error-msg" id="errMsg"></div>
+    <div class="modal-actions">
+      <button class="btn-cancel" id="cancelBtn">Cancel</button>
+      <button class="btn-save"   id="saveBtn">Save</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  /* ── Constants ─────────────────────────────────────────────────── */
+  const CIRC = 2 * Math.PI * 80; // ≈ 502.65
+  const LS_KEY = 'timeWindowDates';
+
+  /* ── Date helpers ───────────────────────────────────────────────── */
+  function getDefaultDates() {
+    const now = new Date();
+    const day = now.getDay(); // 0 = Sun
+    const daysToSun = day === 0 ? 0 : 7 - day;
+
+    const start = new Date(now);
+    start.setDate(now.getDate() + daysToSun);
+    start.setHours(17, 0, 0, 0);
+
+    const end = new Date(start);
+    end.setDate(start.getDate() + 5); // Sun + 5 = Fri
+    end.setHours(17, 0, 0, 0);
+
+    return { start, end };
+  }
+
+  function loadDates() {
+    try {
+      const raw = localStorage.getItem(LS_KEY);
+      if (raw) {
+        const { start, end } = JSON.parse(raw);
+        return { start: new Date(start), end: new Date(end) };
+      }
+    } catch (_) {}
+    return getDefaultDates();
+  }
+
+  function fmtDate(d) {
+    return d.toLocaleDateString('en-US', {
+      weekday: 'short', month: 'short', day: 'numeric',
+      hour: 'numeric', minute: '2-digit', hour12: true
+    });
+  }
+
+  function toLocalISO(d) {
+    const p = n => String(n).padStart(2, '0');
+    return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}` +
+           `T${p(d.getHours())}:${p(d.getMinutes())}`;
+  }
+
+  function fmtDuration(ms) {
+    const totalMin = Math.floor(ms / 60000);
+    const d = Math.floor(totalMin / 1440);
+    const h = Math.floor((totalMin % 1440) / 60);
+    const m = totalMin % 60;
+    const parts = [];
+    if (d) parts.push(`${d}d`);
+    if (h) parts.push(`${h}h`);
+    parts.push(`${m}m`);
+    return parts.join(' ');
+  }
+
+  /* ── Render ─────────────────────────────────────────────────────── */
+  function render() {
+    const { start, end } = loadDates();
+    const now = new Date();
+
+    // Date range label
+    document.getElementById('dateRange').innerHTML =
+      `<strong>${fmtDate(start)}</strong><br>to<br><strong>${fmtDate(end)}</strong>`;
+
+    // Progress
+    let pct = 0;
+    if (now >= start && now <= end) {
+      pct = (now - start) / (end - start) * 100;
+    } else if (now > end) {
+      pct = 100;
+    }
+
+    // Arc
+    const arc = document.getElementById('arc-fill');
+    const filled = (pct / 100) * CIRC;
+    if (pct <= 0) {
+      arc.setAttribute('stroke-dasharray', `0 ${CIRC.toFixed(2)}`);
+      arc.style.opacity = '0';
+    } else {
+      arc.style.opacity = '1';
+      arc.setAttribute('stroke-dasharray',
+        `${filled.toFixed(3)} ${(CIRC - filled).toFixed(3)}`);
+    }
+
+    // Percent text
+    document.getElementById('pctValue').textContent = pct.toFixed(2) + '%';
+
+    // Status line
+    const sl = document.getElementById('statusLine');
+    if (now < start) {
+      sl.textContent = `Starts in ${fmtDuration(start - now)}`;
+    } else if (now > end) {
+      sl.textContent = 'Window has closed';
+    } else {
+      sl.textContent = `${fmtDuration(end - now)} remaining`;
+    }
+  }
+
+  /* ── Modal ──────────────────────────────────────────────────────── */
+  function openModal() {
+    const { start, end } = loadDates();
+    document.getElementById('inputStart').value = toLocalISO(start);
+    document.getElementById('inputEnd').value   = toLocalISO(end);
+    document.getElementById('errMsg').textContent = '';
+    document.getElementById('overlay').classList.add('open');
+  }
+
+  function closeModal() {
+    document.getElementById('overlay').classList.remove('open');
+  }
+
+  document.getElementById('updateBtn').addEventListener('click', openModal);
+  document.getElementById('cancelBtn').addEventListener('click', closeModal);
+
+  document.getElementById('overlay').addEventListener('click', e => {
+    if (e.target === document.getElementById('overlay')) closeModal();
+  });
+
+  document.getElementById('saveBtn').addEventListener('click', () => {
+    const sv = document.getElementById('inputStart').value;
+    const ev = document.getElementById('inputEnd').value;
+    const err = document.getElementById('errMsg');
+
+    if (!sv || !ev) { err.textContent = 'Both dates are required.'; return; }
+
+    const s = new Date(sv);
+    const e = new Date(ev);
+
+    if (isNaN(s) || isNaN(e)) { err.textContent = 'Invalid date.'; return; }
+    if (s >= e) { err.textContent = 'Start must be before end.'; return; }
+
+    localStorage.setItem(LS_KEY, JSON.stringify({
+      start: s.toISOString(),
+      end:   e.toISOString()
+    }));
+
+    closeModal();
+    render();
+  });
+
+  /* ── Boot ───────────────────────────────────────────────────────── */
+  render();
+  setInterval(render, 30000); // refresh every 30 s
+</script>
+</body>
+</html>
