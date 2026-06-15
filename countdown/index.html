@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="apple-touch-icon" sizes="180x180" id="touchIcon" />
   <title>Time Window</title>
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -42,6 +43,7 @@
       color: #7070a8;
       line-height: 1.9;
       margin-bottom: 36px;
+      font-size: 18px;
     }
 
     .date-range strong {
@@ -100,7 +102,13 @@
       letter-spacing: 0.5px;
       margin-bottom: 28px;
       min-height: 18px;
+      line-height: 1.8;
+      font-size: 16px;
     }
+
+    .status-line .stat-row { display: flex; justify-content: space-between; gap: 12px; }
+    .status-line .stat-label { color: #44447a; text-transform: uppercase; letter-spacing: 2px; }
+    .status-line .stat-value { color: #8888c0; }
 
     /* ── Update button ── */
     .update-btn {
@@ -195,7 +203,62 @@
       transition: opacity 0.18s;
     }
 
-    .btn-save:hover { opacity: 0.85; }
+    .btn-save:hover:not(:disabled) { opacity: 0.85; }
+
+    .btn-save:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .unsaved-dot {
+      color: #f0a040;
+      margin-left: 5px;
+      display: none;
+      font-size: 9px;
+      vertical-align: middle;
+    }
+
+    .discard-confirm {
+      display: none;
+      background: #1c1c38;
+      border: 1px solid #50306a;
+      border-radius: 10px;
+      padding: 12px 14px 10px;
+      font-size: 12px;
+      color: #d0a0f0;
+      margin-bottom: 14px;
+      text-align: left;
+    }
+
+    .discard-confirm.visible { display: block; }
+
+    .discard-actions { display: flex; gap: 8px; margin-top: 10px; }
+
+    .discard-btn-keep {
+      flex: 1;
+      background: transparent;
+      border: 1px solid #3a3a62;
+      color: #8888c0;
+      font-size: 11px;
+      padding: 7px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .discard-btn-keep:hover { background: #1e1e3a; color: #b0b0e0; }
+
+    .discard-btn-leave {
+      flex: 1;
+      background: transparent;
+      border: 1px solid #6a304a;
+      color: #e07090;
+      font-size: 11px;
+      padding: 7px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .discard-btn-leave:hover { background: #2a1020; color: #ff90b0; }
 
     .btn-cancel {
       flex: 1;
@@ -259,17 +322,24 @@
   <div class="modal">
     <div class="modal-title">Update Date Range</div>
     <div class="field">
-      <label>Start — Sunday 5 pm</label>
+      <label><span id="labelStart">Start</span><span class="unsaved-dot" id="unsavedStart">●</span></label>
       <input type="datetime-local" id="inputStart" />
     </div>
     <div class="field">
-      <label>End — Friday 5 pm</label>
+      <label><span id="labelEnd">End</span><span class="unsaved-dot" id="unsavedEnd">●</span></label>
       <input type="datetime-local" id="inputEnd" />
     </div>
     <div class="error-msg" id="errMsg"></div>
+    <div class="discard-confirm" id="discardConfirm">
+      Discard unsaved changes?
+      <div class="discard-actions">
+        <button class="discard-btn-keep"  id="keepBtn">Keep editing</button>
+        <button class="discard-btn-leave" id="leaveBtn">Discard</button>
+      </div>
+    </div>
     <div class="modal-actions">
       <button class="btn-cancel" id="cancelBtn">Cancel</button>
-      <button class="btn-save"   id="saveBtn">Save</button>
+      <button class="btn-save"   id="saveBtn" disabled>Save</button>
     </div>
   </div>
 </div>
@@ -332,6 +402,77 @@
     return parts.join(' ');
   }
 
+  /* ── Favicon ──────────────────────────────────────────────────── */
+  const FAV_CIRC = 2 * Math.PI * 11; // r=11 → ≈ 69.115
+
+  function drawFaviconCanvas(pct, size) {
+    const canvas = document.createElement('canvas');
+    canvas.width = canvas.height = size;
+    const ctx = canvas.getContext('2d');
+    const cx = size / 2, cy = size / 2;
+    const r = size * 0.34;      // ~11/32 of canvas
+    const lw = size * 0.125;    // ~4/32 of canvas
+    const scale = size / 32;
+
+    // Background rounded rect
+    const rad = 7 * scale;
+    ctx.beginPath();
+    ctx.moveTo(rad, 0);
+    ctx.lineTo(size - rad, 0);
+    ctx.quadraticCurveTo(size, 0, size, rad);
+    ctx.lineTo(size, size - rad);
+    ctx.quadraticCurveTo(size, size, size - rad, size);
+    ctx.lineTo(rad, size);
+    ctx.quadraticCurveTo(0, size, 0, size - rad);
+    ctx.lineTo(0, rad);
+    ctx.quadraticCurveTo(0, 0, rad, 0);
+    ctx.closePath();
+    ctx.fillStyle = '#09090f';
+    ctx.fill();
+
+    // Track circle
+    ctx.beginPath();
+    ctx.arc(cx, cy, r, 0, 2 * Math.PI);
+    ctx.strokeStyle = '#1e1e38';
+    ctx.lineWidth = lw;
+    ctx.stroke();
+
+    // Progress arc
+    if (pct > 0) {
+      const startAngle = -Math.PI / 2;
+      const endAngle   = startAngle + (pct / 100) * 2 * Math.PI;
+      const grad = ctx.createLinearGradient(0, 0, size, size);
+      grad.addColorStop(0, '#6060ff');
+      grad.addColorStop(1, '#c060ff');
+      ctx.beginPath();
+      ctx.arc(cx, cy, r, startAngle, endAngle);
+      ctx.strokeStyle = grad;
+      ctx.lineWidth = lw;
+      ctx.lineCap = 'round';
+      ctx.stroke();
+    }
+
+    return canvas;
+  }
+
+  function updateFavicon(pct) {
+    // PNG for iOS Chrome + fallback browsers (32px tab icon)
+    const png32 = drawFaviconCanvas(pct, 32).toDataURL('image/png');
+    let link = document.querySelector('link[rel="icon"]');
+    if (!link) {
+      link = document.createElement('link');
+      link.rel = 'icon';
+      document.head.appendChild(link);
+    }
+    link.type = 'image/png';
+    link.href = png32;
+
+    // apple-touch-icon (180px for iOS home screen / tab)
+    const png180 = drawFaviconCanvas(pct, 180).toDataURL('image/png');
+    const touch = document.getElementById('touchIcon');
+    if (touch) touch.href = png180;
+  }
+
   /* ── Render ─────────────────────────────────────────────────────── */
   function render() {
     const { start, end } = loadDates();
@@ -364,35 +505,95 @@
     // Percent text
     document.getElementById('pctValue').textContent = pct.toFixed(2) + '%';
 
+    // Favicon
+    updateFavicon(pct);
+
     // Status line
     const sl = document.getElementById('statusLine');
     if (now < start) {
-      sl.textContent = `Starts in ${fmtDuration(start - now)}`;
+      sl.innerHTML = `<div class="stat-row"><span class="stat-label">Starts in</span><span class="stat-value">${fmtDuration(start - now)}</span></div>`;
     } else if (now > end) {
-      sl.textContent = 'Window has closed';
+      const elapsed = fmtDuration(end - start);
+      sl.innerHTML =
+        `<div class="stat-row"><span class="stat-label">Elapsed</span><span class="stat-value">${elapsed}</span></div>` +
+        `<div class="stat-row"><span class="stat-label">Remaining</span><span class="stat-value">Window closed</span></div>` +
+        `<div class="stat-row"><span class="stat-label">Total</span><span class="stat-value">${fmtDuration(end - start)}</span></div>`;
     } else {
-      sl.textContent = `${fmtDuration(end - now)} remaining`;
+      sl.innerHTML =
+        `<div class="stat-row"><span class="stat-label">Elapsed</span><span class="stat-value">${fmtDuration(now - start)}</span></div>` +
+        `<div class="stat-row"><span class="stat-label">Remaining</span><span class="stat-value">${fmtDuration(end - now)}</span></div>` +
+        `<div class="stat-row"><span class="stat-label">Total</span><span class="stat-value">${fmtDuration(end - start)}</span></div>`;
     }
   }
 
   /* ── Modal ──────────────────────────────────────────────────────── */
+  let savedStart = '', savedEnd = '';
+
+  function updateUnsavedState() {
+    const sv = document.getElementById('inputStart').value;
+    const ev = document.getElementById('inputEnd').value;
+    const startChanged = sv !== savedStart;
+    const endChanged   = ev !== savedEnd;
+    document.getElementById('unsavedStart').style.display = startChanged ? 'inline' : 'none';
+    document.getElementById('unsavedEnd').style.display   = endChanged   ? 'inline' : 'none';
+    const btn = document.getElementById('saveBtn');
+    btn.disabled = !(startChanged || endChanged);
+  }
+
   function openModal() {
     const { start, end } = loadDates();
-    document.getElementById('inputStart').value = toLocalISO(start);
-    document.getElementById('inputEnd').value   = toLocalISO(end);
+    savedStart = toLocalISO(start);
+    savedEnd   = toLocalISO(end);
+    document.getElementById('inputStart').value = savedStart;
+    document.getElementById('inputEnd').value   = savedEnd;
+    document.getElementById('labelStart').textContent = `Start — ${fmtDate(start)}`;
+    document.getElementById('labelEnd').textContent   = `End — ${fmtDate(end)}`;
     document.getElementById('errMsg').textContent = '';
+    updateUnsavedState();
     document.getElementById('overlay').classList.add('open');
+  }
+
+  function hasUnsavedChanges() {
+    const sv = document.getElementById('inputStart').value;
+    const ev = document.getElementById('inputEnd').value;
+    return sv !== savedStart || ev !== savedEnd;
   }
 
   function closeModal() {
     document.getElementById('overlay').classList.remove('open');
+    document.getElementById('discardConfirm').classList.remove('visible');
   }
 
+  function requestClose() {
+    if (hasUnsavedChanges()) {
+      document.getElementById('discardConfirm').classList.add('visible');
+      document.getElementById('errMsg').textContent = '';
+    } else {
+      closeModal();
+    }
+  }
+
+  document.getElementById('inputStart').addEventListener('input', function () {
+    const d = new Date(this.value);
+    if (!isNaN(d)) document.getElementById('labelStart').textContent = `Start — ${fmtDate(d)}`;
+    updateUnsavedState();
+  });
+
+  document.getElementById('inputEnd').addEventListener('input', function () {
+    const d = new Date(this.value);
+    if (!isNaN(d)) document.getElementById('labelEnd').textContent = `End — ${fmtDate(d)}`;
+    updateUnsavedState();
+  });
+
   document.getElementById('updateBtn').addEventListener('click', openModal);
-  document.getElementById('cancelBtn').addEventListener('click', closeModal);
+  document.getElementById('cancelBtn').addEventListener('click', requestClose);
+  document.getElementById('keepBtn').addEventListener('click', () =>
+    document.getElementById('discardConfirm').classList.remove('visible')
+  );
+  document.getElementById('leaveBtn').addEventListener('click', closeModal);
 
   document.getElementById('overlay').addEventListener('click', e => {
-    if (e.target === document.getElementById('overlay')) closeModal();
+    if (e.target === document.getElementById('overlay')) requestClose();
   });
 
   document.getElementById('saveBtn').addEventListener('click', () => {
